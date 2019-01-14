@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace RadialReview.Utilities.Productivity
+namespace FinancialSystem.Utilities.Productivity
 {
     public class ChromeExtensionComms
     {

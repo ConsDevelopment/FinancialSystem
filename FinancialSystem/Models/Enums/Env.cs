@@ -11,14 +11,9 @@ namespace FinancialSystem.Models.Enums
 		local_sqlite,
 		local_mysql,
 		production,
-        local_test_sqlite
+        local_test_sqlite,
+		mssql
 	}
 
-	public enum ApplicationVersion {
-		invalid,
-		local,
-		alpha,
-		beta,
-		production,
-	}
+	
 }

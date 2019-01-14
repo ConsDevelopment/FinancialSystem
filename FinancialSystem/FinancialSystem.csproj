@@ -9,9 +9,9 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F82EA834-5195-4541-9B07-15232890E608}</ProjectGuid>
+    <ProjectGuid>{FB712329-603F-48A4-94A1-D107EF381BF7}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FinancialSystem</RootNamespace>
     <AssemblyName>FinancialSystem</AssemblyName>
@@ -99,84 +99,16 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.3\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.1.1.0\lib\netstandard1.1\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.0.0.4000\lib\net40\NHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.1.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MigraDoc.DocumentObjectModel-gdi, Version=1.50.4589.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp-MigraDoc-gdi.1.50.4589-beta4\lib\net20\MigraDoc.DocumentObjectModel-gdi.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MigraDoc.Rendering-gdi, Version=1.50.4589.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp-MigraDoc-gdi.1.50.4589-beta4\lib\net20\MigraDoc.Rendering-gdi.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MigraDoc.RtfRendering-gdi, Version=1.50.4589.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp-MigraDoc-gdi.1.50.4589-beta4\lib\net20\MigraDoc.RtfRendering-gdi.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NHibernate, Version=4.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernate.4.1.1.4000\lib\net40\NHibernate.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NHibernate.Envers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=e2c5b946037fb7f8, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernate.Envers.2.2.0\lib\Net40\NHibernate.Envers.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
-      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PdfSharp-gdi, Version=1.50.4589.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp-MigraDoc-gdi.1.50.4589-beta4\lib\net20\PdfSharp-gdi.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PdfSharp.Charting-gdi, Version=1.50.4589.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp-MigraDoc-gdi.1.50.4589-beta4\lib\net20\PdfSharp.Charting-gdi.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -216,142 +148,48 @@
     <Reference Include="System.Web.Mvc">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
-    <None Include="scripts\jquery-1.6.4-vsdoc.js" />
-    <Content Include="scripts\jquery-1.6.4.js" />
-    <Content Include="scripts\jquery-1.6.4.min.js" />
-    <Content Include="scripts\jquery.signalR-2.2.3.js" />
-    <Content Include="scripts\jquery.signalR-2.2.3.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Accessors\BaseAccessor.cs" />
-    <Compile Include="Accessors\DeepAccessor.cs" />
-    <Compile Include="Accessors\ResponsibilitiesAccessor.cs" />
-    <Compile Include="Accessors\UserAccessor.cs" />
+    <Compile Include="App_Start\FluentConfigs.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\People\Models\Survey\ByAbout.cs" />
-    <Compile Include="Crosscutting\EventAnalyzers\Models\IEventAnalyzer.cs" />
-    <Compile Include="Exceptions\AdminSetRoleException.cs" />
-    <Compile Include="Exceptions\LoginException.cs" />
-    <Compile Include="Exceptions\NoUserOrganizationException.cs" />
-    <Compile Include="Exceptions\OrganizationIdException.cs" />
-    <Compile Include="Exceptions\RedirectToActionException.cs" />
-    <Compile Include="Hubs\BaseHub.cs" />
-    <Compile Include="Hubs\RealTimeHub.cs" />
-    <Compile Include="Models\Accountability\AccountabilityModel.cs" />
-    <Compile Include="Models\Admin\AdminAuditLog.cs" />
-    <Compile Include="Models\Angular\Base\AngularUpdate.cs" />
-    <Compile Include="Models\Angular\Base\IAngular.cs" />
-    <Compile Include="Models\Application\NexusModels.cs" />
-    <Compile Include="Models\Components\ForModel.cs" />
-    <Compile Include="Models\DeepAccountability.cs" />
-    <Compile Include="Models\Enums\DateRangeType.cs" />
-    <Compile Include="Models\Enums\FiveState.cs" />
-    <Compile Include="Models\Enums\GenderType.cs" />
-    <Compile Include="Models\Enums\NexusActions.cs" />
-    <Compile Include="Models\Enums\PositiveNegativeNeutral.cs" />
-    <Compile Include="Models\Enums\RelativeComparisonType.cs" />
-    <Compile Include="Models\Enums\ThumbsType.cs" />
-    <Compile Include="Models\Enums\Tristate.cs" />
-    <Compile Include="Models\Frontend\EditorModels.cs" />
-    <Compile Include="Models\Interfaces\IByAbout.cs" />
-    <Compile Include="Models\Interfaces\IGuidIdentifiable.cs" />
-    <Compile Include="Models\Interfaces\IStringIdentifiable.cs" />
-    <Compile Include="Models\NHibernateUtility\GuidStringGenerator.cs" />
-    <Compile Include="Models\PermissionItem.cs" />
-    <Compile Include="Models\Permissions\PermissionOverride.cs" />
-    <Compile Include="Models\UserModels\ManagerDuration.cs" />
-    <Compile Include="Models\UserModels\TeamDuration.cs" />
-    <Compile Include="Models\UserModels\TempUserModel.cs" />
-    <Compile Include="Models\UserModels\UserLookup.cs" />
-    <Compile Include="Models\UserModels\UserModel.cs" />
-    <Compile Include="Models\UserModels\UserRoleModel.cs" />
-    <Compile Include="Models\UserModels\UserStyleSettings.cs" />
-    <Compile Include="Properties\ExceptionStrings.Designer.cs" />
-    <Compile Include="Exceptions\PermissionsException.cs" />
-    <Compile Include="Exceptions\RedirectException.cs" />
-    <Compile Include="Models\Application\YearStart.cs" />
-    <Compile Include="Models\Askables\ResponsibilityModel.cs" />
-    <Compile Include="Models\Completion\TwoBarCompletion.cs" />
-    <Compile Include="Models\Enums\DateOffset.cs" />
-    <Compile Include="Models\Enums\Month.cs" />
-    <Compile Include="Models\Enums\TeamType.cs" />
-    <Compile Include="Models\Interfaces\ICompletable.cs" />
-    <Compile Include="Models\Interfaces\ICompletionModel.cs" />
-    <Compile Include="Models\Reviews\AnswerModels.cs" />
-    <Compile Include="Models\UserModels\UserOrganizationModel.cs" />
-    <Compile Include="Properties\ConstantStrings.Designer.cs" />
-    <Compile Include="Models\Application\LocalizedStringModel.cs" />
-    <Compile Include="Models\Application\LongModel.cs" />
-    <Compile Include="Models\Application\OrganizationModel.cs" />
-    <Compile Include="Models\Askables\ResponsibilityGroups.cs" />
-    <Compile Include="Models\Enums\AboutType.cs" />
-    <Compile Include="Models\Enums\AccountType.cs" />
-    <Compile Include="Models\Enums\OriginType.cs" />
-    <Compile Include="Models\Enums\WeightType.cs" />
-    <Compile Include="Models\Interfaces\IHistorical.cs" />
-    <Compile Include="Models\QuestionModels\QuestionCategoryModel.cs" />
-    <Compile Include="Properties\DisplayNameStrings.Designer.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Crosscutting\Hooks\HookData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Application\ApplicationWideModel.cs" />
-    <Compile Include="Models\Askables\Askable.cs" />
-    <Compile Include="Models\Enums\BootstrapGlyphs.cs" />
     <Compile Include="Models\Enums\Env.cs" />
-    <Compile Include="Models\Enums\QuestionType.cs" />
-    <Compile Include="Models\Interfaces\IDeletable.cs" />
-    <Compile Include="Models\Interfaces\ILongIdentifiable.cs" />
-    <Compile Include="Models\Interfaces\IOrigin.cs" />
-    <Compile Include="Models\QuestionModels\QuestionModel.cs" />
+    <Compile Include="Models\Enums\GenderType.cs" />
+    <Compile Include="Models\NHibernateUtility\GuidStringGenerator.cs" />
+    <Compile Include="Models\UserModels\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="Utilities\Attributes\Cache\Cache.cs" />
-    <Compile Include="Utilities\Attributes\Cache\CacheKeys.cs" />
-    <Compile Include="Utilities\Attributes\IconAttribute.cs" />
+    <Compile Include="TestClass\TestCreateUser.cs" />
+    <Compile Include="Utilities\AsyncUtility.cs" />
     <Compile Include="Utilities\Config.cs" />
-    <Compile Include="Utilities\DataTypes\DateRange.cs" />
-    <Compile Include="Utilities\DataTypes\DefaultDictionary.cs" />
-    <Compile Include="Utilities\DataTypes\LazyCollection.cs" />
-    <Compile Include="Utilities\DataTypes\Ratio.cs" />
-    <Compile Include="Utilities\DataTypes\TimeData.cs" />
-    <Compile Include="Utilities\DataTypes\TinyUser.cs" />
-    <Compile Include="Utilities\DataTypes\Tree.cs" />
-    <Compile Include="Utilities\Extensions\DateTimeExtensions.cs" />
-    <Compile Include="Utilities\Extensions\DictionaryExtensions.cs" />
-    <Compile Include="Utilities\Extensions\EnumerableExtensions.cs" />
-    <Compile Include="Utilities\Extensions\ExpressionExtensions.cs" />
-    <Compile Include="Utilities\Extensions\JavascriptExtensions.cs" />
-    <Compile Include="Utilities\Extensions\LocalizationExtensions.cs" />
-    <Compile Include="Utilities\Extensions\ObjectExtensions.cs" />
-    <Compile Include="Utilities\Extensions\SessionExtensions.cs" />
-    <Compile Include="Utilities\Extensions\StringExtensions.cs" />
-    <Compile Include="Utilities\Extensions\UserOrganizationExtensions.cs" />
     <Compile Include="Utilities\FileUtilities.cs" />
-    <Compile Include="Utilities\HashUtil.cs" />
-    <Compile Include="Utilities\LockoutUtility.cs" />
-    <Compile Include="Utilities\NHibernateHelper.cs" />
     <Compile Include="Utilities\NHibernate\HibernateSession.cs" />
-    <Compile Include="Utilities\PermissionItemHelper.cs" />
-    <Compile Include="Utilities\PermissionsUtility.cs" />
+    <Compile Include="Utilities\NHibernate\SingleRequestSession.cs" />
+    <Compile Include="Utilities\NHibernate\SingleRequestTransaction.cs" />
     <Compile Include="Utilities\Productivity\ChromeExtensionComms.cs" />
-    <Compile Include="Utilities\Query\AbstractQuery.cs" />
-    <Compile Include="Utilities\Query\AbstractUpdate.cs" />
-    <Compile Include="Utilities\Query\DataInteraction.cs" />
-    <Compile Include="Utilities\Query\SessionQuery.cs" />
-    <Compile Include="Utilities\Query\SessionUpdate.cs" />
-    <Compile Include="Utilities\RealTime\RealTimeUtility.cs" />
-    <Compile Include="Utilities\RealTime\RecurrenceUpdater.cs" />
-    <Compile Include="Utilities\TimingUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -359,10 +197,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -374,17 +208,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\ExceptionStrings.resx" />
-    <EmbeddedResource Include="Properties\ConstantStrings.resx" />
-    <EmbeddedResource Include="Properties\DisplayNameStrings.resx" />
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
@@ -393,19 +219,16 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>59131</DevelopmentServerPort>
+          <DevelopmentServerPort>64310</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:59131/</IISUrl>
+          <IISUrl>http://localhost:64310/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>True</UseCustomServer>
+          <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
-          <servers defaultServer="SelfHostServer">
-            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:59131/" workingDir="" />
-          </servers>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
