@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialSystem", "FinancialSystem\FinancialSystem.csproj", "{F82EA834-5195-4541-9B07-15232890E608}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialSystem", "FinancialSystem\FinancialSystem.csproj", "{FB712329-603F-48A4-94A1-D107EF381BF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialSystem.Tests", "FinancialSystem.Tests\FinancialSystem.Tests.csproj", "{EF596714-21EA-41C7-878F-A1379C7C4E83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialSystem.test", "FinancialSystem.test\FinancialSystem.test.csproj", "{6255D103-4B20-4F11-8C08-A7CE017013C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F82EA834-5195-4541-9B07-15232890E608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F82EA834-5195-4541-9B07-15232890E608}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F82EA834-5195-4541-9B07-15232890E608}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F82EA834-5195-4541-9B07-15232890E608}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EF596714-21EA-41C7-878F-A1379C7C4E83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF596714-21EA-41C7-878F-A1379C7C4E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF596714-21EA-41C7-878F-A1379C7C4E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF596714-21EA-41C7-878F-A1379C7C4E83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB712329-603F-48A4-94A1-D107EF381BF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB712329-603F-48A4-94A1-D107EF381BF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB712329-603F-48A4-94A1-D107EF381BF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB712329-603F-48A4-94A1-D107EF381BF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6255D103-4B20-4F11-8C08-A7CE017013C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6255D103-4B20-4F11-8C08-A7CE017013C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6255D103-4B20-4F11-8C08-A7CE017013C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6255D103-4B20-4F11-8C08-A7CE017013C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
