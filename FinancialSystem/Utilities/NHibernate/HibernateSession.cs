@@ -62,15 +62,10 @@ namespace FinancialSystem.Utilities {
 								try {
 									c = new Configuration();
 									c.SetInterceptor(new NHSQLInterceptor());
-									//SetupAudit(c);
+								
 									factories[env] = Fluently.Configure(c).Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
 									.Mappings(m => {
 										m.FluentMappings.AddFromAssemblyOf<UserModel>();
-										//   .Conventions.Add<StringColumnLengthConvention>();
-										// m.FluentMappings.ExportTo(@"C:\Users\Clay\Desktop\temp\sqlite\");
-										//m.AutoMappings.Add(CreateAutomappings);
-										//m.AutoMappings.ExportTo(@"C:\Users\Clay\Desktop\temp\");
-
 									})
 								   .CurrentSessionContext("web")
 								   .ExposeConfiguration(x => BuildMsSqlSchema(x))
@@ -80,24 +75,15 @@ namespace FinancialSystem.Utilities {
 								}
 								break;
 							}
-						case Env.mssql: {
-								
+						case Env.mssql: {								
 								try {
 									c = new Configuration();
 									c.SetInterceptor(new NHSQLInterceptor());
-									//SetupAudit(c);
 									
 									factories[env] = Fluently.Configure(c).Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionStrings["DefaultConnectionMsSql"].ConnectionString)/*.ShowSql()*/)
 									   .Mappings(m => {
 										   m.FluentMappings.AddFromAssemblyOf<UserModel>();
-											   //.Conventions.Add<StringColumnLengthConvention>();
-										   //  m.FluentMappings.ExportTo(@"C:\Users\Clay\Desktop\temp\mysql\");
-										   ////m.FluentMappings.ExportTo(@"C:\Users\Clay\Desktop\temp\mysql\");
-										   ////m.AutoMappings.Add(CreateAutomappings);
-										   ////m.AutoMappings.ExportTo(@"C:\Users\Clay\Desktop\temp\");
 									   })
-									   //.CurrentSessionContext("web")
-									   //.ExposeConfiguration(SetupAudit)
 									   .ExposeConfiguration(x => BuildMsSqlSchema(x))
 									   .BuildSessionFactory();
 								} catch (Exception e) {
@@ -119,7 +105,6 @@ namespace FinancialSystem.Utilities {
 				}
 			}
 			return factories[env];
-
 		}
 		private static void BuildMsSqlSchema(Configuration config, bool forceCreate = false) {
 			// delete the existing db on each run
@@ -133,14 +118,7 @@ namespace FinancialSystem.Utilities {
 					new SchemaUpdate(config).Execute(false, true);
 				}
 				Config.DbUpdateSuccessful();
-			}
-
-			//var auditEvents = new AuditEventListener();
-			//config.EventListeners.PreInsertEventListeners = new IPreInsertEventListener[] { auditEvents };
-			//config.EventListeners.PreUpdateEventListeners = new IPreUpdateEventListener[] { auditEvents };
-
-			// this NHibernate tool takes a configuration (with mapping info in)
-			// and exports a database schema from it
+			} 
 		}
 		public static ISession GetCurrentSession(bool singleSession = true, Env? environmentOverride_TestOnly = null) {
 
@@ -165,19 +143,7 @@ namespace FinancialSystem.Utilities {
 				return GetDatabaseSessionFactory(environmentOverride_TestOnly).OpenSession();
 
 			return new SingleRequestSession(GetDatabaseSessionFactory(environmentOverride_TestOnly).OpenSession(), true);
-			//GetDatabaseSessionFactory().OpenSession();
-			/*while(true)
-			{
-				lock (lck)
-				{
-					if ( Session == null || !Session.IsOpen )
-					{
-						Session = GetDatabaseSessionFactory().OpenSession();
-						return Session;
-					}
-				}
-				Thread.Sleep(10);
-			}*/
+			
 		}
 		private static SingleRequestSession GetExistingSingleRequestSession() {
 			if (!(HttpContext.Current == null || HttpContext.Current.Items == null) && HttpContext.Current.Items["IsTest"] == null) {
