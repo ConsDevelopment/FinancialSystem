@@ -140,3 +140,5 @@ D:\developer\FinancialSystem\FinancialSystem\FinancialSystem\bin\System.Web.Http
 D:\developer\FinancialSystem\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.csprojResolveAssemblyReference.cache
 D:\developer\FinancialSystem\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.dll
 D:\developer\FinancialSystem\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.pdb
+D:\developer\FinancialSystem\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.Properties.ExceptionStrings.resources
+D:\developer\FinancialSystem\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.csproj.GenerateResource.Cache

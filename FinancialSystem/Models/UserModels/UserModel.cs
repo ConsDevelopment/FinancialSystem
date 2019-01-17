@@ -3,6 +3,8 @@ using FluentNHibernate.Mapping;
 using FinancialSystem.Models.Enums;
 using System;
 using Microsoft.AspNet.Identity.EntityFramework;
+using FinancialSystem.Models.UserModels;
+using System.Collections.Generic;
 
 namespace FinancialSystem.Models {
 	[DebuggerDisplay("{FirstName} {LastName}")]
@@ -24,6 +26,7 @@ namespace FinancialSystem.Models {
 		public virtual DateTime? DeleteTime { get; set; }
 
 		public virtual bool IsAdmin { get; set; }
+		public virtual IList<UserRoleModel> Roles { get; set; }
 
 		public class UserModelMap : ClassMap<UserModel> {
 			public UserModelMap() {
@@ -37,6 +40,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.DeleteTime);
 				Map(x => x.Gender);
 				Map(x => x.CreateTime);
+				HasMany(x => x.Roles).Cascade.SaveUpdate();
 			}
 		}
 

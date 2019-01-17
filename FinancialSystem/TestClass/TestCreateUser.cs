@@ -20,7 +20,7 @@ namespace FinancialSystem.TestClass {
 			var usr = new UserModel() {
 				FirstName = "cons",
 				LastName = "mname",
-				UserName = "musername@del.com"
+				UserName = "myusername3@del.com"
 			};
 			CreateUser(usr);
 		}
