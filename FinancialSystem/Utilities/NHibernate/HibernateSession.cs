@@ -96,6 +96,27 @@ namespace FinancialSystem.Utilities {
 								}
 								break;
 							}
+						case Env.test_server: {
+								try {
+									c = new Configuration();
+									c.SetInterceptor(new NHSQLInterceptor());
+
+									factories[env] = Fluently.Configure(c).Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionStrings["Test_Server"].ConnectionString)/*.ShowSql()*/)
+									   .Mappings(m => {
+										   m.FluentMappings.AddFromAssemblyOf<UserModel>();
+									   })
+									   .ExposeConfiguration(x => BuildMsSqlSchema(x))
+									   .BuildSessionFactory();
+								} catch (Exception e) {
+									var mbox = e.Message;
+									if (e.InnerException != null && e.InnerException.Message != null)
+										mbox = e.InnerException.Message;
+
+									ChromeExtensionComms.SendCommand("dbError", mbox);
+									throw e;
+								}
+								break;
+							}
 
 						default:
 							throw new Exception("No database type");

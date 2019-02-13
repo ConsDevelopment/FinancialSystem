@@ -54,6 +54,8 @@ namespace FinancialSystem.Utilities {
 					return false;
 				case Env.local_sqlite:
 					return false;
+				case Env.test_server:
+					return false;
 				//case Env.local_mysql:
 				//	return GetAppSetting("RunExt", "false").ToBooleanJS();
 				case Env.production:
@@ -74,6 +76,22 @@ namespace FinancialSystem.Utilities {
 					return true;
 			
 				case Env.mssql: {
+						var dir = Path.Combine(Path.GetTempPath(), "FinancialSystem");
+						var file = Path.Combine(dir, "dbversion" + env + ".txt");
+						if (!Directory.Exists(dir))
+							Directory.CreateDirectory(dir);
+						if (!File.Exists(file)) {
+							File.Create(file);
+							while (!File.Exists(file)) {
+								Thread.Sleep(100);
+							}
+							Thread.Sleep(100);
+						}
+						if (version == File.ReadAllText(file))
+							return false;
+						return true;
+					}
+				case Env.test_server: {
 						var dir = Path.Combine(Path.GetTempPath(), "FinancialSystem");
 						var file = Path.Combine(dir, "dbversion" + env + ".txt");
 						if (!Directory.Exists(dir))

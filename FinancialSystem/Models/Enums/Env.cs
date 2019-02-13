@@ -12,7 +12,8 @@ namespace FinancialSystem.Models.Enums
 		local_mysql,
 		production,
         local_test_sqlite,
-		mssql
+		mssql,
+		test_server
 	}
 
 	

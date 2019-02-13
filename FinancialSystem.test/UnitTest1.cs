@@ -10,6 +10,7 @@ namespace FinancialSystem.test {
 		[TestMethod]
 		public void TestMethod1() {
 			TestCreateUser tc = new TestCreateUser();
+			//tc.PasswordTesting();
 			tc.createUser();
 		}
 		
