@@ -12,6 +12,7 @@ namespace FinancialSystem.Models {
 		public virtual string FirstName { get; set; }
 		public virtual string LastName { get; set; }
 		public virtual string Email { get { return UserName; } }
+		public virtual string Password { get; set; }
 		public virtual long CurrentRole { get; set; }
 		public virtual GenderType? Gender { get; set; }
 		public virtual String Name() {
