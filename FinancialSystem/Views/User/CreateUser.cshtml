@@ -1,0 +1,78 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<html>
+@Html.Hidden("ApiServer", ViewData["ApiServer"])
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateUser</title>
+</head>
+<body>
+    <div> 
+		Email <input type="text" id="UserName" />
+    </div>
+	<div>
+		First Name <input type="text" id="FirstName"/>
+	</div>
+	<div>
+		Last Name<input type="text" id="LastName" />
+	</div>
+	<div>
+		Password<input type="password" id="Password" />
+	</div>
+	<div>
+		Admin<input type="checkbox" id="IsAdmin" />
+	</div>
+	<div>
+		Gender<select id="Gender">
+				<option value="0" selected>Not Specified</option>
+				<option value="1" >Male</option>
+			  	<option value="2">Female</option>
+		</select>
+	</div>
+	<div>
+		<input type="button" id="save" onclick="saveUser()" />
+	</div>
+	<script>
+		function saveUser() {
+			source = {
+				"UserName": $("#UserName").val(),
+				"FirstName": $("#FirstName").val(),
+				"LastName": $("#LastName").val()
+				,"Password": $("#Password").val()
+				, "IsAdmin": $('#IsAdmin').is(':checked'),
+				"Gender": $("#Gender :selected").val()
+			};
+			alert($('#IsAdmin').is(':checked'));
+			$.ajax({
+
+				type: "POST",				
+				url: $("#ApiServer").val() + "/api/CreateUser",
+				data: JSON.stringify(source),
+				//data: "1",
+				contentType: 'application/json',
+
+				//dataType: 'json',
+
+				success: function (data) {
+					alert(data.UserName);
+
+
+				},
+
+				error: function (error) {
+					alert(error);
+					jsonValue = jQuery.parseJSON(error.responseText);
+
+				}
+
+			});
+
+		}
+	</script>
+</body>
+</html>

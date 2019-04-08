@@ -10,6 +10,7 @@ using System.Threading;
 using System.Collections.Specialized;
 using System.Configuration;
 using NHibernate;
+using Examination.Models.Enums;
 
 namespace FinancialSystem.Utilities {
 	public class Config {
@@ -63,6 +64,29 @@ namespace FinancialSystem.Utilities {
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+		}
+		public static ApiServer GetApiServer() {
+			ApiServer result;
+			var apiserver = GetAppSetting("ApiServer");
+			if (apiserver != null && Enum.TryParse(apiserver.ToLower(), out result)) {
+				return result;
+			}
+			return ApiServer.localhost;
+			//throw new Exception("Invalid Environment");
+		}
+		public static string GetApiServerURL() {
+			switch (GetApiServer()) {
+				case ApiServer.localhost:
+					return "http://localhost:64310";
+				case ApiServer.localnetwork:
+					return "http://192.168.88.25:29900";
+				case ApiServer.publicnetwork:
+					return "http://124.6.139.245:29900";
+				default:
+					return "http://localhost:64310";
+			}
+
+			//throw new Exception("Invalid Environment");
 		}
 		public static bool ShouldUpdateDB() {
 			var version = GetAppSetting("dbVersion", "0");
