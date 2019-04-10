@@ -20,5 +20,10 @@ namespace FinancialSystem.Controllers.MVC.Users
 			ViewData["ApiServer"] = Config.GetApiServerURL();
 			return View();
 		}
-	}
+        public ActionResult Registration()
+        {
+            ViewData["ApiServer"] = Config.GetApiServerURL();
+            return View();
+        }
+    }
 }
