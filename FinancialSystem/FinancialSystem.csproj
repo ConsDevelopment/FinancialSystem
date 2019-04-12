@@ -217,6 +217,7 @@
     <Content Include="Views\TestApi\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FinancialSystem.pubxml" />
     <Content Include="Views\User\CreateUser.cshtml" />
+    <Content Include="Views\User\Registration.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
