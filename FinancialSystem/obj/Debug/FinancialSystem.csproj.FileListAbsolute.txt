@@ -300,3 +300,5 @@ C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\Financi
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.pdb
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.Properties.ErrorMessageStrings.resources
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.Properties.DisplayNameStrings.resources
+C:\wamp64\www\finance\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.Properties.ErrorMessageStrings.resources
+C:\wamp64\www\finance\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.Properties.DisplayNameStrings.resources
