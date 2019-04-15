@@ -47,7 +47,40 @@ namespace FinancialSystem.Utilities {
 			var config = System.Configuration.ConfigurationManager.AppSettings;
 			return config[key] ?? deflt;
 		}
-		public static bool RunChromeExt() {
+        public static bool OptimizationEnabled()
+        {
+            switch (GetEnv())
+            {
+                case Env.local_sqlite:
+                    return GetAppSetting("OptimizeBundle", "False").ToBoolean();
+                case Env.local_test_sqlite:
+                    return GetAppSetting("OptimizeBundle", "True").ToBoolean();
+                case Env.local_mysql:
+                    return GetAppSetting("OptimizeBundle", "False").ToBoolean();
+                case Env.test_server:
+                    return GetAppSetting("OptimizeBundle", "False").ToBoolean();
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        public static bool DisableMinification()
+        {
+            switch (GetEnv())
+            {
+                case Env.local_sqlite:
+                    return GetAppSetting("DisableMinification", "False").ToBoolean();
+                case Env.local_test_sqlite:
+                    return GetAppSetting("DisableMinification", "False").ToBoolean();
+                case Env.local_mysql:
+                    return GetAppSetting("DisableMinification", "False").ToBoolean();
+                case Env.test_server:
+                    return GetAppSetting("DisableMinification", "False").ToBoolean();
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public static bool RunChromeExt() {
 			switch (GetEnv()) {
 				case Env.local_test_sqlite:
 					return true;
