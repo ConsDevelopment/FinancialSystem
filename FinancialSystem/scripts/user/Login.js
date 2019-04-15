@@ -1,7 +1,4 @@
 ﻿
-$("#signin").click(function () {
-    saveUser();
-});
 function saveUser() {
     alert("signin");
     //source = {
