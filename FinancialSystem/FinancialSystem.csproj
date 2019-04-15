@@ -177,10 +177,12 @@
   <ItemGroup>
     <Content Include="Content\images\bsi_logo.png" />
     <Content Include="Content\images\sample_image-login.jpg" />
+    <Content Include="Content\User\login.css" />
     <Content Include="Content\User\registration.css" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="scripts\user\Login.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -196,12 +198,15 @@
     <Compile Include="Controllers\Test\TestApiController.cs" />
     <Compile Include="Controllers\UserModels\LoginController.cs" />
     <Compile Include="Crosscutting\Hooks\HookData.cs" />
+    <Compile Include="Properties\ErrorMessageStrings.Designer.cs" />
+    <Compile Include="Properties\DisplayNameStrings.Designer.cs" />
     <Compile Include="Models\Application\UserLogin.cs" />
     <Compile Include="Models\Enums\ApiServer.cs" />
     <Compile Include="Models\Interfaces\IDeletable.cs" />
     <Compile Include="Models\UserModels\LoginModel.cs" />
     <Compile Include="Models\UserModels\UserRole.cs" />
     <Compile Include="Models\UserModels\UserRoleModel.cs" />
+    <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Properties\ExceptionStrings.Designer.cs" />
     <Compile Include="Exceptions\PermissionsException.cs" />
     <Compile Include="Exceptions\RedirectException.cs" />
@@ -235,6 +240,7 @@
     <None Include="Properties\PublishProfiles\FinancialSystem.pubxml" />
     <Content Include="Views\User\CreateUser.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -246,11 +252,16 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\ErrorMessageStrings.resx" />
+    <EmbeddedResource Include="Properties\DisplayNameStrings.resx" />
     <EmbeddedResource Include="Properties\ExceptionStrings.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
@@ -269,6 +280,9 @@
           <CustomServerUrl>
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <servers defaultServer="SelfHostServer">
+            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:64310/" workingDir="" />
+          </servers>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
