@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     @Styles.Render("~/Content/User/login")
     @Scripts.Render("~/scripts/user/login")
+    @Html.Hidden("ApiServer", ViewData["ApiServer"])
     </head>
 <body>
 
@@ -31,17 +32,17 @@
                 <br><br>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">account_box</i>
-                    <input id="username" type="text" class="validate">
-                    <label for="username">User Name</label>
+                    <input id="UserName" type="text" class="validate">
+                    <label for="UserName">User Name</label>
                 </div>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">lock</i>
-                    <input id="password" type="text" class="validate">
-                    <label for="password">Password</label>
+                    <input id="Password" type="password" class="validate">
+                    <label for="Password">Password</label>
                 </div>
                 <br><br>
                 <label class="left">
-                    <input type="checkbox" />
+                    <input type="checkbox" id="RememberMe"/>
                     <span>Remember me</span>
                 </label>
                 <a class="waves-effect waves-light btn-large right" onclick="saveUser()"><i class="material-icons right" >send</i>SIGN IN</a>
