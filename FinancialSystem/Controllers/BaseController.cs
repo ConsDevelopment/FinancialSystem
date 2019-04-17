@@ -107,25 +107,25 @@ namespace FinancialSystem.Controllers {
 		//protected static RockAccessor _RockAccessor = new RockAccessor();
 		//protected static RoleAccessor _RoleAccessor = new RoleAccessor();
 		protected static UserAccessor _UserAccessor = new UserAccessor();
-		protected static TaskAccessor _TaskAccessor = new TaskAccessor();
-		protected static TeamAccessor _TeamAccessor = new TeamAccessor();
-		protected static NexusAccessor _NexusAccessor = new NexusAccessor();
-		protected static ImageAccessor _ImageAccessor = new ImageAccessor();
-		protected static GroupAccessor _GroupAccessor = new GroupAccessor();
-		protected static OriginAccessor _OriginAccessor = new OriginAccessor();
-		protected static ReviewAccessor _ReviewAccessor = new ReviewAccessor();
-		protected static AskableAccessor _AskableAccessor = new AskableAccessor();
-		protected static PaymentAccessor _PaymentAccessor = new PaymentAccessor();
-		protected static KeyValueAccessor _KeyValueAccessor = new KeyValueAccessor();
-		protected static PositionAccessor _PositionAccessor = new PositionAccessor();
-		protected static QuestionAccessor _QuestionAccessor = new QuestionAccessor();
-		protected static CategoryAccessor _CategoryAccessor = new CategoryAccessor();
-		protected static PrereviewAccessor _PrereviewAccessor = new PrereviewAccessor();
-		protected static ScorecardAccessor _ScorecardAccessor = new ScorecardAccessor();
-		protected static PermissionsAccessor _PermissionsAccessor = new PermissionsAccessor();
-		protected static OrganizationAccessor _OrganizationAccessor = new OrganizationAccessor();
+		//protected static TaskAccessor _TaskAccessor = new TaskAccessor();
+		//protected static TeamAccessor _TeamAccessor = new TeamAccessor();
+		//protected static NexusAccessor _NexusAccessor = new NexusAccessor();
+		//protected static ImageAccessor _ImageAccessor = new ImageAccessor();
+		//protected static GroupAccessor _GroupAccessor = new GroupAccessor();
+		//protected static OriginAccessor _OriginAccessor = new OriginAccessor();
+		//protected static ReviewAccessor _ReviewAccessor = new ReviewAccessor();
+		//protected static AskableAccessor _AskableAccessor = new AskableAccessor();
+		//protected static PaymentAccessor _PaymentAccessor = new PaymentAccessor();
+		//protected static KeyValueAccessor _KeyValueAccessor = new KeyValueAccessor();
+		//protected static PositionAccessor _PositionAccessor = new PositionAccessor();
+		//protected static QuestionAccessor _QuestionAccessor = new QuestionAccessor();
+		//protected static CategoryAccessor _CategoryAccessor = new CategoryAccessor();
+		//protected static PrereviewAccessor _PrereviewAccessor = new PrereviewAccessor();
+		//protected static ScorecardAccessor _ScorecardAccessor = new ScorecardAccessor();
+		//protected static PermissionsAccessor _PermissionsAccessor = new PermissionsAccessor();
+		//protected static OrganizationAccessor _OrganizationAccessor = new OrganizationAccessor();
 		//protected static DeepSubordianteAccessor _DeepSubordianteAccessor = new DeepSubordianteAccessor();
-		protected static ResponsibilitiesAccessor _ResponsibilitiesAccessor = new ResponsibilitiesAccessor();
+		// protected static ResponsibilitiesAccessor _ResponsibilitiesAccessor = new ResponsibilitiesAccessor();
 		#endregion
 		#region GetUserModel
 		protected UserModel GetUserModel(bool styles = false) {
@@ -142,9 +142,9 @@ namespace FinancialSystem.Controllers {
 				var id = User.Identity.GetUserId();
 
 				var user = _UserAccessor.GetUserById(s, id);
-				if (styles) {
-					user._StylesSettings = s.Get<UserStyleSettings>(id);
-				}
+				//if (styles) {
+				//	user._StylesSettings = s.Get<UserStyleSettings>(id);
+				//}
 
 				return user;
 
@@ -154,7 +154,7 @@ namespace FinancialSystem.Controllers {
 		#region GetUser
 		//private long? _CurrentUserOrganizationId = null;
 
-		private UserOrganizationModel MockUser = null;
+		//private UserOrganizationModel MockUser = null;
 		private bool TransformAngular = true;
 
 		protected string[] AllAdmins = new[] {

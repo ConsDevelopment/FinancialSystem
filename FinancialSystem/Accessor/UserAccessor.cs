@@ -9,33 +9,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using FinancialSystem.Exceptions;
-using FinancialSystem.Models.Askables;
-using FinancialSystem.Models.Permissions;
-using FinancialSystem.Models.ViewModels;
+//using FinancialSystem.Models.Askables;
+//using FinancialSystem.Models.Permissions;
+//using FinancialSystem.Models.ViewModels;
 using FinancialSystem.Properties;
 using FinancialSystem.Utilities;
 using NHibernate.Linq;
 using NHibernate;
 using FinancialSystem.Models.UserModels;
-using FinancialSystem.Models.Responsibilities;
+//using FinancialSystem.Models.Responsibilities;
 using FinancialSystem.Models.Enums;
-using FinancialSystem.Utilities.Query;
-using FinancialSystem.Models.Json;
+//using FinancialSystem.Utilities.Query;
+//using FinancialSystem.Models.Json;
 using System.Security.Principal;
-using FinancialSystem.Models.L10;
-using FinancialSystem.Models.Angular.Users;
-using FinancialSystem.Utilities.DataTypes;
+//using FinancialSystem.Models.L10;
+//using FinancialSystem.Models.Angular.Users;
+//using FinancialSystem.Utilities.DataTypes;
 using FinancialSystem.NHibernate;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Text;
 using FinancialSystem.Hooks;
-using FinancialSystem.Utilities.Hooks;
-using FinancialSystem.Models.Accountability;
-using FinancialSystem.Models.Reviews;
-using FinancialSystem.Utilities.RealTime;
+//using FinancialSystem.Utilities.Hooks;
+//using FinancialSystem.Models.Accountability;
+//using FinancialSystem.Models.Reviews;
+//using FinancialSystem.Utilities.RealTime;
 using System.Diagnostics;
-using FinancialSystem.Utiliities;
+//using FinancialSystem.Utilities;
 using FinancialSystem.Models.Admin;
 
 namespace FinancialSystem.Accessors {
@@ -1013,309 +1013,309 @@ namespace FinancialSystem.Accessors {
 		//	return nexusIdandUser;
 		//}
 
-		public static List<TinyUser> Search(UserOrganizationModel caller, long orgId, string search, int take = int.MaxValue, long[] exclude = null) {
-			using (var s = HibernateSession.GetCurrentSession()) {
-				using (var tx = s.BeginTransaction()) {
-					var perms = PermissionsUtility.Create(s, caller).ViewOrganization(orgId);
+		//public static List<TinyUser> Search(UserOrganizationModel caller, long orgId, string search, int take = int.MaxValue, long[] exclude = null) {
+		//	using (var s = HibernateSession.GetCurrentSession()) {
+		//		using (var tx = s.BeginTransaction()) {
+		//			var perms = PermissionsUtility.Create(s, caller).ViewOrganization(orgId);
 
-					var users = TinyUserAccessor.GetOrganizationMembers(s, perms, orgId);
+		//			var users = TinyUserAccessor.GetOrganizationMembers(s, perms, orgId);
 
-					exclude = exclude ?? new long[0];
+		//			exclude = exclude ?? new long[0];
 
-					users = users.Where(x => !exclude.Any(y => y == x.UserOrgId)).ToList();
+		//			users = users.Where(x => !exclude.Any(y => y == x.UserOrgId)).ToList();
 
-					var splits = search.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+		//			var splits = search.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-					var dist = new DiscreteDistribution<TinyUser>(0, 7, true);
+		//			var dist = new DiscreteDistribution<TinyUser>(0, 7, true);
 
-					foreach (var u in users) {
-						var fname = false;
-						var lname = false;
-						var ordered = false;
-						var fnameStart = false;
-						var lnameStart = false;
-						var wasFirst = false;
-						var exactFirst = false;
-						var exactLast = false;
+		//			foreach (var u in users) {
+		//				var fname = false;
+		//				var lname = false;
+		//				var ordered = false;
+		//				var fnameStart = false;
+		//				var lnameStart = false;
+		//				var wasFirst = false;
+		//				var exactFirst = false;
+		//				var exactLast = false;
 
-						var f = u.FirstName.ToLower();
-						var l = u.LastName.ToLower();
-						foreach (var t in splits) {
-							if (f.Contains(t))
-								fname = true;
-							if (f == t)
-								exactFirst = true;
-							if (f.StartsWith(t))
-								fnameStart = true;
-							if (l.Contains(t))
-								lname = true;
-							if (l.StartsWith(t))
-								lnameStart = true;
-							if (fname && !wasFirst && lname)
-								ordered = true;
-							if (l == t)
-								exactLast = true;
-							wasFirst = true;
-						}
+		//				var f = u.FirstName.ToLower();
+		//				var l = u.LastName.ToLower();
+		//				foreach (var t in splits) {
+		//					if (f.Contains(t))
+		//						fname = true;
+		//					if (f == t)
+		//						exactFirst = true;
+		//					if (f.StartsWith(t))
+		//						fnameStart = true;
+		//					if (l.Contains(t))
+		//						lname = true;
+		//					if (l.StartsWith(t))
+		//						lnameStart = true;
+		//					if (fname && !wasFirst && lname)
+		//						ordered = true;
+		//					if (l == t)
+		//						exactLast = true;
+		//					wasFirst = true;
+		//				}
 
-						var score = fname.ToInt() + lname.ToInt() + ordered.ToInt() + fnameStart.ToInt() + lnameStart.ToInt() + exactFirst.ToInt() + exactLast.ToInt();
-						if (score > 0)
-							dist.Add(u, score);
-					}
+		//				var score = fname.ToInt() + lname.ToInt() + ordered.ToInt() + fnameStart.ToInt() + lnameStart.ToInt() + exactFirst.ToInt() + exactLast.ToInt();
+		//				if (score > 0)
+		//					dist.Add(u, score);
+		//			}
 
-					return dist.GetProbabilities().OrderByDescending(x => x.Value).Select(x => x.Key).Take(take).ToList();
-				}
-			}
-		}
+		//			return dist.GetProbabilities().OrderByDescending(x => x.Value).Select(x => x.Key).Take(take).ToList();
+		//		}
+		//	}
+		//}
 
 
 		public async static Task<IdentityResult> CreateUser(NHibernateUserManager UserManager, UserModel user, ExternalLoginInfo info) {
 			var result = await UserManager.CreateAsync(user);
 			if (result.Succeeded) {
 				result = await UserManager.AddLoginAsync(user.Id, info.Login);
-				AddSettings(result, user);
+				//AddSettings(result, user);
 			}
 			return result;
 		}
 
-		public async static Task<IdentityResult> CreateUser(NHibernateUserManager UserManager, UserModel user, string password) {
-			user.UserName = user.UserName.NotNull(x => x.ToLower());
-			var resultx = await UserManager.CreateAsync(user, password);
-			AddSettings(resultx, user);
-			using (var s = HibernateSession.GetCurrentSession()) {
-				using (var tx = s.BeginTransaction()) {
-					await HooksRegistry.Each<ICreateUserOrganizationHook>((ses, x) => x.OnUserRegister(ses, user));
-					tx.Commit();
-					s.Flush();
-				}
-			}
+		//public async static Task<IdentityResult> CreateUser(NHibernateUserManager UserManager, UserModel user, string password) {
+		//	user.UserName = user.UserName.NotNull(x => x.ToLower());
+		//	var resultx = await UserManager.CreateAsync(user, password);
+		//	AddSettings(resultx, user);
+		//	using (var s = HibernateSession.GetCurrentSession()) {
+		//		using (var tx = s.BeginTransaction()) {
+		//			await HooksRegistry.Each<ICreateUserOrganizationHook>((ses, x) => x.OnUserRegister(ses, user));
+		//			tx.Commit();
+		//			s.Flush();
+		//		}
+		//	}
 
-			return resultx;
-		}
+		//	return resultx;
+		//}
 
-		public static CreateUserOrganizationViewModel BuildCreateUserVM(UserOrganizationModel caller, dynamic ViewBag, long? managerId = null, string name = null, bool isClient = false, long? managerNodeId = null, bool forceManager = false, bool hideIsManager = false, bool hidePosition = false, long? nodeId = null, bool hideEvalOnly = false, bool forceNoSend = false) {
-			var sw = new Stopwatch();
-			sw.Start();
-			//var caller = GetUser().Hydrate().Organization().Execute();
-			//var positions = _OrganizationAccessor.GetOrganizationPositions(caller, caller.Organization.Id);
-			var e1 = sw.ElapsedMilliseconds;
-			//var _PermissionsAccessor = new PermissionsAccessor();
-			var _OrganizationAccessor = new OrganizationAccessor();
-			var _PositionAccessor = new PositionAccessor();
+//		public static CreateUserOrganizationViewModel BuildCreateUserVM(UserOrganizationModel caller, dynamic ViewBag, long? managerId = null, string name = null, bool isClient = false, long? managerNodeId = null, bool forceManager = false, bool hideIsManager = false, bool hidePosition = false, long? nodeId = null, bool hideEvalOnly = false, bool forceNoSend = false) {
+//			var sw = new Stopwatch();
+//			sw.Start();
+//			//var caller = GetUser().Hydrate().Organization().Execute();
+//			//var positions = _OrganizationAccessor.GetOrganizationPositions(caller, caller.Organization.Id);
+//			var e1 = sw.ElapsedMilliseconds;
+//			//var _PermissionsAccessor = new PermissionsAccessor();
+//			var _OrganizationAccessor = new OrganizationAccessor();
+//			var _PositionAccessor = new PositionAccessor();
 
-			PermissionsAccessor.Permitted(caller, x => x.CanEdit(PermItem.ResourceType.UpgradeUsersForOrganization, caller.Organization.Id));
+//			PermissionsAccessor.Permitted(caller, x => x.CanEdit(PermItem.ResourceType.UpgradeUsersForOrganization, caller.Organization.Id));
 
-#pragma warning disable CS0618 // Type or member is obsolete
-			var orgPos = _OrganizationAccessor
-						.GetOrganizationPositions(caller, caller.Organization.Id)
-						.ToListAlive()
-						.OrderBy(x => x.CustomName)
-						.ToSelectList(x => x.CustomName, x => x.Id).ToList();
-#pragma warning restore CS0618 // Type or member is obsolete
-			if (PermissionsAccessor.IsPermitted(caller, x => x.EditPositions(caller.Organization.Id))) {
-				orgPos.Insert(0, new SelectListItem() { Value = "-1", Text = "<" + DisplayNameStrings.createNew + ">" });
-			}
-			var e2 = sw.ElapsedMilliseconds;
-			var positions = _PositionAccessor
-								.AllPositions()
-								.ToSelectList(x => x.Name.Translate(), x => x.Id)
-								.ToList();
-			orgPos.Insert(0, new SelectListItem() { Value = "-2", Text = "<None>" });
+//#pragma warning disable CS0618 // Type or member is obsolete
+//			var orgPos = _OrganizationAccessor
+//						.GetOrganizationPositions(caller, caller.Organization.Id)
+//						.ToListAlive()
+//						.OrderBy(x => x.CustomName)
+//						.ToSelectList(x => x.CustomName, x => x.Id).ToList();
+//#pragma warning restore CS0618 // Type or member is obsolete
+//			if (PermissionsAccessor.IsPermitted(caller, x => x.EditPositions(caller.Organization.Id))) {
+//				orgPos.Insert(0, new SelectListItem() { Value = "-1", Text = "<" + DisplayNameStrings.createNew + ">" });
+//			}
+//			var e2 = sw.ElapsedMilliseconds;
+//			var positions = _PositionAccessor
+//								.AllPositions()
+//								.ToSelectList(x => x.Name.Translate(), x => x.Id)
+//								.ToList();
+//			orgPos.Insert(0, new SelectListItem() { Value = "-2", Text = "<None>" });
 
-			var e3 = sw.ElapsedMilliseconds;
-			var posModel = new UserPositionViewModel() {
-				UserId = -1L,
-				PositionId = -2L,
-				OrgPositions = orgPos,
-				Positions = positions,
-				CustomPosition = null,
+//			var e3 = sw.ElapsedMilliseconds;
+//			var posModel = new UserPositionViewModel() {
+//				UserId = -1L,
+//				PositionId = -2L,
+//				OrgPositions = orgPos,
+//				Positions = positions,
+//				CustomPosition = null,
 
-			};
+//			};
 
-			var managers = new List<SelectListItem>();
-			var strictHierarchy = caller.Organization.StrictHierarchy;
-			if (!strictHierarchy)
-				managers = AccountabilityAccessor.GetOrganizationManagerNodes(caller, caller.Organization.Id)
-												.ToSelectList(x => x.User.GetName() + x.AccountabilityRolesGroup.NotNull(y => y.Position.NotNull(z => z.GetName().Surround(" (", ")"))), x => x.Id)
-												.ToList();
+//			var managers = new List<SelectListItem>();
+//			var strictHierarchy = caller.Organization.StrictHierarchy;
+//			if (!strictHierarchy)
+//				managers = AccountabilityAccessor.GetOrganizationManagerNodes(caller, caller.Organization.Id)
+//												.ToSelectList(x => x.User.GetName() + x.AccountabilityRolesGroup.NotNull(y => y.Position.NotNull(z => z.GetName().Surround(" (", ")"))), x => x.Id)
+//												.ToList();
 
-			var e4 = sw.ElapsedMilliseconds;
-			if (caller.ManagingOrganization) {
-				var root = AccountabilityAccessor.GetRoot(caller, caller.Organization.AccountabilityChartId);
-				ViewBag.ShowLeadershipTeam = true;
-				managers.Insert(0, new SelectListItem() { Selected = false, Text = "[Organization Admin]", Value = "" + root.Id });
-			}
-			managers.Insert(0, new SelectListItem() { Selected = false, Text = "[None]", Value = "-3" });
+//			var e4 = sw.ElapsedMilliseconds;
+//			if (caller.ManagingOrganization) {
+//				var root = AccountabilityAccessor.GetRoot(caller, caller.Organization.AccountabilityChartId);
+//				ViewBag.ShowLeadershipTeam = true;
+//				managers.Insert(0, new SelectListItem() { Selected = false, Text = "[Organization Admin]", Value = "" + root.Id });
+//			}
+//			managers.Insert(0, new SelectListItem() { Selected = false, Text = "[None]", Value = "-3" });
 
-			//long? nodeId = managerNodeId;
-			if (managerNodeId == null) {
-				var node = DeepAccessor.Users.GetNodesForUser(caller, managerId ?? caller.Id).FirstOrDefault();
-				managerNodeId = node == null ? (long?)null : node.Id;
-			}
+//			//long? nodeId = managerNodeId;
+//			if (managerNodeId == null) {
+//				var node = DeepAccessor.Users.GetNodesForUser(caller, managerId ?? caller.Id).FirstOrDefault();
+//				managerNodeId = node == null ? (long?)null : node.Id;
+//			}
 
-			if (!caller.Organization.Settings.EnableReview && !caller.Organization.Settings.EnablePeople) {
-				hideEvalOnly = true;
-			}
+//			if (!caller.Organization.Settings.EnableReview && !caller.Organization.Settings.EnablePeople) {
+//				hideEvalOnly = true;
+//			}
 
-			ViewBag.ForceManager = forceManager;
-			ViewBag.HideIsManager = hideIsManager;
-			ViewBag.HidePosition = hidePosition;
-			ViewBag.HideEvalOnly = hideEvalOnly;
-			ViewBag.HideSend = forceNoSend;
-			ViewBag.ShowPlaceholder = true;
+//			ViewBag.ForceManager = forceManager;
+//			ViewBag.HideIsManager = hideIsManager;
+//			ViewBag.HidePosition = hidePosition;
+//			ViewBag.HideEvalOnly = hideEvalOnly;
+//			ViewBag.HideSend = forceNoSend;
+//			ViewBag.ShowPlaceholder = true;
 
-			string fname = null;
-			string lname = null;
-			string email = null;
+//			string fname = null;
+//			string lname = null;
+//			string email = null;
 
-			if (name != null) {
-				try {
-					var names = name.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-					var nameCount = names.Length;
-					fname = string.Join(" ", names.Where((x, i) => i < nameCount - 1));
-					if (nameCount > 1) {
-						lname = names[nameCount - 1];
-						email = EmailUtil.GuessEmail(caller, caller.Organization.Id, fname, lname);
-					}
-				} catch (Exception) {
-				}
-			}
-
-
-
-			var model = new CreateUserOrganizationViewModel() {
-				Position = posModel,
-				OrgId = caller.Organization.Id,
-				StrictlyHierarchical = strictHierarchy,
-				ManagerNodeId = managerNodeId,
-				PotentialManagers = managers,
-				SendEmail = forceNoSend ? false : caller.Organization.SendEmailImmediately,
-				IsClient = isClient,
-				FirstName = fname,
-				LastName = lname,
-				Email = email,
-				NodeId = nodeId
-			};
-			var e5 = sw.ElapsedMilliseconds;
-			return model;
-		}
+//			if (name != null) {
+//				try {
+//					var names = name.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+//					var nameCount = names.Length;
+//					fname = string.Join(" ", names.Where((x, i) => i < nameCount - 1));
+//					if (nameCount > 1) {
+//						lname = names[nameCount - 1];
+//						email = EmailUtil.GuessEmail(caller, caller.Organization.Id, fname, lname);
+//					}
+//				} catch (Exception) {
+//				}
+//			}
 
 
-		private static void AddSettings(IdentityResult result, UserModel user) {
-			if (result.Succeeded) {
-				using (var s = HibernateSession.GetCurrentSession()) {
-					using (var tx = s.BeginTransaction()) {
-						var settings = new UserStyleSettings() {
-							Id = user.Id,
-							ShowScorecardColors = true
-						};
-						s.Save(settings);
-						tx.Commit();
-						s.Flush();
-					}
-				}
-			}
-		}
 
-		public static string GetStyles(string userModel) {
-			var builder = new StringBuilder();
-			UserStyleSettings styles = null;
-
-			using (var s = HibernateSession.GetCurrentSession()) {
-				using (var tx = s.BeginTransaction()) {
-					styles = s.Get<UserStyleSettings>(userModel);
-				}
-			}
-
-			if (styles != null) {
-				if (styles.ShowScorecardColors == false) {
-					builder.AppendLine(".scorecard-table .score .success,.scorecard-table .score .danger,.scorecard-table .score.success input, .scorecard-table .score input.success, .scorecard-table .score.success{color: inherit !important;background-color: inherit !important;}");
-				}
-			}
-
-			return builder.ToString();
-		}
+//			var model = new CreateUserOrganizationViewModel() {
+//				Position = posModel,
+//				OrgId = caller.Organization.Id,
+//				StrictlyHierarchical = strictHierarchy,
+//				ManagerNodeId = managerNodeId,
+//				PotentialManagers = managers,
+//				SendEmail = forceNoSend ? false : caller.Organization.SendEmailImmediately,
+//				IsClient = isClient,
+//				FirstName = fname,
+//				LastName = lname,
+//				Email = email,
+//				NodeId = nodeId
+//			};
+//			var e5 = sw.ElapsedMilliseconds;
+//			return model;
+//		}
 
 
-		public static List<UserRole> GetUserRolesAtOrganization(UserOrganizationModel caller, long orgId) {
-			using (var s = HibernateSession.GetCurrentSession()) {
-				using (var tx = s.BeginTransaction()) {
-					var perms = PermissionsUtility.Create(s, caller);
-					return GetUserRolesAtOrganization(s, perms, orgId);
-				}
-			}
-		}
+		//private static void AddSettings(IdentityResult result, UserModel user) {
+		//	if (result.Succeeded) {
+		//		using (var s = HibernateSession.GetCurrentSession()) {
+		//			using (var tx = s.BeginTransaction()) {
+		//				var settings = new UserStyleSettings() {
+		//					Id = user.Id,
+		//					ShowScorecardColors = true
+		//				};
+		//				s.Save(settings);
+		//				tx.Commit();
+		//				s.Flush();
+		//			}
+		//		}
+		//	}
+		//}
 
-		public static List<UserRole> GetUserRolesAtOrganization(ISession s, PermissionsUtility perms, long orgId) {
-			perms.ViewOrganization(orgId);
-			return s.QueryOver<UserRole>().Where(x => x.DeleteTime == null && x.OrgId == orgId).List().ToList();
-		}
+		//public static string GetStyles(string userModel) {
+		//	var builder = new StringBuilder();
+		//	UserStyleSettings styles = null;
 
-		public static async Task SetRole(UserOrganizationModel caller, long userId, UserRoleType type, bool enabled) {
-			using (var s = HibernateSession.GetCurrentSession()) {
-				using (var tx = s.BeginTransaction()) {
-					var perms = PermissionsUtility.Create(s, caller);
+		//	using (var s = HibernateSession.GetCurrentSession()) {
+		//		using (var tx = s.BeginTransaction()) {
+		//			styles = s.Get<UserStyleSettings>(userModel);
+		//		}
+		//	}
 
-					if (enabled) {
-						await AddRole(s, perms, userId, type);
-					} else {
-						await RemoveRole(s, perms, userId, type);
-					}
+		//	if (styles != null) {
+		//		if (styles.ShowScorecardColors == false) {
+		//			builder.AppendLine(".scorecard-table .score .success,.scorecard-table .score .danger,.scorecard-table .score.success input, .scorecard-table .score input.success, .scorecard-table .score.success{color: inherit !important;background-color: inherit !important;}");
+		//		}
+		//	}
 
-					tx.Commit();
-					s.Flush();
-				}
-			}
-		}
+		//	return builder.ToString();
+		//}
 
-		public static async Task RemoveRole(UserOrganizationModel caller, long userId, UserRoleType type) {
-			using (var s = HibernateSession.GetCurrentSession()) {
-				using (var tx = s.BeginTransaction()) {
-					var perms = PermissionsUtility.Create(s, caller);
-					await RemoveRole(s, perms, userId, type);
-					tx.Commit();
-					s.Flush();
-				}
-			}
-		}
 
-		public static async Task AddRole(UserOrganizationModel caller, long userId, UserRoleType type) {
-			using (var s = HibernateSession.GetCurrentSession()) {
-				using (var tx = s.BeginTransaction()) {
-					var perms = PermissionsUtility.Create(s, caller);
-					await AddRole(s, perms, userId, type);
-					tx.Commit();
-					s.Flush();
-				}
-			}
-		}
+		//public static List<UserRole> GetUserRolesAtOrganization(UserOrganizationModel caller, long orgId) {
+		//	using (var s = HibernateSession.GetCurrentSession()) {
+		//		using (var tx = s.BeginTransaction()) {
+		//			var perms = PermissionsUtility.Create(s, caller);
+		//			return GetUserRolesAtOrganization(s, perms, orgId);
+		//		}
+		//	}
+		//}
 
-		public static async Task AddRole(ISession s, PermissionsUtility perms, long userId, UserRoleType type) {
-			perms.ViewUserOrganization(userId, false);
-			var any = s.QueryOver<UserRole>().Where(x => x.UserId == userId && type == x.RoleType && x.DeleteTime == null).RowCount();
-			var user = s.Get<UserOrganizationModel>(userId);
-			if (any == 0) {
-				s.Save(new UserRole() {
-					OrgId = user.Organization.Id,
-					RoleType = type,
-					UserId = userId,
-				});
-				await HooksRegistry.Each<IUserRoleHook>((ses, x) => x.AddRole(ses, userId, type));
-			}
-		}
+		//public static List<UserRole> GetUserRolesAtOrganization(ISession s, PermissionsUtility perms, long orgId) {
+		//	perms.ViewOrganization(orgId);
+		//	return s.QueryOver<UserRole>().Where(x => x.DeleteTime == null && x.OrgId == orgId).List().ToList();
+		//}
 
-		public static async Task RemoveRole(ISession s, PermissionsUtility perms, long userId, UserRoleType type) {
-			perms.ViewUserOrganization(userId, false);
-			var any = s.QueryOver<UserRole>().Where(x => x.UserId == userId && type == x.RoleType && x.DeleteTime == null).List().ToList();
-			var user = s.Get<UserOrganizationModel>(userId);
-			if (any.Count > 0) {
-				foreach (var a in any) {
-					a.DeleteTime = DateTime.UtcNow;
-					s.Update(a);
-				}
-				await HooksRegistry.Each<IUserRoleHook>((ses, x) => x.RemoveRole(ses, userId, type));
-			}
-		}
+		//public static async Task SetRole(UserOrganizationModel caller, long userId, UserRoleType type, bool enabled) {
+		//	using (var s = HibernateSession.GetCurrentSession()) {
+		//		using (var tx = s.BeginTransaction()) {
+		//			var perms = PermissionsUtility.Create(s, caller);
+
+		//			if (enabled) {
+		//				await AddRole(s, perms, userId, type);
+		//			} else {
+		//				await RemoveRole(s, perms, userId, type);
+		//			}
+
+		//			tx.Commit();
+		//			s.Flush();
+		//		}
+		//	}
+		//}
+
+		//public static async Task RemoveRole(UserOrganizationModel caller, long userId, UserRoleType type) {
+		//	using (var s = HibernateSession.GetCurrentSession()) {
+		//		using (var tx = s.BeginTransaction()) {
+		//			var perms = PermissionsUtility.Create(s, caller);
+		//			await RemoveRole(s, perms, userId, type);
+		//			tx.Commit();
+		//			s.Flush();
+		//		}
+		//	}
+		//}
+
+		//public static async Task AddRole(UserOrganizationModel caller, long userId, UserRoleType type) {
+		//	using (var s = HibernateSession.GetCurrentSession()) {
+		//		using (var tx = s.BeginTransaction()) {
+		//			var perms = PermissionsUtility.Create(s, caller);
+		//			await AddRole(s, perms, userId, type);
+		//			tx.Commit();
+		//			s.Flush();
+		//		}
+		//	}
+		//}
+
+		//public static async Task AddRole(ISession s, PermissionsUtility perms, long userId, UserRoleType type) {
+		//	perms.ViewUserOrganization(userId, false);
+		//	var any = s.QueryOver<UserRole>().Where(x => x.UserId == userId && type == x.RoleType && x.DeleteTime == null).RowCount();
+		//	var user = s.Get<UserOrganizationModel>(userId);
+		//	if (any == 0) {
+		//		s.Save(new UserRole() {
+		//			OrgId = user.Organization.Id,
+		//			RoleType = type,
+		//			UserId = userId,
+		//		});
+		//		await HooksRegistry.Each<IUserRoleHook>((ses, x) => x.AddRole(ses, userId, type));
+		//	}
+		//}
+
+		//public static async Task RemoveRole(ISession s, PermissionsUtility perms, long userId, UserRoleType type) {
+		//	perms.ViewUserOrganization(userId, false);
+		//	var any = s.QueryOver<UserRole>().Where(x => x.UserId == userId && type == x.RoleType && x.DeleteTime == null).List().ToList();
+		//	var user = s.Get<UserOrganizationModel>(userId);
+		//	if (any.Count > 0) {
+		//		foreach (var a in any) {
+		//			a.DeleteTime = DateTime.UtcNow;
+		//			s.Update(a);
+		//		}
+		//		await HooksRegistry.Each<IUserRoleHook>((ses, x) => x.RemoveRole(ses, userId, type));
+		//	}
+		//}
 
 		#region Deleted
 		//[Obsolete("Fix for AC")]
