@@ -261,6 +261,7 @@
     <Compile Include="Utilities\Attributes\Cache\CacheKeys.cs" />
     <Compile Include="Utilities\Config.cs" />
     <Compile Include="Utilities\Extensions\DictionaryExtensions.cs" />
+    <Compile Include="Utilities\Extensions\ExpressionExtensions.cs" />
     <Compile Include="Utilities\Extensions\ObjectExtensions.cs" />
     <Compile Include="Utilities\FileUtilities.cs" />
     <Compile Include="Utilities\NHibernate\HibernateSession.cs" />

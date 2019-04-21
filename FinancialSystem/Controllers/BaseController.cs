@@ -162,190 +162,190 @@ namespace FinancialSystem.Controllers {
 		};
 
 
-		private UserOrganizationModel PopulateUserData(UserOrganizationModel user,PermissionsOverrides overrides=null) {
+		//private UserOrganizationModel PopulateUserData(UserOrganizationModel user,PermissionsOverrides overrides=null) {
             
 
-			if (user != null && Request != null) {
-                if (overrides != null) {
-                    user._PermissionsOverrides = overrides;
-                }
+		//	if (user != null && Request != null) {
+  //              if (overrides != null) {
+  //                  user._PermissionsOverrides = overrides;
+  //              }
 
-				user._IsRadialAdmin = user.IsRadialAdmin;
+		//		user._IsRadialAdmin = user.IsRadialAdmin;
 
-				user._ClientTimestamp = Request.Params.Get("_clientTimestamp").TryParseLong();
-				user._ClientOffset = Request.Params.Get("_tz").TryParseInt();
-				user._ClientRequestId = Request.Params.Get("_rid");
+		//		user._ClientTimestamp = Request.Params.Get("_clientTimestamp").TryParseLong();
+		//		user._ClientOffset = Request.Params.Get("_tz").TryParseInt();
+		//		user._ClientRequestId = Request.Params.Get("_rid");
 
-				if (user._ClientTimestamp != null && user._ClientOffset == null) {
-					var diff = (int)(Math.Round((user._ClientTimestamp.Value.ToDateTime() - DateTime.UtcNow).TotalMinutes / 30.0) * 30.0);
-					user._ClientOffset = diff;// Thread.SetData(Thread.GetNamedDataSlot("timeOffset"), diff);
-				}
+		//		if (user._ClientTimestamp != null && user._ClientOffset == null) {
+		//			var diff = (int)(Math.Round((user._ClientTimestamp.Value.ToDateTime() - DateTime.UtcNow).TotalMinutes / 30.0) * 30.0);
+		//			user._ClientOffset = diff;// Thread.SetData(Thread.GetNamedDataSlot("timeOffset"), diff);
+		//		}
 
-				HookData.SetData("ConnectionId", Request.Params.Get("connectionId"));
-				HookData.SetData("ClientTimestamp", user._ClientTimestamp);
-				HookData.SetData("ClientTimezone", user._ClientOffset);
-				HookData.SetData("ClientRequestId", user._ClientRequestId);
+		//		HookData.SetData("ConnectionId", Request.Params.Get("connectionId"));
+		//		HookData.SetData("ClientTimestamp", user._ClientTimestamp);
+		//		HookData.SetData("ClientTimezone", user._ClientOffset);
+		//		HookData.SetData("ClientRequestId", user._ClientRequestId);
 
-			}
-			return user;
-		}
-		public UserOrganizationModel GetUser() {
-			return PopulateUserData(_GetUser());
-		}
-		public UserOrganizationModel GetUser(ISession s,PermissionsOverrides overrides) {
-			return PopulateUserData(_GetUser(s),overrides);
-		}
-		public UserOrganizationModel GetUser(long userOrganizationId) {
-			return PopulateUserData(_GetUser(userOrganizationId));
-		}
-		private UserOrganizationModel GetUserOrganization(ISession s, long userOrganizationId, String redirectUrl)//, Boolean full = false)
-		{
-			var cache = new Cache();
+		//	}
+		//	return user;
+		//}
+		//public UserOrganizationModel GetUser() {
+		//	return PopulateUserData(_GetUser());
+		//}
+		//public UserOrganizationModel GetUser(ISession s,PermissionsOverrides overrides) {
+		//	return PopulateUserData(_GetUser(s),overrides);
+		//}
+		//public UserOrganizationModel GetUser(long userOrganizationId) {
+		//	return PopulateUserData(_GetUser(userOrganizationId));
+		//}
+		//private UserOrganizationModel GetUserOrganization(ISession s, long userOrganizationId, String redirectUrl)//, Boolean full = false)
+		//{
+		//	var cache = new Cache();
 
-			return cache.GetOrGenerate(CacheKeys.USERORGANIZATION, x => {
-				var id = User.Identity.GetUserId();
-				var found = _UserAccessor.GetUserOrganizations(s, id, userOrganizationId, redirectUrl);
-				if (found != null && found.User != null && !cache.Contains(CacheKeys.USER)) {
-					cache.Push(CacheKeys.USER, found.User, LifeTime.Request/*Session*/);
-				}
-				x.LifeTime = LifeTime.Request/*Session*/;
-				return found;
-			}, x => x.Id != userOrganizationId);
-		}
+		//	return cache.GetOrGenerate(CacheKeys.USERORGANIZATION, x => {
+		//		var id = User.Identity.GetUserId();
+		//		var found = _UserAccessor.GetUserOrganizations(s, id, userOrganizationId, redirectUrl);
+		//		if (found != null && found.User != null && !cache.Contains(CacheKeys.USER)) {
+		//			cache.Push(CacheKeys.USER, found.User, LifeTime.Request/*Session*/);
+		//		}
+		//		x.LifeTime = LifeTime.Request/*Session*/;
+		//		return found;
+		//	}, x => x.Id != userOrganizationId);
+		//}
 
 		// ReSharper disable once RedundantOverload.Local
-		private UserOrganizationModel _GetUser(ISession s) {
-			if (MockUser != null)
-				return MockUser;
+		//private UserOrganizationModel _GetUser(ISession s) {
+		//	if (MockUser != null)
+		//		return MockUser;
 
-			return _GetUser(s, null);
-		}
-		private UserOrganizationModel _GetUser() {
-			if (MockUser != null)
-				return MockUser;
-			long? userOrganizationId = null;
+		//	return _GetUser(s, null);
+		//}
+		//private UserOrganizationModel _GetUser() {
+		//	if (MockUser != null)
+		//		return MockUser;
+		//	long? userOrganizationId = null;
 
-			if (userOrganizationId == null) {
-				var orgIdParam = Request.Params.Get("setUserOrganizationId");
-				if (orgIdParam != null)
-					userOrganizationId = long.Parse(orgIdParam);
-			}
+		//	if (userOrganizationId == null) {
+		//		var orgIdParam = Request.Params.Get("setUserOrganizationId");
+		//		if (orgIdParam != null)
+		//			userOrganizationId = long.Parse(orgIdParam);
+		//	}
 
-			var cache = new Cache();
+		//	var cache = new Cache();
 
-			if (userOrganizationId == null && cache.Get(CacheKeys.USERORGANIZATION_ID) is long) {
-				userOrganizationId = (long)cache.Get(CacheKeys.USERORGANIZATION_ID);
-			}
-
-
-
-			if (cache.Get(CacheKeys.USERORGANIZATION) is UserOrganizationModel && userOrganizationId == ((UserOrganizationModel)cache.Get(CacheKeys.USERORGANIZATION)).Id)
-				return (UserOrganizationModel)cache.Get(CacheKeys.USERORGANIZATION);
-
-			using (var s = HibernateSession.GetCurrentSession()) {
-				using (var tx = s.BeginTransaction()) {
-					return _GetUser(s, null);
-				}
-			}
-		}
-		private UserOrganizationModel _GetUser(long userOrganizationId) {
-			if (MockUser != null && MockUser.Id == userOrganizationId)
-				return MockUser;
-			var cache = new Cache();
-
-			if (cache.Get(CacheKeys.USERORGANIZATION) is UserOrganizationModel && userOrganizationId == ((UserOrganizationModel)cache.Get(CacheKeys.USERORGANIZATION)).Id)
-				return (UserOrganizationModel)cache.Get(CacheKeys.USERORGANIZATION);
-
-			using (var s = HibernateSession.GetCurrentSession()) {
-				using (var tx = s.BeginTransaction()) {
-					return _GetUser(s, userOrganizationId);
-				}
-			}
-		}
-		private UserOrganizationModel _GetUser(ISession s, long? userOrganizationId = null)//long? organizationId, Boolean full = false)
-		{
-
-			/**/
-			if (userOrganizationId == null) {
-				try {
-					var orgIdParam = Request.Params.Get("setUserOrganizationId");
-					if (orgIdParam != null)
-						userOrganizationId = long.Parse(orgIdParam);
-				} catch (Exception) {
-					//var o = false;
-				}
-			}
-			var cache = new Cache();
-
-			if (userOrganizationId == null && cache.Get(CacheKeys.USERORGANIZATION_ID) != null) {
-				userOrganizationId = (long)cache.Get(CacheKeys.USERORGANIZATION_ID);
-			}
-			if (userOrganizationId == null) {
-				userOrganizationId = GetUserModel(s).GetCurrentRole();
-			}
+		//	if (userOrganizationId == null && cache.Get(CacheKeys.USERORGANIZATION_ID) is long) {
+		//		userOrganizationId = (long)cache.Get(CacheKeys.USERORGANIZATION_ID);
+		//	}
 
 
-			var user = cache.Get(CacheKeys.USERORGANIZATION);
 
-			if (user is UserOrganizationModel && userOrganizationId == ((UserOrganizationModel)user).Id)
-				return (UserOrganizationModel)user;
+		//	if (cache.Get(CacheKeys.USERORGANIZATION) is UserOrganizationModel && userOrganizationId == ((UserOrganizationModel)cache.Get(CacheKeys.USERORGANIZATION)).Id)
+		//		return (UserOrganizationModel)cache.Get(CacheKeys.USERORGANIZATION);
 
-			if (userOrganizationId == null) {
-				var returnPath = Server.HtmlEncode(Request.Path);
+		//	using (var s = HibernateSession.GetCurrentSession()) {
+		//		using (var tx = s.BeginTransaction()) {
+		//			return _GetUser(s, null);
+		//		}
+		//	}
+		//}
+		//private UserOrganizationModel _GetUser(long userOrganizationId) {
+		//	if (MockUser != null && MockUser.Id == userOrganizationId)
+		//		return MockUser;
+		//	var cache = new Cache();
 
-				var found = GetUserOrganizations(s, returnPath);
-				if (found.Count() == 0)
-					throw new NoUserOrganizationException();
-				else if (found.Count() == 1) {
-					var uo = found.First();
-					if (uo.User != null) {
-						uo.User.CurrentRole = uo.Id;
-						s.Update(uo.User);
-					}
-					//_CurrentUserOrganizationId = uo.Id;
-					cache.Push(CacheKeys.USERORGANIZATION, uo, LifeTime.Request/*Session*/);
-					cache.Push(CacheKeys.USERORGANIZATION_ID, uo.Id, LifeTime.Request/*Session*/);
-					return uo;
-				} else
-					throw new OrganizationIdException(Request.Url.PathAndQuery);
-			} else {
-				var uo = GetUserOrganization(s, userOrganizationId.Value, Request.Url.PathAndQuery);
-				//_CurrentUserOrganizationId = uo.Id;
-				cache.Push(CacheKeys.USERORGANIZATION, uo, LifeTime.Request/*Session*/);
-				cache.Push(CacheKeys.USERORGANIZATION_ID, userOrganizationId.Value, LifeTime.Request/*Session*/);
-				return uo;
+		//	if (cache.Get(CacheKeys.USERORGANIZATION) is UserOrganizationModel && userOrganizationId == ((UserOrganizationModel)cache.Get(CacheKeys.USERORGANIZATION)).Id)
+		//		return (UserOrganizationModel)cache.Get(CacheKeys.USERORGANIZATION);
 
-			}
-		}
+		//	using (var s = HibernateSession.GetCurrentSession()) {
+		//		using (var tx = s.BeginTransaction()) {
+		//			return _GetUser(s, userOrganizationId);
+		//		}
+		//	}
+		//}
+		//private UserOrganizationModel _GetUser(ISession s, long? userOrganizationId = null)//long? organizationId, Boolean full = false)
+		//{
 
-		protected void AllowAdminsWithoutAudit() {
-			try {
-				var user = GetUser();
-				if (user != null && user._PermissionsOverrides != null) {
-					user._PermissionsOverrides.Admin.AllowAdminWithoutAudit = true;
-				}
-			} catch (Exception e) {
-			}
-		}
+		//	/**/
+		//	if (userOrganizationId == null) {
+		//		try {
+		//			var orgIdParam = Request.Params.Get("setUserOrganizationId");
+		//			if (orgIdParam != null)
+		//				userOrganizationId = long.Parse(orgIdParam);
+		//		} catch (Exception) {
+		//			//var o = false;
+		//		}
+		//	}
+		//	var cache = new Cache();
 
-		protected List<UserOrganizationModel> GetUserOrganizations(String redirectUrl) //Boolean full = false)
-		{
-			using (var s = HibernateSession.GetCurrentSession()) {
-				using (var tx = s.BeginTransaction()) {
-					return GetUserOrganizations(s, redirectUrl);
-				}
-			}
-		}
-		protected int GetUserOrganizationCounts(ISession s, String redirectUrl)//Boolean full = false)
-		{
-			var id = User.Identity.GetUserId();
-			return _UserAccessor.GetUserOrganizationCounts(s, id, redirectUrl/*, full*/);
-		}
-		protected List<UserOrganizationModel> GetUserOrganizations(ISession s, String redirectUrl)//Boolean full = false)
-		{
-			var id = User.Identity.GetUserId();
-			return _UserAccessor.GetUserOrganizations(s, id, redirectUrl/*, full*/);
-		}
+		//	if (userOrganizationId == null && cache.Get(CacheKeys.USERORGANIZATION_ID) != null) {
+		//		userOrganizationId = (long)cache.Get(CacheKeys.USERORGANIZATION_ID);
+		//	}
+		//	if (userOrganizationId == null) {
+		//		userOrganizationId = GetUserModel(s).GetCurrentRole();
+		//	}
+
+
+		//	var user = cache.Get(CacheKeys.USERORGANIZATION);
+
+		//	if (user is UserOrganizationModel && userOrganizationId == ((UserOrganizationModel)user).Id)
+		//		return (UserOrganizationModel)user;
+
+		//	if (userOrganizationId == null) {
+		//		var returnPath = Server.HtmlEncode(Request.Path);
+
+		//		var found = GetUserOrganizations(s, returnPath);
+		//		if (found.Count() == 0)
+		//			throw new NoUserOrganizationException();
+		//		else if (found.Count() == 1) {
+		//			var uo = found.First();
+		//			if (uo.User != null) {
+		//				uo.User.CurrentRole = uo.Id;
+		//				s.Update(uo.User);
+		//			}
+		//			//_CurrentUserOrganizationId = uo.Id;
+		//			cache.Push(CacheKeys.USERORGANIZATION, uo, LifeTime.Request/*Session*/);
+		//			cache.Push(CacheKeys.USERORGANIZATION_ID, uo.Id, LifeTime.Request/*Session*/);
+		//			return uo;
+		//		} else
+		//			throw new OrganizationIdException(Request.Url.PathAndQuery);
+		//	} else {
+		//		var uo = GetUserOrganization(s, userOrganizationId.Value, Request.Url.PathAndQuery);
+		//		//_CurrentUserOrganizationId = uo.Id;
+		//		cache.Push(CacheKeys.USERORGANIZATION, uo, LifeTime.Request/*Session*/);
+		//		cache.Push(CacheKeys.USERORGANIZATION_ID, userOrganizationId.Value, LifeTime.Request/*Session*/);
+		//		return uo;
+
+		//	}
+		//}
+
+		//protected void AllowAdminsWithoutAudit() {
+		//	try {
+		//		var user = GetUser();
+		//		if (user != null && user._PermissionsOverrides != null) {
+		//			user._PermissionsOverrides.Admin.AllowAdminWithoutAudit = true;
+		//		}
+		//	} catch (Exception e) {
+		//	}
+		//}
+
+		//protected List<UserOrganizationModel> GetUserOrganizations(String redirectUrl) //Boolean full = false)
+		//{
+		//	using (var s = HibernateSession.GetCurrentSession()) {
+		//		using (var tx = s.BeginTransaction()) {
+		//			return GetUserOrganizations(s, redirectUrl);
+		//		}
+		//	}
+		//}
+		//protected int GetUserOrganizationCounts(ISession s, String redirectUrl)//Boolean full = false)
+		//{
+		//	var id = User.Identity.GetUserId();
+		//	return _UserAccessor.GetUserOrganizationCounts(s, id, redirectUrl/*, full*/);
+		//}
+		//protected List<UserOrganizationModel> GetUserOrganizations(ISession s, String redirectUrl)//Boolean full = false)
+		//{
+		//	var id = User.Identity.GetUserId();
+		//	return _UserAccessor.GetUserOrganizations(s, id, redirectUrl/*, full*/);
+		//}
 		#endregion
 		#region Validation
 		private List<String> ToValidate = new List<string>();
@@ -370,10 +370,10 @@ namespace FinancialSystem.Controllers {
 			return body;
 		}
 
-		protected void ManagerAndCanEditOrException(UserOrganizationModel user) {
-			if (!user.IsManagerCanEditOrganization())
-				throw new PermissionsException();
-		}
+		//protected void ManagerAndCanEditOrException(UserOrganizationModel user) {
+		//	if (!user.IsManagerCanEditOrganization())
+		//		throw new PermissionsException();
+		//}
 		protected ActionResult RedirectToLocal(string returnUrl) {
 			if (Url.IsLocalUrl(returnUrl))
 				return Redirect(returnUrl);
@@ -384,18 +384,18 @@ namespace FinancialSystem.Controllers {
 		private static string CleanFileName(string fileName) {
 			return Path.GetInvalidFileNameChars().Aggregate(fileName, (current, c) => current.Replace(c.ToString(), string.Empty));
 		}
-		protected ActionResult Xls(SLDocument document, string name = null) {
+		//protected ActionResult Xls(SLDocument document, string name = null) {
 
-			name = name ?? ("export_" + DateTime.UtcNow.ToJavascriptMilliseconds());
-			//name = name;
+		//	name = name ?? ("export_" + DateTime.UtcNow.ToJavascriptMilliseconds());
+		//	//name = name;
 
-			Response.Clear();
-			Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-			Response.AddHeader("Content-Disposition", "attachment; filename=" + name + ".xlsx");
-			document.SaveAs(Response.OutputStream);
-			Response.End();
-			return new EmptyResult();
-		}
+		//	Response.Clear();
+		//	Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+		//	Response.AddHeader("Content-Disposition", "attachment; filename=" + name + ".xlsx");
+		//	document.SaveAs(Response.OutputStream);
+		//	Response.End();
+		//	return new EmptyResult();
+		//}
 
 		protected ActionResult Pdf(PdfDocument document, string name = null, bool inline = true) {
 			name = name ?? document.Info.Title;
