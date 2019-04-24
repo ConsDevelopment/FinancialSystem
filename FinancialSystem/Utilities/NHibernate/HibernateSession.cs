@@ -141,6 +141,22 @@ namespace FinancialSystem.Utilities {
 				Config.DbUpdateSuccessful();
 			} 
 		}
+		public static bool CloseCurrentSession() {
+			var session = (SingleRequestSession)HttpContext.Current.NotNull(x => x.Items["NHibernateSession"]);
+			if (session != null) {
+				if (session.IsOpen) {
+					session.Close();
+
+					}
+				if (session.WasDisposed) {
+					session.GetBackingSession().Dispose();
+				}
+				HttpContext.Current.Items.Remove("NHibernateSession");
+				return true;
+			}
+			return false;
+			
+		}
 		public static ISession GetCurrentSession(bool singleSession = true, Env? environmentOverride_TestOnly = null) {
 
 			if (singleSession && !(HttpContext.Current == null || HttpContext.Current.Items == null) && HttpContext.Current.Items["IsTest"] == null) {

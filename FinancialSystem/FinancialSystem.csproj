@@ -117,6 +117,10 @@
       <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
       <Private>True</Private>
@@ -215,6 +219,7 @@
     <Compile Include="Accessor\BaseAccessor.cs" />
     <Compile Include="Accessor\UserAccessor.cs" />
     <Compile Include="Accessor\Users\CreateUser.cs" />
+    <Compile Include="Accessor\Users\LoginAccessor.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FluentConfigs.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -264,6 +269,7 @@
     <Compile Include="Utilities\Extensions\ExpressionExtensions.cs" />
     <Compile Include="Utilities\Extensions\ObjectExtensions.cs" />
     <Compile Include="Utilities\FileUtilities.cs" />
+    <Compile Include="Utilities\Helpers\SecuredValueHtmlHelper.cs" />
     <Compile Include="Utilities\NHibernate\HibernateSession.cs" />
     <Compile Include="Utilities\NHibernate\SingleRequestSession.cs" />
     <Compile Include="Utilities\NHibernate\SingleRequestTransaction.cs" />

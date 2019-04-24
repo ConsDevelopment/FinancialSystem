@@ -1,4 +1,5 @@
-﻿using FinancialSystem.Models;
+﻿using FinancialSystem.Accessor.Users;
+using FinancialSystem.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -27,14 +28,15 @@ namespace FinancialSystem.Controllers.API.Users
         // POST api/<controller>
         [AllowAnonymous]
         [Access(AccessLevel.SignedOut)]
-        public async Task<String> Post(LoginViewModel value)
+        public string Post(LoginViewModel value)
         {
-            string val="";
-            if (ModelState.IsValid)
-            {
-                var user = await UserManager.FindAsync(value.UserName.ToLower(), value.Password);
-            }
-            return val;
+			string Url = "";
+			LoginAccessor la = new LoginAccessor();
+			var user = la.LogIn(value);
+			if (user != null) {
+				return Url = "datshboard";
+			}
+            return Url;
 
         }
 

@@ -168,3 +168,14 @@ C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\Sy
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\obj\Debug\FinancialSystem.test.csprojResolveAssemblyReference.cache
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\obj\Debug\FinancialSystem.test.dll
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\obj\Debug\FinancialSystem.test.pdb
+C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\Microsoft.Owin.dll
+C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\Owin.dll
+C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\Microsoft.Owin.xml
+C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\Microsoft.Owin.Security.Cookies.xml
