@@ -17,6 +17,8 @@ using Mapping = NHibernate.Mapping;
 using FinancialSystem.Utilities.NHibernate;
 using FinancialSystem.Models;
 using FinancialSystem.App_Start;
+using FinancialSystem.NHibernate;
+using FinancialSystem.Models.UserModels;
 
 namespace FinancialSystem.Utilities {
 	public static class NHSQL {
@@ -193,6 +195,21 @@ namespace FinancialSystem.Utilities {
 				}
 			}
 			return null;
+		}
+		public static async void SignInUser(UserModel user, bool remeberMe) {
+
+			
+			CurrentUserSession.userSession = user.Id;
+			
+			if (remeberMe) {
+
+				if (user.SecurityStamp == null) {
+					user.SecurityStamp = Guid.NewGuid().ToString();
+					NHibernateUserStore hs = new NHibernateUserStore();
+					await hs.UpdateAsync(user);
+				}
+				CurrentUserSession.userSecurityStampCookie = user.SecurityStamp;
+			}
 		}
 		public class RuntimeNames {
 			private Configuration cfg;

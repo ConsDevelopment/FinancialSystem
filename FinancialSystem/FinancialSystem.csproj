@@ -236,6 +236,7 @@
     <Compile Include="Models\Admin\AdminAuditLog.cs" />
     <Compile Include="Models\Enums\AccessLevel.cs" />
     <Compile Include="Models\Enums\AlertType.cs" />
+    <Compile Include="Models\UserModels\CurrentUserSession.cs" />
     <Compile Include="NHibernate\NHibernateUserManager.cs" />
     <Compile Include="Properties\ErrorMessageStrings.Designer.cs" />
     <Compile Include="Properties\DisplayNameStrings.Designer.cs" />

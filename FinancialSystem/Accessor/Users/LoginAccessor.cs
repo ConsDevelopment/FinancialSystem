@@ -15,8 +15,7 @@ namespace FinancialSystem.Accessor.Users {
 			if (ModelState.IsValid) {
 				var user = await UserManager.FindAsync(model.UserName.ToLower(), model.Password);
 				if (user != null) {
-					await SignInAsync(user, model.RememberMe);
-					var usr = HibernateSession.GetCurrentSession();
+					HibernateSession.SignInUser(user,model.RememberMe);
 				}
 				return user;
 			}

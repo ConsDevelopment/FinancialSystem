@@ -18,7 +18,7 @@ function saveUser() {
         //dataType: 'json',
 
         success: function (data) {
-            alert(data);
+        	location.href=data;
 
 
         },
