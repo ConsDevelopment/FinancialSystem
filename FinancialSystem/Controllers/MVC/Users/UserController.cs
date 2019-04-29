@@ -25,8 +25,6 @@ namespace FinancialSystem.Controllers.MVC.Users
         public ActionResult Register()
         {
 			
-			var user = CurrentUserSession.userSession;
-			var cook = CurrentUserSession.userSecurityStampCookie;
 			ViewData["ApiServer"] = Config.GetApiServerURL();
             return View();
         }

@@ -211,6 +211,7 @@
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\user\Login.js" />
+    <Content Include="scripts\user\Registration.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -224,9 +225,11 @@
     <Compile Include="App_Start\FluentConfigs.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\API\Company\RegisterController.cs" />
     <Compile Include="Controllers\API\Users\CreateUserController.cs" />
     <Compile Include="Controllers\API\Users\LoginApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\MVC\Company\MaintenanceController.cs" />
     <Compile Include="Controllers\MVC\Users\UserController.cs" />
     <Compile Include="Controllers\Test\TestApiController.cs" />
     <Compile Include="Controllers\UserModels\LoginController.cs" />
@@ -234,9 +237,15 @@
     <Compile Include="Exceptions\AdminSetRoleException.cs" />
     <Compile Include="Exceptions\LoginException.cs" />
     <Compile Include="Models\Admin\AdminAuditLog.cs" />
+    <Compile Include="Models\Company\RegistrationView.cs" />
+    <Compile Include="Models\Company\TeamModel.cs" />
+    <Compile Include="Models\Company\JobModel.cs" />
+    <Compile Include="Models\Company\CompanyModel.cs" />
+    <Compile Include="Models\Company\EmployeeModel.cs" />
     <Compile Include="Models\Enums\AccessLevel.cs" />
     <Compile Include="Models\Enums\AlertType.cs" />
     <Compile Include="Models\UserModels\CurrentUserSession.cs" />
+    <Compile Include="NHibernate\NHibernateCompanyStore.cs" />
     <Compile Include="NHibernate\NHibernateUserManager.cs" />
     <Compile Include="Properties\ErrorMessageStrings.Designer.cs" />
     <Compile Include="Properties\DisplayNameStrings.Designer.cs" />
@@ -296,6 +305,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Maintenance\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\ErrorMessageStrings.resx" />

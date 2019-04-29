@@ -12,8 +12,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Assistant:400,600,700,800" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     @Styles.Render("~/Content/User/registration")
+	@Scripts.Render("~/scripts/user/Registration")
+	@Html.Hidden("ApiServer", ViewData["ApiServer"])
 </head>
     
 <body>
@@ -30,28 +33,28 @@
                     <form class="col s12">
                         <div class="row">
                             <div class="input-field col s6">
-                                <input id="first_name" type="text" class="validate">
-                                <label for="first_name">First Name</label>
+                                <input id="FirstName" type="text" class="validate">
+                                <label for="FirstName">First Name</label>
                             </div>
                             <div class="input-field col s6">
-                                <input id="last_name" type="text" class="validate">
-                                <label for="last_name">Last Name</label>
+                                <input id="LastName" type="text" class="validate">
+                                <label for="LastName">Last Name</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input id="email" type="email" class="validate">
-                                <label for="email">Email</label>
+                                <input id="Email" type="email" class="validate">
+                                <label for="Email">Email</label>
                             </div>
                             <div class="input-field col s6">
-                                <input id="contact_numbre" type="number" class="validate">
-                                <label for="contact_number">Contact Number</label>
+                                <input id="Contact" type="number" class="validate">
+                                <label for="Contact">Contact Number</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="employeeNo" type="text" class="validate">
-                                <label for="employeeNo">Employee Number</label>
+                                <input id="EmpNo" type="text" class="validate">
+                                <label for="EmpNo">Employee Number</label>
                                 
                                 
                             </div>
@@ -83,7 +86,7 @@
                                 <label for="cpassword">Confirm Password</label>
                             </div>
                         </div>
-                        <a class="waves-effect waves-light btn-large"><i class="material-icons right">send</i>Submit</a>
+                        <a class="waves-effect waves-light btn-large" onclick="Registration()"><i class="material-icons right">send</i>Submit</a>
                     </form>
                 </div>
 
