@@ -1,6 +1,5 @@
 ﻿
-function saveUser() {
-    alert("signin");
+function logIn() {
     source = {
         "UserName": $("#UserName").val(),
         "Password": $("#Password").val(),

@@ -90,6 +90,9 @@ namespace FinancialSystem
 
 			bundles.Add(new StyleBundle("~/Content/User/registration")
 				.Include("~/Content/User/registration.css"));
+			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/user/Registration").Include(
+					 "~/scripts/user/Registration.js"
+		   )));
 		}
         private static void login(BundleCollection bundles)
         {
