@@ -81,6 +81,8 @@ namespace FinancialSystem.NHibernate {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
 					db.SaveOrUpdate(user);
+					tx.Commit();
+					db.Flush();
 				}
 			}
 		}

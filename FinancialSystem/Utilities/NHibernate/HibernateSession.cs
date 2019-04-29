@@ -17,6 +17,8 @@ using Mapping = NHibernate.Mapping;
 using FinancialSystem.Utilities.NHibernate;
 using FinancialSystem.Models;
 using FinancialSystem.App_Start;
+using FinancialSystem.NHibernate;
+using FinancialSystem.Models.UserModels;
 
 namespace FinancialSystem.Utilities {
 	public static class NHSQL {
@@ -141,6 +143,22 @@ namespace FinancialSystem.Utilities {
 				Config.DbUpdateSuccessful();
 			} 
 		}
+		public static bool CloseCurrentSession() {
+			var session = (SingleRequestSession)HttpContext.Current.NotNull(x => x.Items["NHibernateSession"]);
+			if (session != null) {
+				if (session.IsOpen) {
+					session.Close();
+
+					}
+				if (session.WasDisposed) {
+					session.GetBackingSession().Dispose();
+				}
+				HttpContext.Current.Items.Remove("NHibernateSession");
+				return true;
+			}
+			return false;
+			
+		}
 		public static ISession GetCurrentSession(bool singleSession = true, Env? environmentOverride_TestOnly = null) {
 
 			if (singleSession && !(HttpContext.Current == null || HttpContext.Current.Items == null) && HttpContext.Current.Items["IsTest"] == null) {
@@ -177,6 +195,21 @@ namespace FinancialSystem.Utilities {
 				}
 			}
 			return null;
+		}
+		public static async void SignInUser(UserModel user, bool remeberMe) {
+
+			
+			CurrentUserSession.userSession = user.Id;
+			
+			if (remeberMe) {
+
+				if (user.SecurityStamp == null) {
+					user.SecurityStamp = Guid.NewGuid().ToString();
+					NHibernateUserStore hs = new NHibernateUserStore();
+					await hs.UpdateAsync(user);
+				}
+				CurrentUserSession.userSecurityStampCookie = user.SecurityStamp;
+			}
 		}
 		public class RuntimeNames {
 			private Configuration cfg;

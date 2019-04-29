@@ -47,6 +47,9 @@ namespace FinancialSystem.Utilities {
 			var config = System.Configuration.ConfigurationManager.AppSettings;
 			return config[key] ?? deflt;
 		}
+		public static string GetSecret() {
+			return GetAppSetting("sha_secret");
+		}
         public static bool OptimizationEnabled()
         {
             switch (GetEnv())

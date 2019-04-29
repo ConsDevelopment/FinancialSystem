@@ -1,4 +1,5 @@
-﻿using FinancialSystem.Utilities;
+﻿using FinancialSystem.Models.UserModels;
+using FinancialSystem.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +24,18 @@ namespace FinancialSystem.Controllers.MVC.Users
 
         public ActionResult Register()
         {
-            ViewData["ApiServer"] = Config.GetApiServerURL();
+			
+			var user = CurrentUserSession.userSession;
+			var cook = CurrentUserSession.userSecurityStampCookie;
+			ViewData["ApiServer"] = Config.GetApiServerURL();
             return View();
+        }
+        public ActionResult Login()
+        {
+            ViewData["ApiServer"] = Config.GetApiServerURL();
+			//HttpContext.Current.Session["UserModel"] = null;
+			HttpContext.Session.Add("UserModel", null);
+			return View();
         }
     }
 }
