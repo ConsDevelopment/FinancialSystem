@@ -227,6 +227,7 @@
     <Compile Include="Controllers\API\Users\CreateUserController.cs" />
     <Compile Include="Controllers\API\Users\LoginApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\MVC\Maintenace\MaintenanceController.cs" />
     <Compile Include="Controllers\MVC\Users\UserController.cs" />
     <Compile Include="Controllers\Test\TestApiController.cs" />
     <Compile Include="Controllers\UserModels\LoginController.cs" />
@@ -287,6 +288,7 @@
     <Content Include="Views\User\CreateUser.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Maintenance\AddUsers.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
