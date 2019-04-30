@@ -27,7 +27,7 @@ namespace FinancialSystem.NHibernate {
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
 	public class NHibernateUserStore : IUserLoginStore<UserModel>, IUserClaimStore<UserModel>,
-		IUserRoleStore<UserModel>, IUserPasswordStore<UserModel>, IUserSecurityStampStore<UserModel>,
+		IUserPasswordStore<UserModel>, IUserSecurityStampStore<UserModel>,
 		IUserStore<UserModel>, IDisposable {
 		public async Task CreateAsync(UserModel user) {
 			using (var db = HibernateSession.GetCurrentSession()) {
@@ -189,11 +189,11 @@ namespace FinancialSystem.NHibernate {
 			}
 		}
 
-		public async Task AddToRoleAsync(UserModel user, string role) {
+		public async Task AddToRoleAsync(UserModel user, UserRoleType role) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
 					user = db.Get<UserModel>(user.Id);
-					user.Roles.Add(new UserRoleModel() { Role = role });
+					user.Roles.Add(new UserRole() { RoleType = role });
 					db.SaveOrUpdate(user);
 					tx.Commit();
 					db.Flush();
@@ -201,26 +201,26 @@ namespace FinancialSystem.NHibernate {
 			}
 		}
 
-		public async Task<IList<string>> GetRolesAsync(UserModel user) {
+		public async Task<IList<UserRoleType>> GetRolesAsync(UserModel user) {
 
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
 					user = db.Get<UserModel>(user.Id);
-					return user.Roles.NotNull(y => y.Where(x => !x.Deleted).Select(x => x.Role).ToList());
+					return user.Roles.NotNull(y => y.Where(x => !x.Deleted).Select(x => x.RoleType).ToList());
 				}
 			}
 
 		}
 
-		public async Task<bool> IsInRoleAsync(UserModel user, string role) {
-			return user.Roles.NotNull(y => y.Any(x => x.Role == role && x.Deleted == false));
+		public async Task<bool> IsInRoleAsync(UserModel user, UserRoleType role) {
+			return user.Roles.NotNull(y => y.Any(x => x.RoleType == role && x.Deleted == false));
 		}
 
-		public async Task RemoveFromRoleAsync(UserModel user, string role) {
+		public async Task RemoveFromRoleAsync(UserModel user, UserRoleType role) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
 					user = db.Get<UserModel>(user.Id);
-					var found = user.Roles.NotNull(y => y.ToList().FirstOrDefault(x => x.Role == role));
+					var found = user.Roles.NotNull(y => y.ToList().FirstOrDefault(x => x.RoleType == role));
 					if (found != null) {
 						found.Deleted = true;
 						db.Delete(found);

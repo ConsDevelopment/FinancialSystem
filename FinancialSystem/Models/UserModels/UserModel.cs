@@ -30,7 +30,7 @@ namespace FinancialSystem.Models {
 
 		public virtual bool IsAdmin { get; set; }
 		public virtual bool IsActive { get; set; }
-		public virtual IList<UserRoleModel> Roles { get; set; }
+		public virtual ICollection<UserRole> Roles { get; set; }
 		public virtual ICollection<UserLogin> Logins { get; set; }
 
 		public class UserModelMap : ClassMap<UserModel> {

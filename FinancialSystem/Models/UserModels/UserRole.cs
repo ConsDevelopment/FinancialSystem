@@ -18,10 +18,10 @@ namespace FinancialSystem.Models.UserModels {
 
 	public class UserRole : ILongIdentifiable {
 		public virtual long Id { get; set; }
-		public virtual long UserId { get; set; }
 		public virtual UserRoleType RoleType { get; set; }
 		public virtual DateTime CreateTime { get; set; }
 		public virtual DateTime? DeleteTime { get; set; }
+		public virtual Boolean Deleted { get; set; }
 
 		public UserRole() {
 			CreateTime = DateTime.UtcNow;
@@ -32,7 +32,7 @@ namespace FinancialSystem.Models.UserModels {
 				Id(x => x.Id);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
-				Map(x => x.UserId);
+				Map(x => x.Deleted);
 				Map(x => x.RoleType).CustomType<UserRoleType>();
 			}
 		}
