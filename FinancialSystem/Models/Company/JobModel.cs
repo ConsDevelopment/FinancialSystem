@@ -6,17 +6,19 @@ using System;
 using Microsoft.AspNet.Identity.EntityFramework;
 using FinancialSystem.Models.UserModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using FinancialSystem.NHibernate;
 
 namespace FinancialSystem.Models {
 	public class JobModel  {
 		public virtual long Id { get; set; }
 		public virtual string JobTitle { get; set; }
 		public virtual string JobeCode { get; set; }
-		public virtual string CreatedBy { get; set; }
+		public virtual Task<UserModel> CreatedBy { get; set; }
 		public JobModel() {
-			
+			NHibernateUserStore nu = new NHibernateUserStore();
 			CreateTime = DateTime.UtcNow;
-			CreatedBy = CurrentUserSession.userSession;
+			CreatedBy = nu.FindByIdAsync(CurrentUserSession.userSession);
 		}
 
 		public virtual DateTime CreateTime { get; set; }
@@ -29,7 +31,7 @@ namespace FinancialSystem.Models {
 				Id(x => x.Id);
 				Map(x => x.JobeCode).Index("JobCode_IDX").Length(400).UniqueKey("uniq");
 				Map(x => x.JobTitle);
-				Map(x => x.CreatedBy);
+				References(x => x.CreatedBy).Column("CreatedBy").ReadOnly();
 				HasMany(x => x.Employee).Cascade.SaveUpdate();
 			}
 		}

@@ -28,6 +28,7 @@ namespace FinancialSystem.Models {
 
 		public virtual DateTime CreateTime { get; set; }
 		public virtual DateTime? DeleteTime { get; set; }
+		public virtual CompanyModel Company { get; set; }
 
 
 		public class EmployeeModelMap : ClassMap<EmployeeModel> {
@@ -42,6 +43,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.Gender);
 				Map(x => x.CreateTime);
 				Map(x => x.password);
+				References(x=>x.Company).Column("CompanyModel_id").ReadOnly();
 			}
 		}
 

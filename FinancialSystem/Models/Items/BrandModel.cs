@@ -6,19 +6,15 @@ using System;
 using Microsoft.AspNet.Identity.EntityFramework;
 using FinancialSystem.Models.UserModels;
 using System.Collections.Generic;
-using FinancialSystem.NHibernate;
 using System.Threading.Tasks;
+using FinancialSystem.NHibernate;
 
 namespace FinancialSystem.Models {
-	public class CompanyModel  {
+	public class BrandModel {
 		public virtual long Id { get; set; }
-		public virtual string CompanyName { get; set; }
-		public virtual string CompanyCode { get; set; }
-		public virtual string Phone { get; set; }
-		public virtual string Adress { get; set; }
-		public virtual string Email { get; set; }
+		public virtual string Name { get; set; }
 		public virtual Task<UserModel> CreatedBy { get; set; }
-		public CompanyModel() {
+		public BrandModel() {
 			NHibernateUserStore nu = new NHibernateUserStore();
 			CreateTime = DateTime.UtcNow;
 			CreatedBy = nu.FindByIdAsync(CurrentUserSession.userSession);
@@ -27,20 +23,14 @@ namespace FinancialSystem.Models {
 		public virtual DateTime CreateTime { get; set; }
 		public virtual DateTime? DeleteTime { get; set; }
 
-		public virtual ICollection<EmployeeModel> Employee { get; set; }
-
-		public class CompanyModelMap : ClassMap<CompanyModel> {
-			public CompanyModelMap() {
+		public class BrandModelMap : ClassMap<BrandModel> {
+			public BrandModelMap() {
 				Id(x => x.Id);
-				Map(x => x.CompanyCode).Index("CompanyCode_IDX").Length(400).UniqueKey("uniq");
-				Map(x => x.CompanyName);
-				Map(x => x.Phone);
-				Map(x => x.Adress);
-				Map(x => x.Email);
+				Map(x => x.Name);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
 				References(x => x.CreatedBy).Column("CreatedBy").ReadOnly();
-				HasMany(x => x.Employee).Cascade.SaveUpdate();
+				
 			}
 		}
 
