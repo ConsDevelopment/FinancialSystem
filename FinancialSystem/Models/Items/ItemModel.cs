@@ -23,11 +23,11 @@ namespace FinancialSystem.Models {
 		public virtual CategoryModel Category { get; set; }
 		public virtual BrandModel Brand { get; set; }
 
-		public virtual Task<UserModel> CreatedBy { get; set; }
+		public virtual UserModel CreatedBy { get; set; }
 		public ItemModel() {
-			NHibernateUserStore nu = new NHibernateUserStore();
+			
 			CreateTime = DateTime.UtcNow;
-			CreatedBy = nu.FindByIdAsync(CurrentUserSession.userSession);
+			
 		}
 
 		public virtual DateTime CreateTime { get; set; }
@@ -45,10 +45,10 @@ namespace FinancialSystem.Models {
 				Map(x => x.InStock);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
-				References(x => x.CreatedBy).Column("CreatedBy").ReadOnly();
-				References(x => x.Supplier).ReadOnly();
-				References(x => x.Category).ReadOnly();
-				References(x => x.Brand).ReadOnly();
+				References(p => p.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
+				References(p => p.Supplier, "Supplier").Cascade.SaveUpdate();
+				References(p => p.Category, "Category").Cascade.SaveUpdate();
+				References(p => p.Brand, "Brand").Cascade.SaveUpdate();
 			}
 		}
 

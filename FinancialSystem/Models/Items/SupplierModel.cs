@@ -18,11 +18,11 @@ namespace FinancialSystem.Models {
 		public virtual string TIN { get; set; }
 		public virtual string ContactPerson { get; set; }
 		public virtual string Email { get; set; }
-		public virtual Task<UserModel> CreatedBy { get; set; }
+		public virtual UserModel CreatedBy { get; set; }
 		public SupplierModel() {
-			NHibernateUserStore nu = new NHibernateUserStore();
+			
 			CreateTime = DateTime.UtcNow;
-			CreatedBy = nu.FindByIdAsync(CurrentUserSession.userSession);
+			
 		}
 
 		public virtual DateTime CreateTime { get; set; }
@@ -39,8 +39,8 @@ namespace FinancialSystem.Models {
 				Map(x => x.Email);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
-				References(x => x.CreatedBy).Column("CreatedBy").ReadOnly();
-				
+				References(p => p.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
+
 			}
 		}
 

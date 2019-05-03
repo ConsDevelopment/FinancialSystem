@@ -14,11 +14,11 @@ namespace FinancialSystem.Models {
 		public virtual long Id { get; set; }
 		public virtual string JobTitle { get; set; }
 		public virtual string JobeCode { get; set; }
-		public virtual Task<UserModel> CreatedBy { get; set; }
+		public virtual UserModel CreatedBy { get; set; }
 		public JobModel() {
-			NHibernateUserStore nu = new NHibernateUserStore();
+			
 			CreateTime = DateTime.UtcNow;
-			CreatedBy = nu.FindByIdAsync(CurrentUserSession.userSession);
+
 		}
 
 		public virtual DateTime CreateTime { get; set; }
@@ -31,8 +31,7 @@ namespace FinancialSystem.Models {
 				Id(x => x.Id);
 				Map(x => x.JobeCode).Index("JobCode_IDX").Length(400).UniqueKey("uniq");
 				Map(x => x.JobTitle);
-				References(x => x.CreatedBy).Column("CreatedBy").ReadOnly();
-				HasMany(x => x.Employee).Cascade.SaveUpdate();
+				References(p => p.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 			}
 		}
 

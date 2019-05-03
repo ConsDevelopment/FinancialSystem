@@ -6,6 +6,7 @@ using System;
 using Microsoft.AspNet.Identity.EntityFramework;
 using FinancialSystem.Models.UserModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FinancialSystem.Models {
 	[DebuggerDisplay("{FirstName} {LastName}")]
@@ -32,6 +33,7 @@ namespace FinancialSystem.Models {
 		public virtual bool IsActive { get; set; }
 		public virtual ICollection<UserRole> Roles { get; set; }
 		public virtual ICollection<UserLogin> Logins { get; set; }
+		//public virtual Task<EmployeeModel> employee { get; set; }
 
 		public class UserModelMap : ClassMap<UserModel> {
 			public UserModelMap() {
@@ -48,6 +50,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.SecurityStamp);
 				HasMany(x => x.Logins).Cascade.SaveUpdate();
 				HasMany(x => x.Roles).Cascade.SaveUpdate();
+				//References(x => x.employee).ReadOnly();  
 			}
 		}
 

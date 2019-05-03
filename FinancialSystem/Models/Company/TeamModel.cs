@@ -14,18 +14,17 @@ namespace FinancialSystem.Models {
 		public virtual long Id { get; set; }
 		public virtual string TeamName { get; set; }
 		public virtual string TeamCode { get; set; }
-		public virtual Task<UserModel> CreatedBy { get; set; }
+		public virtual UserModel CreatedBy { get; set; }
 
 		public TeamModel() {
-			NHibernateUserStore nu = new NHibernateUserStore();
+			
 			CreateTime = DateTime.UtcNow;
-			CreatedBy = nu.FindByIdAsync(CurrentUserSession.userSession);
+			
 		}
 
 		public virtual DateTime CreateTime { get; set; }
 		public virtual DateTime? DeleteTime { get; set; }
 
-		public virtual ICollection<EmployeeModel> Employee { get; set; }
 		public virtual EmployeeModel TeamLeader { get; set; }
 
 		public class TeamModelMap : ClassMap<TeamModel> {
@@ -35,9 +34,8 @@ namespace FinancialSystem.Models {
 				Map(x => x.TeamName);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
-				References(x => x.CreatedBy).Column("CreatedBy").ReadOnly();
-				HasMany(x => x.Employee).ReadOnly();
-				References(x => x.TeamLeader);
+				References(p => p.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
+				References(x => x.TeamLeader, "TeamLeader").Cascade.SaveUpdate();
 			}
 		}
 

@@ -6,6 +6,7 @@ using System;
 using Microsoft.AspNet.Identity.EntityFramework;
 using FinancialSystem.Models.UserModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FinancialSystem.Models {
 	[DebuggerDisplay("{FirstName} {LastName}")]
@@ -29,21 +30,25 @@ namespace FinancialSystem.Models {
 		public virtual DateTime CreateTime { get; set; }
 		public virtual DateTime? DeleteTime { get; set; }
 		public virtual CompanyModel Company { get; set; }
+		public virtual TeamModel Team { get; set; }
+		public virtual JobModel Job { get; set; }
 
 
 		public class EmployeeModelMap : ClassMap<EmployeeModel> {
 			public EmployeeModelMap() {
 				Id(x => x.Id).CustomType(typeof(string)).GeneratedBy.Custom(typeof(GuidStringGenerator)).Length(36);
 				Map(x => x.EmpNo).Index("EmpNo_IDX").Length(400).UniqueKey("uniq");
-				Map(x => x.FirstName).Not.LazyLoad();
-				Map(x => x.LastName).Not.LazyLoad();
+				Map(x => x.FirstName);
+				Map(x => x.LastName);
 				Map(x => x.Email).Index("Email_IDX").Length(400).UniqueKey("uniq");
 				Map(x => x.Contact);
 				Map(x => x.DeleteTime);
 				Map(x => x.Gender);
 				Map(x => x.CreateTime);
 				Map(x => x.password);
-				References(x=>x.Company).Column("CompanyModel_id").ReadOnly();
+				References(p => p.Company, "Company").Cascade.SaveUpdate();
+				References(p => p.Team, "Team").Cascade.SaveUpdate();
+				References(p => p.Job, "Job").Cascade.SaveUpdate();
 			}
 		}
 

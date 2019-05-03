@@ -59,6 +59,14 @@ namespace FinancialSystem.NHibernate {
 			}
 		}
 
+		public UserModel FindUserById(string userId) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.Get<UserModel>(userId);
+				}
+			}
+		}
+
 		public async Task<UserModel> FindByNameAsync(string userName) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {

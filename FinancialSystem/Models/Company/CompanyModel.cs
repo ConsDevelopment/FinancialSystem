@@ -17,17 +17,17 @@ namespace FinancialSystem.Models {
 		public virtual string Phone { get; set; }
 		public virtual string Adress { get; set; }
 		public virtual string Email { get; set; }
-		public virtual Task<UserModel> CreatedBy { get; set; }
+		
+		public virtual UserModel CreatedBy { get; set; }
 		public CompanyModel() {
-			NHibernateUserStore nu = new NHibernateUserStore();
+		
 			CreateTime = DateTime.UtcNow;
-			CreatedBy = nu.FindByIdAsync(CurrentUserSession.userSession);
+			
 		}
 
 		public virtual DateTime CreateTime { get; set; }
 		public virtual DateTime? DeleteTime { get; set; }
 
-		public virtual ICollection<EmployeeModel> Employee { get; set; }
 
 		public class CompanyModelMap : ClassMap<CompanyModel> {
 			public CompanyModelMap() {
@@ -39,8 +39,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.Email);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
-				References(x => x.CreatedBy).Column("CreatedBy").ReadOnly();
-				HasMany(x => x.Employee).Cascade.SaveUpdate();
+				References(p => p.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 			}
 		}
 
