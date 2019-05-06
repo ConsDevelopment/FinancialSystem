@@ -45,6 +45,13 @@ namespace FinancialSystem.Models.UserModels {
 				response.Cookies.Add(SecurityStamp);
 			}
 		}
+		public static void removeSecurityStampCookie() {
+			HttpCookie SecurityStamp = HttpContext.Current.Request.Cookies["SecurityStamp"];
+			HttpContext.Current.Response.Cookies.Remove("SecurityStamp");
+			SecurityStamp.Expires= DateTime.UtcNow.AddDays(-10);
+			SecurityStamp.Value = null;
+			HttpContext.Current.Response.SetCookie(SecurityStamp);
+		}
 		public static bool CloseUserSession() {
 			var session = (SingleRequestSession)HttpContext.Current.Items["UserModel"];
 			if (session != null) {

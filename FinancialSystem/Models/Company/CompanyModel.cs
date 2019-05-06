@@ -17,7 +17,8 @@ namespace FinancialSystem.Models {
 		public virtual string Phone { get; set; }
 		public virtual string Adress { get; set; }
 		public virtual string Email { get; set; }
-		
+		public virtual string Logo { get; set; }
+
 		public virtual UserModel CreatedBy { get; set; }
 		public CompanyModel() {
 		
@@ -39,7 +40,8 @@ namespace FinancialSystem.Models {
 				Map(x => x.Email);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
-				References(p => p.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
+				Map(x => x.Logo);
+				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 			}
 		}
 

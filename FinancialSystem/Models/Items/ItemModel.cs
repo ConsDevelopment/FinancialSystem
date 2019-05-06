@@ -45,10 +45,10 @@ namespace FinancialSystem.Models {
 				Map(x => x.InStock);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
-				References(p => p.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
-				References(p => p.Supplier, "Supplier").Cascade.SaveUpdate();
-				References(p => p.Category, "Category").Cascade.SaveUpdate();
-				References(p => p.Brand, "Brand").Cascade.SaveUpdate();
+				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
+				//References(p => p.Supplier, "Supplier").Cascade.SaveUpdate();
+				References(x => x.Category, "Category").Cascade.SaveUpdate();
+				References(x => x.Brand, "Brand").Cascade.SaveUpdate();
 			}
 		}
 

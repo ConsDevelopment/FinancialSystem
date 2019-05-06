@@ -69,6 +69,8 @@ body {
   .sidenav {
     background-image: url("../images/background/light_green.jpg");
     font-family: 'Titillium Web', sans-serif;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   .sidenav a {
     color: #4d4d4d;
@@ -110,13 +112,22 @@ body {
   }
 
   /*Search*/
+  .searchbox {
+    float: left;
+    background-color: white;
+    margin-top: 100px;
+  }
   .search {
-      margin-top: 100px;
-      background-color: white;
+    float: right;
+    background-color: white;
+    padding: 10px;
+    margin-top: 100px;
+    width: 85%;
+    margin-bottom: 50px;
   }
   
   .card-panel {
-    margin-top: 100px;
+    margin-top: 10px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;	
@@ -133,23 +144,133 @@ body {
     font-size: 18pt;
     margin-top: -10px;
 }
+#price1 {
+  text-align: center;
+  color: #388E3C;
+  font-size: 25pt !important;
+  margin-top: -10px;
+  font-size: medium;
+  font-weight: 700;
+  line-height: 70px;
+}
 .btn, .btn-large, .btn-small {
     display: block;
-    margin-top: 100px;
+    height: 75px;
+    line-height:75px;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 700;
+    background-color: white;
+    color: #388E3C;
+    box-shadow: none;
+}
+
+.btn-cart {
+  display: block;
+  height: 50px;
+  line-height:50px;
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 700;
+  background-color: #388E3C;
+  color: white;
+  box-shadow: none;
+  text-align: center;
+  border-radius: 5px;
+}
+.btn:hover, .btn-large:hover, .btn-small:hover {
+  box-shadow: none;
+  background-color: white !important;
+}
+.btn:focus, .btn-large:focus, .btn-small:focus, .btn-floating:focus {
+  background-color: white !important;
+}
+
+/*Modal*/
+.modal-close {
+  color: white;
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 700;
+  margin-right: 20px;
+}
+
+.modal-content {
+  padding: 10px;
+  overflow-y:hidden;
+}
+.input-field {
+  margin-left: 30px !important;
+}
+.btn-floating {
+  margin-top: 25px;
+  margin-right: 60px;
+}
+.pagination {
+  padding-top: 200px !important;
+}
+
+@media only screen and (max-width: 400px) {
+
+  .btn, .btn-large, .btn-small {
+    display: block;
     height: 50px;
     line-height:50px;
     font-family: 'Titillium Web', sans-serif;
     font-weight: 700;
     background-color: white;
     color: #388E3C;
-    
+    box-shadow: none;
+}
+  nav .notification {
+    margin-left: 300px;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 20px;
+  }
+  #price {
+    text-align: center;
+    color: red;
+    font-size: 25pt !important;
+    margin-top: -10px;
+    font-size: medium;
+    font-weight: 700
+  }
+  #price1 {
+    text-align: center;
+    color: #388E3C;
+    font-size: 15pt !important;
+    margin-top: -10px;
+    font-size: medium;
+    font-weight: 700;
+    line-height: 70px;
+  }
+
+  .input-field {
+    margin-left: 30px !important;
+  }
+
+  .btn-floating {
+    margin-top: 25px;
+    margin-right: 10px;
 }
 
-.btn, .btn-large, .btn-small a:hover {
-  box-shadow: none;
+
+    /*Search*/
+    .searchbox {
+      display: block;
+      background-color: white;
+      margin-top: 100px;
+    }
+    .search {
+      background-color: white;
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+}
+.pagination {
+  padding-top: 200px !important;
+}
 }
 
-  @media only screen and (max-width: 700px) {
+@media only screen and (max-width: 600px) {
+
   
     .notification-badge {
       position: relative;
@@ -162,8 +283,12 @@ body {
       padding: 1px 8px;
       font-family: 'Titillium Web', sans-serif;
     }
-  
-    .content {
+    nav .notification {
+      margin-left: 500px;
+      font-family: 'Titillium Web', sans-serif;
+      font-size: 20px;
+    }
+  .content {
       padding-left: -50px;
     }
     nav i.material-icons {
@@ -174,6 +299,7 @@ body {
         font-size: 10pt;
         margin-top: -10px;
     }
+    
   }
 
   @media only screen and (max-width: 700px) {
@@ -189,6 +315,11 @@ body {
       padding: 1px 8px;
       font-family: 'Titillium Web', sans-serif;
     }
+    nav .notification {
+      margin-left: 600px;
+      font-family: 'Titillium Web', sans-serif;
+      font-size: 20px;
+    }
   
     .content {
       padding-left: -50px;
@@ -197,9 +328,33 @@ body {
       margin-right: -20px;
     }
     #price {
-        color: red;
-        font-size: 18pt;
-        margin-top: -10px;
+      color: red;
+      font-size: 18pt;
+      margin-top: -10px;
+      font-size: medium;
+      font-weight: 700
+    }
+        /*Search*/
+        .searchbox {
+          display: block;
+          background-color: white;
+          margin-top: 100px;
+        }
+        .search {
+          background-color: white;
+          padding: 10px;
+          margin-top: 10px;
+          width: 100%;
+    }
+  }
+  @media only screen and (max-width: 900px) {
+    nav .notification {
+      margin-left: 300px;
+      font-family: 'Titillium Web', sans-serif;
+      font-size: 20px;
+    }
+    .pagination {
+      padding-top: 200px !important;
     }
   }
   

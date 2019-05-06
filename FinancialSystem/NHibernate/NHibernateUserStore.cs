@@ -85,6 +85,14 @@ namespace FinancialSystem.NHibernate {
 			return usr;
 		}
 
+		public async Task<UserModel> FindByStampAsync(string stamp) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<UserModel>().Where(x => x.SecurityStamp == stamp).SingleOrDefault();
+				}
+			}
+		}
+
 		public async Task UpdateAsync(UserModel user) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {

@@ -39,7 +39,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.Email);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
-				References(p => p.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
+				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 
 			}
 		}

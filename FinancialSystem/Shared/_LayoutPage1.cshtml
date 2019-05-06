@@ -19,14 +19,16 @@
 	<!-- Navbar goes here -->
 	<nav>
 		<div class="nav-wrapper">
-			<a id="logo-container" href="#" class="brand-logo"><img src="images/bsi_logo.png" alt="" class="logo"></a>
+			<a id="logo-container" href="#" class="brand-logo"><img src="~/content/images/company/bsi_logo.png" alt="" class="logo"></a>
 			<a href="#" class="notification"><i class="material-icons white-text">notifications</i> </a><small class="notification-badge yellow accent-2">5</small>
 			<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 			<ul class="right hide-on-med-and-down">
 				<li>
-				<li>
-					<a href="#"><img src="images/profilepic_sample.png" alt="" class="circle responsive-img"></a>
-				</li>
+					<ul>
+						<li>
+							<a href="#"><img src="~/content/images/users/profilepic_sample.png" alt="" class="circle responsive-img"></a>
+						</li>
+					</ul>
 				</li>
 				<li>
 					<a href="#" class="shopping">
@@ -50,64 +52,68 @@
 		<div class="row">
 			<div class="col s2">
 				<ul id="nav-mobile" class="sidenav sidenav-fixed" style="transform: translateX(-105%);">
-					<div class="brand-logo"><img src="images/bsi_logo.png" alt="" class="logo"></div>
-					<ul class="collapsible">
-						<li>
-							<div class="collapsible-header">
-								<a href="#">
-									<i class="material-icons">dashboard</i> Dash
-									Board
-								</a>
-							</div>
-						</li>
-						<li>
-							<div class="collapsible-header">
-								<a href="PRShop">
-									<i class="material-icons">assignment</i>
-									Purchase Request
-								</a>
-							</div>
-						</li>
-						<li>
-							<div class="collapsible-header">
-								<a href="#">
-									<i class="material-icons">format_quote</i> Quote
-									Analysis
-								</a>
-							</div>
-						</li>
-						<li>
-							<div class="collapsible-header">
-								<a href="#">
-									<i class="material-icons">shopping_cart</i>
-									Purchase Order
-								</a>
-							</div>
-						</li>
-						<li>
-							<div class="collapsible-header">
-								<a href="#">
-									<i class="material-icons">list</i>
-									Items
-								</a>
-							</div>
-						</li>
-						<li>
-							<div class="collapsible-header">
-								<a href="#">
-									<i class="material-icons">settings</i>
-									Setting
-								</a>
-							</div>
-							<div class="collapsible-body submenu">
-								<i class="material-icons icons">fiber_manual_record</i>
-								<a href="usermaintenance.html">User Maintenance</a>
-							</div>
-							<div class="collapsible-body submenu">
-								<i class="material-icons icons">fiber_manual_record</i><a href="jobmaintenance.html">Job Maintenance</a>
-							</div>
-						</li>
-					</ul>
+					<li>
+						<div class="brand-logo"><img src="~/content/images/company/bsi_logo.png" alt="" class="logo"></div>
+					</li>
+					<li>
+						<ul class="collapsible">
+							<li>
+								<div class="collapsible-header">
+									<a href="#">
+										<i class="material-icons">dashboard</i> Dash
+										Board
+									</a>
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header">
+									<a href="PRShop">
+										<i class="material-icons">assignment</i>
+										Purchase Request
+									</a>
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header">
+									<a href="#">
+										<i class="material-icons">format_quote</i> Quote
+										Analysis
+									</a>
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header">
+									<a href="#">
+										<i class="material-icons">shopping_cart</i>
+										Purchase Order
+									</a>
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header">
+									<a href="#">
+										<i class="material-icons">list</i>
+										Items
+									</a>
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header">
+									<a href="#">
+										<i class="material-icons">settings</i>
+										Setting
+									</a>
+								</div>
+								<div class="collapsible-body submenu">
+									<i class="material-icons icons">fiber_manual_record</i>
+									<a href="usermaintenance.html">User Maintenance</a>
+								</div>
+								<div class="collapsible-body submenu">
+									<i class="material-icons icons">fiber_manual_record</i><a href="jobmaintenance.html">Job Maintenance</a>
+								</div>
+							</li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 			<div>
@@ -118,14 +124,16 @@
 
 	<script>
         document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.sidenav');
-            var instances = M.Sidenav.init(elems);
-            var elems = document.querySelectorAll('select');
-            var instances = M.FormSelect.init(elems);
-            var elems = document.querySelectorAll('.dropdown-trigger');
-            var instances = M.Dropdown.init(elems);
-            var elems = document.querySelectorAll('.collapsible');
-            var instances = M.Collapsible.init(elems);
+        	var elems = document.querySelectorAll('.sidenav');
+        	var instances = M.Sidenav.init(elems);
+        	var elems = document.querySelectorAll('select');
+        	var instances = M.FormSelect.init(elems);
+        	var elems = document.querySelectorAll('.dropdown-trigger');
+        	var instances = M.Dropdown.init(elems);
+        	var elems = document.querySelectorAll('.collapsible');
+        	var instances = M.Collapsible.init(elems);
+        	var elems = document.querySelectorAll('.modal');
+        	var instances = M.Modal.init(elems);
         });
 	</script>
 	<!-- Compiled and minified JavaScript -->

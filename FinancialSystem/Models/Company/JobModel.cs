@@ -31,7 +31,7 @@ namespace FinancialSystem.Models {
 				Id(x => x.Id);
 				Map(x => x.JobeCode).Index("JobCode_IDX").Length(400).UniqueKey("uniq");
 				Map(x => x.JobTitle);
-				References(p => p.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
+				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 			}
 		}
 

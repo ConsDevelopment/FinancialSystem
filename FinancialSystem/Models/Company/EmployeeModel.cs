@@ -19,6 +19,7 @@ namespace FinancialSystem.Models {
 		public virtual string EmpNo { get; set; }
 		public virtual string password { get; set; }
 		public virtual GenderType? Gender { get; set; }
+		public virtual string Image { get; set; }
 		public virtual String Name() {
 			return ((FirstName ?? "").Trim() + " " + (LastName ?? "").Trim()).Trim();
 		}
@@ -46,9 +47,10 @@ namespace FinancialSystem.Models {
 				Map(x => x.Gender);
 				Map(x => x.CreateTime);
 				Map(x => x.password);
-				References(p => p.Company, "Company").Cascade.SaveUpdate();
-				References(p => p.Team, "Team").Cascade.SaveUpdate();
-				References(p => p.Job, "Job").Cascade.SaveUpdate();
+				Map(x => x.Image);
+				References(x => x.Company, "Company").Cascade.SaveUpdate();
+				References(x => x.Team, "Team").Cascade.SaveUpdate();
+				References(x => x.Job, "Job").Cascade.SaveUpdate();
 			}
 		}
 
