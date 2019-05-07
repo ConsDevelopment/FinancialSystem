@@ -25,7 +25,7 @@ namespace FinancialSystem.Controllers.MVC.PR
 				CurrentUserSession.userSession = user.Id;
 				return View(user);
 			} else {
-				return View("../Users/Login");
+				return RedirectToAction("Login","User");
 			}
 			
 			
