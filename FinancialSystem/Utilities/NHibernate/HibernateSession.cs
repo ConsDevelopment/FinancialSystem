@@ -199,7 +199,7 @@ namespace FinancialSystem.Utilities {
 		public static async void SignInUser(UserModel user, bool remeberMe) {
 
 			
-			CurrentUserSession.userSession = user.Id;
+			//CurrentUserSession.userSession = user.Id;
 
 			if (remeberMe) {
 
