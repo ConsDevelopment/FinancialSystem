@@ -200,7 +200,7 @@ namespace FinancialSystem.Utilities {
 
 			
 			CurrentUserSession.userSession = user.Id;
-			
+
 			if (remeberMe) {
 
 				if (user.SecurityStamp == null) {
@@ -209,6 +209,8 @@ namespace FinancialSystem.Utilities {
 					await hs.UpdateAsync(user);
 				}
 				CurrentUserSession.userSecurityStampCookie = user.SecurityStamp;
+			} else {
+				CurrentUserSession.removeSecurityStampCookie();
 			}
 		}
 		public class RuntimeNames {

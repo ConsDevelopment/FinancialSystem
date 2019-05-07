@@ -34,7 +34,7 @@ namespace FinancialSystem.Controllers.API.Users
 			LoginAccessor la = new LoginAccessor();
 			var user = la.LogIn(value);
 			if (user != null) {
-				Url = "Register";
+				Url = "../PR/PRShop";
 			}
             return Url;
 

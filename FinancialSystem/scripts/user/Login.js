@@ -5,7 +5,7 @@ function logIn() {
         "Password": $("#Password").val(),
         "RememberMe": $("#RememberMe").is(":checked")
     };
-    alert($('#RememberMe').is(':checked'));
+
     $.ajax({
 
         type: "POST",

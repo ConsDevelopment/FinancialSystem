@@ -22,8 +22,8 @@ namespace FinancialSystem.TestClass {
 			var usr = new UserModel() {
 				FirstName = "cons",
 				LastName = "mname",
-				UserName = "myusername5@del.com"
-			
+				UserName = "cons.manzano@backofficesolutions.ph"
+
 			};
 			CreateUser(usr);
 			await store.SetPasswordAsync(usr, "test2");

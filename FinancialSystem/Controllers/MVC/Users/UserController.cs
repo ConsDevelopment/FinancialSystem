@@ -31,8 +31,7 @@ namespace FinancialSystem.Controllers.MVC.Users
         public ActionResult Login()
         {
             ViewData["ApiServer"] = Config.GetApiServerURL();
-			//HttpContext.Current.Session["UserModel"] = null;
-			HttpContext.Session.Add("UserModel", null);
+			
 			return View();
         }
     }

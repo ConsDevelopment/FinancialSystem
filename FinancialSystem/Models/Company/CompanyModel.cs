@@ -6,6 +6,8 @@ using System;
 using Microsoft.AspNet.Identity.EntityFramework;
 using FinancialSystem.Models.UserModels;
 using System.Collections.Generic;
+using FinancialSystem.NHibernate;
+using System.Threading.Tasks;
 
 namespace FinancialSystem.Models {
 	public class CompanyModel  {
@@ -15,17 +17,18 @@ namespace FinancialSystem.Models {
 		public virtual string Phone { get; set; }
 		public virtual string Adress { get; set; }
 		public virtual string Email { get; set; }
-		public virtual string CreatedBy { get; set; }
+		public virtual string Logo { get; set; }
+
+		public virtual UserModel CreatedBy { get; set; }
 		public CompanyModel() {
-			
+		
 			CreateTime = DateTime.UtcNow;
-			CreatedBy = CurrentUserSession.userSession;
+			
 		}
 
 		public virtual DateTime CreateTime { get; set; }
 		public virtual DateTime? DeleteTime { get; set; }
 
-		public virtual ICollection<EmployeeModel> Employee { get; set; }
 
 		public class CompanyModelMap : ClassMap<CompanyModel> {
 			public CompanyModelMap() {
@@ -37,8 +40,8 @@ namespace FinancialSystem.Models {
 				Map(x => x.Email);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
-				Map(x => x.CreatedBy);
-				HasMany(x => x.Employee).Cascade.SaveUpdate();
+				Map(x => x.Logo);
+				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 			}
 		}
 
