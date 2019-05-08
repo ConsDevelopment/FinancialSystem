@@ -7,7 +7,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,600,600i,700,700i,900" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 @Styles.Render("~/Content/PR/pr-shop")
+@Scripts.Render("~/scripts/PR/PR")
+@Html.Hidden("ApiServer", ViewData["ApiServer"])
 <div class="col s10 content">
 	<div class="container">
 		<div class="row">
@@ -26,7 +30,7 @@
 							<li><a href="#!">five</a></li>
 						</ul>
 					</div>
-					<div class="col s10 search"><input type="text" id="search" placeholder="Search"></div>
+					<div class="col s10 search"><input type="text" id="search" placeholder="Search" onkeyup="search(event)"></div>
 				</div>
 			</div>
 

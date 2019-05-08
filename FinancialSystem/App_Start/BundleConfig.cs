@@ -108,6 +108,9 @@ namespace FinancialSystem
 
 			bundles.Add(new StyleBundle("~/Content/PR/pr-shop")
 				.Include("~/Content/PR/pr-shop.css"));
+			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/PR/PR").Include(
+					 "~/scripts/PR/PR.js"
+		   )));
 
 		}
 
