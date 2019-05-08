@@ -27,10 +27,12 @@ namespace FinancialSystem.Controllers.MVC.PR
 			if (!string.IsNullOrEmpty(session as string)) {
 				var user = await nh.FindByIdAsync(session.ToString());
 				ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
+				ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
 				return View(user);
 			} else if (CurrentUserSession.userSecurityStampCookie != null) {
 				var user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
 				ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
+				ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
 				HttpContext.Session["UserId"] = user.Id;
 				return View(user);
 			} else {

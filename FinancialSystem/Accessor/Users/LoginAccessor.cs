@@ -1,5 +1,6 @@
 ﻿using FinancialSystem.Controllers;
 using FinancialSystem.Models;
+using FinancialSystem.Models.UserModels;
 using FinancialSystem.Utilities;
 using Microsoft.AspNet.Identity;
 using System;
@@ -14,10 +15,14 @@ namespace FinancialSystem.Accessor.Users {
 			
 			if (ModelState.IsValid) {
 				var user = await UserManager.FindAsync(model.UserName.ToLower(), model.Password);
-				if (user != null) {
-					HibernateSession.SignInUser(user,model.RememberMe);
+				if (user != null && user.DeleteTime == null) {
+					HibernateSession.SignInUser(user, model.RememberMe);
+					return user;
+				} else {
+					CurrentUserSession.removeSecurityStampCookie();
+					return null;
 				}
-				return user;
+				
 			}
 			return null;
 		}
