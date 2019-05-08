@@ -124,6 +124,12 @@ namespace FinancialSystem.Utilities {
 
 			//throw new Exception("Invalid Environment");
 		}
+		public static string GetCompanyLogo(string filename) {
+			return  GetAppSetting("CompanyImagePath") + filename;
+		}
+		public static string GetUserProfilePict(string filename) {
+			return GetAppSetting("UserImagePath") + filename;
+		}
 		public static bool ShouldUpdateDB() {
 			var version = GetAppSetting("dbVersion", "0");
 			if (version == "0")

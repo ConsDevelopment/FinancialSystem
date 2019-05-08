@@ -9,7 +9,7 @@ using System.Web.SessionState;
 namespace FinancialSystem.Models.UserModels {
 	public static class CurrentUserSession  {
 
-		public static string userSession {
+		public static string userSessionCookie {
 			get {
 				 HttpCookie aCookie=HttpContext.Current.Request.Cookies["UserId"] ;
 				if (aCookie != null) {
@@ -48,9 +48,12 @@ namespace FinancialSystem.Models.UserModels {
 		public static void removeSecurityStampCookie() {
 			HttpCookie SecurityStamp = HttpContext.Current.Request.Cookies["SecurityStamp"];
 			HttpContext.Current.Response.Cookies.Remove("SecurityStamp");
-			SecurityStamp.Expires= DateTime.UtcNow.AddDays(-10);
-			SecurityStamp.Value = null;
-			HttpContext.Current.Response.SetCookie(SecurityStamp);
+			if (SecurityStamp != null) {
+				SecurityStamp.Expires = DateTime.UtcNow.AddDays(-10);
+				SecurityStamp.Value = null;
+				HttpContext.Current.Response.SetCookie(SecurityStamp);
+			}
+			
 		}
 		public static bool CloseUserSession() {
 			var session = (SingleRequestSession)HttpContext.Current.Items["UserModel"];

@@ -302,8 +302,8 @@
     <Content Include="Views\User\CreateUser.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
-    <Content Include="Shared\_LayoutPage1.cshtml" />
     <Content Include="Views\PR\PRShop.cshtml" />
+    <Content Include="Views\Shared\_LayoutPage1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

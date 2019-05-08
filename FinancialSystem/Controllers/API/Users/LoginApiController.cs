@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace FinancialSystem.Controllers.API.Users
@@ -28,12 +29,20 @@ namespace FinancialSystem.Controllers.API.Users
         // POST api/<controller>
         [AllowAnonymous]
         [Access(AccessLevel.SignedOut)]
-        public string Post(LoginViewModel value)
+
+		public string Post(LoginViewModel value)
         {
+
 			string Url = "";
 			LoginAccessor la = new LoginAccessor();
 			var user = la.LogIn(value);
 			if (user != null) {
+				var session = HttpContext.Current.Session;
+				if (session != null) {
+					if (session["UserId"] == null) {
+						session["UserId"] = user.Result.Id;
+					}
+				}
 				Url = "../PR/PRShop";
 			}
             return Url;
