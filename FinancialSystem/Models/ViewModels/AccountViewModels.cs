@@ -120,4 +120,7 @@ namespace FinancialSystem.Models
 
 		public string ProfileImageUrl { get; set; }
 	}
+	public class SearchItemViewModel {
+		public string searchItem { get; set; }
+	}
 }

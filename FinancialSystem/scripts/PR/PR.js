@@ -5,19 +5,17 @@ function search(event) {
 	}
 }
 function searchItem() {
-	//source = {
-	//	"UserName": $("#UserName").val(),
-	//	"Password": $("#Password").val(),
-	//	"RememberMe": $("#RememberMe").is(":checked")
-	//};
-	alert($("#search").val());
+	source = {
+		"searchItem": $("#search").val()
+	};
+	
 	$.ajax({
 
 		type: "POST",
 		url: $("#ApiServer").val() + "/api/SearchItem",
-		data: { "value:" + $("#search").val() },
+		data: JSON.stringify(source),
 		//data: "1",
-		contentType: 'text',
+		contentType: 'application/json; charset=utf-8',
 
 		//dataType: 'json',
 

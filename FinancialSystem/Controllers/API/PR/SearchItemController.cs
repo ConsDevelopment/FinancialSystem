@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinancialSystem.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -18,12 +19,14 @@ namespace FinancialSystem.Controllers.API.PR {
 		}
 
 		// POST api/<controller>
-		public void Post([FromBody]string value) {
+		public string Post(SearchItemViewModel value) {
+			var search = value.searchItem;
+			return search;
 		}
 
 		// PUT api/<controller>/5
-		public void Put(int id, [FromBody]string value) {
-			var search = value;
+		public void Put(int id,string value) {
+			
 		}
 
 		// DELETE api/<controller>/5
