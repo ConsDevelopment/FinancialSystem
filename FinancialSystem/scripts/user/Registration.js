@@ -18,7 +18,7 @@
 		//dataType: 'json',
 
 		success: function (data) {
-			location.href = data;
+			alert(data);
 
 
 		},

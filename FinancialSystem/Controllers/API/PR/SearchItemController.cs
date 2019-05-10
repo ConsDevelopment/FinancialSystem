@@ -1,9 +1,11 @@
 ﻿using FinancialSystem.Models;
+using FinancialSystem.NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace FinancialSystem.Controllers.API.PR {
@@ -19,8 +21,9 @@ namespace FinancialSystem.Controllers.API.PR {
 		}
 
 		// POST api/<controller>
-		public string Post(SearchItemViewModel value) {
-			var search = value.searchItem;
+		public async Task<IList<ItemModel>> Post(SearchItemViewModel value) {
+			NHibernateItemStore his = new NHibernateItemStore();			
+			var search =await his.SearchItemAsync( value.searchItem);
 			return search;
 		}
 

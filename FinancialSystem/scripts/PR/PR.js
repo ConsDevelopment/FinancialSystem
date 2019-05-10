@@ -20,7 +20,7 @@ function searchItem() {
 		//dataType: 'json',
 
 		success: function (data) {
-			location.href = data;
+			alert(data[0].Name);
 
 
 		},
