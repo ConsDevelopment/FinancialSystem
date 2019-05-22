@@ -1,4 +1,5 @@
-﻿using FinancialSystem.Models.UserModels;
+﻿using FinancialSystem.Models;
+using FinancialSystem.Models.UserModels;
 using FinancialSystem.NHibernate;
 using FinancialSystem.Utilities;
 using System;
@@ -24,20 +25,18 @@ namespace FinancialSystem.Controllers.MVC.PR
 			HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
 
 			var session = HttpContext.Session["UserId"];
+			UserModel user;
 			if (!string.IsNullOrEmpty(session as string)) {
-				var user = await nh.FindByIdAsync(session.ToString());
-				ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
-				ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
-				return View(user);
+				user = await nh.FindByIdAsync(session.ToString());				
 			} else if (CurrentUserSession.userSecurityStampCookie != null) {
-				var user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
-				ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
-				ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
-				HttpContext.Session["UserId"] = user.Id;
-				return View(user);
+				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
 			} else {
 				return RedirectToAction("Login", "User");
 			}
-        }
+			ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
+			ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
+			HttpContext.Session["UserId"] = user.Id;
+			return View(user);
+		}
     }
 }
