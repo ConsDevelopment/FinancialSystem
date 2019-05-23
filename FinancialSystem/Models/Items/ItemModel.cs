@@ -19,7 +19,8 @@ namespace FinancialSystem.Models {
 		public virtual int Quantity { get; set; }
 		public virtual string image { get; set; }
 		public virtual bool InStock { get; set; }
-		public virtual SupplierModel Supplier { get; set; }
+		public virtual double Price { get; set; }
+		//public virtual SupplierModel Supplier { get; set; }
 		public virtual CategoryModel Category { get; set; }
 		public virtual BrandModel Brand { get; set; }
 
@@ -45,6 +46,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.InStock);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
+				Map(x => x.Price);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				//References(p => p.Supplier, "Supplier").Cascade.SaveUpdate();
 				References(x => x.Category, "Category").Cascade.SaveUpdate();

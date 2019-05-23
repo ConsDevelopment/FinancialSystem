@@ -9,45 +9,29 @@ using System.Web.SessionState;
 namespace FinancialSystem.Models.UserModels {
 	public static class CurrentUserSession  {
 
-		public static string userSessionCookie {
-			get {
-				 HttpCookie aCookie=HttpContext.Current.Request.Cookies["UserId"] ;
-				if (aCookie != null) {
-					return HttpContext.Current.Server.HtmlEncode(aCookie.Value);
-				}
-				return null;
-			}
-			set {
-				HttpCookie UserId = new HttpCookie("UserId");
-				UserId.Value = value;
-				var response = HttpContext.Current.Response;
-      			response.Cookies.Remove("UserId");
-				response.Cookies.Add(UserId);
-			}
-		}
 		public static string userSecurityStampCookie {
 			
 		get {
 
-				HttpCookie aCookie = HttpContext.Current.Request.Cookies["SecurityStamp"];
+				HttpCookie aCookie = HttpContext.Current.Request.Cookies["FSSecurityStamp"];
 				if (aCookie != null) {
 					return HttpContext.Current.Server.HtmlEncode(aCookie.Value);
 				}
 				return null;
 			}
 			set {
-				HttpCookie SecurityStamp = new HttpCookie("SecurityStamp");
+				HttpCookie SecurityStamp = new HttpCookie("FSSecurityStamp");
 				SecurityStamp.Value = value;
 				SecurityStamp.Expires = DateTime.UtcNow.AddDays(14);
 				var response = HttpContext.Current.Response;
 
-				response.Cookies.Remove("SecurityStamp");
+				response.Cookies.Remove("FSSecurityStamp");
 				response.Cookies.Add(SecurityStamp);
 			}
 		}
 		public static void removeSecurityStampCookie() {
-			HttpCookie SecurityStamp = HttpContext.Current.Request.Cookies["SecurityStamp"];
-			HttpContext.Current.Response.Cookies.Remove("SecurityStamp");
+			HttpCookie SecurityStamp = HttpContext.Current.Request.Cookies["FSSecurityStamp"];
+			HttpContext.Current.Response.Cookies.Remove("FSSecurityStamp");
 			if (SecurityStamp != null) {
 				SecurityStamp.Expires = DateTime.UtcNow.AddDays(-10);
 				SecurityStamp.Value = null;

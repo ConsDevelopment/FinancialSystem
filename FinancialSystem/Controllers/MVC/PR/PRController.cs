@@ -24,7 +24,7 @@ namespace FinancialSystem.Controllers.MVC.PR
 			
 			HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
 
-			var session = HttpContext.Session["UserId"];
+			var session = HttpContext.Session[Config.GetAppSetting("SessionKey")];
 			UserModel user;
 			if (!string.IsNullOrEmpty(session as string)) {
 				user = await nh.FindByIdAsync(session.ToString());				
@@ -35,7 +35,8 @@ namespace FinancialSystem.Controllers.MVC.PR
 			}
 			ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
 			ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
-			HttpContext.Session["UserId"] = user.Id;
+			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
+			HttpContext.Session[Config.GetAppSetting("SessionKey")] = user.Id;
 			return View(user);
 		}
     }

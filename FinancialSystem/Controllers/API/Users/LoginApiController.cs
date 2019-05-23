@@ -1,5 +1,6 @@
 ﻿using FinancialSystem.Accessor.Users;
 using FinancialSystem.Models;
+using FinancialSystem.Utilities;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -39,8 +40,8 @@ namespace FinancialSystem.Controllers.API.Users
 			if (user != null) {
 				var session = HttpContext.Current.Session;
 				if (session != null) {
-					if (session["UserId"] == null) {
-						session["UserId"] = user.Result.Id;
+					if (session[Config.GetAppSetting("SessionKey")] == null) {
+						session[Config.GetAppSetting("SessionKey")] = user.Result.Id;
 					}
 				}
 				Url = "../PR/PRShop";
