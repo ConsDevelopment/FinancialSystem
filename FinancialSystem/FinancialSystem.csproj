@@ -308,6 +308,7 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\PR\PRShop.cshtml" />
     <Content Include="Views\Shared\_LayoutPage1.cshtml" />
+    <Content Include="Views\PR\ItemSearch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -39,5 +39,13 @@ namespace FinancialSystem.Controllers.MVC.PR
 			HttpContext.Session[Config.GetAppSetting("SessionKey")] = user.Id;
 			return View(user);
 		}
-    }
+
+		public async Task<ActionResult> ItemSearch(string value) {
+			NHibernateItemStore his = new NHibernateItemStore();
+			var search = await his.SearchItemAsync("");
+			return PartialView(search);
+
+		}
+
+	}
 }

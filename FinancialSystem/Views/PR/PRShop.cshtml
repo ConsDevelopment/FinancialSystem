@@ -14,7 +14,7 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 @Styles.Render("~/Content/PR/pr-shop")
 @Scripts.Render("~/scripts/PR/PR")
 @Html.Hidden("ApiServer", ViewData["ApiServer"])
@@ -53,36 +53,7 @@
 			</div>
 		</div>
 	</div>
-    <script>
+	
 
-        document.addEventListener('DOMContentLoaded', function () {
-
-        	var elems = document.querySelectorAll('.sidenav');
-
-        	var instances = M.Sidenav.init(elems);
-
-        	var elems = document.querySelectorAll('select');
-
-        	var instances = M.FormSelect.init(elems);
-
-        	var elems = document.querySelectorAll('.dropdown-trigger');
-
-        	var instances = M.Dropdown.init(elems);
-
-        	var elems = document.querySelectorAll('.collapsible');
-
-        	var instances = M.Collapsible.init(elems);
-
-        	var elems = document.querySelectorAll('.modal');
-
-        	var instances = M.Modal.init(elems);
-
-        });
-
-    </script>
-
-    <!-- Compiled and minified JavaScript -->
-
-    
 </div>
 
