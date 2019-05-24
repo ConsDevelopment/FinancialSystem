@@ -38,6 +38,54 @@
 			
 			<div id="ItemContainer">
 
+				<div class="col s12 m3">
+					<div class="card-panel">
+						<div class="itemImg">
+							<img src="images/items/ballpens/shoes-thumb.jpg" alt="" class="responsive-img">
+						</div>
+						<div class="desc">
+							<p>Rubber Shoes</p>
+						</div>
+						<div class="price">
+							<p id="price">&#8369; 1,500.00</p>
+						</div>
+						<div class="button">
+							<a data-target="item1" class="waves-effect waves-light btn-cart modal-trigger">
+								Add
+								to
+								Cart
+							</a>
+							<!-- Modal Structure -->
+							<div id="item1" class="modal bottom-sheet">
+								<div class="modal-content">
+									<h5>Add Item to cart</h5>
+									<ul class="collection">
+										<li class="collection-item avatar">
+											<img src="images/items/ballpens/shoes-thumb.jpg" class="circle">
+											<span class="title">
+												<p>RUBBER SHOES</p>
+											</span>
+											<p> Description here </p>
+											<p> SKU:0001 </p>
+											<a href="#!" class="secondary-content">
+												<p id="price1">&#8369; 1,500.00</p>
+											</a>
+										</li>
+										<li class="">
+											<div class="input-field inline">
+												<input id="" type="text" class="validate">
+												<label for="">Quantity</label>
+											</div>
+											<a class="btn-floating pulse btn-medium waves-effect waves-light green darken-3
+                                                            right"><i class="material-icons">add</i>Add Item</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 			
 			
@@ -61,4 +109,37 @@
 	</div>
 	
 </div>
+
+
+<script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+        	var elems = document.querySelectorAll('.sidenav');
+
+        	var instances = M.Sidenav.init(elems);
+
+        	var elems = document.querySelectorAll('select');
+
+        	var instances = M.FormSelect.init(elems);
+
+        	var elems = document.querySelectorAll('.dropdown-trigger');
+
+        	var instances = M.Dropdown.init(elems);
+
+        	var elems = document.querySelectorAll('.collapsible');
+
+        	var instances = M.Collapsible.init(elems);
+
+        	var elems = document.querySelectorAll('.modal');
+
+        	var instances = M.Modal.init(elems);
+
+        });
+
+</script>
+
+<!-- Compiled and minified JavaScript -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 

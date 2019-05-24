@@ -28,7 +28,7 @@ function searchItem() {
 				strElement += "<div class='col s12 m3'>";
 				strElement += "<div class='card-panel'>";
 				strElement += "<div class='itemImg'>";
-				strElement += "<img src='" + $("#ItemImagePath").val() + data[i].image + "' alt='' class='responsive-img'>";
+				strElement += "<img src='" + $("#ItemImagePath").val() + data[i].image + "' alt=' ' class='responsive-img'>";
 				strElement += "</div>";
 				strElement += "<div class='desc'>";
 				strElement += "<p>" + data[i].Name + "</p>";
@@ -37,11 +37,11 @@ function searchItem() {
 				strElement += "<p id='price'>&#8369; " + data[i].Price + "</p>";
 				strElement += "</div>";
 				strElement += "<div class='button'>";
-				strElement += "<a data-target='" + data[i].Id + "' class='waves-effect waves-light btn-cart modal-trigger'>";
+				strElement += "<a data-target='item" + data[i].Id + "' class='waves-effect waves-light btn-cart modal-trigger'>";
 				strElement += "Add to Cart";
 				strElement += "</a>";
 				strElement += "<!-- Modal Structure -->";
-				strElement += "<div id='" + data[i].Id + "' class='modal bottom-sheet'>";
+				strElement += "<div id='item" + data[i].Id + "' class='modal bottom-sheet'>";
 				strElement += "<div class='modal-content'>";
 				strElement += "<h5>Add Item to cart</h5>";
 				strElement += "<ul class='collection'>";
@@ -72,7 +72,7 @@ function searchItem() {
 				strElement += "</div>";
 
 			}
-			$("#ItemContainer").append(strElement);
+			//$("#ItemContainer").append(strElement);
 			},
 
 			error: function (error) {
