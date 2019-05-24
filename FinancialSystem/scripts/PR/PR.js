@@ -23,8 +23,9 @@ function searchItem() {
 		success: function (data) {
 			alert(data[0].Name);
 			$("#ItemContainer").empty();
-			var strElement="";
-			for(i=0;i<data.length;i++){
+			var strElement = "";
+			var i = 0;
+			//for(i=0;i<data.length;i++){
 				strElement += "<div class='col s12 m3'>";
 				strElement += "<div class='card-panel'>";
 				strElement += "<div class='itemImg'>";
@@ -71,7 +72,7 @@ function searchItem() {
 				strElement += "</div>";
 				strElement += "</div>";
 
-			}
+			//}
 			$("#ItemContainer").append(strElement);
 			},
 

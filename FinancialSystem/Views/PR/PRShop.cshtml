@@ -4,11 +4,17 @@
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 	
 }
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,600,600i,700,700i,900" rel="stylesheet">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,600,600i,700,700i,900" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--Import materialize.css-->
+ 
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 @Styles.Render("~/Content/PR/pr-shop")
 @Scripts.Render("~/scripts/PR/PR")
 @Html.Hidden("ApiServer", ViewData["ApiServer"])
@@ -18,20 +24,8 @@
 		<div class="row">
 			<div class="category">
 				<div class="row">
-					<div class="col s2">
-						<!-- Dropdown Trigger -->
-						<a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Category</a>
 
-						<!-- Dropdown Structure -->
-						<ul id='dropdown1' class='dropdown-content'>
-							<li><a href="#!">one</a></li>
-							<li><a href="#!">two</a></li>
-							<li><a href="#!">three</a></li>
-							<li><a href="#!">four</a></li>
-							<li><a href="#!">five</a></li>
-						</ul>
-					</div>
-					<div class="col s10 search"><input type="text" id="search" placeholder="Search" onkeyup="search(event)"></div>
+                    <div class="search"><input type="text" id="search" placeholder="Search" onkeyup="search(event)"></div>
 				</div>
 			</div>
 
@@ -59,6 +53,36 @@
 			</div>
 		</div>
 	</div>
-	
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+        	var elems = document.querySelectorAll('.sidenav');
+
+        	var instances = M.Sidenav.init(elems);
+
+        	var elems = document.querySelectorAll('select');
+
+        	var instances = M.FormSelect.init(elems);
+
+        	var elems = document.querySelectorAll('.dropdown-trigger');
+
+        	var instances = M.Dropdown.init(elems);
+
+        	var elems = document.querySelectorAll('.collapsible');
+
+        	var instances = M.Collapsible.init(elems);
+
+        	var elems = document.querySelectorAll('.modal');
+
+        	var instances = M.Modal.init(elems);
+
+        });
+
+    </script>
+
+    <!-- Compiled and minified JavaScript -->
+
+    
 </div>
 
