@@ -1,4 +1,10 @@
 ﻿
+function modal(id) {
+	
+		var elems = document.querySelectorAll('.modal');
+		var instances = M.Modal.init(elems);
+	
+}
 function search(event) {
 	alert("test");
 	if (event.keyCode == 13) {

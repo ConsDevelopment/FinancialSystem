@@ -248,6 +248,7 @@
     <Compile Include="Models\Company\EmployeeModel.cs" />
     <Compile Include="Models\Enums\AccessLevel.cs" />
     <Compile Include="Models\Enums\AlertType.cs" />
+    <Compile Include="Models\Enums\CatalogType.cs" />
     <Compile Include="Models\Items\BrandModel.cs" />
     <Compile Include="Models\Items\CategoryModel.cs" />
     <Compile Include="Models\Items\SupplierModel.cs" />
