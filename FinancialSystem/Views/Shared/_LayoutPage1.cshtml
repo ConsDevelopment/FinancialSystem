@@ -21,7 +21,7 @@
 	<!--Let browser know website is optimized for mobile-->
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	@Styles.Render("~/Content/PR/pr-shop")
 
 </head>
@@ -249,6 +249,9 @@
         	var elems = document.querySelectorAll('.collapsible');
 
         	var instances = M.Collapsible.init(elems);
+        	var elems = document.querySelectorAll('.modal');
+
+        	var instances = M.Modal.init(elems);
 
         });
 

@@ -1,26 +1,54 @@
-﻿
+﻿@model IList<FinancialSystem.Models.ItemModel>
 
-<div>
-	test
-</div>
+@foreach (var row in Model) {
+	<div class="col s12 m3">
+		<div class="card-panel">
+			<div class="itemImg">
+				<img src="@(ViewData["ItemImagePath"])@(row.image)" alt="" class="responsive-img">
+			</div>
+			<div class="desc">
+				<p>@row.Description</p>
+			</div>
+			<div class="price">
+				<p id="price">&#8369; @row.Price</p>
+			</div>
+			<div class="button">
+				<a href="#item@(row.Id)" class="waves-effect waves-light btn-cart modal-trigger">
+					Add
+					to
+					Cart
+				</a>
+				<!-- Modal Structure -->
+				<div id="item@(row.Id)" class="modal bottom-sheet">
+					<div class="modal-content">
+						<h5>Add Item to cart</h5>
+						<ul class="collection">
+							<li class="collection-item avatar">
+								<img src="@(ViewData["ItemImagePath"])@(row.image)" class="circle">
+								<span class="title">
+									@row.Name
+								</span>
+								<p> @row.Description </p>
+								<p> @row.SKU </p>
+								<a href="#!" class="secondary-content">
+									<p id="price1">&#8369; @row.Price</p>
+								</a>
+							</li>
+							<li class="">
+								<div class="input-field inline">
+									<input id="" type="text" class="validate">
+									<label for="">Quantity</label>
+								</div>
+								<a class="btn-floating pulse btn-medium waves-effect waves-light green darken-3
+																right"><i class="material-icons">add</i>Add Item</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
 
-<script>
 
-        document.addEventListener('DOMContentLoaded', function () {
-
-        	
-
-
-        	
-
-        	var elems = document.querySelectorAll('.modal');
-
-        	var instances = M.Modal.init(elems);
-
-        });
-
-</script>
-
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
