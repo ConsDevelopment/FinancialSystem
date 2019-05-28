@@ -22,6 +22,7 @@ namespace FinancialSystem.Models {
 		public virtual double Price { get; set; }
 		public virtual DateTime PriceValidity { get; set; }
 		public virtual CatalogType Catalogtype { get; set; }
+		public virtual UOMType UOM { get; set; }
 		//public virtual SupplierModel Supplier { get; set; }
 		public virtual CategoryModel Category { get; set; }
 		public virtual BrandModel Brand { get; set; }
@@ -49,12 +50,14 @@ namespace FinancialSystem.Models {
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
 				Map(x => x.Price);
-				Map(x => x.Catalogtype);
+				Map(x => x.Catalogtype).CustomType<CatalogType>();
+				Map(x => x.UOM).CustomType<UOMType>();
 				Map(x => x.PriceValidity);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				//References(p => p.Supplier, "Supplier").Cascade.SaveUpdate();
 				References(x => x.Category, "Category").Cascade.SaveUpdate();
 				References(x => x.Brand, "Brand").Cascade.SaveUpdate();
+
 			}
 		}
 

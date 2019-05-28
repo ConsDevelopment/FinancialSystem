@@ -6,7 +6,7 @@ function modal(id) {
 	
 }
 function search(event) {
-	alert("test");
+
 	if (event.keyCode == 13) {
 		searchItem();
 	}

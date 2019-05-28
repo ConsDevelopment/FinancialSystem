@@ -40,9 +40,10 @@ namespace FinancialSystem.Controllers.MVC.PR
 			return View(user);
 		}
 
-		public async Task<ActionResult> ItemSearch(string value) {
+		public async Task<ActionResult> ItemSearch(SearchItemViewModel value) {
 			NHibernateItemStore his = new NHibernateItemStore();
-			var search = await his.SearchItemAsync("");
+			value.searchItem = value.searchItem ?? "";
+			var search = await his.SearchItemAsync(value.searchItem);
 			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
 			return PartialView(search);
 
