@@ -10,15 +10,15 @@ using FinancialSystem.NHibernate;
 using System.Threading.Tasks;
 
 namespace FinancialSystem.Models {
-	public class CostRevenueCenterModel {
+	public class BusinessUnitModel {
 		public virtual long Id { get; set; }
-		public virtual string CRCCode { get; set; }
-		public virtual string CRCName { get; set; }
-		public virtual BusinessUnitModel BusinesUnit { get; set; }
+		public virtual string BUCode { get; set; }
+		public virtual string BUName { get; set; }
+		public virtual CompanyModel Company { get; set; }
 		
 
 		public virtual UserModel CreatedBy { get; set; }
-		public CostRevenueCenterModel() {
+		public BusinessUnitModel() {
 		
 			CreateTime = DateTime.UtcNow;
 			
@@ -28,15 +28,15 @@ namespace FinancialSystem.Models {
 		public virtual DateTime? DeleteTime { get; set; }
 
 
-		public class CostRevenueCenterModelMap : ClassMap<CostRevenueCenterModel> {
-			public CostRevenueCenterModelMap() {
+		public class BusinessUnitModelMap : ClassMap<BusinessUnitModel> {
+			public BusinessUnitModelMap() {
 				Id(x => x.Id);
-				Map(x => x.CRCCode).Index("CRCCode_IDX").Length(400).UniqueKey("uniq");
-				Map(x => x.CRCName);
+				Map(x => x.BUCode).Index("CRCCode_IDX").Length(400).UniqueKey("uniq");
+				Map(x => x.BUName);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
-				References(x => x.BusinesUnit, "BusinesUnit").Cascade.SaveUpdate();
+				References(x => x.Company, "Company").Cascade.SaveUpdate();
 
 			}
 		}

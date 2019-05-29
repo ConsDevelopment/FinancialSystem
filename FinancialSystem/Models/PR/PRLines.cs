@@ -13,7 +13,6 @@ namespace FinancialSystem.Models {
 	public class PRLines {
 		public virtual long Id { get; set; }
 		public virtual ItemModel Item { get; set; }
-		public virtual int LineItemNo { get; set; }
 		public virtual SupplierModel Supplier { get; set; }
 		public virtual int Quantity { get; set; }
 		public virtual UOMType UOM { get; set; }
@@ -37,7 +36,6 @@ namespace FinancialSystem.Models {
 		public class PRLinesMap : ClassMap<PRLines> {
 			public PRLinesMap() {
 				Id(x => x.Id);
-				Map(x => x.LineItemNo);
 				Map(x => x.Quantity);
 				Map(x => x.UOM).CustomType<UOMType>();
 				Map(x => x.Description);
