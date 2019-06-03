@@ -1,4 +1,33 @@
 ﻿
+function AddPrLines(id) {
+	source = {
+		"Id": id,
+		"Quantity": $("#qty" + id).val()
+	};
+
+	$.ajax({
+
+		type: "POST",
+		url: $("#ApiServer").val() + "/api/AddPRLines",
+		data: JSON.stringify(source),
+		//data: "1",
+		contentType: 'application/json; charset=utf-8',
+
+		//dataType: 'json',
+
+		success: function (data) {
+			var cartCount=Number($("#cartCount").html()) +1;
+			$("#cartCount").html(cartCount);
+		},
+
+		error: function (error) {
+			alert(error);
+			jsonValue = jQuery.parseJSON(error.responseText);
+
+		}
+
+	});
+}
 function modal(id) {
 	
 		var elems = document.querySelectorAll('.modal');
@@ -29,57 +58,6 @@ function searchItem() {
 		success: function (data) {
 			$("#ItemContainer").empty();
 			$("#ItemContainer").html(data);
-			//var strElement = "";
-			//var i = 0;
-			////for(i=0;i<data.length;i++){
-			//	strElement += "<div class='col s12 m3'>";
-			//	strElement += "<div class='card-panel'>";
-			//	strElement += "<div class='itemImg'>";
-			//	strElement += "<img src='" + $("#ItemImagePath").val() + data[i].image + "' alt='' class='responsive-img'>";
-			//	strElement += "</div>";
-			//	strElement += "<div class='desc'>";
-			//	strElement += "<p>" + data[i].Name + "</p>";
-			//	strElement += "</div>";
-			//	strElement += "<div class='price'>";
-			//	strElement += "<p id='price'>&#8369; " + data[i].Price + "</p>";
-			//	strElement += "</div>";
-			//	strElement += "<div class='button'>";
-			//	strElement += "<a data-target='" + data[i].Id + "' class='waves-effect waves-light btn-cart modal-trigger'>";
-			//	strElement += "Add to Cart";
-			//	strElement += "</a>";
-			//	strElement += "<!-- Modal Structure -->";
-			//	strElement += "<div id='" + data[i].Id + "' class='modal bottom-sheet'>";
-			//	strElement += "<div class='modal-content'>";
-			//	strElement += "<h5>Add Item to cart</h5>";
-			//	strElement += "<ul class='collection'>";
-			//	strElement += "<li class='collection-item avatar'>";
-			//	strElement += "<img src='" + $("#ItemImagePath").val() + data[i].image + "' class='circle'>";
-			//	strElement += "<span class='title'>";
-			//	strElement += "<p>" + data[i].Name + "</p>";
-			//	strElement += "</span>"
-			//	strElement += "<p> " + data[i].Description + " </p>";
-			//	strElement += "<p> " + data[i].SKU + " </p>";
-			//	strElement += "<a href='#!' class='secondary-content'>";
-			//	strElement += "<p id='price1'>&#8369;" + data[i].Price + "</p>";
-			//	strElement += "</a>";
-			//	strElement += "</li>";
-			//	strElement += "<li class=''>";
-			//	strElement += "<div class='input-field inline'>";
-			//	strElement += "<input id='' type='text' class='validate'>";
-			//	strElement += "<label for=''>" + data[i].Quantity + "</label>";
-			//	strElement += "</div>";
-			//	strElement += "<a class='btn-floating pulse btn-medium waves-effect waves-light green darken-3";
-			//	strElement += "right'><i class='material-icons'>add</i>Add Item</a>";
-			//	strElement += "</li>";
-			//	strElement += "</ul>";
-			//	strElement += "</div>";
-			//	strElement += "</div>";
-			//	strElement += "</div>";
-			//	strElement += "</div>";
-			//	strElement += "</div>";
-
-			////}
-			//$("#ItemContainer").append(strElement);
 			},
 
 			error: function (error) {

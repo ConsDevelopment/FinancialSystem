@@ -14,17 +14,17 @@
 				<p id="price">&#8369; @row.Price</p>
 			</div>
 			<div class="button">
-@if (row.PriceValidity > DateTime.UtcNow && row.Price != 0) {
+			@if (row.PriceValidity > DateTime.UtcNow && row.Price != 0) {
 				<a onclick="modal(@(row.Id))" data-target="item@(row.Id)"  class="waves-effect waves-light btn-cart modal-trigger">
 					Add
 					to
 					Cart
 				</a>
-				} else {
-	<a onclick=""  class="waves-effect waves-light btn-cart modal-trigger">
-		Update
-	</a>
-}
+			} else {
+				<a onclick=""  class="waves-effect waves-light btn-cart modal-trigger">
+					Update
+				</a>
+			}
 				<!-- Modal Structure -->
 				<div id="item@(row.Id)" class="modal bottom-sheet">
 					<div class="modal-content">
@@ -45,11 +45,11 @@
 							</li>
 							<li class="">
 								<div class="input-field inline">
-									<input id="" type="text" class="validate">
+									<input id="qty@(row.Id)" type="text" class="validate">
 									<label for="">Quantity</label>
 								</div>
 								<a class="modal-action modal-close btn-floating pulse btn-medium waves-light green darken-3
-																right" onclick="alert('test')"><i class="material-icons">add</i>Add Item</a>
+																right" onclick="AddPrLines(@(row.Id))"><i class="material-icons">add</i>Add Item</a>
 							</li>
 						</ul>
 					</div>
