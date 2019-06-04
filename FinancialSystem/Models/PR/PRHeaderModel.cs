@@ -10,30 +10,39 @@ using System.Threading.Tasks;
 using FinancialSystem.NHibernate;
 
 namespace FinancialSystem.Models {
-	public class PRHeader {
+	public class PRHeaderModel {
+		private string requisitionNo;
 		public virtual long Id { get; set; }
 		public virtual StatusType Status { get; set; }
 		public virtual EmployeeModel Requestor { get; set; }
 		public virtual string DeliveryAdress { get; set; }
 		public virtual ChargeLocationModel CLC { get; set; }
-		public virtual string RequisitionNo { get;set;  }
+		public virtual string RequisitionNo {
+			get {
+				if (requisitionNo == null) {
+					requisitionNo = CRC.BusinesUnit.BUCode + DateTime.UtcNow.Month.ToString().PadLeft(2, '0') + Id.ToString().PadLeft(5, '0');
+				}
+				return requisitionNo;
+			}
+			set {
+				requisitionNo = value;
+			}
+		}
 		public virtual DateTime DateNeeded { get; set;  }
 		public virtual CostRevenueCenterModel CRC { get; set; }
 		public virtual UserModel CreatedBy { get; set; }
 		public virtual string CategoryAccountCode { get; set; }
-		public virtual ICollection<PRLines> Lines { get; set; }
+		public virtual ICollection<PRLinesModel> Lines { get; set; }
 
-		public PRHeader() {
-			
-			CreateTime = DateTime.UtcNow;
-			RequisitionNo = CRC.BusinesUnit.BUCode + DateTime.UtcNow.Month.ToString().PadLeft(2, '0') + Id.ToString().PadLeft(5,'0');
+		public PRHeaderModel() {			
+			CreateTime = DateTime.UtcNow;			
 		}
-
+		
 		public virtual DateTime CreateTime { get; set; }
 		public virtual DateTime? DeleteTime { get; set; }
 
-		public class PRHeaderMap : ClassMap<PRHeader> {
-			public PRHeaderMap() {
+		public class PRHeaderModelMap : ClassMap<PRHeaderModel> {
+			public PRHeaderModelMap() {
 				Id(x => x.Id);
 				Map(x => x.Status).CustomType<StatusType>();
 				Map(x => x.DeliveryAdress);

@@ -8,7 +8,7 @@ namespace FinancialSystem.Models {
 		public string searchItem { get; set; }
 	}
 	public class AddPrLinesViewModel {
-		public int Id { get; set; }
+		public long Id { get; set; }
 		public int Quantity { get; set; }
 	}
 }

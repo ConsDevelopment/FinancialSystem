@@ -1,9 +1,11 @@
 ﻿using FinancialSystem.Models;
+using FinancialSystem.NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace FinancialSystem.Controllers.API.PR {
@@ -19,7 +21,16 @@ namespace FinancialSystem.Controllers.API.PR {
 		}
 
 		// POST api/<controller>
-		public void Post(AddPrLinesViewModel value) {
+		public async Task Post(AddPrLinesViewModel value) {
+
+			var nhis = new NHibernateItemStore();
+			var item = await nhis.FindItemByIdAsync(value.Id);
+			var PrLines = new PRLinesModel {
+				Item = item,
+				Quantity=value.Quantity
+
+
+			};
 		}
 
 		// PUT api/<controller>/5

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using FinancialSystem.NHibernate;
 
 namespace FinancialSystem.Models {
-	public class PRLines {
+	public class PRLinesModel {
 		public virtual long Id { get; set; }
 		public virtual ItemModel Item { get; set; }
 		public virtual SupplierModel Supplier { get; set; }
@@ -22,9 +22,9 @@ namespace FinancialSystem.Models {
 		public virtual double VatEx { get; set; }
 		public virtual double VatAmount { get; set; }
 		public virtual UserModel CreatedBy { get; set; }
-		public virtual PRHeader Header { get; set; }
+		public virtual PRHeaderModel Header { get; set; }
 
-		public PRLines() {
+		public PRLinesModel() {
 			
 			CreateTime = DateTime.UtcNow;
 			
@@ -33,8 +33,8 @@ namespace FinancialSystem.Models {
 		public virtual DateTime CreateTime { get; set; }
 		public virtual DateTime? DeleteTime { get; set; }
 
-		public class PRLinesMap : ClassMap<PRLines> {
-			public PRLinesMap() {
+		public class PRLinesModelMap : ClassMap<PRLinesModel> {
+			public PRLinesModelMap() {
 				Id(x => x.Id);
 				Map(x => x.Quantity);
 				Map(x => x.UOM).CustomType<UOMType>();
