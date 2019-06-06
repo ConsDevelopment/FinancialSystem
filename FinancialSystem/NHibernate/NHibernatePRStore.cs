@@ -20,6 +20,16 @@ namespace FinancialSystem.NHibernate {
 				} 
 			}
 		}
+
+		public async Task CreatePRLinesAsync(PRLinesModel line) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					db.Save(line);
+					tx.Commit();
+					db.Flush();
+				}
+			}
+		}
 	}
 }
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
