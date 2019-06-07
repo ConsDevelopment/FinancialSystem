@@ -38,7 +38,7 @@
 
 			<a id="logo-container" href="#" class="brand-logo"><img src='@ViewData["CompanyLogo"]' alt="" class="logo"></a>
 
-			<a href="#" class="notification"><i class="material-icons white-text">notifications</i> </a><small class="notification-badge yellow accent-2" id="cartCount">5</small>
+			<a href="#" class="notification"><i class="material-icons white-text">notifications</i> </a><small class="notification-badge yellow accent-2" >5</small>
 
 			<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
@@ -60,9 +60,9 @@
 
 				<li>
 
-					<a href="#" class="shopping">
+					<a href="ReviewCart" class="shopping">
 
-						<i class="material-icons white-text">shopping_basket</i><small class="notification-badge yellow accent-2">5</small>
+						<i class="material-icons white-text">shopping_basket</i><small class="notification-badge yellow accent-2" id="cartCount">@ViewData["cartCount"]</small>
 
 					</a>
 

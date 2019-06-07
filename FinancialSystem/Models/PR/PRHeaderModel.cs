@@ -28,7 +28,7 @@ namespace FinancialSystem.Models {
 				requisitionNo = value;
 			}
 		}
-		public virtual DateTime DateNeeded { get; set;  }
+		public virtual DateTime? DateNeeded { get; set;  }
 		public virtual CostRevenueCenterModel CRC { get; set; }
 		public virtual UserModel CreatedBy { get; set; }
 		public virtual string CategoryAccountCode { get; set; }

@@ -16,7 +16,9 @@ function AddPrLines(id) {
 		//dataType: 'json',
 
 		success: function (data) {
-			var cartCount=Number($("#cartCount").html()) +1;
+			alert($("#cartCount").html());
+			var cartCount = Number($("#cartCount").html()) + 1;
+			alert(cartCount);
 			$("#cartCount").html(cartCount);
 		},
 
@@ -41,6 +43,7 @@ function search(event) {
 	}
 }
 function searchItem() {
+	
 	source = {
 		"searchItem": $("#search").val()
 	};

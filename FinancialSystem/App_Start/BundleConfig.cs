@@ -25,7 +25,7 @@ namespace FinancialSystem
             registration(bundles);
             login(bundles);
 			PR(bundles);
-
+			ReviewPR(bundles);
 			BundleTable.EnableOptimizations = Config.OptimizationEnabled();
 
 		}
@@ -113,7 +113,12 @@ namespace FinancialSystem
 		   )));
 
 		}
+		private static void ReviewPR(BundleCollection bundles) {
 
+			bundles.Add(new StyleBundle("~/Content/PR/Review")
+				.Include("~/Content/PR/review.css"));
+
+		}
 
 		//private static void Bootstrap(BundleCollection bundles) {
 		//	// Use the development version of Modernizr to develop with and learn from. Then, when you're

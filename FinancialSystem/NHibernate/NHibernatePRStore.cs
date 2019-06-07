@@ -30,6 +30,15 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+
+		public async Task<IList<PRLinesModel>> PRLinesCreatedAsync(UserModel user) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					var lines = db.QueryOver<PRLinesModel>().Where(x=>x.CreatedBy==user && x.DeleteTime==null);
+					return lines.List();
+				}
+			}
+		}
 	}
 }
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
