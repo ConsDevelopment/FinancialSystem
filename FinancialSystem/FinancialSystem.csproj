@@ -321,6 +321,7 @@
     <Content Include="Views\Shared\_LayoutPage1.cshtml" />
     <Content Include="Views\PR\ItemSearch.cshtml" />
     <Content Include="Views\PR\ReviewCart.cshtml" />
+    <Content Include="Views\PR\CreatePR.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -314,7 +314,6 @@ C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\Financi
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.csproj.GenerateResource.Cache
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.dll
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.pdb
-C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.csprojResolveAssemblyReference.cache
 C:\wamp64\www\finance\FinancialSystem\FinancialSystem\bin\Microsoft.AspNet.Identity.Owin.dll
 C:\wamp64\www\finance\FinancialSystem\FinancialSystem\bin\Microsoft.Owin.dll
 C:\wamp64\www\finance\FinancialSystem\FinancialSystem\bin\Microsoft.Owin.Host.SystemWeb.dll

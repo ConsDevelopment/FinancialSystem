@@ -1,6 +1,6 @@
 ﻿@model IList<FinancialSystem.Models.PRLinesModel>
 @{
-    Layout = null;
+	Layout = null;
 }
 
 <!DOCTYPE html>
@@ -40,7 +40,10 @@
 				@*<div class="col s2" id="title">Amount</div>*@
 				<div class="col s2" id="title">Total Amount</div>
 			</div>
-@foreach (var row in Model) {
+			@{double tot = 0;
+
+foreach (var row in Model) {
+	tot += (row.Item.Price * row.Quantity);
 			<div class="row" id="@(row.Id)">
 				<div class="col s2">
 					<div class="check">
@@ -66,6 +69,7 @@
 				<div class="col s2" id="price">&#8369; @(row.Item.Price * row.Quantity)</div>
 			</div>
 }
+
 			@*<div class="row" id="mobile_view">
 				<div class="row">
 					<div class="col s4">
@@ -125,11 +129,12 @@
 						</li>*@
 						<li class="cart_checkout price_bold">
 							<span class="cart_leftitem cart_amount">TOTAL AMOUNT</span>
-							<span class="cart_rightitem cart_total">&#8369; 10,000.00</span>
+							<span class="cart_rightitem cart_total">&#8369; @tot</span>
 						</li>
 					</ul>
 				</div>
 			</div>
+				}
 			<div class="col s12">
 				<a class="waves-effect waves-light btn-checkout green darken-3 right">CREAT REQUEST</a>
 			</div>

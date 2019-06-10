@@ -44,7 +44,7 @@ namespace FinancialSystem.Controllers.MVC.PR
 		}
 
 		public async Task<ActionResult> ItemSearch(SearchItemViewModel value) {
-			NHibernateItemStore his = new NHibernateItemStore();
+			var his = new NHibernateItemStore();
 			value.searchItem = value.searchItem ?? "";
 			var search = await his.SearchItemAsync(value.searchItem);
 			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
@@ -52,10 +52,10 @@ namespace FinancialSystem.Controllers.MVC.PR
 
 		}
 		public async Task<ActionResult> ReviewCart() {
-			NHibernateUserStore nh = new NHibernateUserStore();
+			var nh = new NHibernateUserStore();
 			ViewData["ApiServer"] = Config.GetApiServerURL();
 
-			HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+			var response = new HttpResponseMessage(HttpStatusCode.OK);
 
 			var session = HttpContext.Session[Config.GetAppSetting("SessionKey")];
 			UserModel user;
@@ -74,5 +74,10 @@ namespace FinancialSystem.Controllers.MVC.PR
 
 		}
 
-	}
+		public ActionResult CreatePR() {
+
+			return View();
+		}
+
+		}
 }
