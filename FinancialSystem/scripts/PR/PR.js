@@ -71,3 +71,9 @@ function searchItem() {
 
 	});
 }
+function CreatePR() {
+	alert($('#prno').html());
+	$('input[type=checkbox] :checked').each(function () {
+		alert($(this).attr('value'));
+	});
+}

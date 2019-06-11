@@ -14,7 +14,9 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<!--Let browser know website is optimized for mobile-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	@Styles.Render("~/Content/PR/Review")
+	@Scripts.Render("~/scripts/PR/PR")
 	@Html.Hidden("ApiServer", ViewData["ApiServer"])
 </head>
 
@@ -136,7 +138,7 @@ foreach (var row in Model) {
 			</div>
 				}
 			<div class="col s12">
-				<a class="waves-effect waves-light btn-checkout green darken-3 right">CREAT REQUEST</a>
+				<a class="waves-effect waves-light btn-checkout green darken-3 right" onclick="CreatePR()">CREATE REQUEST</a>
 			</div>
 		</div>
 	</main>
@@ -159,7 +161,7 @@ foreach (var row in Model) {
 						</li>
 					</ul>
 				</div>
-				<div class="col s12"><a class="waves-effect waves-light btn green darken-3">Create Request</a></div>
+				<div class="col s12"><a class="waves-effect waves-light btn green darken-3" onclick="CreatePR()">Create Request</a></div>
 			</div>
 		</div>
 	</footer>
