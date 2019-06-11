@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace FinancialSystem.Controllers.API.Company {
@@ -22,7 +23,8 @@ namespace FinancialSystem.Controllers.API.Company {
 		}
 
 		// POST api/<controller>
-		public void Post(RegistrationView value) {
+		public async Task<string> Post(RegistrationView value) {
+			var result = "Success";
 			NHibernateCompanyStore store = new NHibernateCompanyStore();
 			PasswordHasher ph = new PasswordHasher();
 			var passHash = ph.HashPassword(value.password);
@@ -35,7 +37,12 @@ namespace FinancialSystem.Controllers.API.Company {
 				password= passHash
 
 			};
-			store.RegisterEmployee(emp);
+			try {
+				await store.RegisterEmployeeAsync(emp);
+			} catch (Exception e) {
+				result = e.Message;
+			}
+			return result;
 		}
 
 		// PUT api/<controller>/5

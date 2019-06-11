@@ -44,7 +44,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.Email).Index("Email_IDX").Length(400).UniqueKey("uniq");
 				Map(x => x.Contact);
 				Map(x => x.DeleteTime);
-				Map(x => x.Gender);
+				Map(x => x.Gender).CustomType<GenderType>();
 				Map(x => x.CreateTime);
 				Map(x => x.password);
 				Map(x => x.Image);

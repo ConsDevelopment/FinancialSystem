@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewBag.Title = "CreatePR";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@*<h2>CreatePR</h2>*@
+<div class="col s10">
+	<div class="container">
+		<div class="section">
+			<div class="row">
+				<div class="col s12 m5">
+					<p>Company:</p>
+					<p>Requestor Name:</p>
+					<p>Requestor Number:</p>
+					<p>Business Unit:</p>
+					<p>Delivery Address:</p>
+					<p>
+						Charge Location:
+						<select class="browser-default">
+							<option value="" disabled selected>Select</option>
+							<option value="1">Option 1</option>
+							<option value="2">Option 2</option>
+							<option value="3">Option 3</option>
+						</select>
+						<label></label>
+					</p>
+				</div>
+				<div class="col s12 m5">
+					<p>Date Prepared:</p>
+					<p>Date Needed:</p>
+					<p>Date Revised:</p>
+					<p>Cost Revenue Center:</p>
+					<p>Category Act:</p>
+				</div>
+				<div class="col s12 m2">
+					<p id="prno">PR No. 00001</p>
+				</div>
+			</div>
+			<table class="responsive-table highlight centered">
+				<thead>
+					<tr>
+						<th>Item Number</th>
+						<th>Item Code</th>
+						<th>Description</th>
+						<th>OUM</th>
+						<th>Quantiy</th>
+						<th>Supplier</th>
+						<th>Unit Price</th>
+						<th>Total Amount</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>0001</td>
+						<td>0001</td>
+						<td>Ballpen (Blue)</td>
+						<td>Box</td>
+						<td>1,000</td>
+						<td>Supplier A</td>
+						<td>Php 8.00</td>
+						<td>Php 8,000</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="submit">
+				<span id="left"><a class="waves-effect orange waves-light btn left"><i>CANCEL</i></a></span>
+				<span id="center">
+					<p class="center-align">
+						<a class="btn disabled blue-grey lighten-2"><i>SAVE</i></a>
+						<a class="waves-effect green darken-2 waves-light btn"><i>SUBMIT</i></a>
+					</p>
+				</span>
+				<span id="right">
+					<p class="right-align">
+						<a class="btn-floating btn-large waves-effect waves-light green pulse">
+							<i class="material-icons">add</i>
+						</a>
+					</p>
+				</span>
+			</div>
+		</div>
+		<div class="section">
+			<div class="row">
+				<div class="input-field col offset-s1 s9">
+					<input id="text" type="text" class="validate">
+					<label for="text">Description</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col offset-s1 s4">
+					<input id="qty" type="text" class="validate">
+					<label for="qty">Quantity</label>
+				</div>
+				<div class="input-field col offset-s1 s4">
+					<span style="float:left;">Unit of measurement</span>
+					<select class="browser-default">
+						<option value="" disabled selected>Select</option>
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+					</select>
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s4 offset-s6">
+					<span class="flow-text">
+						<a class="waves-effect green darken-2 waves-light btn right">
+							<i>
+								ADD <i class="material-icons">add</i>
+							</i>
+						</a>
+						<a class="waves-effect orange waves-light btn right"><i>CANCEL</i></a>
+					</span>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!--Alert Function On load page-->
+<script>
+            var toastHTML = '<span>I am toast content</span><button class="btn-flat toast-action">Undo</button>';
+            M.toast({ html: toastHTML });
+</script>
+<script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var elems = document.querySelectorAll('select');
+                var instances = M.FormSelect.init(elems);
+            });
+</script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>		
+

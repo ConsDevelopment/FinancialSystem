@@ -21,7 +21,7 @@
 	<!--Let browser know website is optimized for mobile-->
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	@Styles.Render("~/Content/PR/pr-shop")
 
 </head>
@@ -38,7 +38,7 @@
 
 			<a id="logo-container" href="#" class="brand-logo"><img src='@ViewData["CompanyLogo"]' alt="" class="logo"></a>
 
-			<a href="#" class="notification"><i class="material-icons white-text">notifications</i> </a><small class="notification-badge yellow accent-2">5</small>
+			<a href="#" class="notification"><i class="material-icons white-text">notifications</i> </a><small class="notification-badge yellow accent-2" >5</small>
 
 			<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
@@ -60,9 +60,9 @@
 
 				<li>
 
-					<a href="#" class="shopping">
+					<a href="ReviewCart" class="shopping">
 
-						<i class="material-icons white-text">shopping_basket</i><small class="notification-badge yellow accent-2">5</small>
+						<i class="material-icons white-text">shopping_basket</i><small class="notification-badge yellow accent-2" id="cartCount">@ViewData["cartCount"]</small>
 
 					</a>
 
@@ -239,9 +239,6 @@
 		</div>
 
 	</header>
-
-
-
 	<script>
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -249,31 +246,16 @@
         	var elems = document.querySelectorAll('.sidenav');
 
         	var instances = M.Sidenav.init(elems);
-
-        	var elems = document.querySelectorAll('select');
-
-        	var instances = M.FormSelect.init(elems);
-
-        	var elems = document.querySelectorAll('.dropdown-trigger');
-
-        	var instances = M.Dropdown.init(elems);
-
         	var elems = document.querySelectorAll('.collapsible');
 
         	var instances = M.Collapsible.init(elems);
-
-        	var elems = document.querySelectorAll('.modal');
-
-        	var instances = M.Modal.init(elems);
 
         });
 
 	</script>
 
 	<!-- Compiled and minified JavaScript -->
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
 </body>
 
 

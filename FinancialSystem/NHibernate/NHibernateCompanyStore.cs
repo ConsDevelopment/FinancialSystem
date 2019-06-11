@@ -3,11 +3,13 @@ using FinancialSystem.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace FinancialSystem.NHibernate {
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	public class NHibernateCompanyStore {
-		public void RegisterEmployee(EmployeeModel employeeModel) {
+		public async Task RegisterEmployeeAsync(EmployeeModel employeeModel) {
 			using (var s = HibernateSession.GetCurrentSession()) {
 				using (var tx = s.BeginTransaction()) {
 					s.Save(employeeModel);
@@ -18,3 +20,4 @@ namespace FinancialSystem.NHibernate {
 		}
 	}
 }
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

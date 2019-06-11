@@ -120,4 +120,5 @@ namespace FinancialSystem.Models
 
 		public string ProfileImageUrl { get; set; }
 	}
+	
 }

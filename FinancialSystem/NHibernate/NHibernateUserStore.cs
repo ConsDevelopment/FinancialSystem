@@ -185,7 +185,7 @@ namespace FinancialSystem.NHibernate {
 		public async Task<IList<UserLoginInfo>> GetLoginsAsync(UserModel user) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
-					return db.Get<UserModel>(user.Id).Logins.Select(x => new UserLoginInfo(x.LoginProvider, x.ProviderKey)).ToList();
+					return  db.Get<UserModel>(user.Id).Logins.Select(x => new UserLoginInfo(x.LoginProvider, x.ProviderKey)).ToList();
 				}
 			}
 		}

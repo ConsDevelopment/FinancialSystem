@@ -1,4 +1,5 @@
-﻿using FinancialSystem.Models.UserModels;
+﻿using FinancialSystem.Models;
+using FinancialSystem.Models.UserModels;
 using FinancialSystem.NHibernate;
 using FinancialSystem.Utilities;
 using System;
@@ -23,21 +24,60 @@ namespace FinancialSystem.Controllers.MVC.PR
 			
 			HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
 
-			var session = HttpContext.Session["UserId"];
+			var session = HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			UserModel user;
 			if (!string.IsNullOrEmpty(session as string)) {
-				var user = await nh.FindByIdAsync(session.ToString());
-				ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
-				ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
-				return View(user);
+				user = await nh.FindByIdAsync(session.ToString());				
 			} else if (CurrentUserSession.userSecurityStampCookie != null) {
-				var user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
-				ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
-				ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
-				HttpContext.Session["UserId"] = user.Id;
-				return View(user);
+				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
 			} else {
 				return RedirectToAction("Login", "User");
 			}
-        }
-    }
+			var nhps = new NHibernatePRStore();
+			var lines = await nhps.PRLinesCreatedAsync(user);
+			ViewData["cartCount"] = lines.Count;
+			ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
+			ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
+			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
+			HttpContext.Session[Config.GetAppSetting("SessionKey")] = user.Id;
+			return View(user);
+		}
+
+		public async Task<ActionResult> ItemSearch(SearchItemViewModel value) {
+			var his = new NHibernateItemStore();
+			value.searchItem = value.searchItem ?? "";
+			var search = await his.SearchItemAsync(value.searchItem);
+			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
+			return PartialView(search);
+
+		}
+		public async Task<ActionResult> ReviewCart() {
+			var nh = new NHibernateUserStore();
+			ViewData["ApiServer"] = Config.GetApiServerURL();
+
+			var response = new HttpResponseMessage(HttpStatusCode.OK);
+
+			var session = HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			UserModel user;
+			if (!string.IsNullOrEmpty(session as string)) {
+				user = await nh.FindByIdAsync(session.ToString());
+			} else if (CurrentUserSession.userSecurityStampCookie != null) {
+				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
+			} else {
+				return RedirectToAction("Login", "User");
+			}
+			ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
+			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
+			var nhps = new NHibernatePRStore();
+			var lines = await nhps.PRLinesCreatedAsync(user);
+			return View(lines);
+
+		}
+
+		public ActionResult CreatePR() {
+
+			return View();
+		}
+
+		}
 }
