@@ -72,8 +72,79 @@ function searchItem() {
 	});
 }
 function CreatePR() {
-	alert($('#prno').html());
-	$('input[type=checkbox] :checked').each(function () {
-		alert($(this).attr('value'));
+	
+	var lines = [];
+	$.each($("input[name='itemCheck']"), function () {
+		if ($(this).is(':checked')) {
+			var element = {
+				"Id": Number($(this).attr('id'))
+			};
+			lines.push(element);
+		}
+
 	});
+
+	$.ajax({
+
+		type: "POST",
+		url: $("#ApiServer").val() + "/PR/CreatePR",
+		//url: '@Url.Action("PR","CreatePR")',
+		data: JSON.stringify(lines),
+		//data: "1",
+		contentType: 'application/json; charset=utf-8',
+
+		//dataType: 'json',
+
+		success: function (data) {
+			//$(body).html(data);
+			$('#bod').empty();
+			$('#bod').html(data);
+		},
+		//async: false,
+
+		error: function (error) {
+			alert(error);
+			jsonValue = jQuery.parseJSON(error.responseText);
+
+		}
+
+	});
+
+}
+
+function DeleteLines() {
+	
+	var lines = [];
+	$.each($("input[name='itemCheck']"), function () {		
+		if ($(this).is(':checked')) {
+			var element = {
+				"Id": Number($(this).attr('id'))
+			};
+			lines.push(element);
+		}
+
+	});
+	$.ajax({
+
+		type: "POST",
+		url: $("#ApiServer").val() + "/api/DeletePRLines",
+		data: JSON.stringify(lines),
+		//data: "1",
+		contentType: 'application/json; charset=utf-8',
+
+		//dataType: 'json',
+
+		success: function (data) {
+			location.reload();
+			
+		},
+
+		error: function (error) {
+			alert(error);
+			jsonValue = jQuery.parseJSON(error.responseText);
+
+		}
+
+	});
+
 }

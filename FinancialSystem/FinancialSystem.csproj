@@ -230,6 +230,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\API\Company\RegisterController.cs" />
     <Compile Include="Controllers\API\PR\AddPRLinesController.cs" />
+    <Compile Include="Controllers\API\PR\DeletePRLinesController.cs" />
     <Compile Include="Controllers\API\PR\SearchItemController.cs" />
     <Compile Include="Controllers\API\Users\CreateUserController.cs" />
     <Compile Include="Controllers\API\Users\LoginApiController.cs" />

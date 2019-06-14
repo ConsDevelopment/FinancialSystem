@@ -63,20 +63,24 @@ namespace FinancialSystem.Controllers.MVC.PR
 				user = await nh.FindByIdAsync(session.ToString());
 			} else if (CurrentUserSession.userSecurityStampCookie != null) {
 				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
+				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user.Id;
 			} else {
 				return RedirectToAction("Login", "User");
 			}
-			ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
-			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
 			var nhps = new NHibernatePRStore();
 			var lines = await nhps.PRLinesCreatedAsync(user);
+			ViewData["cartCount"] = lines.Count;
+			ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
+			ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
+			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
+			
 			return View(lines);
 
 		}
 
-		public ActionResult CreatePR() {
-
-			return View();
+		public ActionResult CreatePR(IList<AddPrLinesViewModel> value) {
+			//var lines = value.Count;
+			return PartialView();
 		}
 
 		}

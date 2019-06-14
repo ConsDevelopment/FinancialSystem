@@ -15,7 +15,8 @@ namespace FinancialSystem.NHibernate {
 		public async Task<IList<ItemModel>> SearchItemAsync(string search) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
-					var items= db.QueryOver<ItemModel>().Where(Restrictions.On<ItemModel>(x=>x.Name).IsLike(search+"%") || Restrictions.On<ItemModel>(x => x.SKU).IsLike(search.ToLower() + "%"));
+					var items= db.QueryOver<ItemModel>().Where((Restrictions.On<ItemModel>(x=>x.Name).IsLike(search+"%") || Restrictions.On<ItemModel>(x => x.SKU).IsLike(search.ToLower() + "%") )
+						&& Restrictions.On<ItemModel>(x=>x.DeleteTime).IsNull);
 					return items.List();
 				} 
 			}
