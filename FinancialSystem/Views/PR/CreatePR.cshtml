@@ -1,4 +1,5 @@
-﻿
+﻿@model IList<FinancialSystem.Models.PRLinesModel>
+
 @*@{
     ViewBag.Title = "CreatePR";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
@@ -52,9 +53,10 @@
 				</thead>
 
 				<tbody>
+					@foreach (var row in Model) {
 					<tr>
-						<td>0001</td>
-						<td>0001</td>
+						<td>@row.Item.Code</td>
+						<td>@row.Item.Code</td>
 						<td>Ballpen (Blue)</td>
 						<td>Box</td>
 						<td>1,000</td>
@@ -62,6 +64,7 @@
 						<td>Php 8.00</td>
 						<td>Php 8,000</td>
 					</tr>
+					}
 				</tbody>
 			</table>
 			<div class="submit">

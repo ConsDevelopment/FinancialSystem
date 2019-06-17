@@ -51,6 +51,13 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+		public async Task<PRLinesModel> GetPRLineAsync(long Id) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.Get<PRLinesModel>(Id);
+				}
+			}
+		}
 	}
 }
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

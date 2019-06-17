@@ -78,9 +78,15 @@ namespace FinancialSystem.Controllers.MVC.PR
 
 		}
 
-		public ActionResult CreatePR(IList<AddPrLinesViewModel> value) {
-			//var lines = value.Count;
-			return PartialView();
+		public async Task<ActionResult> CreatePR(IList<AddPrLinesViewModel> value) {
+			List<PRLinesModel> lines=new List<PRLinesModel>();
+			var nhps = new NHibernatePRStore();
+			foreach (var item in value) {
+				var line = await nhps.GetPRLineAsync(item.Id);
+				lines.Add(line);
+				
+			}
+			return PartialView(lines);
 		}
 
 		}
