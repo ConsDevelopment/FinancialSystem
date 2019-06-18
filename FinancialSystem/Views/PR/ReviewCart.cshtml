@@ -39,7 +39,7 @@
 				<<div class="col s3" id="title">Item/s</div>
 				<div class="col s3" id="title">Description</div>
 				<div class="col s2" id="title">Unit Price</div>
-				<div class="col s1" id="title">Quantity</div>
+				<div class="col s2" id="title">Quantity</div>
 				@*<div class="col s2" id="title">Amount</div>*@
 				<div class="col s2" id="title">Total Amount</div>
 			</div>
@@ -47,7 +47,7 @@
 
 				foreach (var row in Model) {
 					tot += (row.Item.Price * row.Quantity);
-					<div class="row" id="@(row.Id)">
+					<div class="row" id="@(row.Id) view_items">
 						<div class="col s3">
 							<div class="check">
 								<label>

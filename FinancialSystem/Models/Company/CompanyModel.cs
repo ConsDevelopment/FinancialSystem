@@ -18,6 +18,7 @@ namespace FinancialSystem.Models {
 		public virtual string Adress { get; set; }
 		public virtual string Email { get; set; }
 		public virtual string Logo { get; set; }
+		public virtual EmployeeModel Corfin { get; set; }
 
 		public virtual UserModel CreatedBy { get; set; }
 		public CompanyModel() {
@@ -42,6 +43,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.DeleteTime);
 				Map(x => x.Logo);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
+				References(x => x.Corfin, "Corfin").Cascade.SaveUpdate();
 			}
 		}
 

@@ -255,7 +255,6 @@
     <Compile Include="Models\Enums\AccessLevel.cs" />
     <Compile Include="Models\Enums\StatusType.cs" />
     <Compile Include="Models\Enums\AlertType.cs" />
-    <Compile Include="Models\Enums\CatalogType.cs" />
     <Compile Include="Models\Enums\UOMType.cs" />
     <Compile Include="Models\Items\BrandModel.cs" />
     <Compile Include="Models\Items\CategoryModel.cs" />
