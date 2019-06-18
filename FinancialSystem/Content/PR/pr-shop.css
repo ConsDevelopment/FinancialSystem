@@ -139,11 +139,6 @@ body {
     font-weight: 600;
 }
 
-#price {
-    color: red;
-    font-size: 18pt;
-    margin-top: -10px;
-}
 #price1 {
   text-align: center;
   color: #388E3C;
@@ -224,14 +219,6 @@ body {
     font-family: 'Titillium Web', sans-serif;
     font-size: 20px;
   }
-  #price {
-    text-align: center;
-    color: red;
-    font-size: 25pt !important;
-    margin-top: -10px;
-    font-size: medium;
-    font-weight: 700
-  }
   #price1 {
     text-align: center;
     color: #388E3C;
@@ -294,11 +281,6 @@ body {
     nav i.material-icons {
       margin-right: -20px;
     }
-    #price {
-        color: red;
-        font-size: 10pt;
-        margin-top: -10px;
-    }
     
   }
 
@@ -326,13 +308,6 @@ body {
     }
     nav i.material-icons {
       margin-right: -20px;
-    }
-    #price {
-      color: red;
-      font-size: 18pt;
-      margin-top: -10px;
-      font-size: medium;
-      font-weight: 700
     }
         /*Search*/
         .searchbox {
