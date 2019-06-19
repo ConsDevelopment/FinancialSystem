@@ -206,6 +206,7 @@
     <Content Include="Content\images\bsi_logo.png" />
     <Content Include="Content\images\sample_image-login.jpg" />
     <Content Include="Content\PR\pr-shop.css" />
+    <Content Include="Content\PR\PRCreation.css" />
     <Content Include="Content\PR\review.css" />
     <Content Include="Content\User\login.css" />
     <Content Include="Content\User\registration.css" />
