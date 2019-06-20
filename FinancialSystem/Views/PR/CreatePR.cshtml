@@ -2,7 +2,8 @@
 @model IList<FinancialSystem.Models.PRLinesModel>
 
 @Styles.Render("~/Content/PR/PRCreation")
-
+@Scripts.Render("~/scripts/PR/PR")
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 	<div class="row">
 		@*<div class="col s2">
@@ -88,14 +89,14 @@
 						<div class="col s6" id="pr-number">
 							@*Requisition Number: <b><span id="pr-num">0001</span></b><br>*@
 							Date Prepared: <span>@DateTime.Now</span><br>
-							Date Needed: <input type="text" id="datepicker"><br>
+							Date Needed: <input type="text" id="datepicker"><a onclick="DateListener()">test</a><br>
 							@*Date Approve:*@
 						</div>
 						<div id="info0">
 							<div class="col s6" id="info"><b>Company:</b> @emp.Company.CompanyName</div>
 							<div class="col s6" id="info">
 								<b>Requestor Name:</b> @emp.Name()
-								<a class="badge red modal-trigger" id="badge" href="#modal1"><span>edit</span></a>
+								<a onclick="Modal2()" class="badge red modal-trigger" id="badge" href="#modal1"><span>edit</span></a>
 							</div>
 							<!-- Modal Structure -->
 							<div id="modal1" class="modal">
@@ -115,12 +116,12 @@
 							</div>
 							<div class="col s6" id="info"><b>Business Unit:</b> Auto Fill</div>
 							<div class="col s6" id="info"><b>Cost Revenue Center (CRC):</b> CRC</div>
-							<div class="col s6" id="info"><b>Company Address:</b></div>
+							<div class="col s6" id="info"><b>Delivery Address:</b></div>
 							<div class="col s6" id="info"><b>Category Account Code:</b> Account Code</div>
 							<div class="col s6" id="info">
 								Unit 1103, 11F Pearl of the Orient Tower,
 								1240 Roxas Blvd. Brgy. 667 Zone 072,
-								Ermita Manila 1000 <a class="badge red modal-trigger" id="badge"
+								Ermita Manila 1000 <a onclick="Modal2()"  class="badge red modal-trigger" id="badge"
 							  href="#modal2"><span>edit</span></a>
 							</div>
 							<!-- Modal Structure -->
@@ -242,10 +243,14 @@
 		</div>
 	</div>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.datepicker');
-        var instances = M.Datepicker.init(elems);
-    });
+    //document.addEventListener('DOMContentLoaded', function () {
+    //    var elems = document.querySelectorAll('.datepicker');
+    //    var instances = M.Datepicker.init(elems);
+    //    //var elems = document.querySelectorAll('.sidenav');
+    //    //var instances = M.Sidenav.init(elems);
+    //    var elems = document.querySelectorAll('.modal');
+    //    var instances = M.Modal.init(elems);
+    //});
 </script>
 
 

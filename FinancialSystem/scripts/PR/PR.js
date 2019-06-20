@@ -148,3 +148,12 @@ function DeleteLines() {
 	});
 
 }
+function DateListener() {
+	alert("test");
+	var elems = document.querySelectorAll('.datepicker');
+	var instances = M.Datepicker.init(elems);
+}
+function Modal2() {
+	var elems = document.querySelectorAll('.modal');
+	var instances = M.Modal.init(elems);
+}
