@@ -81,6 +81,19 @@ namespace FinancialSystem.Controllers.MVC.PR
 		public async Task<ActionResult> CreatePR(IList<AddPrLinesViewModel> value) {
 			List<PRLinesModel> lines=new List<PRLinesModel>();
 			var nhps = new NHibernatePRStore();
+			var nh = new NHibernateUserStore();
+			var session = HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			UserModel user;
+			if (!string.IsNullOrEmpty(session as string)) {
+				user = await nh.FindByIdAsync(session.ToString());
+			} else if (CurrentUserSession.userSecurityStampCookie != null) {
+				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
+				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user.Id;
+			} else {
+				return RedirectToAction("Login", "User");
+			}
+			ViewData["SmallLogo"] = Config.GetCompanyLogo(user.employee.Company.SmallLogo);
+			ViewData["Company"] = user.employee;
 			foreach (var item in value) {
 				var line = await nhps.GetPRLineAsync(item.Id);
 				lines.Add(line);

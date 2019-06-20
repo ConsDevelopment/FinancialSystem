@@ -1,76 +1,11 @@
-﻿@model IList<FinancialSystem.Models.PRLinesModel>
+﻿@using FinancialSystem.Models
+@model IList<FinancialSystem.Models.PRLinesModel>
 
 @Styles.Render("~/Content/PR/PRCreation")
 
-<div class="row">
-	<div class="col s2">
-		<ul id="nav-mobile" class="sidenav sidenav-fixed" style="transform: translateX(-105%);">
-			<li>
-				<div class="brand-logo"><img src="images/bsi_logo.png" alt="" class="logo"></div>
-			</li>
-			<li>
-				<ul class="collapsible">
-					<li>
-						<div class="collapsible-header">
-							<a href="#">
-								<i class="material-icons">dashboard</i> Dash
-								Board
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="collapsible-header">
-							<a href="pr-shop.html">
-								<i class="material-icons">assignment</i>
-								Purchase Request
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="collapsible-header">
-							<a href="#">
-								<i class="material-icons">format_quote</i> Quote
-								Analysis
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="collapsible-header">
-							<a href="#">
-								<i class="material-icons">shopping_cart</i>
-								Purchase Order
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="collapsible-header">
-							<a href="#">
-								<i class="material-icons">list</i>
-								Items
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="collapsible-header">
-							<a href="#">
-								<i class="material-icons">settings</i>
-								Setting
-							</a>
-						</div>
-						<div class="collapsible-body submenu">
-							<i class="material-icons icons">fiber_manual_record</i>
-							<a href="usermaintenance.html">User Maintenance</a>
-						</div>
-						<div class="collapsible-body submenu">
-							<i class="material-icons icons">fiber_manual_record</i><a href="jobmaintenance.html">Job Maintenance</a>
-						</div>
-					</li>
-				</ul>
-			</li>
-		</ul>
-	</div>
+
 	<div class="row">
-		<div class="col s2">
+		@*<div class="col s2">
 			<ul id="nav-mobile" class="sidenav sidenav-fixed" style="transform: translateX(-105%);">
 				<div class="brand-logo"><img src="images/bsi_logo.png" alt="" class="logo"></div>
 				<ul class="collapsible">
@@ -131,31 +66,35 @@
 					</li>
 				</ul>
 			</ul>
-		</div>
+		</div>*@
 		<!--  -->
 		<div class="col s10 content">
 
 			<div class="container">
 				<div class="pr-form" id="pr1">
 					<div class="row">
-						<div class="col s6"><img src="images/bsi_logo-small.png" alt="" class="src"></div>
+						
+						<div class="col s6"><img src='@ViewData["SmallLogo"]' alt="" class="src"></div>
 						<div class="col s6" id="pr-title">PURCHASE REQUEST</div>
-						<div class="col s6" id="address">
-							Unit 1103, 11F Pearl of the Orient Tower,<br>
-							1240 Roxas Blvd. Brgy. 667 Zone 072,<br>
-							Ermita Manila 1000<br>
-							<b>TIN: 008-349-500-000</b>
+						@{ 
+							var emp = (EmployeeModel)ViewData["Company"];
+						}
+							<div class="col s6" id="address">
+							@emp.Company.Adress
+							<br />
+							<b>TIN: @emp.Company.Tin</b>
 						</div>
+							
 						<div class="col s6" id="pr-number">
-							Requisition Number: <b><span id="pr-num">0001</span></b><br>
-							Date Prepared:<br>
+							@*Requisition Number: <b><span id="pr-num">0001</span></b><br>*@
+							Date Prepared: <span>@DateTime.Now</span><br>
 							Date Needed:<br>
-							Date Approve:
+							@*Date Approve:*@
 						</div>
 						<div id="info0">
-							<div class="col s6" id="info"><b>Company:</b> Company Here</div>
+							<div class="col s6" id="info"><b>Company:</b> @emp.Company.CompanyName</div>
 							<div class="col s6" id="info">
-								<b>Requestor Name:</b> Name Of Requestor
+								<b>Requestor Name:</b> @emp.Name()
 								<a class="badge red modal-trigger" id="badge" href="#modal1"><span>edit</span></a>
 							</div>
 							<!-- Modal Structure -->
@@ -303,5 +242,5 @@
 		</div>
 	</div>
 
-</div>
+
 

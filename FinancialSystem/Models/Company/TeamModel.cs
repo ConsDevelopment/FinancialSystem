@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using FinancialSystem.NHibernate;
 
 namespace FinancialSystem.Models {
+	//This serves as Section 
 	public class TeamModel {
 		public virtual long Id { get; set; }
 		public virtual string TeamName { get; set; }
