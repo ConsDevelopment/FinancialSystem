@@ -27,6 +27,7 @@ namespace FinancialSystem.Models {
 		public virtual DateTime? DeleteTime { get; set; }
 
 		public virtual EmployeeModel TeamLeader { get; set; }
+		public virtual CostRevenueCenterModel CRC { get; set; }
 
 		public class TeamModelMap : ClassMap<TeamModel> {
 			public TeamModelMap() {
@@ -35,6 +36,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.TeamName);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
+				References(x => x.CRC, "CRC").Cascade.SaveUpdate();
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				References(x => x.TeamLeader, "TeamLeader").Cascade.SaveUpdate();
 			}

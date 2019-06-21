@@ -20,7 +20,7 @@ namespace FinancialSystem.Models {
 		public virtual string RequisitionNo {
 			get {
 				if (requisitionNo == null) {
-					requisitionNo = CRC.BusinesUnit.BUCode + DateTime.UtcNow.Month.ToString().PadLeft(2, '0') + Id.ToString().PadLeft(5, '0');
+					requisitionNo = Requestor.Company.CompanyCode + DateTime.UtcNow.Month.ToString().PadLeft(2, '0') + Id.ToString().PadLeft(5, '0');
 				}
 				return requisitionNo;
 			}

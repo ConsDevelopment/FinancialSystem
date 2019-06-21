@@ -245,7 +245,6 @@
     <Compile Include="Exceptions\AdminSetRoleException.cs" />
     <Compile Include="Exceptions\LoginException.cs" />
     <Compile Include="Models\Admin\AdminAuditLog.cs" />
-    <Compile Include="Models\Company\BusinessUnitModel.cs" />
     <Compile Include="Models\Company\CostRevenueCenterModel.cs" />
     <Compile Include="Models\Company\ChargeLocationModel.cs" />
     <Compile Include="Models\Company\RegistrationView.cs" />

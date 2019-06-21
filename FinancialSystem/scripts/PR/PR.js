@@ -99,6 +99,11 @@ function CreatePR() {
 			//$(body).html(data);
 			$('#bod').empty();
 			$('#bod').html(data);
+			var elems = document.querySelectorAll('.datepicker');
+			var instances = M.Datepicker.init(elems);
+			var elems = document.querySelectorAll('.modal');
+			var instances = M.Modal.init(elems);
+			
 		},
 		//async: false,
 
@@ -148,12 +153,23 @@ function DeleteLines() {
 	});
 
 }
-function DateListener() {
-	alert("test");
-	var elems = document.querySelectorAll('.datepicker');
-	var instances = M.Datepicker.init(elems);
+function DateFormatter(date) {
+	var month_names = ["Jan", "Feb", "Mar",
+                      "Apr", "May", "Jun",
+                      "Jul", "Aug", "Sep",
+                      "Oct", "Nov", "Dec"];
+
+	var day = this.getDate();
+	var month_index = this.getMonth();
+	var year = this.getFullYear();
+
+	return "" + day + "-" + month_names[month_index] + "-" + year;
 }
-function Modal2() {
-	var elems = document.querySelectorAll('.modal');
-	var instances = M.Modal.init(elems);
-}
+//function DateListener() {
+//	var elems = document.querySelectorAll('.datepicker');
+//	var instances = M.Datepicker.init(elems);
+//}
+//function Modal2() {
+//	var elems = document.querySelectorAll('.modal');
+//	var instances = M.Modal.init(elems);
+//}
