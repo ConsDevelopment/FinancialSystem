@@ -346,3 +346,4 @@ D:\developer\FinancialSystem\FinancialSystem\FinancialSystem\obj\Debug\Financial
 D:\developer\FinancialSystem\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.csproj.GenerateResource.Cache
 D:\developer\FinancialSystem\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.dll
 D:\developer\FinancialSystem\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.pdb
+C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.csprojResolveAssemblyReference.cache

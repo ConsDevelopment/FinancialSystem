@@ -165,6 +165,17 @@ function DateFormatter(date) {
 
 	return "" + day + "-" + month_names[month_index] + "-" + year;
 }
+
+$("#Requestor").on('input', function () {
+	alert(this.value);
+	var val = this.value;
+	if ($('#RequestorList option').filter(function () {
+        return this.value.toUpperCase() === val.toUpperCase();
+	}).length) {
+		//send ajax request
+		alert(this.Attr("data-value"));
+	}
+});
 //function DateListener() {
 //	var elems = document.querySelectorAll('.datepicker');
 //	var instances = M.Datepicker.init(elems);

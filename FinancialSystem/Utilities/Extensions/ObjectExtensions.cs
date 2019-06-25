@@ -171,7 +171,7 @@ namespace FinancialSystem {
 	}
 }
 
-namespace RadialReview.AliveExtensions {
+namespace FinancialSystem.AliveExtensions {
 	public static class ObjectExtensions {
 		public static bool Alive(this object obj) {
 			if (obj is IDeletable)
@@ -181,7 +181,7 @@ namespace RadialReview.AliveExtensions {
 	}
 }
 
-namespace RadialReview.Nhibernate {
+namespace FinancialSystem.Nhibernate {
 	public static class ObjectExtensions {
 		public static T Unproxy<T>(this ISession s, T obj) {
 			return (T)s.GetSessionImplementation().PersistenceContext.Unproxy(obj);
@@ -189,7 +189,7 @@ namespace RadialReview.Nhibernate {
 	}
 }
 
-namespace RadialReview.Reflection {
+namespace FinancialSystem.Reflection {
 
 	public static class ObjectExtensions {
 		public static TRef Get<T, TRef>(this T obj, Expression<Func<T, TRef>> selector) {

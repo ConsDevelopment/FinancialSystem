@@ -82,6 +82,7 @@ namespace FinancialSystem.Controllers.MVC.PR
 			List<PRLinesModel> lines=new List<PRLinesModel>();
 			var nhps = new NHibernatePRStore();
 			var nh = new NHibernateUserStore();
+			var nhcs = new NHibernateCompanyStore();
 			var session = HttpContext.Session[Config.GetAppSetting("SessionKey")];
 			UserModel user;
 			if (!string.IsNullOrEmpty(session as string)) {
@@ -94,6 +95,7 @@ namespace FinancialSystem.Controllers.MVC.PR
 			}
 			ViewData["SmallLogo"] = Config.GetCompanyLogo(user.employee.Company.SmallLogo);
 			ViewData["Company"] = user.employee;
+			ViewData["Section"] = await nhcs.TeamEmployeeAsync(user.employee.Team);
 			foreach (var item in value) {
 				var line = await nhps.GetPRLineAsync(item.Id);
 				lines.Add(line);

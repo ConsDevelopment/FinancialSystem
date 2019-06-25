@@ -2,7 +2,7 @@
 @model IList<FinancialSystem.Models.PRLinesModel>
 
 @Styles.Render("~/Content/PR/PRCreation")
-@*@Scripts.Render("~/scripts/PR/PR")*@
+@Scripts.Render("~/scripts/PR/PR")
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 	<div class="row">
@@ -79,6 +79,7 @@
 						<div class="col s6" id="pr-title">PURCHASE REQUEST</div>
 						@{ 
 							var emp = (EmployeeModel)ViewData["Company"];
+							var SectionEmp = (IList<EmployeeModel>)ViewData["Section"];
 						}
 							<div class="col s6" id="address">
 							@emp.Company.Adress
@@ -104,9 +105,14 @@
 									<h4>Search Requestor</h4>
 									<form autocomplete="off" action="">
 										<div class="autocomplete">
-											<input id="myInput" type="text" name="requestor"
-												   placeholder="Search Requestor">
-											<a href="#!" class="modal-close waves-effect waves-green btn-flat">Search</a>
+											<input id="Requestor" type="text" name="requestor" value="@emp.Name()"
+												   placeholder="Search Requestor" list="RequestorList">
+											<input id="RequestorId" type="hidden" value="@emp.Id">
+											<datalist id="RequestorList">
+												@foreach (var secEmp in SectionEmp) {
+													<option data-value="@secEmp.Id">@secEmp.Name()</option>
+												}
+											</datalist>
 										</div>
 									</form>
 								</div>
