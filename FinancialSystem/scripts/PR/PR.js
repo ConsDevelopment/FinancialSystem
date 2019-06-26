@@ -167,14 +167,34 @@ function DateFormatter(date) {
 }
 
 $("#Requestor").on('input', function () {
-	alert(this.value);
+	
 	var val = this.value;
 	if ($('#RequestorList option').filter(function () {
         return this.value.toUpperCase() === val.toUpperCase();
 	}).length) {
 		//send ajax request
-		alert(this.Attr("data-value"));
+		var value = $('#Requestor').val();
+		
+		$("#RequestorListId").val($('#RequestorList [value="' + value + '"]').data('value'));
+		
 	}
+});
+$("#setRequestor").on('click', function () {
+	var val = $("#Requestor").val();
+	if ($('#RequestorList option').filter(function () {
+        return this.value.toUpperCase() === val.toUpperCase();
+	}).length) {
+		//send ajax request
+		var value = $('#Requestor').val();
+
+		$("#RequestorListId").val($('#RequestorList [value="' + value + '"]').data('value'));
+		$("#RequestorId").val($('#RequestorList [value="' + value + '"]').data('value'));
+		$("#RequestorName").text(val);
+	}
+});
+$("#setDeliveryAddress").on('click', function () {
+	
+	$("#DeliveryAddress").text($("#delivery").val());
 });
 //function DateListener() {
 //	var elems = document.querySelectorAll('.datepicker');

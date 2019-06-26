@@ -96,7 +96,8 @@
 						<div id="info0">
 							<div class="col s6" id="info"><b>Company:</b> @emp.Company.CompanyName</div>
 							<div class="col s6" id="info">
-								<b>Requestor Name:</b> @emp.Name()
+								<b>Requestor Name:</b> <span id="RequestorName" >@emp.Name()</span>
+								<input id="RequestorId" type="hidden" value="@emp.Id">
 								<a class="badge red modal-trigger" id="badge" href="#modal1"><span>edit</span></a>
 							</div>
 							<!-- Modal Structure -->
@@ -105,20 +106,20 @@
 									<h4>Search Requestor</h4>
 									<form autocomplete="off" action="">
 										<div class="autocomplete">
-											<input id="Requestor" type="text" name="requestor" value="@emp.Name()"
+											<input id="Requestor" type="text" name="requestor"
 												   placeholder="Search Requestor" list="RequestorList">
-											<input id="RequestorId" type="hidden" value="@emp.Id">
+											<input id="RequestorListId" type="hidden">
 											<datalist id="RequestorList">
 												@foreach (var secEmp in SectionEmp) {
-													<option data-value="@secEmp.Id">@secEmp.Name()</option>
-												}
+													<option data-value="@secEmp.Id" value="@secEmp.Name()"></option>
+}
 											</datalist>
 										</div>
 									</form>
 								</div>
 								<div class="modal-footer">
 									
-									<a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+									<a href="#!" class="modal-close waves-effect waves-green btn-flat" id="setRequestor">OK</a>
 
 								</div>
 								<!-- End Modal -->
@@ -128,9 +129,9 @@
 							<div class="col s6" id="info"><b>Delivery Address:</b></div>
 							@*<div class="col s6" id="info"><b>Category Account Code:</b> Account Code</div>*@
 							<div class="col s6" id="info">
-								@emp.Company.Adress<a class="badge red modal-trigger" id="badge"
-							  href="#modal2"><span>edit</span></a>
-							</div>
+								<span id="DeliveryAddress">@emp.Company.Adress</span><a class="badge red modal-trigger" id="badge"
+														  href="#modal2"><span>edit</span></a>
+</div>
 							<!-- Modal Structure -->
 							<div id="modal2" class="modal">
 								<div class="modal-content">
@@ -143,11 +144,13 @@
 									</form>
 								</div>
 								<div class="modal-footer">
-									<a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+									<a href="#!" class="modal-close waves-effect waves-green btn-flat" id="setDeliveryAddress">OK</a>
 								</div>
 								<!-- End Modal -->
 							</div>
 							<div class="col s6" id="info"></div>
+							@{ 
+								double totalPrice = 0;
 							<div class="col s12">
 								<table class="highlight">
 									<thead style="background-color: #16A2AF;">
@@ -162,18 +165,26 @@
 											<th>TOTAL AMOUNT</th>
 										</tr>
 									</thead>
-
+									
 									<tbody>
+										@for (int i = 1; i <= Model.Count; i++) {
 										<tr>
-											<td>00001</td>
-											<td>00001</td>
-											<td>Rubber Shoes</td>
-											<td>Supplier A</td>
-											<td>Piece</td>
-											<td>1</td>
-											<td>1,500.00</td>
-											<td>1,500.00</td>
+											<td>@i</td>
+											<td>@Model[i - 1].Item.Code</td>
+											<td>@Model[i - 1].Item.Description</td>
+											@if (Model[i - 1].Supplier != null) {
+											<td>@(Model[i - 1].Supplier.Name)</td>
+											} else {
+												<td></td>
+											}
+
+											<td>@Model[i - 1].Item.UOM</td>
+											<td>@Model[i - 1].Quantity</td>
+											<td>@Model[i - 1].Item.Price</td>
+											<td>@(Model[i - 1].Item.Price * Model[i - 1].Quantity )</td>
+											@(totalPrice+= Model[i - 1].Item.Price * Model[i - 1].Quantity )
 										</tr>
+										}
 									</tbody>
 								</table>
 							</div>
@@ -186,12 +197,13 @@
 							<div class="col s3">
 								<hr class="line">
 								<p id="vat">
-								
-										Php 100,000.00<br>
+
+										Php @totalPrice<br>
 								</p>
 								<hr class="line">
-								<p id="totalvat">Php 10,000,000.00</b></p>
+								@*<p id="totalvat">Php 10,000,000.00</b></p>*@
 							</div>
+								}
 							<div class="col s12" id="note">
 								<p id="noteto"><b>Note to Buyer: </b></p>
 								<a class="badge red modal-trigger" id="badge" href="#modal3">
