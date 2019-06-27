@@ -173,7 +173,7 @@
 											<td>@Model[i - 1].Item.Code</td>
 											<td>@Model[i - 1].Item.Description</td>
 											@if (Model[i - 1].Supplier != null) {
-											<td>@(Model[i - 1].Supplier.Name)</td>
+												<td>@(Model[i - 1].Supplier.Name)</td>
 											} else {
 												<td></td>
 											}
@@ -250,14 +250,14 @@
 					</div>
 					<div class="col s4">
 					</div>
-					<a class="waves-effect waves-light btn right green modal-trigger" href="#modal5">SUBMIT</a>
+					<a class="waves-effect waves-light btn right green modal-trigger" href="#modal5" >SUBMIT</a>
 					<!-- Modal Structure -->
 					<div id="modal5" class="modal">
 						<div class="modal-content">
 							<p>Are you sure you want to approve this request?</p>
 						</div>
 						<div class="modal-footer">
-							<a href="#!" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+							<a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitPR">Yes</a>
 							<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
 						</div>
 					</div>

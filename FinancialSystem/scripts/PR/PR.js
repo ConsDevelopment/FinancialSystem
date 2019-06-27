@@ -196,6 +196,32 @@ $("#setDeliveryAddress").on('click', function () {
 	
 	$("#DeliveryAddress").text($("#delivery").val());
 });
+$("#submitPR").on('click', function () {
+	source = {
+		"RequestorId": $("#DeliveryAddress").text(),
+		"DeliveryAdress": $("#DeliveryAddress").text(),
+		"DateNeeded": $("#DeliveryAddress").text()
+	};
+
+	$.ajax({
+
+		type: "POST",
+		url: $("#ApiServer").val() + "/PR/ItemSearch",
+		data: JSON.stringify(source),
+		contentType: 'application/json; charset=utf-8',
+		success: function (data) {
+			$("#ItemContainer").empty();
+			$("#ItemContainer").html(data);
+		},
+
+		error: function (error) {
+			alert(error);
+			jsonValue = jQuery.parseJSON(error.responseText);
+
+		}
+
+	});
+});
 //function DateListener() {
 //	var elems = document.querySelectorAll('.datepicker');
 //	var instances = M.Datepicker.init(elems);
