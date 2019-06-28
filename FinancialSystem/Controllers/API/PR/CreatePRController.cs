@@ -1,9 +1,15 @@
-﻿using FinancialSystem.Models;
+﻿using FinancialSystem.Accessor;
+using FinancialSystem.Models;
+using FinancialSystem.Models.Enums;
+using FinancialSystem.NHibernate;
+using FinancialSystem.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace FinancialSystem.Controllers.API.PR {
@@ -19,8 +25,40 @@ namespace FinancialSystem.Controllers.API.PR {
 		}
 
 		// POST api/<controller>
-		public void Post(PRViewModel value) {
+		public async Task Post(PRViewModel value) {
+			var nh = new NHibernateUserStore();
+			var nhps = new NHibernatePRStore();
+			var session = HttpContext.Current.Session;
+			var sessionKey = Config.GetAppSetting("SessionKey").ToString();
+		
+			if (session != null) {
+				if (session[sessionKey] != null) {
+					var user = await nh.FindByIdAsync(session[sessionKey].ToString());
+					if (user != null) {
 
+						var nhcs = new NHibernateCompanyStore();
+						var utcDate = value.DateNeeded.ToUniversalTime();
+						var requestor = await nhcs.GetEmployeeAsync(value.RequestorId);
+						var prHeader = new PRHeaderModel() {
+							Status = StatusType.Request,
+							Requestor = requestor,
+							DeliveryAdress = value.DeliveryAdress,
+							DateNeeded = value.DateNeeded,
+							CRC = requestor.Team.CRC,
+							CreatedBy = user,
+							Lines=new List<PRLinesModel>()
+						};
+						foreach (var line in value.Lines) {
+							var lin = await nhps.GetPRLineAsync(line.Id);
+							try {
+								prHeader.Lines.Add(lin);
+							} catch (Exception e) {
+
+								}
+						}
+					}
+				}
+			}
 		}
 
 		// PUT api/<controller>/5

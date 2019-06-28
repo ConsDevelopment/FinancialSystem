@@ -197,21 +197,35 @@ $("#setDeliveryAddress").on('click', function () {
 	$("#DeliveryAddress").text($("#delivery").val());
 });
 $("#submitPR").on('click', function () {
+	
+	//LocalToUTC($("#datepicker").val());
+	var date = new Date($("#datepicker").val());
+	
+	date.setHours(23);
+	date.setMinutes(59);
+	var json = [];
+	$('#linesTable').find('tbody tr').each(function () {
+		var obj = {};
+		$td = $(this).find('td');
+		val = $td.eq(0).text();
+		obj["id"] = val;
+		json.push(obj);
+	});
 	source = {
-		"RequestorId": $("#DeliveryAddress").text(),
+		"RequestorId": $("#RequestorId").val(),
 		"DeliveryAdress": $("#DeliveryAddress").text(),
-		"DateNeeded": $("#DeliveryAddress").text()
+		"DateNeeded": date,
+		"Lines": json
 	};
 
 	$.ajax({
 
 		type: "POST",
-		url: $("#ApiServer").val() + "/PR/ItemSearch",
+		url: "/api/CreatePR",
 		data: JSON.stringify(source),
 		contentType: 'application/json; charset=utf-8',
 		success: function (data) {
-			$("#ItemContainer").empty();
-			$("#ItemContainer").html(data);
+			alert('success');
 		},
 
 		error: function (error) {

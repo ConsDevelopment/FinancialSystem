@@ -78,7 +78,7 @@ namespace FinancialSystem.Controllers.MVC.PR
 
 		}
 
-		public async Task<ActionResult> CreatePR(IList<AddPrLinesViewModel> value) {
+		public async Task<ActionResult> CreatePR(IList<PrLinesViewModel> value) {
 			List<PRLinesModel> lines=new List<PRLinesModel>();
 			var nhps = new NHibernatePRStore();
 			var nh = new NHibernateUserStore();

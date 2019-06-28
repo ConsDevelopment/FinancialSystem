@@ -211,17 +211,19 @@
     <Content Include="Content\User\login.css" />
     <Content Include="Content\User\registration.css" />
     <Content Include="Global.asax" />
-    <Content Include="scripts\ai.0.22.9-build00167.js" />
+    <Content Include="scripts\user\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\PR\PR.js" />
     <Content Include="scripts\user\Login.js" />
     <Content Include="scripts\user\Registration.js" />
+    <Content Include="scripts\Utilities\Utilities.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accessor\BaseAccessor.cs" />
+    <Compile Include="Accessor\PRAccessor.cs" />
     <Compile Include="Accessor\UserAccessor.cs" />
     <Compile Include="Accessor\Users\CreateUser.cs" />
     <Compile Include="Accessor\Users\LoginAccessor.cs" />

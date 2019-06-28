@@ -23,7 +23,7 @@ namespace FinancialSystem.Controllers.API.PR {
 		}
 
 		// POST api/<controller>
-		public async Task Post(AddPrLinesViewModel value) {
+		public async Task Post(PrLinesViewModel value) {
 			var nh = new NHibernateUserStore();
 			var nhps = new NHibernatePRStore();
 			var session = HttpContext.Current.Session;

@@ -27,6 +27,7 @@ namespace FinancialSystem
 			PR(bundles);
 			ReviewPR(bundles);
 			PRCreation(bundles);
+			Utilities(bundles);
 			BundleTable.EnableOptimizations = Config.OptimizationEnabled();
 
 		}
@@ -111,6 +112,13 @@ namespace FinancialSystem
 				.Include("~/Content/PR/pr-shop.css"));
 			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/PR/PR").Include(
 					 "~/scripts/PR/PR.js"
+		   )));
+
+		}
+		private static void Utilities(BundleCollection bundles) {
+
+			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/Utilities/Utilities").Include(
+					 "~/scripts/Utilities/Utilities.js"
 		   )));
 
 		}
