@@ -49,12 +49,20 @@ namespace FinancialSystem.Controllers.API.PR {
 							Lines=new List<PRLinesModel>()
 						};
 						foreach (var line in value.Lines) {
+
 							var lin = await nhps.GetPRLineAsync(line.Id);
+							lin.Description = lin.Item.Description;
+							lin.Supplier = lin.Item.Supplier;
+							lin.UnitPrice = lin.Item.Price;
+							lin.UOM = lin.Item.UOM;
+							lin.TotalAmount = lin.Quantity * lin.UnitPrice;
+
 							try {
 								prHeader.Lines.Add(lin);
 							} catch (Exception e) {
 
 								}
+							await nhps.CreatePRHeaderAsync(prHeader);
 						}
 					}
 				}

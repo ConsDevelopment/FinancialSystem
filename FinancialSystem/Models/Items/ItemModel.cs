@@ -20,7 +20,7 @@ namespace FinancialSystem.Models {
 		public virtual string image { get; set; }
 		public virtual bool InStock { get; set; }
 		public virtual double Price { get; set; }
-		public virtual DateTime PriceValidity { get; set; }
+		public virtual DateTime? PriceValidity { get; set; }
 		
 		public virtual UOMType UOM { get; set; }
 		public virtual SupplierModel Supplier { get; set; }

@@ -1,4 +1,5 @@
-﻿using FinancialSystem.Models;
+﻿using FinancialSystem.Accessor;
+using FinancialSystem.Models;
 using FinancialSystem.Utilities;
 using NHibernate.Criterion;
 using System;
@@ -55,6 +56,22 @@ namespace FinancialSystem.NHibernate {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
 					return db.Get<PRLinesModel>(Id);
+				}
+			}
+		}
+		public async Task CreatePRHeaderAsync(PRHeaderModel header) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					db.Save(header);
+					var pra = new PRAccessor();
+					header.RequisitionNo = pra.GetRequisitionNo(header.Requestor, header.Id);
+					db.Update(header);
+					try {
+						tx.Commit();
+					} catch (Exception e) {
+
+					}
+					db.Flush();
 				}
 			}
 		}
