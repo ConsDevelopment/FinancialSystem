@@ -10,28 +10,33 @@ using System.Threading.Tasks;
 using FinancialSystem.NHibernate;
 
 namespace FinancialSystem.Models {
-	public class JobModel  {
+	//This serves as Section 
+	public class PositionModel {
 		public virtual long Id { get; set; }
-		public virtual string JobTitle { get; set; }
-		public virtual string JobeCode { get; set; }
+		public virtual string Name { get; set; }
+		public virtual string Description { get; set; }
 		public virtual UserModel CreatedBy { get; set; }
-		public JobModel() {
+		public virtual ICollection<EmployeeModel> employees { get; set; }
+		public PositionModel() {
 			
 			CreateTime = DateTime.UtcNow;
-
+			
 		}
 
 		public virtual DateTime CreateTime { get; set; }
 		public virtual DateTime? DeleteTime { get; set; }
+		
 
-		public virtual ICollection<EmployeeModel> Employee { get; set; }
-
-		public class JobModelMap : ClassMap<JobModel> {
-			public JobModelMap() {
+		public class PositionModelMap : ClassMap<PositionModel> {
+			public PositionModelMap() {
 				Id(x => x.Id);
-				Map(x => x.JobeCode).Index("JobCode_IDX").Length(400).UniqueKey("uniq");
-				Map(x => x.JobTitle);
+				Map(x => x.Name);
+				Map(x => x.Description);
+				Map(x => x.CreateTime);
+				Map(x => x.DeleteTime);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
+				HasMany(x => x.employees).Cascade.SaveUpdate().KeyColumn("Position");
+
 			}
 		}
 

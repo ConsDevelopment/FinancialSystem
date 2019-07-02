@@ -32,7 +32,8 @@ namespace FinancialSystem.Models {
 		public virtual DateTime? DeleteTime { get; set; }
 		public virtual CompanyModel Company { get; set; }
 		public virtual TeamModel Team { get; set; }
-		public virtual JobModel Job { get; set; }
+		public virtual PositionModel position { get; set; }
+		public virtual PositionModel ImmediateLeader { get; set; }
 
 
 		public class EmployeeModelMap : ClassMap<EmployeeModel> {
@@ -50,7 +51,8 @@ namespace FinancialSystem.Models {
 				Map(x => x.Image);
 				References(x => x.Company, "Company").Cascade.SaveUpdate();
 				References(x => x.Team, "Team").Cascade.SaveUpdate();
-				References(x => x.Job, "Job").Cascade.SaveUpdate();
+				References(x => x.position, "Position").Cascade.SaveUpdate();
+				References(x => x.ImmediateLeader, "ImmediateLeader").Cascade.SaveUpdate();
 			}
 		}
 
