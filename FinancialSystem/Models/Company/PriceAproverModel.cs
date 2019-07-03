@@ -10,14 +10,12 @@ using System.Threading.Tasks;
 using FinancialSystem.NHibernate;
 
 namespace FinancialSystem.Models {
-	public class PRAprovalModel {
+	public class PriceAproverModel {
 		public virtual long Id { get; set; }
 		public virtual PositionModel Approver { get; set; }
-		public virtual StatusType Status { get; set; }
-		//public virtual PRHeaderModel PRHeader { get; set; }
-		public virtual UserModel CreatedBy { get; set; }
-		public virtual UserModel ApprovedBy { get; set; }
-		public PRAprovalModel() {
+		public virtual double Min { get; set; }
+		public virtual double Max { get; set; }
+		public PriceAproverModel() {
 			
 			CreateTime = DateTime.UtcNow;
 			
@@ -26,17 +24,12 @@ namespace FinancialSystem.Models {
 		public virtual DateTime CreateTime { get; set; }
 		public virtual DateTime? DeleteTime { get; set; }
 
-		public class PRAprovalModelMap : ClassMap<PRAprovalModel> {
-			public PRAprovalModelMap() {
+		public class PriceAproverModelMap : ClassMap<PriceAproverModel> {
+			public PriceAproverModelMap() {
 				Id(x => x.Id);
-				Map(x => x.Status).CustomType<StatusType>();
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
-				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				References(x => x.Approver, "Approver").Cascade.SaveUpdate();
-				//References(x => x.PRHeader, "PRHeader").Cascade.SaveUpdate();
-				References(x => x.ApprovedBy, "ApprovedBy").Cascade.SaveUpdate();
-
 			}
 		}
 

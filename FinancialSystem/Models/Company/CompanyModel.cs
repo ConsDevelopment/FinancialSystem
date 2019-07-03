@@ -20,7 +20,7 @@ namespace FinancialSystem.Models {
 		public virtual string Logo { get; set; }
 		public virtual string SmallLogo { get; set; }
 		public virtual string Tin { get; set; }
-		public virtual EmployeeModel Corfin { get; set; }
+		public virtual PositionModel Corfin { get; set; }
 
 		public virtual UserModel CreatedBy { get; set; }
 		public CompanyModel() {

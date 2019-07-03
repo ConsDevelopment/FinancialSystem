@@ -27,6 +27,7 @@ namespace FinancialSystem.Models {
 		public virtual CategoryModel Category { get; set; }
 		public virtual BrandModel Brand { get; set; }
 		public virtual UserModel CreatedBy { get; set; }
+		public virtual PositionModel Approver { get; set; }
 
 		public ItemModel() {
 			
@@ -56,6 +57,7 @@ namespace FinancialSystem.Models {
 				References(p => p.Supplier, "Supplier").Cascade.SaveUpdate();
 				References(x => x.Category, "Category").Cascade.SaveUpdate();
 				References(x => x.Brand, "Brand").Cascade.SaveUpdate();
+				References(x => x.Approver, "Approver").Cascade.SaveUpdate();
 
 			}
 		}

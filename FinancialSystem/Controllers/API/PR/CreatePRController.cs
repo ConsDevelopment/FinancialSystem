@@ -46,8 +46,15 @@ namespace FinancialSystem.Controllers.API.PR {
 							DateNeeded = value.DateNeeded,
 							CRC = requestor.Team.CRC,
 							CreatedBy = user,
-							Lines=new List<PRLinesModel>()
+							Lines=new List<PRLinesModel>(),
+							Approvals=new List<PRAprovalModel>(),
+
 						};
+						if (requestor.ImmediateLeader != null) {
+							var immedieateAproval = new PRAprovalModel() {
+
+							};
+						}
 						foreach (var line in value.Lines) {
 
 							var lin = await nhps.GetPRLineAsync(line.Id);
@@ -56,14 +63,11 @@ namespace FinancialSystem.Controllers.API.PR {
 							lin.UnitPrice = lin.Item.Price;
 							lin.UOM = lin.Item.UOM;
 							lin.TotalAmount = lin.Quantity * lin.UnitPrice;
-
-							try {
-								prHeader.Lines.Add(lin);
-							} catch (Exception e) {
-
-								}
-							await nhps.CreatePRHeaderAsync(prHeader);
+							prHeader.Lines.Add(lin);
+							
+							
 						}
+						await nhps.CreatePRHeaderAsync(prHeader);
 					}
 				}
 			}

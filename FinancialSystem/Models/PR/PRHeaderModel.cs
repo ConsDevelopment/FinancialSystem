@@ -34,6 +34,7 @@ namespace FinancialSystem.Models {
 		public virtual UserModel CreatedBy { get; set; }
 		public virtual string CategoryAccountCode { get; set; }
 		public virtual ICollection<PRLinesModel> Lines { get; set; }
+		public virtual ICollection<PRAprovalModel> Approvals { get; set; }
 
 		public PRHeaderModel() {			
 			CreateTime = DateTime.UtcNow;			
@@ -57,6 +58,7 @@ namespace FinancialSystem.Models {
 				References(x => x.CRC, "CRC").Cascade.SaveUpdate();
 				References(x => x.Requestor, "Requestor").Cascade.SaveUpdate();
 				HasMany(x => x.Lines).Cascade.SaveUpdate().KeyColumn("Header");
+				HasMany(x => x.Approvals).Cascade.SaveUpdate().KeyColumn("PRHeader");
 			}
 		}
 
