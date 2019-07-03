@@ -63,20 +63,45 @@ namespace FinancialSystem.Controllers.MVC.PR
 				user = await nh.FindByIdAsync(session.ToString());
 			} else if (CurrentUserSession.userSecurityStampCookie != null) {
 				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
+				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user.Id;
 			} else {
 				return RedirectToAction("Login", "User");
 			}
-			ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
-			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
 			var nhps = new NHibernatePRStore();
 			var lines = await nhps.PRLinesCreatedAsync(user);
+			ViewData["cartCount"] = lines.Count;
+			ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
+			ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
+			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
+			
 			return View(lines);
 
 		}
 
-		public ActionResult CreatePR() {
-
-			return View();
+		public async Task<ActionResult> CreatePR(IList<PrLinesViewModel> value) {
+			List<PRLinesModel> lines=new List<PRLinesModel>();
+			var nhps = new NHibernatePRStore();
+			var nh = new NHibernateUserStore();
+			var nhcs = new NHibernateCompanyStore();
+			var session = HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			UserModel user;
+			if (!string.IsNullOrEmpty(session as string)) {
+				user = await nh.FindByIdAsync(session.ToString());
+			} else if (CurrentUserSession.userSecurityStampCookie != null) {
+				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
+				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user.Id;
+			} else {
+				return RedirectToAction("Login", "User");
+			}
+			ViewData["SmallLogo"] = Config.GetCompanyLogo(user.employee.Company.SmallLogo);
+			ViewData["Company"] = user.employee;
+			ViewData["Section"] = await nhcs.TeamEmployeeAsync(user.employee.Team);
+			foreach (var item in value) {
+				var line = await nhps.GetPRLineAsync(item.Id);
+				lines.Add(line);
+				
+			}
+			return PartialView(lines);
 		}
 
 		}

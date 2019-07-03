@@ -19,8 +19,7 @@ namespace FinancialSystem.Models {
 		public virtual string Description { get; set; }
 		public virtual double UnitPrice { get; set; }
 		public virtual double TotalAmount { get; set;  }
-		public virtual double VatEx { get; set; }
-		public virtual double VatAmount { get; set; }
+		
 		public virtual UserModel CreatedBy { get; set; }
 		public virtual PRHeaderModel Header { get; set; }
 
@@ -41,8 +40,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.Description);
 				Map(x => x.UnitPrice);
 				Map(x => x.TotalAmount);
-				Map(x => x.VatEx);
-				Map(x => x.VatAmount);
+
 				Map(x => x.DeleteTime);
 				Map(x => x.CreateTime);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();

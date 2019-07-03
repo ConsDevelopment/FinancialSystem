@@ -1,136 +1,281 @@
-﻿
-@{
-    ViewBag.Title = "CreatePR";
-    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+﻿@using FinancialSystem.Models
+@model IList<FinancialSystem.Models.PRLinesModel>
+
+@Styles.Render("~/Content/PR/PRCreation")
+@Scripts.Render("~/scripts/PR/PR")
+@Scripts.Render("~/scripts/Utilities/Utilities")
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+	<div class="row">
+		@*<div class="col s2">
+			<ul id="nav-mobile" class="sidenav sidenav-fixed" style="transform: translateX(-105%);">
+				<div class="brand-logo"><img src="images/bsi_logo.png" alt="" class="logo"></div>
+				<ul class="collapsible">
+					<li>
+						<div class="collapsible-header">
+							<a href="#">
+								<i class="material-icons">dashboard</i> Dash
+								Board
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="collapsible-header">
+							<a href="pr-shop.html">
+								<i class="material-icons">assignment</i>
+								Purchase Request
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="collapsible-header">
+							<a href="#">
+								<i class="material-icons">format_quote</i> Quote
+								Analysis
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="collapsible-header">
+							<a href="#">
+								<i class="material-icons">shopping_cart</i>
+								Purchase Order
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="collapsible-header">
+							<a href="#">
+								<i class="material-icons">list</i>
+								Items
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="collapsible-header">
+							<a href="#">
+								<i class="material-icons">settings</i>
+								Setting
+							</a>
+						</div>
+						<div class="collapsible-body submenu">
+							<i class="material-icons icons">fiber_manual_record</i>
+							<a href="usermaintenance.html">User Maintenance</a>
+						</div>
+						<div class="collapsible-body submenu">
+							<i class="material-icons icons">fiber_manual_record</i><a href="jobmaintenance.html">Job Maintenance</a>
+						</div>
+					</li>
+				</ul>
+			</ul>
+		</div>*@
+		<!--  -->
+		<div class="col s10 content">
+
+			<div class="container">
+				<div class="pr-form" id="pr1">
+					<div class="row">
+						
+						<div class="col s6"><img src='@ViewData["SmallLogo"]' alt="" class="src"></div>
+						<div class="col s6" id="pr-title">PURCHASE REQUEST</div>
+						@{ 
+							var emp = (EmployeeModel)ViewData["Company"];
+							var SectionEmp = (IList<EmployeeModel>)ViewData["Section"];
+						}
+							<div class="col s6" id="address">
+							@emp.Company.Adress
+							<br />
+							<b>TIN: @emp.Company.Tin</b>
+						</div>
+							
+						<div class="col s6" id="pr-number">
+							@*Requisition Number: <b><span id="pr-num">0001</span></b><br>*@
+							@*<b>Prepared:</b> <span id="PreparedDate"></span><br>*@
+							<b>Needed:</b> <input type="text" class="datepicker" id="datepicker"><br>
+							@*Date Approve:*@
+						</div>
+						<div id="info0">
+							<div class="col s6" id="info"><b>Company:</b> @emp.Company.CompanyName</div>
+							<div class="col s6" id="info">
+								<b>Requestor Name:</b> <span id="RequestorName" >@emp.Name()</span>
+								<input id="RequestorId" type="hidden" value="@emp.Id">
+								<a class="badge red modal-trigger" id="badge" href="#modal1"><span>edit</span></a>
+							</div>
+							<!-- Modal Structure -->
+							<div id="modal1" class="modal">
+								<div class="modal-content">
+									<h4>Search Requestor</h4>
+									<form autocomplete="off" action="">
+										<div class="autocomplete">
+											<input id="Requestor" type="text" name="requestor"
+												   placeholder="Search Requestor" list="RequestorList">
+											<input id="RequestorListId" type="hidden">
+											<datalist id="RequestorList">
+												@foreach (var secEmp in SectionEmp) {
+													<option data-value="@secEmp.Id" value="@secEmp.Name()"></option>
 }
+											</datalist>
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+									
+									<a href="#!" class="modal-close waves-effect waves-green btn-flat" id="setRequestor">OK</a>
 
-@*<h2>CreatePR</h2>*@
-<div class="col s10">
-	<div class="container">
-		<div class="section">
-			<div class="row">
-				<div class="col s12 m5">
-					<p>Company:</p>
-					<p>Requestor Name:</p>
-					<p>Requestor Number:</p>
-					<p>Business Unit:</p>
-					<p>Delivery Address:</p>
-					<p>
-						Charge Location:
-						<select class="browser-default">
-							<option value="" disabled selected>Select</option>
-							<option value="1">Option 1</option>
-							<option value="2">Option 2</option>
-							<option value="3">Option 3</option>
-						</select>
-						<label></label>
-					</p>
-				</div>
-				<div class="col s12 m5">
-					<p>Date Prepared:</p>
-					<p>Date Needed:</p>
-					<p>Date Revised:</p>
-					<p>Cost Revenue Center:</p>
-					<p>Category Act:</p>
-				</div>
-				<div class="col s12 m2">
-					<p id="prno">PR No. 00001</p>
+								</div>
+								<!-- End Modal -->
+							</div>
+							@*<div class="col s6" id="info"><b>Business Unit:</b> Auto Fill</div>*@
+							<div class="col s6" id="info"><b>Cost Revenue Center (CRC):</b> @emp.Team.CRC.CRCCode</div>
+							<div class="col s6" id="info"><b>Delivery Address:</b></div>
+							@*<div class="col s6" id="info"><b>Category Account Code:</b> Account Code</div>*@
+							<div class="col s6" id="info">
+								<span id="DeliveryAddress">@emp.Company.Adress</span><a class="badge red modal-trigger" id="badge"
+														  href="#modal2"><span>edit</span></a>
+</div>
+							<!-- Modal Structure -->
+							<div id="modal2" class="modal">
+								<div class="modal-content">
+									<h4>Type Delivery Address</h4>
+									<form autocomplete="off" action="">
+										<div class="autocomplete">
+											<textarea id="delivery" type="textarea" name="delivery"
+													  placeholder="Delivery Address"></textarea>
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<a href="#!" class="modal-close waves-effect waves-green btn-flat" id="setDeliveryAddress">OK</a>
+								</div>
+								<!-- End Modal -->
+							</div>
+							<div class="col s6" id="info"></div>
+							@{ 
+								double totalPrice = 0;
+							<div class="col s12">
+								<table class="highlight" id="linesTable">
+									<thead style="background-color: #16A2AF;">
+										<tr>
+											<th>ITEM #</th>
+											<th>ITEM CODE</th>
+											<th>DESCRIPTION</th>
+											<th>SUPPLIER</th>
+											<th>OUM</th>
+											<th>QTY</th>
+											<th>PRICE</th>
+											<th>TOTAL AMOUNT</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										@for (int i = 1; i <= Model.Count; i++) {
+										<tr>
+											<td style="display:none;">@Model[i - 1].Id</td>
+<td>@i</td>
+											<td>@Model[i - 1].Item.Code</td>
+											<td>@Model[i - 1].Item.Description</td>
+											@if (Model[i - 1].Supplier != null) {
+												<td>@(Model[i - 1].Supplier.Name)</td>
+											} else {
+												<td></td>
+											}
+
+											<td>@Model[i - 1].Item.UOM</td>
+											<td>@Model[i - 1].Quantity</td>
+											<td>@Model[i - 1].Item.Price</td>
+											<td>@(Model[i - 1].Item.Price * Model[i - 1].Quantity )</td>
+											@(totalPrice+= Model[i - 1].Item.Price * Model[i - 1].Quantity )
+										</tr>
+										}
+									</tbody>
+								</table>
+							</div>
+							<div class="col s6" id="nf">********** nothing follows **********</div>
+							<div class="col s3" id="totalAmoumt">
+								<b>
+									TOTAL AMOUNT
+								</b>
+							</div>
+							<div class="col s3">
+								<hr class="line">
+								<p id="vat">
+
+										Php @totalPrice<br>
+								</p>
+								<hr class="line">
+								@*<p id="totalvat">Php 10,000,000.00</b></p>*@
+							</div>
+								}
+							<div class="col s12" id="note">
+								<p id="noteto"><b>Note to Buyer: </b></p>
+								<a class="badge red modal-trigger" id="badge" href="#modal3">
+									<span>
+										add +
+									</span>
+								</a>
+							</div>
+							<!-- Modal Structure -->
+							<div id="modal3" class="modal">
+								<div class="modal-content">
+									<h4>Note to buyer</h4>
+									<form autocomplete="off" action="">
+										<div class="noteTobuyer">
+											<textarea id="notoTobuyer" type="textarea" name="notoTobuyer"
+													  placeholder=""></textarea>
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
-			<table class="responsive-table highlight centered">
-				<thead>
-					<tr>
-						<th>Item Number</th>
-						<th>Item Code</th>
-						<th>Description</th>
-						<th>OUM</th>
-						<th>Quantiy</th>
-						<th>Supplier</th>
-						<th>Unit Price</th>
-						<th>Total Amount</th>
-					</tr>
-				</thead>
-
-				<tbody>
-					<tr>
-						<td>0001</td>
-						<td>0001</td>
-						<td>Ballpen (Blue)</td>
-						<td>Box</td>
-						<td>1,000</td>
-						<td>Supplier A</td>
-						<td>Php 8.00</td>
-						<td>Php 8,000</td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="submit">
-				<span id="left"><a class="waves-effect orange waves-light btn left"><i>CANCEL</i></a></span>
-				<span id="center">
-					<p class="center-align">
-						<a class="btn disabled blue-grey lighten-2"><i>SAVE</i></a>
-						<a class="waves-effect green darken-2 waves-light btn"><i>SUBMIT</i></a>
-					</p>
-				</span>
-				<span id="right">
-					<p class="right-align">
-						<a class="btn-floating btn-large waves-effect waves-light green pulse">
-							<i class="material-icons">add</i>
-						</a>
-					</p>
-				</span>
-			</div>
-		</div>
-		<div class="section">
-			<div class="row">
-				<div class="input-field col offset-s1 s9">
-					<input id="text" type="text" class="validate">
-					<label for="text">Description</label>
+			<div class="col s8" id="submit">
+				<div class="row">
+					<div class="col s8">
+						<a class="waves-effect waves-light btn amber modal-trigger"
+						   href="#modal4">CANCEL</a>
+						<!-- Modal Structure -->
+						<div id="modal4" class="modal">
+							<div class="modal-content">
+								<p>Are you sure you want to cancel this request?</p>
+							</div>
+							<div class="modal-footer">
+								<a href="#!" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+								<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+							</div>
+						</div>
+					</div>
+					<div class="col s4">
+					</div>
+					<a class="waves-effect waves-light btn right green modal-trigger" href="#modal5" >SUBMIT</a>
+					<!-- Modal Structure -->
+					<div id="modal5" class="modal">
+						<div class="modal-content">
+							<p>Are you sure you want to approve this request?</p>
+						</div>
+						<div class="modal-footer">
+							<a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitPR">Yes</a>
+							<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col offset-s1 s4">
-					<input id="qty" type="text" class="validate">
-					<label for="qty">Quantity</label>
-				</div>
-				<div class="input-field col offset-s1 s4">
-					<span style="float:left;">Unit of measurement</span>
-					<select class="browser-default">
-						<option value="" disabled selected>Select</option>
-						<option value="1">Option 1</option>
-						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
-					</select>
-
-				</div>
-			</div>
-			<div class="row">
-				<div class="col s4 offset-s6">
-					<span class="flow-text">
-						<a class="waves-effect green darken-2 waves-light btn right">
-							<i>
-								ADD <i class="material-icons">add</i>
-							</i>
-						</a>
-						<a class="waves-effect orange waves-light btn right"><i>CANCEL</i></a>
-					</span>
-				</div>
-
 			</div>
 		</div>
 	</div>
-</div>
-<!--Alert Function On load page-->
 <script>
-            var toastHTML = '<span>I am toast content</span><button class="btn-flat toast-action">Undo</button>';
-            M.toast({ html: toastHTML });
+    //document.addEventListener('DOMContentLoaded', function () {
+    //    var elems = document.querySelectorAll('.datepicker');
+    //    var instances = M.Datepicker.init(elems);
+    //    //var elems = document.querySelectorAll('.sidenav');
+    //    //var instances = M.Sidenav.init(elems);
+    //    var elems = document.querySelectorAll('.modal');
+    //    var instances = M.Modal.init(elems);
+    //});
 </script>
-<script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var elems = document.querySelectorAll('select');
-                var instances = M.FormSelect.init(elems);
-            });
-</script>
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>		
+
 

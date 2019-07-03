@@ -11,28 +11,30 @@ using FinancialSystem.NHibernate;
 
 namespace FinancialSystem.Models {
 	public class PRHeaderModel {
-		private string requisitionNo;
+		//private string requisitionNo;
 		public virtual long Id { get; set; }
 		public virtual StatusType Status { get; set; }
 		public virtual EmployeeModel Requestor { get; set; }
 		public virtual string DeliveryAdress { get; set; }
 		public virtual ChargeLocationModel CLC { get; set; }
-		public virtual string RequisitionNo {
-			get {
-				if (requisitionNo == null) {
-					requisitionNo = CRC.BusinesUnit.BUCode + DateTime.UtcNow.Month.ToString().PadLeft(2, '0') + Id.ToString().PadLeft(5, '0');
-				}
-				return requisitionNo;
-			}
-			set {
-				requisitionNo = value;
-			}
-		}
+		//public virtual string RequisitionNo {
+		//	get {
+		//		if (requisitionNo == null) {
+		//			requisitionNo = Requestor.Company.CompanyCode + DateTime.UtcNow.Month.ToString().PadLeft(2, '0') + Id.ToString().PadLeft(5, '0');
+		//		}
+		//		return requisitionNo;
+		//	}
+		//	set {
+		//		requisitionNo = value;
+		//	}
+		//}
+		public virtual string RequisitionNo { get; set; }
 		public virtual DateTime? DateNeeded { get; set;  }
 		public virtual CostRevenueCenterModel CRC { get; set; }
 		public virtual UserModel CreatedBy { get; set; }
 		public virtual string CategoryAccountCode { get; set; }
 		public virtual ICollection<PRLinesModel> Lines { get; set; }
+		public virtual ICollection<PRAprovalModel> Approvals { get; set; }
 
 		public PRHeaderModel() {			
 			CreateTime = DateTime.UtcNow;			
@@ -56,6 +58,7 @@ namespace FinancialSystem.Models {
 				References(x => x.CRC, "CRC").Cascade.SaveUpdate();
 				References(x => x.Requestor, "Requestor").Cascade.SaveUpdate();
 				HasMany(x => x.Lines).Cascade.SaveUpdate().KeyColumn("Header");
+				HasMany(x => x.Approvals).Cascade.SaveUpdate().KeyColumn("PRHeader");
 			}
 		}
 

@@ -14,7 +14,7 @@ namespace FinancialSystem.Models {
 		public virtual long Id { get; set; }
 		public virtual string CRCCode { get; set; }
 		public virtual string CRCName { get; set; }
-		public virtual BusinessUnitModel BusinesUnit { get; set; }
+		
 		
 
 		public virtual UserModel CreatedBy { get; set; }
@@ -36,7 +36,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
-				References(x => x.BusinesUnit, "BusinesUnit").Cascade.SaveUpdate();
+				
 
 			}
 		}

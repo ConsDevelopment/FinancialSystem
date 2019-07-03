@@ -26,6 +26,8 @@ namespace FinancialSystem
             login(bundles);
 			PR(bundles);
 			ReviewPR(bundles);
+			PRCreation(bundles);
+			Utilities(bundles);
 			BundleTable.EnableOptimizations = Config.OptimizationEnabled();
 
 		}
@@ -113,10 +115,23 @@ namespace FinancialSystem
 		   )));
 
 		}
+		private static void Utilities(BundleCollection bundles) {
+
+			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/Utilities/Utilities").Include(
+					 "~/scripts/Utilities/Utilities.js"
+		   )));
+
+		}
 		private static void ReviewPR(BundleCollection bundles) {
 
 			bundles.Add(new StyleBundle("~/Content/PR/Review")
 				.Include("~/Content/PR/review.css"));
+
+		}
+		private static void PRCreation(BundleCollection bundles) {
+
+			bundles.Add(new StyleBundle("~/Content/PR/PRCreation")
+				.Include("~/Content/PR/PRCreation.css"));
 
 		}
 

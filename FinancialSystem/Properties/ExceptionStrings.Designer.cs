@@ -39,7 +39,7 @@ namespace FinancialSystem.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RadialReview.Properties.ExceptionStrings", typeof(ExceptionStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FinancialSystem.Properties.ExceptionStrings", typeof(ExceptionStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -10,14 +10,12 @@ using System.Threading.Tasks;
 using FinancialSystem.NHibernate;
 
 namespace FinancialSystem.Models {
-	//This serves as Section 
-	public class TeamModel {
+	public class PriceAproverModel {
 		public virtual long Id { get; set; }
-		public virtual string TeamName { get; set; }
-		public virtual string TeamCode { get; set; }
-		public virtual UserModel CreatedBy { get; set; }
-
-		public TeamModel() {
+		public virtual PositionModel Approver { get; set; }
+		public virtual double Min { get; set; }
+		public virtual double Max { get; set; }
+		public PriceAproverModel() {
 			
 			CreateTime = DateTime.UtcNow;
 			
@@ -26,19 +24,12 @@ namespace FinancialSystem.Models {
 		public virtual DateTime CreateTime { get; set; }
 		public virtual DateTime? DeleteTime { get; set; }
 
-		
-		public virtual CostRevenueCenterModel CRC { get; set; }
-
-		public class TeamModelMap : ClassMap<TeamModel> {
-			public TeamModelMap() {
+		public class PriceAproverModelMap : ClassMap<PriceAproverModel> {
+			public PriceAproverModelMap() {
 				Id(x => x.Id);
-				Map(x => x.TeamCode).Index("TeamCode_IDX").Length(400).UniqueKey("uniq");
-				Map(x => x.TeamName);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
-				References(x => x.CRC, "CRC").Cascade.SaveUpdate();
-				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
-				
+				References(x => x.Approver, "Approver").Cascade.SaveUpdate();
 			}
 		}
 

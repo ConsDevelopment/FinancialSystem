@@ -1,9 +1,9 @@
 ﻿@model IList<FinancialSystem.Models.PRLinesModel>
 @{
-	Layout = null;
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 
-<!DOCTYPE html>
+@*<!DOCTYPE html>
 
 <html>
 
@@ -18,143 +18,144 @@
 	@Styles.Render("~/Content/PR/Review")
 	@Scripts.Render("~/scripts/PR/PR")
 	@Html.Hidden("ApiServer", ViewData["ApiServer"])
-</head>
+</head>*@
 
-<body>
-	<header>
-		<nav>
-			<div class="nav-wrapper">
-				<a href="#" class="brand-logo center"><img src='@ViewData["CompanyLogo"]' alt="" class="logo"></a>
-				<ul id="nav-mobile" class="left">
-					<li><a href="#"><i class=" material-icons white-text">arrow_back</i></a></li>
-				</ul>
-			</div>
-		</nav>
-	</header>
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+@Styles.Render("~/Content/PR/Review")
+@Scripts.Render("~/scripts/PR/PR")
+@Html.Hidden("ApiServer", ViewData["ApiServer"])
+<div id="bod" class="col s10 content">
+
 	<main>
-		<div class="container">
-			<div class="row">
+        <div class="container">
+            <div class="row" id="title1">
 
-				<div class="col s2" id="title">Item/s</div>
-				<div class="col s4" id="title">Description</div>
-				<div class="col s1" id="title">Unit Price</div>
-				<div class="col s1" id="title">Quantity</div>
-				@*<div class="col s2" id="title">Amount</div>*@
-				<div class="col s2" id="title">Total Amount</div>
-			</div>
-			@{double tot = 0;
+                <div class="col s3" id="title">Item/s</div>
+                <div class="col s3" id="title">Description</div>
+                <div class="col s2" id="title">Unit Price</div>
+                <div class="col s2" id="title">Quantity</div>
+                <div class="col s2" id="title">Total Amount</div>
+            </div>
+            @{double tot = 0;
 
-foreach (var row in Model) {
-	tot += (row.Item.Price * row.Quantity);
-			<div class="row" id="@(row.Id)">
-				<div class="col s2">
-					<div class="check">
-						<label>
-							<input id="check@(row.Id)" type="checkbox" class="filled-in" checked="checked" />
-							<span></span>
-						</label>
-					</div>
-					<div class="src">
-						<img src="@(ViewData["ItemImagePath"])@(row.Item.image)" alt="">
-					</div>
+                foreach (var row in Model)
+                {
+                    tot += (row.Item.Price * row.Quantity);
+			<div class="row" id="view_items">
+                <div class="col s3">
+                    <div class="check">
+                        <label>
+                            <input id="@(row.Id)" name="itemCheck" type="checkbox" class="filled-in" checked="checked" />
+                            <span></span>
+                        </label>
+                    </div>
+                    <div class="src">
+                        <img src="@(ViewData["ItemImagePath"])@(row.Item.image)" alt="">
+                    </div>
 
-				</div>
-				<div class="col s4">
-					<span>@row.Item.Name</span>
-					<div id="p">Description: @row.Item.Description</div>
-					@*<div id="p">Color: Black</div>*@
-					<div id="p">SKU: @row.Item.SKU</div>
-				</div>
-				<div class="col s1" id="price">&#8369; @row.Item.Price</div>
-				<div class="col s1" id="price">@(row.Quantity) @(row.Item.UOM)</div>
-				@*<div class="col s2" id="price">&#8369; 10,000.00</div>*@
-				<div class="col s2" id="price">&#8369; @(row.Item.Price * row.Quantity)</div>
-			</div>
-}
-
-			@*<div class="row" id="mobile_view">
-				<div class="row">
-					<div class="col s4">
-						<div class="src">
-							<img src="images/items/ballpens/shoes-thumb.jpg" alt="">
-						</div>
-					</div>
-					<div class="col s8">
-						<div class="col s12">
-							<div class="col s10">
-								<h6><strong>Rubber Shoes</strong></h6>
-							</div>
-							<div class="col s2">
-								<div class="check"></div>
-								<label>
-									<input type="checkbox" class="filled-in" checked="checked" />
-									<span></span>
-								</label>
-							</div>
-							<div class="col s12">Description:</div>
-							<div class="col s12">Color: Black</div>
-							<div class="col s12">SKU: 0001</div>
-							<div class="col s6">
-								Quantity:
-								<div class="quanity">1,000pcs.</div>
-							</div>
-							<div class="col s6" id="mobile_price">&#8369; 10,000.00</div>
-						</div>
-					</div>
-				</div>
-			</div>*@
-			<div class="row">
-				<div class="col s12 operation">
-					<span id="operation_action">
-						<label>
-							<input type="checkbox" class="filled-in" checked="checked" />
-							<span>Select All</span>
-						</label>
-					</span>
-					<span id="operation_action">
-						<a href="#" class="href"><i class="material-icons">delete</i></a>
-					</span>
-				</div>
-			</div>
-			<div class="row" id="check-out">
-				<div class="col s6" class="continue"><a href="#" class="href">Continue Request ></a></div>
-				<div class="col s2"></div>
-				<div class="col s4">
-					<ul class="cart_checkout">
-						@*<li class="cart_item">
-							<span class="cart_leftitem">TOTAL (VAT EXCLUSIVE)</span>
-							<span class="cart_rightitem">&#8369; 00.00</span>
-						</li>
-						<li class="cart_checkout">
-							<span class="cart_leftitem">VAT AMOUNT</span>
-							<span class="cart_rightitem">&#8369; - 00.00</span>
-						</li>*@
-						<li class="cart_checkout price_bold">
-							<span class="cart_leftitem cart_amount">TOTAL AMOUNT</span>
-							<span class="cart_rightitem cart_total">&#8369; @tot</span>
-						</li>
-					</ul>
-				</div>
-			</div>
-				}
-			<div class="col s12">
-				<a class="waves-effect waves-light btn-checkout green darken-3 right" onclick="CreatePR()">CREATE REQUEST</a>
-			</div>
-		</div>
-	</main>
-	<footer>
-		<div class="footer">
-			<div class="row">
-				<div class="col s12">
-					<ul class="footer_checkout">
-						@*<li class="footer_item">
-							<span class="footer_leftitem">TOTAL (VAT EXCLUSIVE)</span>
-							<span class="footer_rightitem">&#8369; 00.00</span>
-						</li>
-						<li class="footer_checkout">
-							<span class="footer_leftitem">VAT AMOUNT</span>
-							<span class="footer_rightitem">&#8369; - 00.00</span>
-						</li>*@
+                </div>
+                <div class="col s3">
+                    <span>@row.Item.Name</span>
+                    <div id="p">Description: @row.Item.Description</div>
+                    @*<div id="p">Color: Black</div>*@
+                    <div id="p">SKU: @row.Item.SKU</div>
+                </div>
+                        <div class="col s2" id="price">&#8369; @row.Item.Price</div>
+                        <div class="col s2" id="price">@(row.Quantity) @(row.Item.UOM)</div>
+                        @*<div class="col s2" id="price">&#8369; 10,000.00</div>*@
+                        <div class="col s2" id="price">&#8369; @(row.Item.Price * row.Quantity)</div>
+            </div>
+                }
+            @*<div class="row" id="mobile_view">
+                <div class="row">
+                    <div class="col s4">
+                        <div class="src">
+                            <img src="images/items/ballpens/shoes-thumb.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col s8">
+                        <div class="col s12">
+                            <div class="col s10">
+                                <h6><strong>Rubber Shoes</strong></h6>
+                            </div>
+                            <div class="col s2">
+                                <div class="check"></div>
+                                <label>
+                                    <input type="checkbox" class="filled-in" checked="checked" />
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col s12">Description:</div>
+                            <div class="col s12">Color: Black</div>
+                            <div class="col s12">SKU: 0001</div>
+                            <div class="col s6">
+                                Quantity:
+                                <div class="quanity">1,000pcs.</div>
+                            </div>
+                            <div class="col s6" id="mobile_price">&#8369; 10,000.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+            <div class="row">
+                <div class="col s12 operation">
+                    <span id="operation_action">
+                        <label>
+                            <input type="checkbox" class="filled-in" checked="checked" />
+                            <span>Select All</span>
+                        </label>
+                    </span>
+                    <span id="operation_action">
+                        <a href="#" class="href"><i class="material-icons">delete</i></a>
+                    </span>
+                </div>
+            </div>
+            <div class="row" id="check-out">
+                <div class="col s6" id="continue"><a href="#" class="href">Continue Request ></a></div>
+                <div class="col s2"></div>
+                <div class="col s4">
+                    <ul class="cart_checkout">
+                        @*<li class="cart_item">
+                            <span class="cart_leftitem">TOTAL (VAT EXCLUSIVE)</span>
+                            <span class="cart_rightitem">&#8369; 00.00</span>
+                        </li>
+                        <li class="cart_checkout">
+                            <span class="cart_leftitem">VAT AMOUNT</span>
+                            <span class="cart_rightitem">&#8369; - 00.00</span>
+                        </li>*@
+                        <li class="cart_checkout price_bold">
+                            <span class="cart_leftitem cart_amount">TOTAL AMOUNT</span>
+                            <span class="cart_rightitem cart_total">&#8369; @tot</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+                
+            }
+            <div class="col s12">
+                <a class="waves-effect waves-light btn-checkout green darken-3 right" onclick="CreatePR()" >CREATE REQUEST</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer">
+            <div class="row">
+                <div class="col s12">
+                    <ul class="footer_checkout">
+                        @*<li class="footer_item">
+                                <span class="footer_leftitem">TOTAL (VAT EXCLUSIVE)</span>
+                                <span class="footer_rightitem">&#8369; 00.00</span>
+                            </li>
+                            <li class="footer_checkout">
+                                <span class="footer_leftitem">VAT AMOUNT</span>
+                                <span class="footer_rightitem">&#8369; - 00.00</span>
+                            </li>*@
 						<li class="footer_checkout price_bold">
 							<span class="footer_leftitem footer_amount">TOTAL AMOUNT</span>
 							<span class="footer_rightitem footer_total">&#8369; 10,000.00</span>
@@ -168,6 +169,6 @@ foreach (var row in Model) {
 
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</body>
+</div>
 
-</html>
+@*</html>*@

@@ -18,6 +18,20 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+		public async Task<IList<EmployeeModel>> TeamEmployeeAsync(TeamModel team) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<EmployeeModel>().Where(x=>x.Team==team && x.DeleteTime==null).List();
+				}
+			}
+		}
+		public async Task<EmployeeModel> GetEmployeeAsync(string id) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.Get<EmployeeModel>(id);
+				}
+			}
+		}
 	}
 }
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

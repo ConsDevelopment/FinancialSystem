@@ -11,7 +11,7 @@ using System.Web;
 using System.Web.Http;
 
 namespace FinancialSystem.Controllers.API.PR {
-	public class AddPRLinesController : ApiController {
+	public class DeletePRLinesController : ApiController {
 		// GET api/<controller>
 		public IEnumerable<string> Get() {
 			return new string[] { "value1", "value2" };
@@ -23,7 +23,7 @@ namespace FinancialSystem.Controllers.API.PR {
 		}
 
 		// POST api/<controller>
-		public async Task Post(PrLinesViewModel value) {
+		public async Task Post(IList<PrLinesViewModel> value) {
 			var nh = new NHibernateUserStore();
 			var nhps = new NHibernatePRStore();
 			var session = HttpContext.Current.Session;
@@ -32,17 +32,8 @@ namespace FinancialSystem.Controllers.API.PR {
 				if (session[sessionKey] != null) {
 					var user = await nh.FindByIdAsync(session[sessionKey].ToString());
 					if (user != null) {
-						var nhis = new NHibernateItemStore();
-						var item = await nhis.FindItemByIdAsync(value.Id);
-						var PrLines = new PRLinesModel {
-							Item = item,
-							Quantity = value.Quantity,
-							CreatedBy = user
-						};
-						try {
-							await nhps.CreatePRLinesAsync(PrLines);
-						} catch (Exception e) {
-							var a = e.Message;
+						foreach (var line in value) {
+							await nhps.DeletePRLineAsync(line.Id);
 						}
 					}
 				}
