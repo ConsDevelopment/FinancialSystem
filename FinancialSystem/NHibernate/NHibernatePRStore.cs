@@ -66,11 +66,7 @@ namespace FinancialSystem.NHibernate {
 					var pra = new PRAccessor();
 					header.RequisitionNo = pra.GetRequisitionNo(header.Requestor, header.Id);
 					db.Update(header);
-					try {
-						tx.Commit();
-					} catch (Exception e) {
-
-					}
+					tx.Commit();
 					db.Flush();
 				}
 			}

@@ -51,9 +51,12 @@ namespace FinancialSystem.Controllers.API.PR {
 
 						};
 						if (requestor.ImmediateLeader != null) {
-							var immedieateAproval = new PRAprovalModel() {
-
+							var immedieateAprover = new PRAprovalModel() {
+								Approver= requestor.ImmediateLeader,
+								Status=StatusType.Request,
+								CreatedBy=user
 							};
+							prHeader.Approvals.Add(immedieateAprover);
 						}
 						foreach (var line in value.Lines) {
 
