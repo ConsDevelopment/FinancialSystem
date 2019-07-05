@@ -35,7 +35,7 @@ namespace FinancialSystem.NHibernate {
 		public async Task<IList<PRLinesModel>> PRLinesCreatedAsync(UserModel user) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
-					var lines = db.QueryOver<PRLinesModel>().Where(x=>x.CreatedBy==user && x.DeleteTime==null);
+					var lines = db.QueryOver<PRLinesModel>().Where(x=>x.CreatedBy==user && x.DeleteTime==null && x.Header==null);
 					return lines.List();
 				}
 			}

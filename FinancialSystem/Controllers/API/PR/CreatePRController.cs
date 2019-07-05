@@ -56,11 +56,37 @@ namespace FinancialSystem.Controllers.API.PR {
 								Status=StatusType.Request,
 								CreatedBy=user
 							};
+
 							prHeader.Approvals.Add(immedieateAprover);
 						}
-						foreach (var line in value.Lines) {
+						if (requestor.Department != null) {
 
+							
+							if (!prHeader.Approvals.Any(s => s.Approver.Id == requestor.Department.DepartmentLeader.Id)){
+								var DepLeadAproval = new PRAprovalModel() {
+									Approver = requestor.Department.DepartmentLeader,
+									Status = StatusType.Request,
+									CreatedBy = user
+								};
+								prHeader.Approvals.Add(DepLeadAproval);
+							}
+						}
+						foreach (var line in value.Lines) {
+							
 							var lin = await nhps.GetPRLineAsync(line.Id);
+							if (lin.Item != null) {
+								if (lin.Item.Approver != null) {
+									
+									if (!prHeader.Approvals.Any(s => s.Approver.Id == lin.Item.Approver.Id)) {
+										var ItemAproval = new PRAprovalModel() {
+											Approver = lin.Item.Approver,
+											Status = StatusType.Request,
+											CreatedBy = user
+										};
+										prHeader.Approvals.Add(ItemAproval);
+									}
+								}
+							}
 							lin.Description = lin.Item.Description;
 							lin.Supplier = lin.Item.Supplier;
 							lin.UnitPrice = lin.Item.Price;

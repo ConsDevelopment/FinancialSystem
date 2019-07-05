@@ -34,6 +34,7 @@ namespace FinancialSystem.Models {
 		public virtual TeamModel Team { get; set; }
 		public virtual PositionModel position { get; set; }
 		public virtual PositionModel ImmediateLeader { get; set; }
+		public virtual DepartmentModel Department { get; set; }
 
 
 		public class EmployeeModelMap : ClassMap<EmployeeModel> {
@@ -53,6 +54,7 @@ namespace FinancialSystem.Models {
 				References(x => x.Team, "Team").Cascade.SaveUpdate();
 				References(x => x.position, "Position").Cascade.SaveUpdate();
 				References(x => x.ImmediateLeader, "ImmediateLeader").Cascade.SaveUpdate();
+				References(x => x.Department, "Department").Cascade.SaveUpdate();
 			}
 		}
 

@@ -253,6 +253,7 @@
     <Compile Include="Models\Company\PriceAproverModel.cs" />
     <Compile Include="Models\Company\RegistrationView.cs" />
     <Compile Include="Models\Company\PositionModel.cs" />
+    <Compile Include="Models\Company\DepartmentModel.cs" />
     <Compile Include="Models\Company\TeamModel.cs" />
     <Compile Include="Models\Company\CompanyModel.cs" />
     <Compile Include="Models\Company\EmployeeModel.cs" />
