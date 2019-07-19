@@ -71,6 +71,18 @@ namespace FinancialSystem.Controllers.API.PR {
 								prHeader.Approvals.Add(DepLeadAproval);
 							}
 						}
+						if (requestor.Company.Corfin != null && requestor.Company.Corfin.Id!=requestor.position.Id) {
+						
+							
+							if (!prHeader.Approvals.Any(s => s.Approver.Id == requestor.Company.Corfin.Id)) {
+								var corfin = new PRAprovalModel() {
+									Approver = requestor.Company.Corfin,
+									Status = StatusType.Request,
+									CreatedBy = user
+								};
+								prHeader.Approvals.Add(corfin);
+							}
+						}
 						foreach (var line in value.Lines) {
 							
 							var lin = await nhps.GetPRLineAsync(line.Id);
