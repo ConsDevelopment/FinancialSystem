@@ -10,7 +10,7 @@ using System.Threading;
 using System.Collections.Specialized;
 using System.Configuration;
 using NHibernate;
-using Examination.Models.Enums;
+
 
 namespace FinancialSystem.Utilities {
 	public class Config {
