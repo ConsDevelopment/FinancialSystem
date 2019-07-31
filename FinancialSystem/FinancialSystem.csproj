@@ -329,6 +329,7 @@
     <Content Include="Views\PR\ItemSearch.cshtml" />
     <Content Include="Views\PR\ReviewCart.cshtml" />
     <Content Include="Views\PR\CreatePR.cshtml" />
+    <Content Include="Views\PR\PRAproover.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

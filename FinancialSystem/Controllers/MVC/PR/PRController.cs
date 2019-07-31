@@ -103,6 +103,8 @@ namespace FinancialSystem.Controllers.MVC.PR
 			}
 			return PartialView(lines);
 		}
-
+		public async Task<ActionResult> PRAproover() {
+			return View();
+		}
 		}
 }

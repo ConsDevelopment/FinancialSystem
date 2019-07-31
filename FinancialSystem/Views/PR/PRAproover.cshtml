@@ -1,0 +1,212 @@
+﻿
+@{
+    ViewBag.Title = "PRAproover";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>PRAproover</h2>
+<header>
+	<div class="col s12 content">
+		<div class="col s12" id="header-approver">
+			<div class="col s2" id="title">PR Number</div>
+			<div class="col s4" id="title">Requestor</div>
+			<div class="col s2" id="title">Date Prepare</div>
+			<div class="col s2" id="title">CRC</div>
+			<div class="col s2" id="title">Total Amount</div>
+			<ul class="collapsible">
+				<li>
+					<div class="collapsible-header" id="pr2">
+						<div class="col s2">
+							<label class="check-box">
+								<input type="checkbox" class="filled-in" />
+								<span>00001</span>
+							</label>
+						</div>
+						<div class="col s4" id="approver_details">
+							Requestor Name
+						</div>
+						<div class="col s2" id="approver_details">
+							January 1, 2050
+						</div>
+						<div class="col s2" id="approver_details">
+							CRC
+						</div>
+						<div class="col s2" id="approver_details">
+							&#8369; 1,500.00
+						</div>
+					</div>
+					<div class="collapsible-body" id="pr2">
+						<div class="row">
+							<div class="col s6">
+								<img src="images/bsi_logo-small.png" alt="" class="src">
+							</div>
+							<div class="col s6" id="pr-title">PURCHASE REQUEST</div>
+							<div class="col s6" id="address">
+								Unit 1103, 11F Pearl of the Orient Tower,<br>
+								1240 Roxas Blvd. Brgy. 667 Zone 072,<br>
+								Ermita Manila 1000<br>
+								<b>TIN: 008-349-500-000</b>
+							</div>
+							<div class="col s6" id="pr-number">
+								Requisition Number: <b><span id="pr-num">0001</span></b><br>
+								Date Prepared:<br>
+								Date Needed: <input type="text" id="datepicker"><br>
+								Date Approve:
+							</div>
+							<div id="info0">
+								<div class="col s6" id="info"><b>Company:</b> Company Here</div>
+								<div class="col s6" id="info">
+									<b>Requestor Name:</b> Name Of Requestor
+								</div>
+								<!-- Modal Structure -->
+								<div id="modal1" class="modal">
+									<div class="modal-content">
+										<h4>Search Requestor</h4>
+										<form autocomplete="off" action="">
+											<div class="autocomplete">
+												<input id="myInput" type="text" name="requestor"
+													   placeholder="Search Requestor">
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<a href="#!"
+										   class="modal-close waves-effect waves-green btn-flat">OK</a>
+									</div>
+								</div>
+								<!-- End Modal -->
+								<div class="col s6" id="info"><b>Business Unit:</b> Auto Fill</div>
+								<div class="col s6" id="info"><b>Cost Revenue Center (CRC):</b> CRC</div>
+								<div class="col s6" id="info"><b>Company Address:</b></div>
+								<div class="col s6" id="info">
+									<b>Category Account Code:</b> Account Code
+								</div>
+								<div class="col s6" id="info">
+									Unit 1103, 11F Pearl of the Orient Tower,
+									1240 Roxas Blvd. Brgy. 667 Zone 072,
+									Ermita Manila 1000
+								</div>
+								<!-- Modal Structure -->
+								<div id="modal2" class="modal">
+									<div class="modal-content">
+										<h4>Type Delivery Address</h4>
+										<form autocomplete="off" action="">
+											<div class="autocomplete">
+												<textarea id="delivery" type="textarea" name="delivery"
+														  placeholder="Delivery Address"></textarea>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="col s6" id="info"></div>
+								<div class="col s12">
+									<table class="highlight">
+										<thead style="background-color: #16A2AF;">
+											<tr>
+												<th>ITEM #</th>
+												<th>ITEM CODE</th>
+												<th>DESCRIPTION</th>
+												<th>SUPPLIER</th>
+												<th>OUM</th>
+												<th>QTY</th>
+												<th>PRICE</th>
+												<th>TOTAL AMOUNT</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											<tr>
+												<td>00001</td>
+												<td>00001</td>
+												<td>Rubber Shoes</td>
+												<td>Supplier A</td>
+												<td>Piece</td>
+												<td>1</td>
+												<td>1,500.00</td>
+												<td>1,500.00</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="col s6" id="nf">********** nothing follows **********</div>
+								<div class="col s3" id="totalAmoumt">
+									<b>
+										TOTAL AMOUNT
+									</b>
+								</div>
+								<div class="col s3">
+									<hr class="line">
+									<p id="vat">
+										<b>
+											Php 100,000.00<br>
+									</p>
+									<hr class="line">
+									<p id="totalvat">Php 10,000,000.00</b></p>
+								</div>
+								<div class="col s12" id="note">
+									<p id="noteto"><b>Note to Buyer: </b></p>
+								</div>
+								<!-- Modal Structure -->
+								<div id="modal3" class="modal">
+									<div class="modal-content">
+										<h4>Note to buyer</h4>
+										<form autocomplete="off" action="">
+											<div class="noteTobuyer">
+												<textarea id="notoTobuyer" type="textarea" name="notoTobuyer"
+														  placeholder=""></textarea>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<a href="#!"
+										   class="modal-close waves-effect waves-green btn-flat">OK</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<div class="progress">
+				<div class="indeterminate"></div>
+			</div>
+		</div>
+		<div class="col s12" id="submit">
+			<a class="waves-effect waves-light btn right amber modal-trigger" href="#modal4"
+			   id="submit-button">CANCEL</a>
+			<!-- Modal Structure -->
+			<div id="modal4" class="modal">
+				<div class="modal-content">
+					<p>Are you sure you want to cancel RP #00001?</p>
+				</div>
+				<div class="modal-footer">
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat"
+					   onclick="M.toast({html: 'PR #00001 has been cancelled',  classes: 'rounded'})">Yes</a>
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+				</div>
+			</div>
+			<a class="waves-effect waves-light btn right green modal-trigger" href="#modal5">APPROVE</a>
+			<!-- Modal Structure -->
+			<div id="modal5" class="modal">
+				<div class="modal-content">
+					<p>Are you sure you want to approve this request?</p>
+				</div>
+				<div class="modal-footer">
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat"
+					   onclick="M.toast({html: 'PR #0001 has been approved',  classes: 'rounded'})">Yes</a>
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</header>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems);
+           
+        });
+</script>
+
