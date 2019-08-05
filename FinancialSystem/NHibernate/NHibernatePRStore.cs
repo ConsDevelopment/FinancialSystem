@@ -71,6 +71,14 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+		public async Task<IList<PRHeaderModel>> FindPRHeaderAsync(UserModel user) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<PRHeaderModel>().Where(x => x.Approvals.Any(y => y.Approver == user.employee.position)).List();
+					
+				}
+			}
+		}
 	}
 }
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
