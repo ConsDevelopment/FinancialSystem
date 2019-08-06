@@ -1,5 +1,6 @@
 ﻿using FinancialSystem.Accessor;
 using FinancialSystem.Models;
+using FinancialSystem.Models.Enums;
 using FinancialSystem.Utilities;
 using NHibernate.Criterion;
 using System;
@@ -71,10 +72,10 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
-		public async Task<IList<PRHeaderModel>> FindPRHeaderAsync(UserModel user) {
+		public async Task<IList<PRAprovalModel>> FindPRAprovalAsync(PositionModel approver) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
-					return db.QueryOver<PRHeaderModel>().Where(x => x.Approvals.Any(y => y.Approver == user.employee.position)).List();
+					return db.QueryOver<PRAprovalModel>().Where(x => x.Approver==approver && x.Status==StatusType.Request).List();
 					
 				}
 			}

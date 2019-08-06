@@ -120,8 +120,8 @@ namespace FinancialSystem.Controllers.MVC.PR
 				return RedirectToAction("Login", "User");
 			}
 			var nhps = new NHibernatePRStore();
-			var pr = nhps.FindPRHeaderAsync(user);
-			return View();
+			var pr = await nhps.FindPRAprovalAsync(user.employee.position);
+			return View(pr);
 		}
 		}
 }

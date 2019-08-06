@@ -14,7 +14,7 @@ namespace FinancialSystem.Models {
 		public virtual long Id { get; set; }
 		public virtual PositionModel Approver { get; set; }
 		public virtual StatusType Status { get; set; }
-		//public virtual PRHeaderModel PRHeader { get; set; }
+		public virtual PRHeaderModel PRHeader { get; set; }
 		public virtual UserModel CreatedBy { get; set; }
 		public virtual UserModel ApprovedBy { get; set; }
 		public PRAprovalModel() {
@@ -34,7 +34,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.DeleteTime);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				References(x => x.Approver, "Approver").Cascade.SaveUpdate();
-				//References(x => x.PRHeader, "PRHeader").Cascade.SaveUpdate();
+				References(x => x.PRHeader, "PRHeader").Cascade.SaveUpdate();
 				References(x => x.ApprovedBy, "ApprovedBy").Cascade.SaveUpdate();
 
 			}

@@ -104,6 +104,7 @@ namespace FinancialSystem.Controllers.API.PR {
 							lin.UnitPrice = lin.Item.Price;
 							lin.UOM = lin.Item.UOM;
 							lin.TotalAmount = lin.Quantity * lin.UnitPrice;
+							prHeader.Amount += lin.TotalAmount;
 							prHeader.Lines.Add(lin);
 							
 							
