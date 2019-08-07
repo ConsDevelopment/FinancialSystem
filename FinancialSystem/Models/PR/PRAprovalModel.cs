@@ -17,6 +17,7 @@ namespace FinancialSystem.Models {
 		public virtual PRHeaderModel PRHeader { get; set; }
 		public virtual UserModel CreatedBy { get; set; }
 		public virtual UserModel ApprovedBy { get; set; }
+		public virtual DateTime? DateApproved { get; set; }
 		public PRAprovalModel() {
 			
 			CreateTime = DateTime.UtcNow;
@@ -32,6 +33,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.Status).CustomType<StatusType>();
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
+				Map(x => x.DateApproved);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				References(x => x.Approver, "Approver").Cascade.SaveUpdate();
 				References(x => x.PRHeader, "PRHeader").Cascade.SaveUpdate();

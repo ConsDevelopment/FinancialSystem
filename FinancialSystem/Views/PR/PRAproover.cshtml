@@ -16,7 +16,7 @@
 			<div class="col s2" id="title">Total Amount</div>
 					
 					<ul class="collapsible">
-						@foreach(var row in Model) {
+						@foreach (var row in Model) {
 						@(row.Status)
 						<li>
 							<div class="collapsible-header" id="pr2">
@@ -27,7 +27,7 @@
 									</label>
 								</div>
 								<div class="col s4" id="approver_details">
-									@row.PRHeader.Requestor
+									@row.PRHeader.Requestor.Name
 								</div>
 								<div class="col s2" id="approver_details">
 									@row.PRHeader.CreateTime
@@ -46,24 +46,22 @@
 									</div>
 									<div class="col s6" id="pr-title">PURCHASE REQUEST</div>
 									<div class="col s6" id="address">
-										Unit 1103, 11F Pearl of the Orient Tower,<br>
-										1240 Roxas Blvd. Brgy. 667 Zone 072,<br>
-										Ermita Manila 1000<br>
-										<b>TIN: 008-349-500-000</b>
+										@row.PRHeader.DeliveryAdress
+										<b>TIN: @row.PRHeader.Requestor.Company.Tin</b>
 									</div>
 									<div class="col s6" id="pr-number">
-										Requisition Number: <b><span id="pr-num">0001</span></b><br>
-										Date Prepared:<br>
-										Date Needed: <input type="text" id="datepicker"><br>
-										Date Approve:
+										Requisition Number: <b><span id="pr-num">@row.PRHeader.RequisitionNo</span></b><br>
+										Date Prepared:@row.PRHeader.CreateTime<br>
+										Date Needed: @row.PRHeader.DateNeeded<input type="text" id="datepicker"><br>
+										@*Date Approve:*@
 									</div>
 									<div id="info0">
-										<div class="col s6" id="info"><b>Company:</b> Company Here</div>
+										<div class="col s6" id="info"><b>Company:</b> @row.PRHeader.Requestor.Company.CompanyName</div>
 										<div class="col s6" id="info">
-											<b>Requestor Name:</b> Name Of Requestor
+											<b>Requestor Name:</b> @row.PRHeader.Requestor.Name()
 										</div>
 										<!-- Modal Structure -->
-										<div id="modal1" class="modal">
+										@*<div id="modal1" class="modal">
 											<div class="modal-content">
 												<h4>Search Requestor</h4>
 												<form autocomplete="off" action="">
@@ -77,21 +75,19 @@
 												<a href="#!"
 												   class="modal-close waves-effect waves-green btn-flat">OK</a>
 											</div>
-										</div>
+										</div>*@
 										<!-- End Modal -->
-										<div class="col s6" id="info"><b>Business Unit:</b> Auto Fill</div>
-										<div class="col s6" id="info"><b>Cost Revenue Center (CRC):</b> CRC</div>
+										@*<div class="col s6" id="info"><b>Business Unit:</b> Auto Fill</div>*@
+										<div class="col s6" id="info"><b>Cost Revenue Center (CRC):</b> @row.PRHeader.CRC.CRCCode</div>
 										<div class="col s6" id="info"><b>Company Address:</b></div>
-										<div class="col s6" id="info">
+										@*<div class="col s6" id="info">
 											<b>Category Account Code:</b> Account Code
-										</div>
+										</div>*@
 										<div class="col s6" id="info">
-											Unit 1103, 11F Pearl of the Orient Tower,
-											1240 Roxas Blvd. Brgy. 667 Zone 072,
-											Ermita Manila 1000
+											@row.PRHeader.Requestor.Company.Adress
 										</div>
 										<!-- Modal Structure -->
-										<div id="modal2" class="modal">
+										@*<div id="modal2" class="modal">
 											<div class="modal-content">
 												<h4>Type Delivery Address</h4>
 												<form autocomplete="off" action="">
@@ -101,7 +97,7 @@
 													</div>
 												</form>
 											</div>
-										</div>
+										</div>*@
 										<div class="col s6" id="info"></div>
 										<div class="col s12">
 											<table class="highlight">
@@ -119,26 +115,32 @@
 												</thead>
 
 												<tbody>
+													@{ int cntr = 0;}
+													@foreach (var line in row.PRHeader.Lines) {
+														cntr += 1;
+
 													<tr>
-														<td>00001</td>
-														<td>00001</td>
-														<td>Rubber Shoes</td>
-														<td>Supplier A</td>
-														<td>Piece</td>
-														<td>1</td>
-														<td>1,500.00</td>
-														<td>1,500.00</td>
+														<td>@cntr</td>
+														<td>@(line.Item==null?null:line.Item.Code)</td>
+														<td>@(line.Item == null ? null : line.Item.Name)</td>
+														<td>@(line.Supplier==null? null : line.Supplier.Name)</td>
+														<td>@line.UOM</td>
+														<td>@line.Quantity</td>
+														<td>@line.UnitPrice</td>
+														<td>@line.TotalAmount</td>
 													</tr>
+													}
+														
 												</tbody>
 											</table>
 										</div>
 										<div class="col s6" id="nf">********** nothing follows **********</div>
 										<div class="col s3" id="totalAmoumt">
 											<b>
-												TOTAL AMOUNT
+												@row.PRHeader.Amount
 											</b>
 										</div>
-										<div class="col s3">
+										@*<div class="col s3">
 											<hr class="line">
 											<p id="vat">
 												<b>
@@ -147,7 +149,7 @@
 											</p>
 											<hr class="line">
 											<p id="totalvat"><b>Php 10,000,000.00</b></p>
-										</div>
+										</div>*@
 										<div class="col s12" id="note">
 											<p id="noteto"><b>Note to Buyer: </b></p>
 										</div>
