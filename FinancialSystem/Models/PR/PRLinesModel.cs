@@ -36,7 +36,7 @@ namespace FinancialSystem.Models {
 			public PRLinesModelMap() {
 				Id(x => x.Id);
 				Map(x => x.Quantity);
-				Map(x => x.UOM).CustomType<UOMType>();
+				Map(x => x.UOM);
 				Map(x => x.Description);
 				Map(x => x.UnitPrice);
 				Map(x => x.TotalAmount);

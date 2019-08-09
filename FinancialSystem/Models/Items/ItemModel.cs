@@ -51,7 +51,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
 				Map(x => x.Price);
-				Map(x => x.UOM).CustomType<UOMType>();
+				Map(x => x.UOM).Length(30);
 				Map(x => x.PriceValidity);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				References(p => p.Supplier, "Supplier").Cascade.SaveUpdate();

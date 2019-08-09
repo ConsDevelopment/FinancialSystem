@@ -34,8 +34,7 @@ namespace FinancialSystem.Controllers.API.Users {
 				FirstName = source.FirstName,
 				LastName = source.LastName,
 				PasswordHash= passHash,
-				IsAdmin= source.IsAdmin,
-				Gender= source.Gender
+				IsAdmin= source.IsAdmin
 			};
 			var createUser = new CreateUser();
 			createUser.CreateUsers(usr);

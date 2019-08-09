@@ -29,7 +29,7 @@ namespace FinancialSystem.Models {
 		public class ChargeLocationModelMap : ClassMap<ChargeLocationModel> {
 			public ChargeLocationModelMap() {
 				Id(x => x.Id);
-				Map(x => x.ChargeLocationCode).Index("ChargeLocationCode_IDX").Length(400).UniqueKey("uniq");
+				Map(x => x.ChargeLocationCode).Index("ChargeLocationCode_IDX").Length(20).UniqueKey("uniq");
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();

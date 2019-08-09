@@ -32,7 +32,7 @@ namespace FinancialSystem.Models {
 		public class TeamModelMap : ClassMap<TeamModel> {
 			public TeamModelMap() {
 				Id(x => x.Id);
-				Map(x => x.TeamCode).Index("TeamCode_IDX").Length(400).UniqueKey("uniq");
+				Map(x => x.TeamCode).Index("TeamCode_IDX").Length(30).UniqueKey("uniq");
 				Map(x => x.TeamName);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);

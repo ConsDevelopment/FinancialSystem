@@ -5,6 +5,7 @@
 }
 @model IList<FinancialSystem.Models.PRAprovalModel>
 @Styles.Render("~/Content/PR/PRAprover")
+@Scripts.Render("~/scripts/PR/PRApproved")
 <h2>Approver</h2>
 <header>
 	<div class="col s12 content">
@@ -27,7 +28,7 @@
 									</label>
 								</div>
 								<div class="col s4" id="approver_details">
-									@row.PRHeader.Requestor.Name
+									@row.PRHeader.Requestor.Name()
 								</div>
 								<div class="col s2" id="approver_details">
 									@row.PRHeader.CreateTime
@@ -84,7 +85,7 @@
 											<b>Category Account Code:</b> Account Code
 										</div>*@
 										<div class="col s6" id="info">
-											@row.PRHeader.Requestor.Company.Adress
+											@row.PRHeader.Requestor.Company.Address
 										</div>
 										<!-- Modal Structure -->
 										@*<div id="modal2" class="modal">
@@ -184,7 +185,7 @@
 		</div>
 		<div class="col s12" id="submit">
 			<a class="waves-effect waves-light btn right amber modal-trigger" href="#modal4"
-			   id="submit-button">CANCEL</a>
+			   id="submit-button">Reject</a>
 			<!-- Modal Structure -->
 			<div id="modal4" class="modal">
 				<div class="modal-content">
@@ -203,8 +204,10 @@
 					<p>Are you sure you want to approve this request?</p>
 				</div>
 				<div class="modal-footer">
-					<a href="#!" class="modal-close waves-effect waves-green btn-flat"
-					   onclick="M.toast({html: 'PR #0001 has been approved',  classes: 'rounded'})">Yes</a>
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat"  
+					   @*onclick="M.toast({html: 'PR #0001 has been approved',  classes: 'rounded'})"*@
+					   onclick="Approved()"
+					   >Yes</a>
 					<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
 				</div>
 			</div>

@@ -212,6 +212,7 @@
     <Content Include="Content\User\login.css" />
     <Content Include="Content\User\registration.css" />
     <Content Include="Global.asax" />
+    <Content Include="scripts\PR\PRApproved.js" />
     <Content Include="scripts\user\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\PR\PR.js" />
@@ -236,6 +237,7 @@
     <Compile Include="Controllers\API\PR\AddPRLinesController.cs" />
     <Compile Include="Controllers\API\PR\CreatePRController.cs" />
     <Compile Include="Controllers\API\PR\DeletePRLinesController.cs" />
+    <Compile Include="Controllers\API\PR\PRApprovalController.cs" />
     <Compile Include="Controllers\API\PR\SearchItemController.cs" />
     <Compile Include="Controllers\API\Users\CreateUserController.cs" />
     <Compile Include="Controllers\API\Users\LoginApiController.cs" />

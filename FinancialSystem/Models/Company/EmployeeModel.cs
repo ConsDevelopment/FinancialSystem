@@ -40,13 +40,13 @@ namespace FinancialSystem.Models {
 		public class EmployeeModelMap : ClassMap<EmployeeModel> {
 			public EmployeeModelMap() {
 				Id(x => x.Id).CustomType(typeof(string)).GeneratedBy.Custom(typeof(GuidStringGenerator)).Length(36);
-				Map(x => x.EmpNo).Index("EmpNo_IDX").Length(400).UniqueKey("uniq");
+				Map(x => x.EmpNo).Index("EmpNo_IDX").Length(30).UniqueKey("uniq");
 				Map(x => x.FirstName);
 				Map(x => x.LastName);
-				Map(x => x.Email).Index("Email_IDX").Length(400).UniqueKey("uniq");
+				Map(x => x.Email).Index("Email_IDX").Length(100).UniqueKey("uniq");
 				Map(x => x.Contact);
 				Map(x => x.DeleteTime);
-				Map(x => x.Gender).CustomType<GenderType>();
+				Map(x => x.Gender).Length(10);
 				Map(x => x.CreateTime);
 				Map(x => x.password);
 				Map(x => x.Image);

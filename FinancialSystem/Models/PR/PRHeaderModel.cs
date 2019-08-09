@@ -47,7 +47,7 @@ namespace FinancialSystem.Models {
 		public class PRHeaderModelMap : ClassMap<PRHeaderModel> {
 			public PRHeaderModelMap() {
 				Id(x => x.Id);
-				Map(x => x.Status).CustomType<StatusType>();
+				Map(x => x.Status).Length(30);
 				Map(x => x.DeliveryAdress);
 				Map(x => x.RequisitionNo);
 				Map(x => x.DateNeeded);

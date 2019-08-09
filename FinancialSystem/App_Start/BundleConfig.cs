@@ -139,6 +139,9 @@ namespace FinancialSystem
 
 			bundles.Add(new StyleBundle("~/Content/PR/PRAprover")
 				.Include("~/Content/PR/pr-approver.css"));
+			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/PR/PRApproved").Include(
+					 "~/scripts/PR/PRApproved.js"
+		   )));
 
 		}
 
