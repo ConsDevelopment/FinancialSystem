@@ -24,11 +24,12 @@ namespace FinancialSystem.Controllers.API.PR {
 		}
 
 		// POST api/<controller>
-		public async Task Post(IList<PRApprovalViewModel> value) {
+		public async Task<IList<PRApprovalViewModel>> Post(IList<PRApprovalViewModel> value) {
 			var nh = new NHibernateUserStore();
 			var nhps = new NHibernatePRStore();
 			var session = HttpContext.Current.Session;
 			var sessionKey = Config.GetAppSetting("SessionKey").ToString();
+			List<PRApprovalViewModel> PRs= new List<PRApprovalViewModel>();
 			if (session != null) {
 				if (session[sessionKey] != null) {
 					var user = await nh.FindByIdAsync(session[sessionKey].ToString());
@@ -40,6 +41,8 @@ namespace FinancialSystem.Controllers.API.PR {
 							 {
 								case StatusType.Approved: 
 									var PRApprovals = await nhps.FindPRAprovalAsync(approval.PRHeader);
+									approval.ApprovedBy = user;
+									approval.DateApproved = DateTime.UtcNow;
 									foreach (var PRApproval in PRApprovals) {
 										if (PRApproval.Status == StatusType.Approved) {
 											approval.PRHeader.Status = StatusType.Approved;
@@ -56,11 +59,13 @@ namespace FinancialSystem.Controllers.API.PR {
 									break;
 							}
 							await nhps.SaveOrUpdatePRApprovalAsync(approval);
-
+							approved.RequisitionNo = approval.PRHeader.RequisitionNo;
+							PRs.Add(approved);
 						}
 					}
 				}
 			}
+			return PRs;
 		}
 
 		// PUT api/<controller>/5

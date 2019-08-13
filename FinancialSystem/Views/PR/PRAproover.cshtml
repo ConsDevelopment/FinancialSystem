@@ -18,12 +18,12 @@
 					
 					<ul class="collapsible">
 						@foreach (var row in Model) {
-						@(row.Status)
+						
 						<li>
 							<div class="collapsible-header" id="pr2">
 								<div class="col s2">
 									<label class="check-box">
-										<input type="checkbox" class="filled-in" />
+										<input type="checkbox" class="filled-in" name="PRApprovedChk" id="@(row.Id)" />
 										<span>@row.PRHeader.RequisitionNo</span>
 									</label>
 								</div>

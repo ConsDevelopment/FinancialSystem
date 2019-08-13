@@ -30,7 +30,7 @@ namespace FinancialSystem.Models {
 		public class PRAprovalModelMap : ClassMap<PRAprovalModel> {
 			public PRAprovalModelMap() {
 				Id(x => x.Id);
-				Map(x => x.Status).Length(30);
+				Map(x => x.Status).Length(30).Update();
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
 				Map(x => x.DateApproved);

@@ -63,11 +63,9 @@ namespace FinancialSystem.NHibernate {
 		public async Task CreatePRHeaderAsync(PRHeaderModel header) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
-					try {
-						db.Save(header);
-					} catch (Exception e) {
-
-					}
+				
+					db.Save(header);
+					
 					var pra = new PRAccessor();
 					header.RequisitionNo = pra.GetRequisitionNo(header.Requestor, header.Id);
 					db.Update(header);
@@ -104,7 +102,9 @@ namespace FinancialSystem.NHibernate {
 		public async Task SaveOrUpdatePRApprovalAsync(PRAprovalModel aproval) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
+					
 					db.SaveOrUpdate(aproval);
+					
 					tx.Commit();
 					db.Flush();
 				}

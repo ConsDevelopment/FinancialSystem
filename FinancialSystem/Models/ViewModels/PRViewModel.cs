@@ -21,7 +21,7 @@ namespace FinancialSystem.Models {
 	public class PRApprovalViewModel {
 		public long Id { get; set; }
 		public StatusType Status { get; set; }
-
+		public string RequisitionNo { get; set; }
 	}
 
 
