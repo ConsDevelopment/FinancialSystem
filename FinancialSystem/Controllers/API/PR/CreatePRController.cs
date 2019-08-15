@@ -87,11 +87,11 @@ namespace FinancialSystem.Controllers.API.PR {
 							
 							var lin = await nhps.GetPRLineAsync(line.Id);
 							if (lin.Item != null) {
-								if (lin.Item.Approver != null) {
+								if (lin.Item.SubCategory != null) {
 									
-									if (!prHeader.Approvals.Any(s => s.Approver.Id == lin.Item.Approver.Id)) {
+									if (!prHeader.Approvals.Any(s => s.Approver.Id == lin.Item.SubCategory.Category.Approver.Id)) {
 										var ItemAproval = new PRAprovalModel() {
-											Approver = lin.Item.Approver,
+											Approver = lin.Item.SubCategory.Category.Approver,
 											Status = StatusType.Request,
 											CreatedBy = user
 										};

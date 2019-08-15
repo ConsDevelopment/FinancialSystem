@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 using FinancialSystem.NHibernate;
 
 namespace FinancialSystem.Models {
-	public class CategoryModel {
+	public class SubCategoryModel {
 		public virtual long Id { get; set; }
 		public virtual string Name { get; set; }
 		public virtual UserModel CreatedBy { get; set; }
-		public virtual PositionModel Approver { get; set; }
-		public CategoryModel() {
+		public virtual CategoryModel Category { get; set; }
+		public SubCategoryModel() {
 			
 			CreateTime = DateTime.UtcNow;
 			
@@ -24,14 +24,15 @@ namespace FinancialSystem.Models {
 		public virtual DateTime CreateTime { get; set; }
 		public virtual DateTime? DeleteTime { get; set; }
 
-		public class CategoryModelMap : ClassMap<CategoryModel> {
-			public CategoryModelMap() {
+		public class SubCategoryModelMap : ClassMap<SubCategoryModel> {
+			public SubCategoryModelMap() {
 				Id(x => x.Id);
 				Map(x => x.Name);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
+				References(x => x.Category, "Category").Cascade.SaveUpdate();
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
-				References(x => x.Approver, "Approver").Cascade.SaveUpdate();
+
 			}
 		}
 

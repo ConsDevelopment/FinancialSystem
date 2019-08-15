@@ -16,9 +16,9 @@ function AddPrLines(id) {
 		//dataType: 'json',
 
 		success: function (data) {
-			alert($("#cartCount").html());
+			
 			var cartCount = Number($("#cartCount").html()) + 1;
-			alert(cartCount);
+			
 			$("#cartCount").html(cartCount);
 		},
 
