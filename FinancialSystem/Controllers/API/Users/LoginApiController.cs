@@ -41,7 +41,7 @@ namespace FinancialSystem.Controllers.API.Users
 				var session = HttpContext.Current.Session;
 				if (session != null) {
 					if (session[Config.GetAppSetting("SessionKey")] == null) {
-						session[Config.GetAppSetting("SessionKey")] = user.Result.Id;
+						session[Config.GetAppSetting("SessionKey")] = user;
 					}
 				}
 				Url = "../PR/PRShop";

@@ -29,6 +29,7 @@ namespace FinancialSystem
 			PRCreation(bundles);
 			Utilities(bundles);
 			PRAprover(bundles);
+			QuoteAnalysis(bundles);
 			BundleTable.EnableOptimizations = Config.OptimizationEnabled();
 
 		}
@@ -142,6 +143,12 @@ namespace FinancialSystem
 			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/PR/PRApproved").Include(
 					 "~/scripts/PR/PRApproved.js"
 		   )));
+
+		}
+		private static void QuoteAnalysis(BundleCollection bundles) {
+
+			bundles.Add(new StyleBundle("~/Content/PR/quote-analysis")
+				.Include("~/Content/PR/quote-analysis.css"));
 
 		}
 

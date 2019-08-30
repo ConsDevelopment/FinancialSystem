@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "QuoteAnalysis";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@Styles.Render("~/Content/PR/quote-analysis")
+<div class="col s12 content">
+	<div class="container">
+		<div class="col s12 pr-form" id="pr1">
+			<div class="row">
+				<div class="qa">
+					<div class="col s6" id="top">
+						<label>Item: </label><input type="text"
+											  placeholder="Enter Item Name">
+					</div>
+					<div class="col s6" id="top">
+						<div class="searchable categories">
+							<select class="js-example-basic-single" name="state">
+								<option selected="selected">Select Categories</option>
+								<option value="AL">Alabama</option>
+								<option value="WY">Wyoming</option>
+							</select>
+						</div>
+					</div>
+					<div class="col s6" id="top">
+						<div class="searchable">
+							<select class="js-example-basic-single" name="state">
+								<option selected="selected">Select SubCategories</option>
+								<option value="AL">Alabama</option>
+								<option value="WY">Wyoming</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<table class="highlight" id="table">
+					<thead>
+						<tr>
+							<th>SELECT</th>
+							<th>SUPPLIER</th>
+							<th>DESCRIPTION</th>
+							<th>PRICE</th>
+							<th>OUM</th>
+							<th>QUANTITY</th>
+							<th>DELETE</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr>
+							<td>
+								<label>
+									<input name="group1" type="radio" />
+									<span></span>
+								</label>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>
+								<a class="btn-floating pulse btn-small waves-effect waves-light red">
+									<i class="material-icons">remove</i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<button class="btn waves-effect waves-light green accent-4 modal-trigger" href="#modal1"
+					type="submit" name="action">
+				Add
+				<i class="material-icons right">add</i>
+			</button>
+			<!-- Modal Structure -->
+			<div id="modal1" class="modal">
+				<div class="modal-content">
+					<h4>Input Suppliers</h4>
+					<div class="input-field col s12">
+						<select class="js-example-basic-single" name="state">
+							<option selected="selected">Supplier</option>
+							<option value="AL">Alabama</option>
+							<option value="WY">Wyoming</option>
+						</select>
+					</div>
+					<div class="input-field col s12">
+						<input id="price" type="text" class="validate">
+						<label for="price">Price</label>
+					</div>
+					<div class="input-field col s12">
+						<input id="quantity" type="text" class="validate">
+						<label for="quantity">Quantity</label>
+					</div>
+					<div class="input-field col s12">
+						<select class="js-example-basic-single" name="state">
+							<option selected="selected">Unit of Measurement</option>
+							<option value="AL">Alabama</option>
+							<option value="WY">Wyoming</option>
+						</select>
+					</div>
+					<div class="input-field col s12">
+						<input id="discount" type="text" class="validate">
+						<label for="discount">Discount</label>
+					</div>
+					<div class="input-field col s12">
+						<input id="total" type="text" class="validate">
+						<label for="total">Total Amount</label>
+					</div>
+					<div class="input-field col s12">
+						<input id="availability" type="text" class="validate">
+						<label for="availability">Availability</label>
+					</div>
+					<div class="input-field col s12">
+						<input id="terms" type="text" class="validate">
+						<label for="terms">Terms</label>
+					</div>
+					<div class="input-field col s12">
+						<input id="textarea" type="text" class="validate">
+						<label for="analysis">Analysis</label>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="modal-action modal-close btn waves-effect waves-light green accent-4 right"
+							onclick="M.toast({html: 'New quotation has been added',  classes: 'rounded'})"
+							type="submit" name="action">
+						Add
+						<i class="material-icons right">add</i>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="col s12" id="submit">
+			<a class="waves-effect waves-light btn right green modal-trigger" href="#modal4"
+			   id="submit-button">SUBMIT</a>
+			<!-- Modal Structure -->
+			<div id="modal4" class="modal">
+				<div class="modal-content">
+					<p>Are you sure you want to add item?</p>
+				</div>
+				<div class="modal-footer">
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat"
+					   onclick="M.toast({html: 'Item has been added',  classes: 'rounded'})">Yes</a>
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

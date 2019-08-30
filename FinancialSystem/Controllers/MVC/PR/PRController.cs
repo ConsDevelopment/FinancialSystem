@@ -23,13 +23,14 @@ namespace FinancialSystem.Controllers.MVC.PR
 			ViewData["ApiServer"] = Config.GetApiServerURL();
 			
 			HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-
-			var session = HttpContext.Session[Config.GetAppSetting("SessionKey")];
-			UserModel user;
-			if (!string.IsNullOrEmpty(session as string)) {
-				user = await nh.FindByIdAsync(session.ToString());				
+			
+			var users =  HttpContext.Session[Config.GetAppSetting("SessionKey")] as UserModel;
+			UserModel user=null;
+			if (users!=null) {
+				user =(UserModel)users;
 			} else if (CurrentUserSession.userSecurityStampCookie != null) {
 				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
+				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user;
 			} else {
 				return RedirectToAction("Login", "User");
 			}
@@ -39,7 +40,7 @@ namespace FinancialSystem.Controllers.MVC.PR
 			ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
 			ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
 			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
-			HttpContext.Session[Config.GetAppSetting("SessionKey")] = user.Id;
+			
 			return View(user);
 		}
 
@@ -94,7 +95,7 @@ namespace FinancialSystem.Controllers.MVC.PR
 				return RedirectToAction("Login", "User");
 			}
 			ViewData["SmallLogo"] = Config.GetCompanyLogo(user.employee.Company.SmallLogo);
-			ViewData["Company"] = user.employee;
+			ViewData["Employee"] = user.employee;
 			ViewData["Section"] = await nhcs.TeamEmployeeAsync(user.employee.Team);
 			foreach (var item in value) {
 				var line = await nhps.GetPRLineAsync(item.Id);
@@ -123,5 +124,8 @@ namespace FinancialSystem.Controllers.MVC.PR
 			var pr = await nhps.FindPRAprovalAsync(user.employee.position);
 			return View(pr);
 		}
+		public async Task<ActionResult> QuoteAnalysis() {
+			return View();
 		}
+	}
 }

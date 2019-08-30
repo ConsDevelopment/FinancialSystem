@@ -208,6 +208,7 @@
     <Content Include="Content\PR\pr-approver.css" />
     <Content Include="Content\PR\pr-shop.css" />
     <Content Include="Content\PR\PRCreation.css" />
+    <Content Include="Content\PR\quote-analysis.css" />
     <Content Include="Content\PR\review.css" />
     <Content Include="Content\User\login.css" />
     <Content Include="Content\User\registration.css" />
@@ -334,6 +335,7 @@
     <Content Include="Views\PR\ReviewCart.cshtml" />
     <Content Include="Views\PR\CreatePR.cshtml" />
     <Content Include="Views\PR\PRAproover.cshtml" />
+    <Content Include="Views\PR\QuoteAnalysis.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
