@@ -205,12 +205,14 @@
   <ItemGroup>
     <Content Include="Content\images\bsi_logo.png" />
     <Content Include="Content\images\sample_image-login.jpg" />
+    <Content Include="Content\PR\pr-approver.css" />
     <Content Include="Content\PR\pr-shop.css" />
     <Content Include="Content\PR\PRCreation.css" />
     <Content Include="Content\PR\review.css" />
     <Content Include="Content\User\login.css" />
     <Content Include="Content\User\registration.css" />
     <Content Include="Global.asax" />
+    <Content Include="scripts\PR\PRApproved.js" />
     <Content Include="scripts\user\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\PR\PR.js" />
@@ -235,6 +237,7 @@
     <Compile Include="Controllers\API\PR\AddPRLinesController.cs" />
     <Compile Include="Controllers\API\PR\CreatePRController.cs" />
     <Compile Include="Controllers\API\PR\DeletePRLinesController.cs" />
+    <Compile Include="Controllers\API\PR\PRApprovalController.cs" />
     <Compile Include="Controllers\API\PR\SearchItemController.cs" />
     <Compile Include="Controllers\API\Users\CreateUserController.cs" />
     <Compile Include="Controllers\API\Users\LoginApiController.cs" />
@@ -253,6 +256,7 @@
     <Compile Include="Models\Company\PriceAproverModel.cs" />
     <Compile Include="Models\Company\RegistrationView.cs" />
     <Compile Include="Models\Company\PositionModel.cs" />
+    <Compile Include="Models\Company\DepartmentModel.cs" />
     <Compile Include="Models\Company\TeamModel.cs" />
     <Compile Include="Models\Company\CompanyModel.cs" />
     <Compile Include="Models\Company\EmployeeModel.cs" />
@@ -261,6 +265,7 @@
     <Compile Include="Models\Enums\AlertType.cs" />
     <Compile Include="Models\Enums\UOMType.cs" />
     <Compile Include="Models\Items\BrandModel.cs" />
+    <Compile Include="Models\Items\SubCategoryModel.cs" />
     <Compile Include="Models\Items\CategoryModel.cs" />
     <Compile Include="Models\Items\SupplierModel.cs" />
     <Compile Include="Models\Items\ItemModel.cs" />
@@ -328,6 +333,7 @@
     <Content Include="Views\PR\ItemSearch.cshtml" />
     <Content Include="Views\PR\ReviewCart.cshtml" />
     <Content Include="Views\PR\CreatePR.cshtml" />
+    <Content Include="Views\PR\PRAproover.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

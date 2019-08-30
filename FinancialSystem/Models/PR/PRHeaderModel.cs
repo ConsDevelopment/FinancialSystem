@@ -33,6 +33,7 @@ namespace FinancialSystem.Models {
 		public virtual CostRevenueCenterModel CRC { get; set; }
 		public virtual UserModel CreatedBy { get; set; }
 		public virtual string CategoryAccountCode { get; set; }
+		public virtual double Amount { get; set; }
 		public virtual ICollection<PRLinesModel> Lines { get; set; }
 		public virtual ICollection<PRAprovalModel> Approvals { get; set; }
 
@@ -46,13 +47,14 @@ namespace FinancialSystem.Models {
 		public class PRHeaderModelMap : ClassMap<PRHeaderModel> {
 			public PRHeaderModelMap() {
 				Id(x => x.Id);
-				Map(x => x.Status).CustomType<StatusType>();
+				Map(x => x.Status).Length(30);
 				Map(x => x.DeliveryAdress);
 				Map(x => x.RequisitionNo);
 				Map(x => x.DateNeeded);
 				Map(x => x.CategoryAccountCode);
 				Map(x => x.DeleteTime);
 				Map(x => x.CreateTime);
+				Map(x => x.Amount);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				References(x => x.CLC, "CLC").Cascade.SaveUpdate();
 				References(x => x.CRC, "CRC").Cascade.SaveUpdate();

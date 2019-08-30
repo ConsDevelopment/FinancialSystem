@@ -51,18 +51,60 @@ namespace FinancialSystem.Controllers.API.PR {
 
 						};
 						if (requestor.ImmediateLeader != null) {
-							var immedieateAproval = new PRAprovalModel() {
-
+							var immedieateAprover = new PRAprovalModel() {
+								Approver= requestor.ImmediateLeader,
+								Status=StatusType.Request,
+								CreatedBy=user
 							};
+
+							prHeader.Approvals.Add(immedieateAprover);
+						}
+						if (requestor.Department != null) {
+
+							
+							if (!prHeader.Approvals.Any(s => s.Approver.Id == requestor.Department.DepartmentLeader.Id)){
+								var DepLeadAproval = new PRAprovalModel() {
+									Approver = requestor.Department.DepartmentLeader,
+									Status = StatusType.Request,
+									CreatedBy = user
+								};
+								prHeader.Approvals.Add(DepLeadAproval);
+							}
+						}
+						if (requestor.Company.Corfin != null && requestor.Company.Corfin.Id!=requestor.position.Id) {
+						
+							
+							if (!prHeader.Approvals.Any(s => s.Approver.Id == requestor.Company.Corfin.Id)) {
+								var corfin = new PRAprovalModel() {
+									Approver = requestor.Company.Corfin,
+									Status = StatusType.Request,
+									CreatedBy = user
+								};
+								prHeader.Approvals.Add(corfin);
+							}
 						}
 						foreach (var line in value.Lines) {
-
+							
 							var lin = await nhps.GetPRLineAsync(line.Id);
+							if (lin.Item != null) {
+								if (lin.Item.SubCategory != null) {
+									
+									if (!prHeader.Approvals.Any(s => s.Approver.Id == lin.Item.SubCategory.Category.Approver.Id)) {
+										var ItemAproval = new PRAprovalModel() {
+											Approver = lin.Item.SubCategory.Category.Approver,
+											Status = StatusType.Request,
+											CreatedBy = user
+										};
+										prHeader.Approvals.Add(ItemAproval);
+									}
+								}
+							}
 							lin.Description = lin.Item.Description;
 							lin.Supplier = lin.Item.Supplier;
 							lin.UnitPrice = lin.Item.Price;
 							lin.UOM = lin.Item.UOM;
 							lin.TotalAmount = lin.Quantity * lin.UnitPrice;
+							prHeader.Amount += lin.TotalAmount;
 							prHeader.Lines.Add(lin);
 							
 							

@@ -31,7 +31,7 @@ namespace FinancialSystem.Models {
 		public class CostRevenueCenterModelMap : ClassMap<CostRevenueCenterModel> {
 			public CostRevenueCenterModelMap() {
 				Id(x => x.Id);
-				Map(x => x.CRCCode).Index("CRCCode_IDX").Length(400).UniqueKey("uniq");
+				Map(x => x.CRCCode).Index("CRCCode_IDX").Length(30).UniqueKey("uniq");
 				Map(x => x.CRCName);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);

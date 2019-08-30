@@ -1,4 +1,5 @@
-﻿using FinancialSystem.Properties;
+﻿using FinancialSystem.Models.Enums;
+using FinancialSystem.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,5 +17,12 @@ namespace FinancialSystem.Models {
 		public long Id { get; set; }
 		public int Quantity { get; set; }
 	}
+
+	public class PRApprovalViewModel {
+		public long Id { get; set; }
+		public StatusType Status { get; set; }
+		public string RequisitionNo { get; set; }
+	}
+
 
 }

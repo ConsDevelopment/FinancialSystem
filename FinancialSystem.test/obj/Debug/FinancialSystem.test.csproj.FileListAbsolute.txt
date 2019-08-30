@@ -123,7 +123,6 @@ D:\developer\FinancialSystem\FinancialSystem\FinancialSystem.test\bin\Debug\Syst
 D:\developer\FinancialSystem\FinancialSystem\FinancialSystem.test\obj\Debug\FinancialSystem.test.csprojResolveAssemblyReference.cache
 D:\developer\FinancialSystem\FinancialSystem\FinancialSystem.test\obj\Debug\FinancialSystem.test.dll
 D:\developer\FinancialSystem\FinancialSystem\FinancialSystem.test\obj\Debug\FinancialSystem.test.pdb
-C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\obj\Debug\FinancialSystem.test.csprojResolveAssemblyReference.cache
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\ApplicationInsights.config
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\roslyn\csc.exe
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -190,5 +189,6 @@ C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\En
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\Microsoft.Owin.Security.OAuth.xml
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\Microsoft.Owin.Security.Cookies.xml
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\obj\Debug\FinancialSystem.test.csprojResolveAssemblyReference.cache
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\obj\Debug\FinancialSystem.test.dll
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem.test\obj\Debug\FinancialSystem.test.pdb

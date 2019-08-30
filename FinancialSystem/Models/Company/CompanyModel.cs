@@ -15,7 +15,7 @@ namespace FinancialSystem.Models {
 		public virtual string CompanyName { get; set; }
 		public virtual string CompanyCode { get; set; }
 		public virtual string Phone { get; set; }
-		public virtual string Adress { get; set; }
+		public virtual string Address { get; set; }
 		public virtual string Email { get; set; }
 		public virtual string Logo { get; set; }
 		public virtual string SmallLogo { get; set; }
@@ -36,16 +36,16 @@ namespace FinancialSystem.Models {
 		public class CompanyModelMap : ClassMap<CompanyModel> {
 			public CompanyModelMap() {
 				Id(x => x.Id);
-				Map(x => x.CompanyCode).Index("CompanyCode_IDX").Length(400).UniqueKey("uniq");
+				Map(x => x.CompanyCode).Index("CompanyCode_IDX").Length(30).UniqueKey("uniq");
 				Map(x => x.CompanyName);
-				Map(x => x.Phone);
-				Map(x => x.Adress);
-				Map(x => x.Email);
+				Map(x => x.Phone).Length(30);
+				Map(x => x.Address);
+				Map(x => x.Email).Length(60);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
 				Map(x => x.Logo);
 				Map(x => x.SmallLogo);
-				Map(x => x.Tin);
+				Map(x => x.Tin).Length(60);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				References(x => x.Corfin, "Corfin").Cascade.SaveUpdate();
 			}

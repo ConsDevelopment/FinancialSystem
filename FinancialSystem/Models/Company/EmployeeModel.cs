@@ -34,18 +34,19 @@ namespace FinancialSystem.Models {
 		public virtual TeamModel Team { get; set; }
 		public virtual PositionModel position { get; set; }
 		public virtual PositionModel ImmediateLeader { get; set; }
+		public virtual DepartmentModel Department { get; set; }
 
 
 		public class EmployeeModelMap : ClassMap<EmployeeModel> {
 			public EmployeeModelMap() {
 				Id(x => x.Id).CustomType(typeof(string)).GeneratedBy.Custom(typeof(GuidStringGenerator)).Length(36);
-				Map(x => x.EmpNo).Index("EmpNo_IDX").Length(400).UniqueKey("uniq");
+				Map(x => x.EmpNo).Index("EmpNo_IDX").Length(30).UniqueKey("uniq");
 				Map(x => x.FirstName);
 				Map(x => x.LastName);
-				Map(x => x.Email).Index("Email_IDX").Length(400).UniqueKey("uniq");
+				Map(x => x.Email).Index("Email_IDX").Length(100).UniqueKey("uniq");
 				Map(x => x.Contact);
 				Map(x => x.DeleteTime);
-				Map(x => x.Gender).CustomType<GenderType>();
+				Map(x => x.Gender).Length(10);
 				Map(x => x.CreateTime);
 				Map(x => x.password);
 				Map(x => x.Image);
@@ -53,6 +54,7 @@ namespace FinancialSystem.Models {
 				References(x => x.Team, "Team").Cascade.SaveUpdate();
 				References(x => x.position, "Position").Cascade.SaveUpdate();
 				References(x => x.ImmediateLeader, "ImmediateLeader").Cascade.SaveUpdate();
+				References(x => x.Department, "Department").Cascade.SaveUpdate();
 			}
 		}
 

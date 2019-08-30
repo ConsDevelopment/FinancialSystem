@@ -28,6 +28,7 @@ namespace FinancialSystem
 			ReviewPR(bundles);
 			PRCreation(bundles);
 			Utilities(bundles);
+			PRAprover(bundles);
 			BundleTable.EnableOptimizations = Config.OptimizationEnabled();
 
 		}
@@ -134,6 +135,17 @@ namespace FinancialSystem
 				.Include("~/Content/PR/PRCreation.css"));
 
 		}
+		private static void PRAprover(BundleCollection bundles) {
+
+			bundles.Add(new StyleBundle("~/Content/PR/PRAprover")
+				.Include("~/Content/PR/pr-approver.css"));
+			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/PR/PRApproved").Include(
+					 "~/scripts/PR/PRApproved.js"
+		   )));
+
+		}
+
+
 
 		//private static void Bootstrap(BundleCollection bundles) {
 		//	// Use the development version of Modernizr to develop with and learn from. Then, when you're

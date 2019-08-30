@@ -14,6 +14,7 @@ namespace FinancialSystem.Models {
 		public virtual long Id { get; set; }
 		public virtual string Name { get; set; }
 		public virtual UserModel CreatedBy { get; set; }
+		public virtual PositionModel Approver { get; set; }
 		public CategoryModel() {
 			
 			CreateTime = DateTime.UtcNow;
@@ -30,7 +31,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
-
+				References(x => x.Approver, "Approver").Cascade.SaveUpdate();
 			}
 		}
 

@@ -6,18 +6,19 @@ using System;
 using Microsoft.AspNet.Identity.EntityFramework;
 using FinancialSystem.Models.UserModels;
 using System.Collections.Generic;
-using FinancialSystem.NHibernate;
 using System.Threading.Tasks;
+using FinancialSystem.NHibernate;
 
 namespace FinancialSystem.Models {
-	public class ChargeLocationModel {
+	//This serves as Section 
+	public class DepartmentModel {
 		public virtual long Id { get; set; }
-		public virtual string ChargeLocationCode { get; set; }
-		public virtual string ChargeLocationName { get; set; }
-
+		public virtual string Name { get; set; }
+		public virtual PositionModel DepartmentLeader { get; set; }
 		public virtual UserModel CreatedBy { get; set; }
-		public ChargeLocationModel() {
-		
+
+		public DepartmentModel() {
+			
 			CreateTime = DateTime.UtcNow;
 			
 		}
@@ -25,14 +26,17 @@ namespace FinancialSystem.Models {
 		public virtual DateTime CreateTime { get; set; }
 		public virtual DateTime? DeleteTime { get; set; }
 
+		
 
-		public class ChargeLocationModelMap : ClassMap<ChargeLocationModel> {
-			public ChargeLocationModelMap() {
+		public class DepartmentModelMap : ClassMap<DepartmentModel> {
+			public DepartmentModelMap() {
 				Id(x => x.Id);
-				Map(x => x.ChargeLocationCode).Index("ChargeLocationCode_IDX").Length(20).UniqueKey("uniq");
+				Map(x => x.Name);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
+				References(x => x.DepartmentLeader, "DepartmentLeader").Cascade.SaveUpdate();
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
+				
 			}
 		}
 

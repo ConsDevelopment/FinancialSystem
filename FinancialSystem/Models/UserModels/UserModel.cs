@@ -16,7 +16,7 @@ namespace FinancialSystem.Models {
 		public virtual string Email { get { return UserName; } }
 		public virtual string Password { get; set; }
 		public virtual long CurrentRole { get; set; }
-		public virtual GenderType? Gender { get; set; }
+		
 		public virtual String Name() {
 			return ((FirstName ?? "").Trim() + " " + (LastName ?? "").Trim()).Trim();
 		}
@@ -45,7 +45,6 @@ namespace FinancialSystem.Models {
 				Map(x => x.CurrentRole);
 				Map(x => x.IsAdmin);
 				Map(x => x.DeleteTime);
-				Map(x => x.Gender);
 				Map(x => x.CreateTime);
 				Map(x => x.SecurityStamp).Index("SecurityStamp_IDX").Length(400).UniqueKey("uniq");
 				HasMany(x => x.Logins).Cascade.SaveUpdate();

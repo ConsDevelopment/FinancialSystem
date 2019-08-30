@@ -103,6 +103,25 @@ namespace FinancialSystem.Controllers.MVC.PR
 			}
 			return PartialView(lines);
 		}
+		public async Task<ActionResult> PRAproover() {
+			var nh = new NHibernateUserStore();
+			ViewData["ApiServer"] = Config.GetApiServerURL();
 
+			var response = new HttpResponseMessage(HttpStatusCode.OK);
+
+			var session = HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			UserModel user;
+			if (!string.IsNullOrEmpty(session as string)) {
+				user = await nh.FindByIdAsync(session.ToString());
+			} else if (CurrentUserSession.userSecurityStampCookie != null) {
+				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
+				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user.Id;
+			} else {
+				return RedirectToAction("Login", "User");
+			}
+			var nhps = new NHibernatePRStore();
+			var pr = await nhps.FindPRAprovalAsync(user.employee.position);
+			return View(pr);
+		}
 		}
 }

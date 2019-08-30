@@ -135,7 +135,7 @@ namespace FinancialSystem.Models.Admin {
 				Map(x => x.DeleteTime);
 				Map(x => x.Reason);
 				Map(x => x.SourceLink);
-				Map(x => x.AdminUserId);
+				Map(x => x.AdminUserId).Length(50);
 				Map(x => x.AccessLevel).CustomType<AdminAccessLevel>();
 				Map(x => x.AccessId);
 				Map(x => x.SetAsEmail);

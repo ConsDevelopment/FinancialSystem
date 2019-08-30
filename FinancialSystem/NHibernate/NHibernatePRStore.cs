@@ -1,5 +1,6 @@
 ﻿using FinancialSystem.Accessor;
 using FinancialSystem.Models;
+using FinancialSystem.Models.Enums;
 using FinancialSystem.Utilities;
 using NHibernate.Criterion;
 using System;
@@ -35,7 +36,7 @@ namespace FinancialSystem.NHibernate {
 		public async Task<IList<PRLinesModel>> PRLinesCreatedAsync(UserModel user) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
-					var lines = db.QueryOver<PRLinesModel>().Where(x=>x.CreatedBy==user && x.DeleteTime==null);
+					var lines = db.QueryOver<PRLinesModel>().Where(x=>x.CreatedBy==user && x.DeleteTime==null && x.Header==null);
 					return lines.List();
 				}
 			}
@@ -62,19 +63,55 @@ namespace FinancialSystem.NHibernate {
 		public async Task CreatePRHeaderAsync(PRHeaderModel header) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
+				
 					db.Save(header);
+					
 					var pra = new PRAccessor();
 					header.RequisitionNo = pra.GetRequisitionNo(header.Requestor, header.Id);
 					db.Update(header);
-					try {
-						tx.Commit();
-					} catch (Exception e) {
-
-					}
+					tx.Commit();
 					db.Flush();
 				}
 			}
 		}
+		public async Task<IList<PRAprovalModel>> FindPRAprovalAsync(PositionModel approver) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<PRAprovalModel>().Where(x => x.Approver==approver && x.Status==StatusType.Request )
+						.JoinQueryOver(x=>x.PRHeader).Where(a=>a.Status==StatusType.Request).List();
+					
+				}
+			}
+		}
+		public async Task<PRAprovalModel> FindPRAprovalAsync(long Id) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.Get<PRAprovalModel>(Id);
+
+				}
+			}
+		}
+		public async Task<IList<PRAprovalModel>> FindPRAprovalAsync(PRHeaderModel pr) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<PRAprovalModel>().Where(x => x.PRHeader == pr ).List();
+
+				}
+			}
+		}
+		public async Task SaveOrUpdatePRApprovalAsync(PRAprovalModel aproval) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					
+					db.SaveOrUpdate(aproval);
+					
+					tx.Commit();
+					db.Flush();
+				}
+			}
+		}
+
+
 	}
 }
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
