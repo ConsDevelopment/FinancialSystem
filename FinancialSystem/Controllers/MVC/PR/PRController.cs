@@ -24,10 +24,10 @@ namespace FinancialSystem.Controllers.MVC.PR
 			
 			HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
 			
-			var users =  HttpContext.Session[Config.GetAppSetting("SessionKey")] as UserModel;
+			var task =  (Task)HttpContext.Session[Config.GetAppSetting("SessionKey")];
 			UserModel user=null;
-			if (users!=null) {
-				user =(UserModel)users;
+			if (task != null) {
+				user =(UserModel) task.GetType().GetProperty("Result").GetValue(task);
 			} else if (CurrentUserSession.userSecurityStampCookie != null) {
 				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
 				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user;
@@ -58,13 +58,13 @@ namespace FinancialSystem.Controllers.MVC.PR
 
 			var response = new HttpResponseMessage(HttpStatusCode.OK);
 
-			var session = HttpContext.Session[Config.GetAppSetting("SessionKey")];
-			UserModel user;
-			if (!string.IsNullOrEmpty(session as string)) {
-				user = await nh.FindByIdAsync(session.ToString());
+			var task = (Task)HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			UserModel user = null;
+			if (task != null) {
+				user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
 			} else if (CurrentUserSession.userSecurityStampCookie != null) {
 				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
-				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user.Id;
+				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user;
 			} else {
 				return RedirectToAction("Login", "User");
 			}
@@ -84,13 +84,13 @@ namespace FinancialSystem.Controllers.MVC.PR
 			var nhps = new NHibernatePRStore();
 			var nh = new NHibernateUserStore();
 			var nhcs = new NHibernateCompanyStore();
-			var session = HttpContext.Session[Config.GetAppSetting("SessionKey")];
-			UserModel user;
-			if (!string.IsNullOrEmpty(session as string)) {
-				user = await nh.FindByIdAsync(session.ToString());
+			var task = (Task)HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			UserModel user = null;
+			if (task != null) {
+				user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
 			} else if (CurrentUserSession.userSecurityStampCookie != null) {
 				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
-				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user.Id;
+				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user;
 			} else {
 				return RedirectToAction("Login", "User");
 			}
@@ -110,13 +110,13 @@ namespace FinancialSystem.Controllers.MVC.PR
 
 			var response = new HttpResponseMessage(HttpStatusCode.OK);
 
-			var session = HttpContext.Session[Config.GetAppSetting("SessionKey")];
-			UserModel user;
-			if (!string.IsNullOrEmpty(session as string)) {
-				user = await nh.FindByIdAsync(session.ToString());
+			var task = (Task)HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			UserModel user = null;
+			if (task != null) {
+				user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
 			} else if (CurrentUserSession.userSecurityStampCookie != null) {
 				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
-				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user.Id;
+				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user;
 			} else {
 				return RedirectToAction("Login", "User");
 			}
@@ -124,7 +124,23 @@ namespace FinancialSystem.Controllers.MVC.PR
 			var pr = await nhps.FindPRAprovalAsync(user.employee.position);
 			return View(pr);
 		}
+		[Authorize(Roles = "Purchaser")]
 		public async Task<ActionResult> QuoteAnalysis() {
+			var nh = new NHibernateUserStore();
+			ViewData["pageName"] = Config.GetApiServerURL();
+			var response = new HttpResponseMessage(HttpStatusCode.OK);
+
+			var task = (Task)HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			UserModel user = null;
+			if (task != null) {
+				user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
+			} else if (CurrentUserSession.userSecurityStampCookie != null) {
+				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
+				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user;
+			} else {
+				return RedirectToAction("Login", "User");
+			}
+			
 			return View();
 		}
 	}

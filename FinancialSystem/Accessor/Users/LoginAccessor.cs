@@ -17,6 +17,8 @@ namespace FinancialSystem.Accessor.Users {
 				var user = await UserManager.FindAsync(model.UserName.ToLower(), model.Password);
 				if (user != null && user.DeleteTime == null) {
 					HibernateSession.SignInUser(user, model.RememberMe);
+
+								
 					return user;
 				} else {
 					CurrentUserSession.removeSecurityStampCookie();

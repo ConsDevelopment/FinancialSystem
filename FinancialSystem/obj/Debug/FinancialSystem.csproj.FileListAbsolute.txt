@@ -340,10 +340,10 @@ C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\bin\Newtonsoft.Js
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\bin\System.Net.Http.Formatting.xml
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\bin\System.Web.Http.xml
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\bin\System.Web.Http.WebHost.xml
-C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.csprojResolveAssemblyReference.cache
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.Properties.ErrorMessageStrings.resources
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.Properties.DisplayNameStrings.resources
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.Properties.ExceptionStrings.resources
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.csproj.GenerateResource.Cache
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.dll
 C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.pdb
+C:\Users\Cons\Documents\GitHub\FinancialSystem\FinancialSystem\obj\Debug\FinancialSystem.csprojResolveAssemblyReference.cache

@@ -39,11 +39,11 @@ namespace FinancialSystem.Controllers.API.Users
 			var user = la.LogIn(value);
 			if (user != null) {
 				var session = HttpContext.Current.Session;
-				if (session != null) {
-					if (session[Config.GetAppSetting("SessionKey")] == null) {
-						session[Config.GetAppSetting("SessionKey")] = user;
-					}
-				}
+				var owinAuthentication = new OwinAuthenticationService(new HttpContextWrapper(HttpContext.Current));
+
+				owinAuthentication.SignIn((UserModel)user.GetType().GetProperty("Result").GetValue(user));
+				session[Config.GetAppSetting("SessionKey")] = user;
+				
 				Url = "../PR/PRShop";
 			}
             return Url;

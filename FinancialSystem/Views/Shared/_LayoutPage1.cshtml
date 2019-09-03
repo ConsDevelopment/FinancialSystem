@@ -1,4 +1,8 @@
 ﻿
+@using FinancialSystem.Models;
+@using FinancialSystem.Utilities;
+@using FinancialSystem.Models.UserModels;
+@using System.Threading.Tasks;
 <!DOCTYPE html>
 
 <html>
@@ -23,7 +27,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	@Styles.Render("~/Content/PR/pr-shop")
-
+	@{ 
+		var task = (Task)Session[Config.GetAppSetting("SessionKey")];
+		var user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
+	}
 </head>
 
 
@@ -118,7 +125,12 @@
 									<ul>
 										<li><a href="PRShop"><i class="material-icons">event_available</i>Catalog</a></li>
 										<li><a href="#"><i class="material-icons">event_busy</i>Non Catalog</a></li>
-										<li><a href="#"><i class="material-icons">assignment</i>Quote Analysys</a></li>
+
+										@foreach (var role in user.Roles) {
+											if(role.RoleType == UserRoleType.Purchaser && role.DeleteTime==null) {
+												<li><a href="QuoteAnalysis"><i class="material-icons">assignment</i>Quote Analysys</a></li>
+											}
+										}
 									</ul>
 								</div>
 							</li>

@@ -230,6 +230,7 @@
     <Compile Include="Accessor\UserAccessor.cs" />
     <Compile Include="Accessor\Users\CreateUser.cs" />
     <Compile Include="Accessor\Users\LoginAccessor.cs" />
+    <Compile Include="Accessor\Users\OwinAuthenticationService.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FluentConfigs.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -302,6 +303,7 @@
     <Compile Include="Models\UserModels\UserModel.cs" />
     <Compile Include="NHibernate\NHibernateUserStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="TestClass\TestCreateUser.cs" />
     <Compile Include="Utilities\AsyncUtility.cs" />
     <Compile Include="Utilities\Attributes\AccessAttribute.cs" />

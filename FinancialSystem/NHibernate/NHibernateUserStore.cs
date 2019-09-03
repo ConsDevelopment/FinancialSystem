@@ -222,14 +222,14 @@ namespace FinancialSystem.NHibernate {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
 					user = db.Get<UserModel>(user.Id);
-					return user.Roles.NotNull(y => y.Where(x => !x.Deleted).Select(x => x.RoleType).ToList());
+					return user.Roles.NotNull(y => y.Where(x => x.DeleteTime==null).Select(x => x.RoleType).ToList());
 				}
 			}
 
 		}
 
 		public async Task<bool> IsInRoleAsync(UserModel user, UserRoleType role) {
-			return user.Roles.NotNull(y => y.Any(x => x.RoleType == role && x.Deleted == false));
+			return user.Roles.NotNull(y => y.Any(x => x.RoleType == role && x.DeleteTime == null));
 		}
 
 		public async Task RemoveFromRoleAsync(UserModel user, UserRoleType role) {
@@ -238,7 +238,7 @@ namespace FinancialSystem.NHibernate {
 					user = db.Get<UserModel>(user.Id);
 					var found = user.Roles.NotNull(y => y.ToList().FirstOrDefault(x => x.RoleType == role));
 					if (found != null) {
-						found.Deleted = true;
+						found.DeleteTime = DateTime.UtcNow;
 						db.Delete(found);
 						user.Roles.Remove(found);
 					} else {
