@@ -42,7 +42,7 @@ namespace FinancialSystem.Controllers.API.Users
 				var owinAuthentication = new OwinAuthenticationService(new HttpContextWrapper(HttpContext.Current));
 
 				owinAuthentication.SignIn((UserModel)user.GetType().GetProperty("Result").GetValue(user));
-				session[Config.GetAppSetting("SessionKey")] = user;
+				session[Config.GetAppSetting("SessionKey")] = (UserModel)user.GetType().GetProperty("Result").GetValue(user);
 				
 				Url = "../PR/PRShop";
 			}

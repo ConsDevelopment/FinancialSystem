@@ -28,8 +28,9 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	@Styles.Render("~/Content/PR/pr-shop")
 	@{ 
-		var task = (Task)Session[Config.GetAppSetting("SessionKey")];
-		var user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
+		//var task = (Task)Session[Config.GetAppSetting("SessionKey")];
+		//var user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
+		var user = (UserModel)Session[Config.GetAppSetting("SessionKey")];
 	}
 </head>
 
@@ -183,21 +184,31 @@
 		</div>
 
 	</header>
+@if ((string)ViewData["pageName"] == "QuoteAnalysis") {
 	<script>
 
         document.addEventListener('DOMContentLoaded', function () {
 
         	var elems = document.querySelectorAll('.sidenav');
-
         	var instances = M.Sidenav.init(elems);
         	var elems = document.querySelectorAll('.collapsible');
-
         	var instances = M.Collapsible.init(elems);
-			
+			var elems = document.querySelectorAll('.modal');
+			var instances = M.Modal.init(elems);
+			var elems = document.querySelectorAll('select');
+			var instances = M.FormSelect.init(elems);
         });
-
 	</script>
-
+} else {
+	<script>
+        document.addEventListener('DOMContentLoaded', function () {
+        	var elems = document.querySelectorAll('.sidenav');
+        	var instances = M.Sidenav.init(elems);
+        	var elems = document.querySelectorAll('.collapsible');
+        	var instances = M.Collapsible.init(elems);
+        });
+	</script>
+}
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>

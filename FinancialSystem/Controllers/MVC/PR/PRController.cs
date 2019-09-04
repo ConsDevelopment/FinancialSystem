@@ -1,4 +1,5 @@
-﻿using FinancialSystem.Models;
+﻿using FinancialSystem.Accessor.Users;
+using FinancialSystem.Models;
 using FinancialSystem.Models.UserModels;
 using FinancialSystem.NHibernate;
 using FinancialSystem.Utilities;
@@ -23,14 +24,18 @@ namespace FinancialSystem.Controllers.MVC.PR
 			ViewData["ApiServer"] = Config.GetApiServerURL();
 			
 			HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-			
-			var task =  (Task)HttpContext.Session[Config.GetAppSetting("SessionKey")];
-			UserModel user=null;
-			if (task != null) {
-				user =(UserModel) task.GetType().GetProperty("Result").GetValue(task);
+
+			//var task =  (Task)HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			var user = (UserModel)HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			//UserModel user=null;
+			if (user != null) {
+				//user =(UserModel) task.GetType().GetProperty("Result").GetValue(task);
 			} else if (CurrentUserSession.userSecurityStampCookie != null) {
 				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
 				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user;
+				
+				var owinAuthentication = new OwinAuthenticationService(HttpContext);
+				owinAuthentication.SignIn(user);
 			} else {
 				return RedirectToAction("Login", "User");
 			}
@@ -58,13 +63,15 @@ namespace FinancialSystem.Controllers.MVC.PR
 
 			var response = new HttpResponseMessage(HttpStatusCode.OK);
 
-			var task = (Task)HttpContext.Session[Config.GetAppSetting("SessionKey")];
-			UserModel user = null;
-			if (task != null) {
-				user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
+			var user = (UserModel)HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			//UserModel user = null;
+			if (user != null) {
+				//user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
 			} else if (CurrentUserSession.userSecurityStampCookie != null) {
 				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
 				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user;
+				var owinAuthentication = new OwinAuthenticationService(HttpContext);
+				owinAuthentication.SignIn(user);
 			} else {
 				return RedirectToAction("Login", "User");
 			}
@@ -84,13 +91,15 @@ namespace FinancialSystem.Controllers.MVC.PR
 			var nhps = new NHibernatePRStore();
 			var nh = new NHibernateUserStore();
 			var nhcs = new NHibernateCompanyStore();
-			var task = (Task)HttpContext.Session[Config.GetAppSetting("SessionKey")];
-			UserModel user = null;
-			if (task != null) {
-				user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
+			var user = (UserModel)HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			//UserModel user = null;
+			if (user != null) {
+				//user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
 			} else if (CurrentUserSession.userSecurityStampCookie != null) {
 				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
 				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user;
+				var owinAuthentication = new OwinAuthenticationService(HttpContext);
+				owinAuthentication.SignIn(user);
 			} else {
 				return RedirectToAction("Login", "User");
 			}
@@ -110,13 +119,15 @@ namespace FinancialSystem.Controllers.MVC.PR
 
 			var response = new HttpResponseMessage(HttpStatusCode.OK);
 
-			var task = (Task)HttpContext.Session[Config.GetAppSetting("SessionKey")];
-			UserModel user = null;
-			if (task != null) {
-				user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
+			var user = (UserModel)HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			//UserModel user = null;
+			if (user != null) {
+				//user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
 			} else if (CurrentUserSession.userSecurityStampCookie != null) {
 				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
 				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user;
+				var owinAuthentication = new OwinAuthenticationService(HttpContext);
+				owinAuthentication.SignIn(user);
 			} else {
 				return RedirectToAction("Login", "User");
 			}
@@ -127,16 +138,18 @@ namespace FinancialSystem.Controllers.MVC.PR
 		[Authorize(Roles = "Purchaser")]
 		public async Task<ActionResult> QuoteAnalysis() {
 			var nh = new NHibernateUserStore();
-			ViewData["pageName"] = Config.GetApiServerURL();
+			ViewData["pageName"] = "QuoteAnalysis";
 			var response = new HttpResponseMessage(HttpStatusCode.OK);
 
-			var task = (Task)HttpContext.Session[Config.GetAppSetting("SessionKey")];
-			UserModel user = null;
-			if (task != null) {
-				user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
+			var user = (UserModel)HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			//UserModel user = null;
+			if (user != null) {
+				//user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
 			} else if (CurrentUserSession.userSecurityStampCookie != null) {
 				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
 				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user;
+				var owinAuthentication = new OwinAuthenticationService(HttpContext);
+				owinAuthentication.SignIn(user);
 			} else {
 				return RedirectToAction("Login", "User");
 			}

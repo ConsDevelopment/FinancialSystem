@@ -13,7 +13,7 @@ namespace FinancialSystem {
 	public class Startup {
 		public void Configuration(IAppBuilder app) {
 			app.UseCookieAuthentication(new CookieAuthenticationOptions {
-				AuthenticationType = "ApplictionCookie",
+				AuthenticationType = "ApplicationCookie",
 				LoginPath = new PathString("/User/Login")
 			});
 		}
