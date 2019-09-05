@@ -4,11 +4,15 @@
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 @Styles.Render("~/Content/PR/quote-analysis")
+@Scripts.Render("~/scripts/PR/QuoteAnalysis")
 <div class="col s12 content">
 	<div class="container">
 		<div class="col s12 pr-form" id="pr1">
 			<div class="row">
 				<div class="qa">
+					<div class="col s6" id="top">
+						<label>QA Number: </label>
+					</div>
 					<div class="col s6" id="top">
 						<label>Item: </label><input type="text"
 											  placeholder="Enter Item Name">
@@ -41,7 +45,7 @@
 							<th>PRICE</th>
 							<th>OUM</th>
 							<th>QUANTITY</th>
-							<th>DELETE</th>
+							<th>ACTIONS</th>
 						</tr>
 					</thead>
 
@@ -59,9 +63,9 @@
 							<td></td>
 							<td></td>
 							<td>
-								<a class="btn-floating pulse btn-small waves-effect waves-light red">
-									<i class="material-icons">remove</i>
-								</a>
+								<a class="waves-effect waves-light btn red">Delete</a>
+								<a class="waves-effect waves-light btn light-blue accent-3
+                                            ">View</a>
 							</td>
 						</tr>
 					</tbody>
@@ -76,47 +80,66 @@
 			<div id="modal1" class="modal">
 				<div class="modal-content">
 					<h4>Input Suppliers</h4>
-					<div class="input-field col s12">
+					<div class="input-field col s6">
 						<select class="js-example-basic-single" name="state">
 							<option selected="selected">Supplier</option>
 							<option value="AL">Alabama</option>
 							<option value="WY">Wyoming</option>
 						</select>
 					</div>
-					<div class="input-field col s12">
+					<div class="input-field col s6">
+						<input id="desc" type="text" class="validate">
+						<label for="desc">Description</label>
+					</div>
+					<div class="input-field col s6">
 						<input id="price" type="text" class="validate">
 						<label for="price">Price</label>
 					</div>
-					<div class="input-field col s12">
+					<div class="input-field col s6">
 						<input id="quantity" type="text" class="validate">
 						<label for="quantity">Quantity</label>
 					</div>
-					<div class="input-field col s12">
+					<div class="input-field col s6">
 						<select class="js-example-basic-single" name="state">
-							<option selected="selected">Unit of Measurement</option>
+							<option value="" disabled selected>Unit of Measurement</option>
 							<option value="AL">Alabama</option>
 							<option value="WY">Wyoming</option>
 						</select>
 					</div>
-					<div class="input-field col s12">
+					<div class="input-field col s6">
 						<input id="discount" type="text" class="validate">
 						<label for="discount">Discount</label>
 					</div>
-					<div class="input-field col s12">
+					<div class="input-field col s6">
 						<input id="total" type="text" class="validate">
 						<label for="total">Total Amount</label>
 					</div>
-					<div class="input-field col s12">
-						<input id="availability" type="text" class="validate">
+					<div class="input-field col s6">
+						<input type="text" class="datepicker">
 						<label for="availability">Availability</label>
 					</div>
-					<div class="input-field col s12">
-						<input id="terms" type="text" class="validate">
-						<label for="terms">Terms</label>
+					<div class="input-field col s6">
+						<div class="searchable">
+							<select class="js-example-basic-single" name="terms">
+								<option selected="selected">Select Terms</option>
+								<option value="1">Immediate</option>
+								<option value="2">C.O.D.</option>
+								<option value="2">50% Deposit</option>
+								<option value="2">30 Days</option>
+								<option value="2">60 Days</option>
+								<option value="2">90 Days</option>
+							</select>
+						</div>
 					</div>
-					<div class="input-field col s12">
-						<input id="textarea" type="text" class="validate">
-						<label for="analysis">Analysis</label>
+					<div class="input-field col s6">
+						<div class="searchable">
+							<select>
+								<option value="" disabled selected>Choose Brand</option>
+								<option value="1">Option 1</option>
+								<option value="2">Option 2</option>
+								<option value="3">Option 3</option>
+							</select>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -129,17 +152,23 @@
 				</div>
 			</div>
 		</div>
+		<div class="input-field col s12" id="remarks">
+			<div class="remarks">
+				<h5 id="analysis">Anaysis Remarks: </h5>
+				<textarea></textarea>
+			</div>
+		</div>
 		<div class="col s12" id="submit">
 			<a class="waves-effect waves-light btn right green modal-trigger" href="#modal4"
 			   id="submit-button">SUBMIT</a>
 			<!-- Modal Structure -->
 			<div id="modal4" class="modal">
 				<div class="modal-content">
-					<p>Are you sure you want to add item?</p>
+					<p>Are you sure you want submit and create Quote Analysis Number: 001?</p>
 				</div>
 				<div class="modal-footer">
 					<a href="#!" class="modal-close waves-effect waves-green btn-flat"
-					   onclick="M.toast({html: 'Item has been added',  classes: 'rounded'})">Yes</a>
+					   onclick="M.toast({html: 'Q.A Number 001 has been created',  classes: 'rounded'})">Yes</a>
 					<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
 				</div>
 			</div>

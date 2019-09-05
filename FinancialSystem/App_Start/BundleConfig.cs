@@ -149,7 +149,9 @@ namespace FinancialSystem
 
 			bundles.Add(new StyleBundle("~/Content/PR/quote-analysis")
 				.Include("~/Content/PR/quote-analysis.css"));
-
+			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/PR/QuoteAnalysis").Include(
+					 "~/scripts/PR/QuoteAnalysis.js"
+			  )));
 		}
 
 

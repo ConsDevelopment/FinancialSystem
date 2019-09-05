@@ -214,6 +214,7 @@
     <Content Include="Content\User\registration.css" />
     <Content Include="Global.asax" />
     <Content Include="scripts\PR\PRApproved.js" />
+    <Content Include="scripts\PR\QuoteAnalysis.js" />
     <Content Include="scripts\user\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\PR\PR.js" />
@@ -282,6 +283,9 @@
     <Compile Include="Models\ViewModels\QAViewModel.cs" />
     <Compile Include="Models\ViewModels\PRViewModel.cs" />
     <Compile Include="Models\ViewModels\ItemViewModel.cs" />
+    <Compile Include="NHibernate\NHibernateISupplierStore.cs" />
+    <Compile Include="NHibernate\NHibernateICategoryStore.cs" />
+    <Compile Include="NHibernate\NHibernateNonCatalogStore.cs" />
     <Compile Include="NHibernate\NHibernatePRStore.cs" />
     <Compile Include="NHibernate\NHibernateItemStore.cs" />
     <Compile Include="NHibernate\NHibernateCompanyStore.cs" />

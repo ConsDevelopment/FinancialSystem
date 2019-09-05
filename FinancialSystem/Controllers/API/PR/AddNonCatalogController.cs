@@ -1,9 +1,13 @@
 ﻿using FinancialSystem.Models;
+using FinancialSystem.NHibernate;
+using FinancialSystem.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace FinancialSystem.Controllers.API.PR {
@@ -20,12 +24,39 @@ namespace FinancialSystem.Controllers.API.PR {
 
 		// POST api/<controller>
 		[Authorize(Roles = "Purchaser")]
-		public long Post(NonCatalogViewModel value) {
-			long Id=0;
+		public async Task<long> Post(NonCatalogViewModel value) {
+			
+			var session = HttpContext.Current.Session;
+			var sessionKey = Config.GetAppSetting("SessionKey").ToString();
+			var user = (UserModel)session[sessionKey];
+			var nnc = new NHibernateNonCatalogStore();
+			var supplierStore = new NHibernateISupplierStore();
+			var subcategoryStore = new NHibernateICategoryStore();
+			var nonCatalog = new NonCatalogItemHeadModel {
+				Name=value.Name,
+				Analysis=value.Analysis,
+				SubCategory= await subcategoryStore.FindSubCategoryByIdAsync(value.SubCategoryId)
+				
+			};
+			
+			foreach (var line in value.Lines) {
+				var nonCatalogLine = new NonCatalogItemLinesModel {
+					Selected = line.Selected,
+					Supplier =await supplierStore.FindSupplierByIdAsync(line.SupplierId),
+					Price=line.Price,
+					Description=line.Description,
+					Quantity=line.Quantity,
+					UOM=line.UOM,
+					Discount=line.Discount,
+					TotalAnount=line.TotalAnount,
+					Availability=line.Availability,
+					Terms=line.Terms,
+					Brand= await supplierStore.FindBrandByIdAsync(line.BrandId),
+				};
+				nonCatalog.Lines.Add(nonCatalogLine);
+			}
 
-
-
-			return Id;
+			return await nnc.CreateNonCatalogHeadAsync(nonCatalog);
 
 		}
 

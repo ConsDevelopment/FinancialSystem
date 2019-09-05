@@ -20,6 +20,7 @@ namespace FinancialSystem.Models {
 		public long SupplierId { get; set; }
 		public double Price { get; set; }
 		public string Description { get; set; }
+		public virtual int Quantity { get; set; }
 		public UOMType UOM { get; set; }
 		public double Discount { get; set; }
 		public double TotalAnount { get; set; }
