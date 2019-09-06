@@ -137,22 +137,10 @@ namespace FinancialSystem.Controllers.MVC.PR
 		}
 		[Authorize(Roles = "Purchaser")]
 		public async Task<ActionResult> QuoteAnalysis() {
-			var nh = new NHibernateUserStore();
+			var category = new NHibernateCategoryStore();
 			ViewData["pageName"] = "QuoteAnalysis";
-			var response = new HttpResponseMessage(HttpStatusCode.OK);
-
-			var user = (UserModel)HttpContext.Session[Config.GetAppSetting("SessionKey")];
-			//UserModel user = null;
-			if (user != null) {
-				//user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
-			} else if (CurrentUserSession.userSecurityStampCookie != null) {
-				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
-				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user;
-				var owinAuthentication = new OwinAuthenticationService(HttpContext);
-				owinAuthentication.SignIn(user);
-			} else {
-				return RedirectToAction("Login", "User");
-			}
+			ViewData["Categories"] = await category.GeatAllCategoryAsync();
+			
 			
 			return View();
 		}

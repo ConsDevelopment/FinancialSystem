@@ -8,6 +8,7 @@ using FinancialSystem.Models.UserModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FinancialSystem.NHibernate;
+using Newtonsoft.Json;
 
 namespace FinancialSystem.Models {
 	public class SubCategoryModel {
@@ -22,6 +23,8 @@ namespace FinancialSystem.Models {
 		}
 
 		public virtual DateTime CreateTime { get; set; }
+
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public virtual DateTime? DeleteTime { get; set; }
 
 		public class SubCategoryModelMap : ClassMap<SubCategoryModel> {

@@ -31,7 +31,7 @@ namespace FinancialSystem.Controllers.API.PR {
 			var user = (UserModel)session[sessionKey];
 			var nnc = new NHibernateNonCatalogStore();
 			var supplierStore = new NHibernateISupplierStore();
-			var subcategoryStore = new NHibernateICategoryStore();
+			var subcategoryStore = new NHibernateCategoryStore();
 			var nonCatalog = new NonCatalogItemHeadModel {
 				Name=value.Name,
 				Analysis=value.Analysis,

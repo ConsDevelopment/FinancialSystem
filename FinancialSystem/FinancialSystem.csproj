@@ -241,6 +241,7 @@
     <Compile Include="Controllers\API\PR\AddPRLinesController.cs" />
     <Compile Include="Controllers\API\PR\CreatePRController.cs" />
     <Compile Include="Controllers\API\PR\DeletePRLinesController.cs" />
+    <Compile Include="Controllers\API\PR\GetSubCategoryController.cs" />
     <Compile Include="Controllers\API\PR\PRApprovalController.cs" />
     <Compile Include="Controllers\API\PR\SearchItemController.cs" />
     <Compile Include="Controllers\API\Users\CreateUserController.cs" />

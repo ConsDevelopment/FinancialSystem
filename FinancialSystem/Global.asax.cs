@@ -19,8 +19,13 @@ namespace FinancialSystem
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);         
-        }
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+			HttpConfiguration config = GlobalConfiguration.Configuration;
+
+			config.Formatters.JsonFormatter
+						.SerializerSettings
+						.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+		}
 		protected void Application_PostAuthorizeRequest() {
 			if (IsWebApiRequest()) {
 				HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
