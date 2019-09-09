@@ -8,6 +8,7 @@
 @Scripts.Render("~/scripts/PR/QuoteAnalysis")
 @{ 
 	var categories = (List<CategoryModel>)ViewData["Categories"];
+	var suppliers = (List<SupplierModel>)ViewData["supplier"];
 }
 <div class="col s12 content">
 	<div class="container">
@@ -86,11 +87,18 @@
 				<div class="modal-content">
 					<h4>Input Suppliers</h4>
 					<div class="input-field col s6">
-						<select class="js-example-basic-single" name="state">
+						@*<select class="js-example-basic-single browser-default" name="state">
 							<option selected="selected">Supplier</option>
 							<option value="AL">Alabama</option>
 							<option value="WY">Wyoming</option>
-						</select>
+						</select>*@
+						<input list="supplier" onchange="supplier()" name="supplier" placeholder="Supplier" id="supplierInput" />
+						<datalist id="supplier">
+							@foreach (var supplier in suppliers) {
+								<option data-value="@supplier.Id">@supplier.Name</option>
+							}
+						</datalist>
+						<input type="hidden" id="supplierInput-hidden" />
 					</div>
 					<div class="input-field col s6">
 						<input id="desc" type="text" class="validate">

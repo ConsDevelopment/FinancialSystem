@@ -27,6 +27,7 @@ namespace FinancialSystem.Models {
 		public DateTime? Availability { get; set; }
 		public PaymentTermsType Terms { get; set; }
 		public long BrandId { get; set; }
+		public virtual string TempSupplier { get; set; }
 	}
 
 }

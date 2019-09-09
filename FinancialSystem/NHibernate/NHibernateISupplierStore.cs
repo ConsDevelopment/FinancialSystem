@@ -20,6 +20,14 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+		public async Task<IList<SupplierModel>> GeatAllSupplierAsync() {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					var supplier = db.QueryOver<SupplierModel>().Where(x => x.DeleteTime == null);
+					return supplier.List();
+				}
+			}
+		}
 		public async Task<BrandModel> FindBrandByIdAsync(long Id) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {

@@ -37,7 +37,7 @@ namespace FinancialSystem.Controllers.API.Users
 			string Url = "";
 			LoginAccessor la = new LoginAccessor();
 			var user = la.LogIn(value);
-			if (user != null) {
+			if (user.Result != null) {
 				var session = HttpContext.Current.Session;
 				var owinAuthentication = new OwinAuthenticationService(new HttpContextWrapper(HttpContext.Current));
 
