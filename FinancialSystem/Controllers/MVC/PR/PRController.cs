@@ -142,6 +142,7 @@ namespace FinancialSystem.Controllers.MVC.PR
 			ViewData["pageName"] = "QuoteAnalysis";
 			ViewData["Categories"] = await category.GeatAllCategoryAsync();
 			ViewData["supplier"] = await supplier.GeatAllSupplierAsync();
+			ViewData["brand"] = await supplier.GeatAllBrandAsync();
 
 
 			return View();

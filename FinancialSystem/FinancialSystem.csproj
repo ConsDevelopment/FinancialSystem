@@ -265,6 +265,7 @@
     <Compile Include="Models\Company\TeamModel.cs" />
     <Compile Include="Models\Company\CompanyModel.cs" />
     <Compile Include="Models\Company\EmployeeModel.cs" />
+    <Compile Include="Models\Enums\AvailabilityType.cs" />
     <Compile Include="Models\Enums\PaymentTermsType.cs" />
     <Compile Include="Models\Enums\AccessLevel.cs" />
     <Compile Include="Models\Enums\StatusType.cs" />

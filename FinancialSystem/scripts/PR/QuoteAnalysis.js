@@ -8,17 +8,58 @@
 		str+="</td>";
 		str+="<td style='display:none;'>" + $("#supplierInput-hidden").val() + "</td>";
 		str+="<td>" + $("#supplierInput").val() + "</td>";
-		str+="<td></td>";
-		str+="<td></td>";
-		str += "<td></td>";
-		str += "<td></td>";
+		str += "<td>" + $("#desc").val() + "</td>";
+		str += "<td>" + $("#price").val() + "</td>";
+		str += "<td>" + $("#uom option:selected").val() + "</td>";
+		str += "<td>" + $("#quantity").val() + "</td>";
+		str += "<td>" + $("#discount").val() + "</td>";
+		str += "<td>" + $("#TotalAnount").val() + "</td>";
+		str += "<td>" + $("#availability option:selected").val() + "</td>";
+		str += "<td>" + $("#terms option:selected").val() + "</td>";
+		str += "<td style='display:none;'>" + $("#brands option:selected").val() + "</td>";
+		str += "<td >" + $("#brands option:selected").html() + "</td>";
 		str+="<td>";
-		str+="<a class='waves-effect waves-light btn red'>Delete</a>";
+		str += "<a class='waves-effect waves-light btn red' onclick='DeleteRow(this)'>Delete</a>";
 		str+="</td>";
 		str += "</tr>";
 		jQuery("#table tbody").append(str);
 	M.toast({ html: 'Item has been added', classes: 'rounded' });
 
+}
+function SaveQA() {
+	$('#mytable tr').each(function () {
+		if (IsNotHeader) {
+
+			var itemno = $(this).find("td").eq(1).html();
+			var remarks = $("#remarks" + itemno).val();;
+			var IsCorrect = $("#radio" + itemno).prop("checked");
+			if (firsRow) {
+				source = [{
+					"Id": $(this).find("td").eq(0).html(),
+					"Remarks": remarks,
+					"IsCorrect": IsCorrect,
+					"AlreadyReview": true
+				}];
+				firsRow = false;
+			} else {
+				source.push({
+					"Id": $(this).find("td").eq(0).html(),
+					"Remarks": remarks,
+					"IsCorrect": IsCorrect,
+					"AlreadyReview": true
+				});
+			}
+		} else {
+			IsNotHeader = true;
+		}
+
+
+	});
+
+	M.toast({ html: 'Q.A Number 001 has been created', classes: 'rounded' });
+}
+function DeleteRow(tr) {
+	tr.closest("tr").remove();
 }
 
 function supplier() {

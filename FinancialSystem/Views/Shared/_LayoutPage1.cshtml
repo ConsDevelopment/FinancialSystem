@@ -197,6 +197,8 @@
 			var instances = M.Modal.init(elems);
 			var elems = document.querySelectorAll('select');
 			var instances = M.FormSelect.init(elems);
+			var elems = document.querySelectorAll('.datepicker');
+			var instances = M.Datepicker.init(elems);
         });
 	</script>
 } else {
@@ -206,6 +208,7 @@
         	var instances = M.Sidenav.init(elems);
         	var elems = document.querySelectorAll('.collapsible');
         	var instances = M.Collapsible.init(elems);
+
         });
 	</script>
 }

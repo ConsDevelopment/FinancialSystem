@@ -35,6 +35,14 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+		public async Task<IList<BrandModel>> GeatAllBrandAsync() {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					var brands = db.QueryOver<BrandModel>().Where(x => x.DeleteTime == null);
+					return brands.List();
+				}
+			}
+		}
 
 	}
 }

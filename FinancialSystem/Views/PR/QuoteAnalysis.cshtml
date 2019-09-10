@@ -1,14 +1,16 @@
 ﻿@using FinancialSystem.Models
+@using FinancialSystem.Models.Enums
 
 @{
-    ViewBag.Title = "QuoteAnalysis";
-    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+	ViewBag.Title = "QuoteAnalysis";
+	Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 @Styles.Render("~/Content/PR/quote-analysis")
 @Scripts.Render("~/scripts/PR/QuoteAnalysis")
 @{ 
 	var categories = (List<CategoryModel>)ViewData["Categories"];
 	var suppliers = (List<SupplierModel>)ViewData["supplier"];
+	var brands = (List<BrandModel>)ViewData["brand"];
 }
 <div class="col s12 content">
 	<div class="container">
@@ -51,29 +53,16 @@
 							<th>PRICE</th>
 							<th>OUM</th>
 							<th>QUANTITY</th>
+							<th>DISCOUNT</th>
+							<th>TOTAL AMOUNT</th>
+							<th>AVAILABILITY</th>
+							<th>TERMS</th>
+							<th>BRAND</th>
 							<th>ACTIONS</th>
 						</tr>
 					</thead>
 
 					<tbody>
-						<tr>
-							<td>
-								<label>
-									<input name="group1" type="radio" />
-									<span></span>
-								</label>
-							</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>
-								<a class="waves-effect waves-light btn red">Delete</a>
-								<a class="waves-effect waves-light btn light-blue accent-3
-                                            ">View</a>
-							</td>
-						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -113,10 +102,14 @@
 						<label for="quantity">Quantity</label>
 					</div>
 					<div class="input-field col s6">
-						<select class="js-example-basic-single" name="state">
+						<select class="js-example-basic-single" name="state" id="uom">
 							<option value="" disabled selected>Unit of Measurement</option>
-							<option value="AL">Alabama</option>
-							<option value="WY">Wyoming</option>
+							@{
+								var UOMs = Enum.GetValues(typeof(UOMType));
+							}
+							@foreach (var UOM in UOMs) {
+								<option value="@UOM.ToString()">@UOM.ToString()</option>
+							}
 						</select>
 					</div>
 					<div class="input-field col s6">
@@ -124,33 +117,42 @@
 						<label for="discount">Discount</label>
 					</div>
 					<div class="input-field col s6">
-						<input id="total" type="text" class="validate">
-						<label for="total">Total Amount</label>
+						<input id="TotalAnount" type="text" class="validate">
+						<label for="TotalAnount">Total Amount</label>
 					</div>
 					<div class="input-field col s6">
-						<input type="text" class="datepicker">
-						<label for="availability">Availability</label>
+						@*<input type="text" class="datepicker">
+						<label for="availability">Availability</label>*@
+						<select class="js-example-basic-single" name="availability" id="availability">
+							<option value="" disabled selected>Availability</option>
+							@{
+								var Availabilities = Enum.GetValues(typeof(AvailabilityType));
+							}
+							@foreach (var availability in Availabilities) {
+								<option value="@availability.ToString()">@availability.ToString()</option>
+							}
+						</select>
 					</div>
 					<div class="input-field col s6">
 						<div class="searchable">
-							<select class="js-example-basic-single" name="terms">
-								<option selected="selected">Select Terms</option>
-								<option value="1">Immediate</option>
-								<option value="2">C.O.D.</option>
-								<option value="2">50% Deposit</option>
-								<option value="2">30 Days</option>
-								<option value="2">60 Days</option>
-								<option value="2">90 Days</option>
+							<select class="js-example-basic-single" name="terms" id="terms">
+								<option value="" disabled selected>Select Terms</option>
+							@{
+								var terms = Enum.GetValues(typeof(PaymentTermsType));
+							}
+							@foreach (var term in terms) {
+								<option value="@term.ToString()">@term.ToString()</option>
+							}
 							</select>
 						</div>
 					</div>
 					<div class="input-field col s6">
 						<div class="searchable">
-							<select>
+							<select class="js-example-basic-single" name="brands" id="brands">
 								<option value="" disabled selected>Choose Brand</option>
-								<option value="1">Option 1</option>
-								<option value="2">Option 2</option>
-								<option value="3">Option 3</option>
+								@foreach (var brand in brands) {
+									<option value="@brand.Id">@brand.Name</option>
+								}
 							</select>
 						</div>
 					</div>
@@ -167,7 +169,7 @@
 		</div>
 		<div class="input-field col s12" id="remarks">
 			<div class="remarks">
-				<h5 id="analysis">Anaysis Remarks: </h5>
+				<h5 id="analysis">Analysis Remarks: </h5>
 				<textarea></textarea>
 			</div>
 		</div>
@@ -181,7 +183,7 @@
 				</div>
 				<div class="modal-footer">
 					<a href="#!" class="modal-close waves-effect waves-green btn-flat"
-					   onclick="M.toast({html: 'Q.A Number 001 has been created',  classes: 'rounded'})">Yes</a>
+					   onclick="SaveQA()">Yes</a>
 					<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
 				</div>
 			</div>
