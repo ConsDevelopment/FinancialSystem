@@ -21,29 +21,38 @@
 						<label>QA Number: </label>
 					</div>
 					<div class="col s6" id="top">
-						<label>Item: </label><input type="text"
-											  placeholder="Enter Item Name">
+						<input list="employees" onchange="Employees()" name="employees" placeholder="Employees" id="employeesInput" />
+						<datalist id="employees">
+							@foreach (var supplier in suppliers) {
+								<option data-value="@supplier.Id">@supplier.Name</option>
+							}
+						</datalist>
+						<input type="hidden" id="employeesInput-hidden" />
 					</div>
-					<div class="col s6" id="top">
-						<div class="searchable categories">
-							<select class="js-example-basic-single browser-default" name="state" id="CategorySelect" onchange="Category()">
-								<option selected="selected">Select Categories</option>
-								@foreach (var category in categories) {
-									<option value="@category.Id">@category.Name</option>
-								}
-							</select>
+						<div class="col s6" id="top">
+							<label>Item: </label><input type="text"
+												 placeholder="Enter Item Name">
+						</div>
+						<div class="col s6" id="top">
+							<div class="searchable categories">
+								<select class="js-example-basic-single browser-default" name="state" id="CategorySelect" onchange="Category()">
+									<option selected="selected">Select Categories</option>
+									@foreach (var category in categories) {
+										<option value="@category.Id">@category.Name</option>
+									}
+								</select>
+							</div>
+						</div>
+						<div class="col s6" id="top">
+							<div class="searchable">
+								<select class="js-example-basic-single browser-default" name="state" id="SubCategory">
+									<option selected="selected">Select SubCategories</option>
+									<option value="AL">Alabama</option>
+									<option value="WY">Wyoming</option>
+								</select>
+							</div>
 						</div>
 					</div>
-					<div class="col s6" id="top">
-						<div class="searchable">
-							<select class="js-example-basic-single browser-default" name="state" id="SubCategory">
-								<option selected="selected">Select SubCategories</option>
-								<option value="AL">Alabama</option>
-								<option value="WY">Wyoming</option>
-							</select>
-						</div>
-					</div>
-				</div>
 				<table class="highlight" id="table">
 					<thead>
 						<tr>
@@ -179,7 +188,7 @@
 			<!-- Modal Structure -->
 			<div id="modal4" class="modal">
 				<div class="modal-content">
-					<p>Are you sure you want submit and create Quote Analysis Number: 001?</p>
+					<p>Are you sure you want submit and create Quote Analysis?</p>
 				</div>
 				<div class="modal-footer">
 					<a href="#!" class="modal-close waves-effect waves-green btn-flat"

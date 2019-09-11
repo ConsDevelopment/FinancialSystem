@@ -24,7 +24,7 @@ namespace FinancialSystem.Models {
 		public UOMType UOM { get; set; }
 		public double Discount { get; set; }
 		public double TotalAnount { get; set; }
-		public DateTime? Availability { get; set; }
+		public AvailabilityType Availability { get; set; }
 		public PaymentTermsType Terms { get; set; }
 		public long BrandId { get; set; }
 		public virtual string TempSupplier { get; set; }

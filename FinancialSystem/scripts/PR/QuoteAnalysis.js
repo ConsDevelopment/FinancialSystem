@@ -27,31 +27,46 @@
 
 }
 function SaveQA() {
-	$('#mytable tr').each(function () {
-		if (IsNotHeader) {
+	var lines = [];
+	$('#table tbody tr').each(function () {
+		alert($(this).find("td").eq(1).html());
+		lines.push({
+			"Selected": $("input[type=radio]", this).prop("checked"),
+			"SupplierId": $(this).find("td").eq(1).html(),
+			"Price": $(this).find("td").eq(4).html(),
+			"Description": $(this).find("td").eq(3).html(),
+			"Quantity": $(this).find("td").eq(6).html(),
+			"UOM": $(this).find("td").eq(5).html(),
+			"Discount": $(this).find("td").eq(7).html(),
+			"Availability": $(this).find("td").eq(8).html(),
+			"Terms": $(this).find("td").eq(9).html(),
+			"BrandId": $(this).find("td").eq(10).html()
+		});
 
-			var itemno = $(this).find("td").eq(1).html();
-			var remarks = $("#remarks" + itemno).val();;
-			var IsCorrect = $("#radio" + itemno).prop("checked");
-			if (firsRow) {
-				source = [{
-					"Id": $(this).find("td").eq(0).html(),
-					"Remarks": remarks,
-					"IsCorrect": IsCorrect,
-					"AlreadyReview": true
-				}];
-				firsRow = false;
-			} else {
-				source.push({
-					"Id": $(this).find("td").eq(0).html(),
-					"Remarks": remarks,
-					"IsCorrect": IsCorrect,
-					"AlreadyReview": true
-				});
-			}
-		} else {
-			IsNotHeader = true;
-		}
+		//if (IsNotHeader) {
+
+		//	var itemno = $(this).find("td").eq(1).html();
+		//	var remarks = $("#remarks" + itemno).val();;
+		//	var IsCorrect = $("#radio" + itemno).prop("checked");
+		//	if (firsRow) {
+		//		source = [{
+		//			"Id": $(this).find("td").eq(0).html(),
+		//			"Remarks": remarks,
+		//			"IsCorrect": IsCorrect,
+		//			"AlreadyReview": true
+		//		}];
+		//		firsRow = false;
+		//	} else {
+		//		source.push({
+		//			"Id": $(this).find("td").eq(0).html(),
+		//			"Remarks": remarks,
+		//			"IsCorrect": IsCorrect,
+		//			"AlreadyReview": true
+		//		});
+		//	}
+		//} else {
+		//	IsNotHeader = true;
+		//}
 
 
 	});
@@ -65,14 +80,24 @@ function DeleteRow(tr) {
 function supplier() {
 	options = document.querySelectorAll("#supplier option");
 	$("#supplierInput-hidden").val("");
+	var found = false;
 	for (var i=0; i < options.length; i++) {
 		var option = options[i];
+		
 		if (option.innerText === $("#supplierInput").val()) {
+			found = true;
 			$("#supplierInput-hidden").val(option.getAttribute("data-value"));
 			break;
 		}
 	}
+	if (!found) {
+		M.toast({ html: 'Supplier is not Registered', classes: 'rounded' });
+		$("#supplierInput").val("");
+	}
 	//alert($("#supplierInput-hidden").val());
+}
+function Employees() {
+
 }
 function Category() {
 	var selectedVal = $("#CategorySelect option:selected").val();

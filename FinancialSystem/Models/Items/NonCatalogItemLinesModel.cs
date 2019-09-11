@@ -16,12 +16,11 @@ namespace FinancialSystem.Models {
 		public virtual SupplierModel Supplier { get; set; }
 		public virtual double Price { get; set; }
 		public virtual string Description { get; set; }
-		public virtual string TempSupplier { get; set; }
 		public virtual int Quantity { get; set; }
 		public virtual UOMType UOM { get; set; }
 		public virtual double Discount { get; set; }
 		public virtual double TotalAnount { get; set; }
-		public virtual DateTime? Availability { get; set; }
+		public virtual AvailabilityType Availability { get; set; }
 		public virtual PaymentTermsType Terms { get; set; }
 		public virtual BrandModel Brand { get; set; }
 
@@ -47,8 +46,6 @@ namespace FinancialSystem.Models {
 				Map(x => x.TotalAnount);
 				Map(x => x.Availability);
 				Map(x => x.Terms);
-				Map(x => x.TempSupplier).Length(60);
-
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
 				
