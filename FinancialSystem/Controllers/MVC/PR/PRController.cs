@@ -139,12 +139,12 @@ namespace FinancialSystem.Controllers.MVC.PR
 		public async Task<ActionResult> QuoteAnalysis() {
 			var category = new NHibernateCategoryStore();
 			var supplier = new NHibernateISupplierStore();
-
+			var employees = new NHibernateCompanyStore();
 			ViewData["pageName"] = "QuoteAnalysis";
 			ViewData["Categories"] = await category.GeatAllCategoryAsync();
 			ViewData["supplier"] = await supplier.GeatAllSupplierAsync();
 			ViewData["brand"] = await supplier.GeatAllBrandAsync();
-
+			ViewData["employees"] = await employees.GetAllEmployeeAsync();
 
 			return View();
 		}

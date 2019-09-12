@@ -39,6 +39,13 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+		public async Task<PositionModel> GetPositionByIdAsync(long id) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.Get<PositionModel>(id);
+				}
+			}
+		}
 	}
 }
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

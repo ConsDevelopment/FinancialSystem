@@ -29,7 +29,7 @@
 function SaveQA() {
 	var lines = [];
 	$('#table tbody tr').each(function () {
-		alert($(this).find("td").eq(1).html());
+
 		lines.push({
 			"Selected": $("input[type=radio]", this).prop("checked"),
 			"SupplierId": $(this).find("td").eq(1).html(),
@@ -38,40 +38,44 @@ function SaveQA() {
 			"Quantity": $(this).find("td").eq(6).html(),
 			"UOM": $(this).find("td").eq(5).html(),
 			"Discount": $(this).find("td").eq(7).html(),
-			"Availability": $(this).find("td").eq(8).html(),
-			"Terms": $(this).find("td").eq(9).html(),
-			"BrandId": $(this).find("td").eq(10).html()
+			"TotalAnount": $(this).find("td").eq(8).html(),
+			"Availability": $(this).find("td").eq(9).html(),
+			"Terms": $(this).find("td").eq(10).html(),
+			"BrandId": $(this).find("td").eq(11).html()
 		});
+	});
+	var Head = {
+		"Name": $("#ItemName").val(),
+		"SubCategoryId": $("#SubCategory option:selected").val(),
+		"Analysis": $("textarea#analysis").val(),
+		"RequestorId": $("#employeesInput-hidden").val(),
+		"Lines": lines
+	};
 
-		//if (IsNotHeader) {
+	$.ajax({
 
-		//	var itemno = $(this).find("td").eq(1).html();
-		//	var remarks = $("#remarks" + itemno).val();;
-		//	var IsCorrect = $("#radio" + itemno).prop("checked");
-		//	if (firsRow) {
-		//		source = [{
-		//			"Id": $(this).find("td").eq(0).html(),
-		//			"Remarks": remarks,
-		//			"IsCorrect": IsCorrect,
-		//			"AlreadyReview": true
-		//		}];
-		//		firsRow = false;
-		//	} else {
-		//		source.push({
-		//			"Id": $(this).find("td").eq(0).html(),
-		//			"Remarks": remarks,
-		//			"IsCorrect": IsCorrect,
-		//			"AlreadyReview": true
-		//		});
-		//	}
-		//} else {
-		//	IsNotHeader = true;
-		//}
+		type: "POST",
+		url: "/api/AddNonCatalog",
+		data: JSON.stringify(Head),
+		//data: "1",
+		contentType: 'application/json; charset=utf-8',
 
+		//dataType: 'json',
+
+		success: function (data) {
+			alert(data);
+			$("#QaNumber").text(data);
+			M.toast({ html: 'Q.A Number 001 has been created', classes: 'rounded' });
+		},
+
+		error: function (error) {
+			alert(error);
+			jsonValue = jQuery.parseJSON(error.responseText);
+
+		}
 
 	});
-
-	M.toast({ html: 'Q.A Number 001 has been created', classes: 'rounded' });
+	
 }
 function DeleteRow(tr) {
 	tr.closest("tr").remove();
@@ -97,7 +101,22 @@ function supplier() {
 	//alert($("#supplierInput-hidden").val());
 }
 function Employees() {
+	options = document.querySelectorAll("#employees option");
+	$("#employeesInput-hidden").val("");
+	var found = false;
+	for (var i = 0; i < options.length; i++) {
+		var option = options[i];
 
+		if (option.innerText === $("#employeesInput").val()) {
+			found = true;
+			$("#employeesInput-hidden").val(option.getAttribute("data-value"));
+			break;
+		}
+	}
+	if (!found) {
+		M.toast({ html: $("#employeesInput").val("") + ' is not an Employee', classes: 'rounded' });
+		$("#employeesInput").val("");
+	}
 }
 function Category() {
 	var selectedVal = $("#CategorySelect option:selected").val();

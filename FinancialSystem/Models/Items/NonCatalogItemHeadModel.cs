@@ -16,7 +16,10 @@ namespace FinancialSystem.Models {
 		public virtual SubCategoryModel SubCategory { get; set; }
 		public virtual string Analysis { get; set; }
 		public virtual EmployeeModel Requestor { get; set; }
-		
+		public virtual PositionModel Approver { get; set; }
+		public virtual UserModel ApprovedBy { get; set; }
+		public virtual DateTime? DateApproved { get; set; }
+
 		public virtual ICollection<NonCatalogItemLinesModel> Lines { get; set; }
 
 		public NonCatalogItemHeadModel() {
@@ -35,6 +38,10 @@ namespace FinancialSystem.Models {
 				Map(x => x.Analysis);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
+				Map(x => x.DateApproved);
+				References(x => x.Approver, "Approver").Cascade.SaveUpdate();
+				References(x => x.ApprovedBy, "ApprovedBy").Cascade.SaveUpdate();
+
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				References(x => x.SubCategory, "SubCategory").Cascade.SaveUpdate();
 				References(x => x.Requestor, "Requestor").Cascade.SaveUpdate();
