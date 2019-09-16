@@ -28,12 +28,12 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	@Styles.Render("~/Content/PR/pr-shop")
 	@{ 
-		//var task = (Task)Session[Config.GetAppSetting("SessionKey")];
-		//var user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
 		var user = (UserModel)Session[Config.GetAppSetting("SessionKey")];
+		
 	}
-</head>
 
+</head>
+@Html.Hidden("SecurityStamp", user.SecurityStamp)
 
 
 <body>
@@ -126,15 +126,26 @@
 									<ul>
 										<li><a href="PRShop"><i class="material-icons">event_available</i>Catalog</a></li>
 										<li><a href="#"><i class="material-icons">event_busy</i>Non Catalog</a></li>
-
-										@foreach (var role in user.Roles) {
-											if(role.RoleType == UserRoleType.Purchaser && role.DeleteTime==null) {
-												<li><a href="QuoteAnalysis"><i class="material-icons">assignment</i>Quote Analysys</a></li>
-											}
-										}
 									</ul>
 								</div>
 							</li>
+							@foreach (var role in user.Roles) {
+								if (role.RoleType == UserRoleType.Purchaser && role.DeleteTime == null) {
+									@*<li><a href="QuoteAnalysis"><i class="material-icons">assignment</i>Quote Analysys</a></li>*@
+									<li>
+										<div class="collapsible-header">
+											<i class="material-icons">assignment</i>Quote Analysys
+										</div>
+										<div class="collapsible-body">
+											<ul>
+												<li><a href="QuoteAnalysis"><i class="material-icons">event_available</i>Add</a></li>
+												<li><a href=""><i class="material-icons">event_available</i>Update/View</a></li>
+											</ul>
+										</div>
+									</li>
+									break;
+								}
+							}
 							<li>
 								<div class="collapsible-header">
 									<i class="material-icons">shopping_cart</i>Purchase Order

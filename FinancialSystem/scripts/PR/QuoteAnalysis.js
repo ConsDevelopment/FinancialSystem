@@ -27,6 +27,7 @@
 
 }
 function SaveQA() {
+	
 	var lines = [];
 	$('#table tbody tr').each(function () {
 
@@ -45,10 +46,12 @@ function SaveQA() {
 		});
 	});
 	var Head = {
+
 		"Name": $("#ItemName").val(),
 		"SubCategoryId": $("#SubCategory option:selected").val(),
 		"Analysis": $("textarea#analysis").val(),
 		"RequestorId": $("#employeesInput-hidden").val(),
+		"SecurityStamp": $("#SecurityStamp").val(),
 		"Lines": lines
 	};
 
@@ -63,9 +66,11 @@ function SaveQA() {
 		//dataType: 'json',
 
 		success: function (data) {
-			alert(data);
+			
 			$("#QaNumber").text(data);
-			M.toast({ html: 'Q.A Number 001 has been created', classes: 'rounded' });
+			M.toast({ html: 'Q.A Number ' + data + ' has been created', classes: 'rounded' });
+			//$("#submit-button").contents().unwrap();
+			$("#submit-button").hide();
 		},
 
 		error: function (error) {
@@ -95,7 +100,7 @@ function supplier() {
 		}
 	}
 	if (!found) {
-		M.toast({ html: 'Supplier is not Registered', classes: 'rounded' });
+		M.toast({ html: 'Supplier ' + $("#supplierInput").val() + 'is not Registered', classes: 'rounded' });
 		$("#supplierInput").val("");
 	}
 	//alert($("#supplierInput-hidden").val());
@@ -114,7 +119,7 @@ function Employees() {
 		}
 	}
 	if (!found) {
-		M.toast({ html: $("#employeesInput").val("") + ' is not an Employee', classes: 'rounded' });
+		M.toast({ html: $("#employeesInput").val() + ' is not an Employee', classes: 'rounded' });
 		$("#employeesInput").val("");
 	}
 }

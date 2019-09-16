@@ -11,6 +11,7 @@ namespace FinancialSystem.Models {
 		public long SubCategoryId { get; set; }
 		public string Analysis { get; set; }
 		public string RequestorId { get; set; }
+		public string SecurityStamp { get; set; }
 
 		public ICollection<NonCatalogLinesViewModel> Lines { get; set; }
 

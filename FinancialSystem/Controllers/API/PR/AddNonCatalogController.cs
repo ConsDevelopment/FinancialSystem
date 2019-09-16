@@ -26,19 +26,20 @@ namespace FinancialSystem.Controllers.API.PR {
 		[Authorize(Roles = "Purchaser")]
 		public async Task<long> Post(NonCatalogViewModel value) {
 			const long PurchaserHead = 6;
-			//var session = HttpContext.Current.Session;
-			//var sessionKey = Config.GetAppSetting("SessionKey").ToString();
-			//var user = (UserModel)session[sessionKey];
+
+
+			var user = new NHibernateUserStore();
 			var nnc = new NHibernateNonCatalogStore();
 			var supplierStore = new NHibernateISupplierStore();
 			var subcategoryStore = new NHibernateCategoryStore();
 			var company = new NHibernateCompanyStore();
+			var createdby = await user.FindByStampAsync(value.SecurityStamp);
 			var nonCatalog = new NonCatalogItemHeadModel {
 				Name = value.Name,
 				Analysis = value.Analysis,
 				SubCategory = await subcategoryStore.FindSubCategoryByIdAsync(value.SubCategoryId),
 				Requestor = await company.GetEmployeeAsync(value.RequestorId),
-				//CreatedBy = user,
+				CreatedBy = createdby,
 				Approver = await company.GetPositionByIdAsync(PurchaserHead)
 			};
 			
@@ -54,17 +55,13 @@ namespace FinancialSystem.Controllers.API.PR {
 					TotalAnount=line.TotalAnount,
 					Availability=line.Availability,
 					Terms=line.Terms,
-					Brand= await supplierStore.FindBrandByIdAsync(line.BrandId)
-					//CreatedBy=user
+					Brand= await supplierStore.FindBrandByIdAsync(line.BrandId),
+					CreatedBy= createdby
 				};
 				nonCatalog.Lines.Add(nonCatalogLine);
 			}
-			try {
-				return await nnc.CreateNonCatalogHeadAsync(nonCatalog);
-			} catch (Exception e) {
-
-				return 0;
-			}
+			
+			return await nnc.CreateNonCatalogHeadAsync(nonCatalog);
 
 		}
 
