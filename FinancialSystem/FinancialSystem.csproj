@@ -208,11 +208,13 @@
     <Content Include="Content\PR\pr-approver.css" />
     <Content Include="Content\PR\pr-shop.css" />
     <Content Include="Content\PR\PRCreation.css" />
+    <Content Include="Content\PR\quote-analysis.css" />
     <Content Include="Content\PR\review.css" />
     <Content Include="Content\User\login.css" />
     <Content Include="Content\User\registration.css" />
     <Content Include="Global.asax" />
     <Content Include="scripts\PR\PRApproved.js" />
+    <Content Include="scripts\PR\QuoteAnalysis.js" />
     <Content Include="scripts\user\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\PR\PR.js" />
@@ -229,14 +231,17 @@
     <Compile Include="Accessor\UserAccessor.cs" />
     <Compile Include="Accessor\Users\CreateUser.cs" />
     <Compile Include="Accessor\Users\LoginAccessor.cs" />
+    <Compile Include="Accessor\Users\OwinAuthenticationService.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FluentConfigs.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\API\Company\RegisterController.cs" />
+    <Compile Include="Controllers\API\PR\AddNonCatalogController.cs" />
     <Compile Include="Controllers\API\PR\AddPRLinesController.cs" />
     <Compile Include="Controllers\API\PR\CreatePRController.cs" />
     <Compile Include="Controllers\API\PR\DeletePRLinesController.cs" />
+    <Compile Include="Controllers\API\PR\GetSubCategoryController.cs" />
     <Compile Include="Controllers\API\PR\PRApprovalController.cs" />
     <Compile Include="Controllers\API\PR\SearchItemController.cs" />
     <Compile Include="Controllers\API\Users\CreateUserController.cs" />
@@ -260,11 +265,15 @@
     <Compile Include="Models\Company\TeamModel.cs" />
     <Compile Include="Models\Company\CompanyModel.cs" />
     <Compile Include="Models\Company\EmployeeModel.cs" />
+    <Compile Include="Models\Enums\AvailabilityType.cs" />
+    <Compile Include="Models\Enums\PaymentTermsType.cs" />
     <Compile Include="Models\Enums\AccessLevel.cs" />
     <Compile Include="Models\Enums\StatusType.cs" />
     <Compile Include="Models\Enums\AlertType.cs" />
     <Compile Include="Models\Enums\UOMType.cs" />
     <Compile Include="Models\Items\BrandModel.cs" />
+    <Compile Include="Models\Items\NonCatalogItemHeadModel.cs" />
+    <Compile Include="Models\Items\NonCatalogItemLinesModel.cs" />
     <Compile Include="Models\Items\SubCategoryModel.cs" />
     <Compile Include="Models\Items\CategoryModel.cs" />
     <Compile Include="Models\Items\SupplierModel.cs" />
@@ -273,8 +282,12 @@
     <Compile Include="Models\PR\PRLinesModel.cs" />
     <Compile Include="Models\PR\PRAprovalModel.cs" />
     <Compile Include="Models\UserModels\CurrentUserSession.cs" />
+    <Compile Include="Models\ViewModels\QAViewModel.cs" />
     <Compile Include="Models\ViewModels\PRViewModel.cs" />
     <Compile Include="Models\ViewModels\ItemViewModel.cs" />
+    <Compile Include="NHibernate\NHibernateISupplierStore.cs" />
+    <Compile Include="NHibernate\NHibernateICategoryStore.cs" />
+    <Compile Include="NHibernate\NHibernateNonCatalogStore.cs" />
     <Compile Include="NHibernate\NHibernatePRStore.cs" />
     <Compile Include="NHibernate\NHibernateItemStore.cs" />
     <Compile Include="NHibernate\NHibernateCompanyStore.cs" />
@@ -301,6 +314,7 @@
     <Compile Include="Models\UserModels\UserModel.cs" />
     <Compile Include="NHibernate\NHibernateUserStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="TestClass\TestCreateUser.cs" />
     <Compile Include="Utilities\AsyncUtility.cs" />
     <Compile Include="Utilities\Attributes\AccessAttribute.cs" />
@@ -334,6 +348,7 @@
     <Content Include="Views\PR\ReviewCart.cshtml" />
     <Content Include="Views\PR\CreatePR.cshtml" />
     <Content Include="Views\PR\PRAproover.cshtml" />
+    <Content Include="Views\PR\QuoteAnalysis.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

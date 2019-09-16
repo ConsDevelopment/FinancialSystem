@@ -25,10 +25,24 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+		public async Task<IList<EmployeeModel>> GetAllEmployeeAsync() {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<EmployeeModel>().Where(x =>  x.DeleteTime == null).List();
+				}
+			}
+		}
 		public async Task<EmployeeModel> GetEmployeeAsync(string id) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
 					return db.Get<EmployeeModel>(id);
+				}
+			}
+		}
+		public async Task<PositionModel> GetPositionByIdAsync(long id) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.Get<PositionModel>(id);
 				}
 			}
 		}

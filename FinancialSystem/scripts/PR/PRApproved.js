@@ -32,8 +32,6 @@ function Approved() {
 
 		success: function (data) {
 			for (var i = 0; i < data.length; i++) {
-				alert(data);
-				alert(data[i].Id);
 				M.toast({ html: 'PR ' + data[i].RequisitionNo + ' has been approved', classes: 'rounded' });
 			}
 			

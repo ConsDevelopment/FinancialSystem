@@ -1,4 +1,8 @@
 ﻿
+@using FinancialSystem.Models;
+@using FinancialSystem.Utilities;
+@using FinancialSystem.Models.UserModels;
+@using System.Threading.Tasks;
 <!DOCTYPE html>
 
 <html>
@@ -23,9 +27,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	@Styles.Render("~/Content/PR/pr-shop")
+	@{ 
+		var user = (UserModel)Session[Config.GetAppSetting("SessionKey")];
+		
+	}
 
 </head>
-
+@Html.Hidden("SecurityStamp", user.SecurityStamp)
 
 
 <body>
@@ -100,61 +108,80 @@
 
 			<div class="col s2">
                 <ul id="nav-mobile" class="sidenav sidenav-fixed" style="transform: translateX(-105%);">
-                    <div class="brand-logo"><img src="~/content/images/company/bsi_logo.png" alt="" class="logo"></div>
-                    <ul class="collapsible">
-                        <li>
-                            <div class="collapsible-header">
-                                <i class="material-icons">dashboard</i>Dash
-                                Board
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header">
-                                <i class="material-icons">assignment</i>Purchase Request
-                            </div>
-                            <div class="collapsible-body">
-                                <ul>
-                                    <li><a href="PRShop"><i class="material-icons">event_available</i>Catalog</a></li>
-                                    <li><a href="#"><i class="material-icons">event_busy</i>Non Catalog</a></li>
-                                    <li><a href="#"><i class="material-icons">assignment</i>Qua</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header">
-                                <i class="material-icons">shopping_cart</i>Purchase Order
-                            </div>
-                            <div class="collapsible-body">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="material-icons">format_quote</i>Quote
-                                            Analysis
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">settings</i>Settings</div>
-                            <div class="collapsible-body">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="material-icons">perm_contact_calendar</i>User
-                                            Maintenance
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="material-icons">build</i>Job
-                                            Maintenance
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
+					<li>
+						<div class="brand-logo"><img src="~/content/images/company/bsi_logo.png" alt="" class="logo"></div>
+						<ul class="collapsible">
+							<li>
+								<div class="collapsible-header">
+									<a href="PRAproover">
+										<i class="material-icons">dashboard</i>Dash
+										Board</a>
+</div>
+							</li>
+							<li>
+								<div class="collapsible-header">
+									<i class="material-icons">assignment</i>Purchase Request
+								</div>
+								<div class="collapsible-body">
+									<ul>
+										<li><a href="PRShop"><i class="material-icons">event_available</i>Catalog</a></li>
+										<li><a href="#"><i class="material-icons">event_busy</i>Non Catalog</a></li>
+									</ul>
+								</div>
+							</li>
+							@foreach (var role in user.Roles) {
+								if (role.RoleType == UserRoleType.Purchaser && role.DeleteTime == null) {
+									@*<li><a href="QuoteAnalysis"><i class="material-icons">assignment</i>Quote Analysys</a></li>*@
+									<li>
+										<div class="collapsible-header">
+											<i class="material-icons">assignment</i>Quote Analysys
+										</div>
+										<div class="collapsible-body">
+											<ul>
+												<li><a href="QuoteAnalysis"><i class="material-icons">event_available</i>Add</a></li>
+												<li><a href=""><i class="material-icons">event_available</i>Update/View</a></li>
+											</ul>
+										</div>
+									</li>
+									break;
+								}
+							}
+							<li>
+								<div class="collapsible-header">
+									<i class="material-icons">shopping_cart</i>Purchase Order
+								</div>
+								<div class="collapsible-body">
+									<ul>
+										<li>
+											<a href="#">
+												<i class="material-icons">format_quote</i>Quote
+												Analysis
+											</a>
+										</li>
+									</ul>
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header"><i class="material-icons">settings</i>Settings</div>
+								<div class="collapsible-body">
+									<ul>
+										<li>
+											<a href="#">
+												<i class="material-icons">perm_contact_calendar</i>User
+												Maintenance
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<i class="material-icons">build</i>Job
+												Maintenance
+											</a>
+										</li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</li>
                 </ul>
 
 			</div>
@@ -168,24 +195,34 @@
 		</div>
 
 	</header>
+@if ((string)ViewData["pageName"] == "QuoteAnalysis") {
 	<script>
 
         document.addEventListener('DOMContentLoaded', function () {
 
         	var elems = document.querySelectorAll('.sidenav');
-
         	var instances = M.Sidenav.init(elems);
         	var elems = document.querySelectorAll('.collapsible');
-
+        	var instances = M.Collapsible.init(elems);
+			var elems = document.querySelectorAll('.modal');
+			var instances = M.Modal.init(elems);
+			var elems = document.querySelectorAll('select');
+			var instances = M.FormSelect.init(elems);
+			var elems = document.querySelectorAll('.datepicker');
+			var instances = M.Datepicker.init(elems);
+        });
+	</script>
+} else {
+	<script>
+        document.addEventListener('DOMContentLoaded', function () {
+        	var elems = document.querySelectorAll('.sidenav');
+        	var instances = M.Sidenav.init(elems);
+        	var elems = document.querySelectorAll('.collapsible');
         	var instances = M.Collapsible.init(elems);
 
-
-
-
         });
-
 	</script>
-
+}
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>

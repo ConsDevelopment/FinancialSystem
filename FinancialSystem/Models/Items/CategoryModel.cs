@@ -15,6 +15,7 @@ namespace FinancialSystem.Models {
 		public virtual string Name { get; set; }
 		public virtual UserModel CreatedBy { get; set; }
 		public virtual PositionModel Approver { get; set; }
+		public virtual ICollection<SubCategoryModel> SubCategory { get; set; }
 		public CategoryModel() {
 			
 			CreateTime = DateTime.UtcNow;
@@ -32,6 +33,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.DeleteTime);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				References(x => x.Approver, "Approver").Cascade.SaveUpdate();
+				HasMany(x => x.SubCategory).Cascade.SaveUpdate().KeyColumn("Category");
 			}
 		}
 

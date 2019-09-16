@@ -32,7 +32,7 @@ namespace FinancialSystem.Controllers.API.PR {
 			List<PRApprovalViewModel> PRs= new List<PRApprovalViewModel>();
 			if (session != null) {
 				if (session[sessionKey] != null) {
-					var user = await nh.FindByIdAsync(session[sessionKey].ToString());
+					var user = (UserModel)session[sessionKey];
 					if (user != null) {
 						foreach (var approved in value) {
 							var approval=await nhps.FindPRAprovalAsync(approved.Id);

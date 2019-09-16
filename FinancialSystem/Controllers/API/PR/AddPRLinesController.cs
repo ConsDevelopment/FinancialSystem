@@ -30,7 +30,8 @@ namespace FinancialSystem.Controllers.API.PR {
 			var sessionKey = Config.GetAppSetting("SessionKey").ToString();
 			if (session != null) {
 				if (session[sessionKey] != null) {
-					var user = await nh.FindByIdAsync(session[sessionKey].ToString());
+					//var user = await nh.FindByIdAsync(session[sessionKey].ToString());
+					var user = (UserModel)session[sessionKey];
 					if (user != null) {
 						var nhis = new NHibernateItemStore();
 						var item = await nhis.FindItemByIdAsync(value.Id);

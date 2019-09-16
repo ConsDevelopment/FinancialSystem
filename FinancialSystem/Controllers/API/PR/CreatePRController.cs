@@ -33,7 +33,7 @@ namespace FinancialSystem.Controllers.API.PR {
 		
 			if (session != null) {
 				if (session[sessionKey] != null) {
-					var user = await nh.FindByIdAsync(session[sessionKey].ToString());
+					var user = (UserModel)session[sessionKey];
 					if (user != null) {
 
 						var nhcs = new NHibernateCompanyStore();

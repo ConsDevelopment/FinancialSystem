@@ -9,19 +9,17 @@ namespace FinancialSystem.Models.UserModels {
 
 	public enum UserRoleType {
 		Standard = 0,
-		PlaceholderOnly = 1,
-		LeadershipTeamMember = 2,
-		AccountContact = 100,
-		EmailBlackList = 9999,
+		Purchaser = 1
 
 	}
 
 	public class UserRole : ILongIdentifiable {
 		public virtual long Id { get; set; }
 		public virtual UserRoleType RoleType { get; set; }
+		public virtual UserRoleModel Role { get; set; }
 		public virtual DateTime CreateTime { get; set; }
 		public virtual DateTime? DeleteTime { get; set; }
-		public virtual Boolean Deleted { get; set; }
+		
 
 		public UserRole() {
 			CreateTime = DateTime.UtcNow;
@@ -31,9 +29,9 @@ namespace FinancialSystem.Models.UserModels {
 			public Map() {
 				Id(x => x.Id);
 				Map(x => x.CreateTime);
-				Map(x => x.DeleteTime);
-				Map(x => x.Deleted);
+				Map(x => x.DeleteTime);				
 				Map(x => x.RoleType).CustomType<UserRoleType>();
+				References(x => x.Role, "Role").Cascade.SaveUpdate();
 			}
 		}
 	}

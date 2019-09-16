@@ -37,13 +37,13 @@ namespace FinancialSystem.Controllers.API.Users
 			string Url = "";
 			LoginAccessor la = new LoginAccessor();
 			var user = la.LogIn(value);
-			if (user != null) {
+			if (user.Result != null) {
 				var session = HttpContext.Current.Session;
-				if (session != null) {
-					if (session[Config.GetAppSetting("SessionKey")] == null) {
-						session[Config.GetAppSetting("SessionKey")] = user.Result.Id;
-					}
-				}
+				var owinAuthentication = new OwinAuthenticationService(new HttpContextWrapper(HttpContext.Current));
+
+				owinAuthentication.SignIn((UserModel)user.GetType().GetProperty("Result").GetValue(user));
+				session[Config.GetAppSetting("SessionKey")] = (UserModel)user.GetType().GetProperty("Result").GetValue(user);
+				
 				Url = "../PR/PRShop";
 			}
             return Url;
