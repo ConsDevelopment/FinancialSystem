@@ -44,9 +44,14 @@ namespace FinancialSystem.Controllers.API.PR {
 			};
 			
 			foreach (var line in value.Lines) {
+				var supplier = await supplierStore.FindSupplierByIdAsync(line.SupplierId);
+				string tempSuppliee = null;
+				if (supplier == null) {
+					tempSuppliee = line.TempSupplier;
+				}
 				var nonCatalogLine = new NonCatalogItemLinesModel {
 					Selected = line.Selected,
-					Supplier =await supplierStore.FindSupplierByIdAsync(line.SupplierId),
+					Supplier = supplier,
 					Price=line.Price,
 					Description=line.Description,
 					Quantity=line.Quantity,

@@ -12,6 +12,7 @@ namespace FinancialSystem.Models {
 		public string Analysis { get; set; }
 		public string RequestorId { get; set; }
 		public string SecurityStamp { get; set; }
+		
 
 		public ICollection<NonCatalogLinesViewModel> Lines { get; set; }
 
@@ -28,7 +29,7 @@ namespace FinancialSystem.Models {
 		public AvailabilityType Availability { get; set; }
 		public PaymentTermsType Terms { get; set; }
 		public long BrandId { get; set; }
-		public virtual string TempSupplier { get; set; }
+		public string TempSupplier { get; set; }
 	}
 
 }

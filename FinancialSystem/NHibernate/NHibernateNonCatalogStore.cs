@@ -23,6 +23,13 @@ namespace FinancialSystem.NHibernate {
 			}
 
 		}
+		public async Task<NonCatalogItemHeadModel> GetNonCatalogAsync(long id) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.Get<NonCatalogItemHeadModel>(id);
+				}
+			}
+		}
 	}
 }
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

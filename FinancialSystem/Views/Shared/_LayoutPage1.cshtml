@@ -29,7 +29,9 @@
 	@Styles.Render("~/Content/PR/pr-shop")
 	@{ 
 		var user = (UserModel)Session[Config.GetAppSetting("SessionKey")];
-		
+		var logo = Config.GetCompanyLogo(user.employee.Company.Logo);
+		var userProfilePict= Config.GetUserProfilePict(user.employee.Image);
+
 	}
 
 </head>
@@ -44,7 +46,7 @@
 
 		<div class="nav-wrapper">
 
-			<a id="logo-container" href="#" class="brand-logo"><img src='@ViewData["CompanyLogo"]' alt="" class="logo"></a>
+			<a id="logo-container" href="#" class="brand-logo"><img src='@logo' alt="" class="logo"></a>
 
 			<a href="#" class="notification"><i class="material-icons white-text">notifications</i> </a><small class="notification-badge yellow accent-2" >5</small>
 
@@ -58,7 +60,7 @@
 
 						<li>
 
-							<a href="#"><img src='@ViewData["UserProfilePict"]' alt="" class="circle responsive-img"></a>
+							<a href="#"><img src='@userProfilePict' alt="" class="circle responsive-img"></a>
 
 						</li>
 
@@ -139,7 +141,7 @@
 										<div class="collapsible-body">
 											<ul>
 												<li><a href="QuoteAnalysis"><i class="material-icons">event_available</i>Add</a></li>
-												<li><a href=""><i class="material-icons">event_available</i>Update/View</a></li>
+												<li><a href="UpdateViewQA"><i class="material-icons">event_available</i>Update/View</a></li>
 											</ul>
 										</div>
 									</li>

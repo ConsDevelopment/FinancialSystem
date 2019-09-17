@@ -42,8 +42,8 @@ namespace FinancialSystem.Controllers.MVC.PR
 			var nhps = new NHibernatePRStore();
 			var lines = await nhps.PRLinesCreatedAsync(user);
 			ViewData["cartCount"] = lines.Count;
-			ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
-			ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
+			
+			
 			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
 			
 			return View(user);
@@ -78,8 +78,7 @@ namespace FinancialSystem.Controllers.MVC.PR
 			var nhps = new NHibernatePRStore();
 			var lines = await nhps.PRLinesCreatedAsync(user);
 			ViewData["cartCount"] = lines.Count;
-			ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
-			ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
+			
 			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
 			
 			return View(lines);
@@ -147,6 +146,17 @@ namespace FinancialSystem.Controllers.MVC.PR
 			ViewData["employees"] = await employees.GetAllEmployeeAsync();
 
 			return View();
+		}
+
+		[Authorize(Roles = "Purchaser")]
+		public ActionResult UpdateViewQA() {
+
+			return View();
+		}
+		public ActionResult FIndQA(long qa) {
+			ViewData["pageName"] = "QuoteAnalysis";
+			var nonCatalog = new NHibernateNonCatalogStore();
+			return PartialView(nonCatalog.GetNonCatalogAsync(qa));
 		}
 	}
 }

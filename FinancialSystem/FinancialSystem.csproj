@@ -349,6 +349,8 @@
     <Content Include="Views\PR\CreatePR.cshtml" />
     <Content Include="Views\PR\PRAproover.cshtml" />
     <Content Include="Views\PR\QuoteAnalysis.cshtml" />
+    <Content Include="Views\PR\UpdateViewQA.cshtml" />
+    <Content Include="Views\PR\FIndQA.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

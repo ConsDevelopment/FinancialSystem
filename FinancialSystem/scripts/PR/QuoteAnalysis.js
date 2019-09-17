@@ -34,6 +34,7 @@ function SaveQA() {
 		lines.push({
 			"Selected": $("input[type=radio]", this).prop("checked"),
 			"SupplierId": $(this).find("td").eq(1).html(),
+			"TempSupplier": $(this).find("td").eq(1).html(),
 			"Price": $(this).find("td").eq(4).html(),
 			"Description": $(this).find("td").eq(3).html(),
 			"Quantity": $(this).find("td").eq(6).html(),
@@ -139,6 +140,42 @@ function Category() {
 			}
 			$('select#SubCategory').html($newoptions);
 
+		},
+
+		error: function (error) {
+			alert(error);
+			jsonValue = jQuery.parseJSON(error.responseText);
+
+		}
+
+	});
+}
+function search(event) {
+	
+	if (event.keyCode == 13) {
+		searchQA();
+		
+	}
+}
+function searchQA() {
+	if (!$.isNumeric($("#search").val())) {
+		M.toast({ html: 'Q.A Number is not Valid', classes: 'rounded' });
+		return false;
+	}
+	
+	$.ajax({
+
+		type: "POST",
+		url: "/PR/FIndQA?qa=" + $("#search").val(),
+		//data: JSON.stringify(source),
+		//data: "1",
+		contentType: 'application/json; charset=utf-8',
+
+		//dataType: 'json',
+
+		success: function (data) {
+			$("#ItemContainer").empty();
+			$("#ItemContainer").html(data);
 		},
 
 		error: function (error) {
