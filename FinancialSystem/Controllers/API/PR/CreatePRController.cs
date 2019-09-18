@@ -30,10 +30,10 @@ namespace FinancialSystem.Controllers.API.PR {
 			var nhps = new NHibernatePRStore();
 			var session = HttpContext.Current.Session;
 			var sessionKey = Config.GetAppSetting("SessionKey").ToString();
-		
-			if (session != null) {
-				if (session[sessionKey] != null) {
-					var user = (UserModel)session[sessionKey];
+
+
+
+			var user = nh.FindByStampAsync(value.SecurityStamp);
 					if (user != null) {
 
 						var nhcs = new NHibernateCompanyStore();
@@ -45,7 +45,7 @@ namespace FinancialSystem.Controllers.API.PR {
 							DeliveryAdress = value.DeliveryAdress,
 							DateNeeded = value.DateNeeded,
 							CRC = requestor.Team.CRC,
-							CreatedBy = user,
+							CreatedBy = user.Result,
 							Lines=new List<PRLinesModel>(),
 							Approvals=new List<PRAprovalModel>(),
 
@@ -54,7 +54,7 @@ namespace FinancialSystem.Controllers.API.PR {
 							var immedieateAprover = new PRAprovalModel() {
 								Approver= requestor.ImmediateLeader,
 								Status=StatusType.Request,
-								CreatedBy=user
+								CreatedBy=user.Result
 							};
 
 							prHeader.Approvals.Add(immedieateAprover);
@@ -66,7 +66,7 @@ namespace FinancialSystem.Controllers.API.PR {
 								var DepLeadAproval = new PRAprovalModel() {
 									Approver = requestor.Department.DepartmentLeader,
 									Status = StatusType.Request,
-									CreatedBy = user
+									CreatedBy = user.Result
 								};
 								prHeader.Approvals.Add(DepLeadAproval);
 							}
@@ -78,7 +78,7 @@ namespace FinancialSystem.Controllers.API.PR {
 								var corfin = new PRAprovalModel() {
 									Approver = requestor.Company.Corfin,
 									Status = StatusType.Request,
-									CreatedBy = user
+									CreatedBy = user.Result
 								};
 								prHeader.Approvals.Add(corfin);
 							}
@@ -93,7 +93,7 @@ namespace FinancialSystem.Controllers.API.PR {
 										var ItemAproval = new PRAprovalModel() {
 											Approver = lin.Item.SubCategory.Category.Approver,
 											Status = StatusType.Request,
-											CreatedBy = user
+											CreatedBy = user.Result
 										};
 										prHeader.Approvals.Add(ItemAproval);
 									}
@@ -109,10 +109,13 @@ namespace FinancialSystem.Controllers.API.PR {
 							
 							
 						}
-						await nhps.CreatePRHeaderAsync(prHeader);
-					}
+				try {
+					await nhps.CreatePRHeaderAsync(prHeader);
+				} catch (Exception e) {
 				}
-			}
+					}
+				
+			
 		}
 
 		// PUT api/<controller>/5

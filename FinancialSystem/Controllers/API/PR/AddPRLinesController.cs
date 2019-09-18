@@ -26,19 +26,15 @@ namespace FinancialSystem.Controllers.API.PR {
 		public async Task Post(PrLinesViewModel value) {
 			var nh = new NHibernateUserStore();
 			var nhps = new NHibernatePRStore();
-			var session = HttpContext.Current.Session;
-			var sessionKey = Config.GetAppSetting("SessionKey").ToString();
-			if (session != null) {
-				if (session[sessionKey] != null) {
-					//var user = await nh.FindByIdAsync(session[sessionKey].ToString());
-					var user = (UserModel)session[sessionKey];
+
+			var user = nh.FindByStampAsync(value.SecurityStamp);
 					if (user != null) {
 						var nhis = new NHibernateItemStore();
 						var item = await nhis.FindItemByIdAsync(value.Id);
 						var PrLines = new PRLinesModel {
 							Item = item,
 							Quantity = value.Quantity,
-							CreatedBy = user
+							CreatedBy = user.Result
 						};
 						try {
 							await nhps.CreatePRLinesAsync(PrLines);
@@ -46,8 +42,8 @@ namespace FinancialSystem.Controllers.API.PR {
 							var a = e.Message;
 						}
 					}
-				}
-			}
+				
+			
 		}
 
 		// PUT api/<controller>/5
