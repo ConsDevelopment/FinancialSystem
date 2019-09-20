@@ -1,10 +1,15 @@
-﻿
+﻿@using FinancialSystem.Models
+@model IList<FinancialSystem.Models.NonCatalogItemHeadModel>
+
 @{
-    ViewBag.Title = "UpdateViewQA";
-    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+	ViewBag.Title = "UpdateViewQA";
+	Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+
+	var employees = (List<EmployeeModel>)ViewData["employees"];
 }
 @Styles.Render("~/Content/PR/quote-analysis")
 @Scripts.Render("~/scripts/PR/QuoteAnalysis")
+
 <div class="col s10 content">
 	<div class="container">
 		<div class="row">
@@ -15,6 +20,227 @@
 		
 			<div id="QAContainer">
 
+				@foreach (var head in Model) {
+				var approved = head.ApprovedBy != null ? "Approved" : "";
+				<div class="col s12" id="header-approver">
+					<ul class="collapsible">
+						<li>
+							<div class="collapsible-header" id="pr2">
+								<div class="col s2">
+									<label class="check-box">
+										Q.A #: <span>@head.Id</span>
+									</label>
+								</div>
+								<div class="col s4" id="approver_details">
+									@head.Name
+								</div>
+								<div class="col s2" id="approver_details">
+									@head.Requestor.Name()
+								</div>
+								<div class="col s2" id="approver_details">
+									@approved
+								</div>
+								<div class="col s2" id="approver_details">
+									@head.CreateTime.ToLocalTime().ToShortDateString()
+								</div>
+							</div>
+							<div class="collapsible-body white" id="pr2">
+								<div class="row">
+									<div class="qa" id="qa">
+
+										<div class="col s6" id="top">
+											<input list="employees" onchange="Employees()" name="employees" placeholder="Employees" id="employeesInput" value="@head.Requestor.Name()" />
+											<datalist id="employees">
+												@foreach (var employee in employees) {
+													<option data-value="@employee.Id">@employee.Name()</option>
+												}
+											</datalist>
+											<input type="hidden" id="employeesInput-hidden" value="@head.Requestor.Id" />
+										</div>
+										<div class="col s6" id="top">
+											<label>Item: </label><input type="text"
+															 placeholder="Enter Item Name">
+										</div>
+										<div class="col s6" id="top">
+											<div class="searchable categories">
+												<select class="js-example-basic-single browser-default" name="state">
+													<option selected="selected">Select Categories</option>
+													<option value="AL">Alabama</option>
+													<option value="WY">Wyoming</option>
+												</select>
+											</div>
+										</div>
+										<div class="col s6" id="top">
+											<div class="searchable">
+												<select class="js-example-basic-single browser-default" name="state">
+													<option selected="selected">Select SubCategories</option>
+													<option value="AL">Alabama</option>
+													<option value="WY">Wyoming</option>
+												</select>
+											</div>
+										</div>
+										<table class="highlight" id="table">
+											<thead>
+												<tr>
+													<th>SELECT</th>
+													<th>SUPPLIER</th>
+													<th>DESCRIPTION</th>
+													<th>PRICE</th>
+													<th>UOM</th>
+													<th>QUANTITY</th>
+													<th>ACTIONS</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<label>
+															<input name="group1" type="radio" />
+															<span></span>
+														</label>
+													</td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td>
+														<a class="waves-effect waves-light btn red">Delete</a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<button class="btn waves-effect waves-light green accent-4 modal-trigger"
+											href="#modal1" type="submit" name="action">
+										Add
+										<i class="material-icons right">add</i>
+									</button>
+									<!-- Modal Structure -->
+									<div id="modal1" class="modal">
+										<div class="modal-content">
+											<h4>Input Suppliers</h4>
+											<div class="input-field col s6">
+												<select class="js-example-basic-single" name="state">
+													<option selected="selected">Supplier</option>
+													<option value="AL">Alabama</option>
+													<option value="WY">Wyoming</option>
+												</select>
+											</div>
+											<div class="input-field col s6">
+												<input id="desc" type="text" class="validate">
+												<label for="desc">Description</label>
+											</div>
+											<div class="input-field col s6">
+												<input id="price" type="text" class="validate">
+												<label for="price">Price</label>
+											</div>
+											<div class="input-field col s6">
+												<input id="quantity" type="text" class="validate">
+												<label for="quantity">Quantity</label>
+											</div>
+											<div class="input-field col s6">
+												<select class="js-example-basic-single" name="state">
+													<option value="" disabled selected>Unit of Measurement</option>
+													<option value="AL">Alabama</option>
+													<option value="WY">Wyoming</option>
+												</select>
+											</div>
+											<div class="input-field col s6">
+												<input id="discount" type="text" class="validate">
+												<label for="discount">Discount</label>
+											</div>
+											<div class="input-field col s6">
+												<input id="total" type="text" class="validate">
+												<label for="total">Total Amount</label>
+											</div>
+											<div class="input-field col s6">
+												<input type="text" class="datepicker">
+												<label for="availability">Availability</label>
+											</div>
+											<div class="input-field col s6">
+												<div class="searchable">
+													<select class="js-example-basic-single" name="terms">
+														<option selected="selected">Select Terms</option>
+														<option value="1">Immediate</option>
+														<option value="2">C.O.D.</option>
+														<option value="2">50% Deposit</option>
+														<option value="2">30 Days</option>
+														<option value="2">60 Days</option>
+														<option value="2">90 Days</option>
+													</select>
+												</div>
+											</div>
+											<div class="input-field col s6">
+												<div class="searchable">
+													<select>
+														<option value="" disabled selected>Choose Brand</option>
+														<option value="1">Option 1</option>
+														<option value="2">Option 2</option>
+														<option value="3">Option 3</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button class="modal-action modal-close btn waves-effect waves-light green accent-4 right"
+													onclick="M.toast({html: 'New quotation has been added',  classes: 'rounded'})"
+													type="submit" name="action">
+												Add
+												<i class="material-icons right">add</i>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="remark">
+										<h5 id="analysis">Anaysis Remarks: </h5>
+										<textarea></textarea>
+									</div>
+									
+									<div class="col s12" id="approvebtn">
+										<a class="waves-effect waves-light btn right green modal-trigger" href="#modal5"
+										   id="submit-button">APPROVE</a>
+										<!-- Modal Structure -->
+										<div id="modal5" class="modal">
+											<div class="modal-content">
+												<p>
+													Are you sure you want to approve?
+												</p>
+											</div>
+											<div class="modal-footer">
+												<a href="#!" class="modal-close waves-effect waves-green btn-flat"
+												   onclick="M.toast({html: 'Q.A Number 001 has been created',  classes: 'rounded'})">Yes</a>
+												<a href="#!"
+												   class="modal-close waves-effect waves-green btn-flat">No</a>
+											</div>
+										</div>
+										<a class="waves-effect waves-light btn right red darken-1 modal-trigger"
+										   href="#modal6" id="submit-button">UPDATE</a>
+										<!-- Modal Structure -->
+										<div id="modal6" class="modal">
+											<div class="modal-content">
+												<p>
+													Are you sure you want to update?
+												</p>
+											</div>
+											<div class="modal-footer">
+												<a href="#!" class="modal-close waves-effect waves-green btn-flat"
+												   onclick="M.toast({html: 'Q.A Number 001 has been created',  classes: 'rounded'})">Yes</a>
+												<a href="#!"
+												   class="modal-close waves-effect waves-green btn-flat">No</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<div class="progress">
+						<div class="indeterminate"></div>
+					</div>
+				</div>
+				}
 			</div>
 		</div>
 	</div>

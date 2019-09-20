@@ -149,14 +149,25 @@ namespace FinancialSystem.Controllers.MVC.PR
 		}
 
 		[Authorize(Roles = "Purchaser")]
-		public ActionResult UpdateViewQA() {
+		public async Task<ActionResult> UpdateViewQA(string search) {
+			
+			var nhnch = new NHibernateNonCatalogStore();
+			var employees = new NHibernateCompanyStore();
+			IList<NonCatalogItemHeadModel> nonCatalogHeads = null;
 
-			return View();
+			ViewData["pageName"] = "QuoteAnalysisUV";
+			ViewData["employees"] = await employees.GetAllEmployeeAsync();
+			
+			long id;
+			if (search == null) {
+				nonCatalogHeads = await nhnch.FindLatestNonCatalogHeadAsync(10);
+			} else if (long.TryParse(search, out id)) {
+				nonCatalogHeads = await nhnch.FindIdNonCatalogHeadAsync(id);
+			} else {
+				nonCatalogHeads = await nhnch.SearchNonCatalogByNameAsync(search);
+			}
+			return View(nonCatalogHeads);
 		}
-		public ActionResult FIndQA(long qa) {
-			ViewData["pageName"] = "QuoteAnalysis";
-			var nonCatalog = new NHibernateNonCatalogStore();
-			return PartialView(nonCatalog.GetNonCatalogAsync(qa));
-		}
+		
 	}
 }

@@ -105,7 +105,7 @@ body {
   }
   
   .collapsible {
-    margin-top: 160px;
+    margin-left: 10px !important;
   }
 
   .sidenav .collapsible-body>ul:not(.collapsible)>li.active a, .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active a {
@@ -135,27 +135,51 @@ body {
   padding-left: 290px !important;
   margin-top: 30px;
 }
-
-.pr-form {
-  min-width: 1000px;
-  background-color: white;
-  margin-top: 30px;
-  border-radius: 5px;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 
-    0 3px 1px -2px rgba(0,0,0,0.12), 
-    0 1px 5px 0 rgba(0,0,0,0.2); 
+.collapsible {
+  background-color: white !important;
+  margin-left: 10px !important;
 }
 
-.remarks {
+.collapsible-header {
+  font-family: 'Titillium Web', sans-serif;
+  text-align: center;
+  line-height: 50px;
+  color: #333;
   min-width: 1000px;
-  background-color: white;
-  margin-top: 30px;
-  border-radius: 5px;
-  padding: 20px 20px;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 
-    0 3px 1px -2px rgba(0,0,0,0.12), 
-    0 1px 5px 0 rgba(0,0,0,0.2); 
+  margin-left: 10px !important;
 }
+
+.collapsible-body {
+  min-width: 1000px;
+
+}
+
+#header-approver {
+  min-width: 1000px;
+  margin-left: 10px !important;
+}
+
+#approvebtn {
+  padding-top: 20px;
+}
+
+.progress {
+  margin-top: -15px;
+  height: 2px !important;
+  margin-left: 10px !important;
+}
+
+#submit-button {
+  margin-left: 10px;
+}
+
+#qa {
+  font-family: 'Titillium Web', sans-serif;
+  text-align: center;
+  line-height: 50px;
+  color: #333;
+}
+
 
 #remarks {
   margin-left: -140px !important;
@@ -436,3 +460,6 @@ input:not([type]), input[type=text]:not(.browser-default), input[type=password]:
       padding-top: 200px !important;
     }
   }
+  
+  
+  

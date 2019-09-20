@@ -3,9 +3,9 @@
 //	alert('test');
 //});
 
-function Approved() {
+function Approved(status) {
 
-	alert('test');
+	
 
 	var PRs = [];
 	$.each($("input[name='PRApprovedChk']"), function () {
@@ -13,7 +13,8 @@ function Approved() {
 			
 			var element = {
 				"Id": Number($(this).attr('id')),
-				"Status": "Approved"
+				"Status": status,
+				"SecurityStamp": $("#SecurityStamp").val()
 			};
 			PRs.push(element);
 		}
@@ -32,7 +33,7 @@ function Approved() {
 
 		success: function (data) {
 			for (var i = 0; i < data.length; i++) {
-				M.toast({ html: 'PR ' + data[i].RequisitionNo + ' has been approved', classes: 'rounded' });
+				M.toast({ html: 'PR ' + data[i].RequisitionNo + ' has been ' + status, classes: 'rounded' });
 			}
 			
 			location.reload();

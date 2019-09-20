@@ -189,11 +189,11 @@
 			<!-- Modal Structure -->
 			<div id="modal4" class="modal">
 				<div class="modal-content">
-					<p>Are you sure you want to cancel RP #00001?</p>
+					<p>Are you sure you want to cancel this Request?</p>
 				</div>
 				<div class="modal-footer">
 					<a href="#!" class="modal-close waves-effect waves-green btn-flat"
-					   onclick="M.toast({html: 'PR #00001 has been cancelled',  classes: 'rounded'})">Yes</a>
+					   onclick="Approved('Rejected')">Yes</a>
 					<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
 				</div>
 			</div>
@@ -206,7 +206,7 @@
 				<div class="modal-footer">
 					<a href="#!" class="modal-close waves-effect waves-green btn-flat"  
 					   @*onclick="M.toast({html: 'PR #0001 has been approved',  classes: 'rounded'})"*@
-					   onclick="Approved()"
+					   onclick="Approved('Approved')"
 					   >Yes</a>
 					<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
 				</div>

@@ -158,31 +158,11 @@ function search(event) {
 	}
 }
 function searchQA() {
-	if (!$.isNumeric($("#search").val())) {
-		M.toast({ html: 'Q.A Number is not Valid', classes: 'rounded' });
-		return false;
-	}
+	var search = $("#search").val();
 	
-	$.ajax({
-
-		type: "POST",
-		url: "/PR/FIndQA?qa=" + $("#search").val(),
-		//data: JSON.stringify(source),
-		//data: "1",
-		contentType: 'application/json; charset=utf-8',
-
-		//dataType: 'json',
-
-		success: function (data) {
-			$("#ItemContainer").empty();
-			$("#ItemContainer").html(data);
-		},
-
-		error: function (error) {
-			alert(error);
-			jsonValue = jQuery.parseJSON(error.responseText);
-
-		}
-
-	});
+	if (!search.trim()) {
+		window.location = "UpdateViewQA";
+	} else {
+		window.location = "UpdateViewQA?search=" + search;
+	}
 }
