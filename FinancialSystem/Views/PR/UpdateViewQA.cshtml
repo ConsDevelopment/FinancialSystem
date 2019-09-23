@@ -1,11 +1,12 @@
 ﻿@using FinancialSystem.Models
+
 @model IList<FinancialSystem.Models.NonCatalogItemHeadModel>
 
 @{
 	ViewBag.Title = "UpdateViewQA";
 	Layout = "~/Views/Shared/_LayoutPage1.cshtml";
-
 	var employees = (List<EmployeeModel>)ViewData["employees"];
+	var categories = (List<CategoryModel>)ViewData["Categories"];
 }
 @Styles.Render("~/Content/PR/quote-analysis")
 @Scripts.Render("~/scripts/PR/QuoteAnalysis")
@@ -58,24 +59,28 @@
 											<input type="hidden" id="employeesInput-hidden" value="@head.Requestor.Id" />
 										</div>
 										<div class="col s6" id="top">
-											<label>Item: </label><input type="text"
+											<label>Item: </label><input type="text" value="@head.Name"
 															 placeholder="Enter Item Name">
 										</div>
 										<div class="col s6" id="top">
 											<div class="searchable categories">
 												<select class="js-example-basic-single browser-default" name="state">
-													<option selected="selected">Select Categories</option>
-													<option value="AL">Alabama</option>
-													<option value="WY">Wyoming</option>
+													@foreach (var category in categories) {
+														if (category == head.SubCategory.Category) {
+															<option value="@category.Id" selected="selected">@category.Name</option>
+														} else {
+															<option value="@category.Id">@category.Name</option>
+														}
+													}
 												</select>
 											</div>
 										</div>
 										<div class="col s6" id="top">
 											<div class="searchable">
-												<select class="js-example-basic-single browser-default" name="state">
-													<option selected="selected">Select SubCategories</option>
-													<option value="AL">Alabama</option>
-													<option value="WY">Wyoming</option>
+												<select class="js-example-basic-single browser-default" name="state" id="SubCategory">
+					
+													<option value="@head.SubCategory.Id" selected="selected">@head.SubCategory.Name</option>
+													
 												</select>
 											</div>
 										</div>
@@ -92,14 +97,23 @@
 												</tr>
 											</thead>
 											<tbody>
+												@foreach (var line in head.Lines) {
+													if (line.DeleteTime != null) {
+														continue;
+													}
 												<tr>
 													<td>
 														<label>
-															<input name="group1" type="radio" />
+															@if (line.Selected) {
+																<input name="@head.Id" type="radio" checked="checked" />
+															} else {
+																<input name="@head.Id" type="radio" />
+															}
 															<span></span>
 														</label>
-													</td>
-													<td></td>
+													</td>  
+													<td style='display:none;'>@line.Id</td>                                         
+													<td>@line.Supplier.Name</td>
 													<td></td>
 													<td></td>
 													<td></td>
@@ -108,6 +122,7 @@
 														<a class="waves-effect waves-light btn red">Delete</a>
 													</td>
 												</tr>
+												}
 											</tbody>
 										</table>
 									</div>

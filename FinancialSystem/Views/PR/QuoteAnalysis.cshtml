@@ -1,4 +1,4 @@
-﻿@using FinancialSystem.Models
+﻿  @using FinancialSystem.Models
 @using FinancialSystem.Models.Enums
 
 @{
@@ -27,7 +27,7 @@
 						<datalist id="employees">
 							@foreach (var employee in employees) {
 								<option data-value="@employee.Id">@employee.Name()</option>
-							}
+							}	
 						</datalist>
 						<input type="hidden" id="employeesInput-hidden" />
 					</div>

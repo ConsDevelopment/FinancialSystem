@@ -153,8 +153,10 @@ namespace FinancialSystem.Controllers.MVC.PR
 			
 			var nhnch = new NHibernateNonCatalogStore();
 			var employees = new NHibernateCompanyStore();
+			var category = new NHibernateCategoryStore();
 			IList<NonCatalogItemHeadModel> nonCatalogHeads = null;
-
+			
+			ViewData["Categories"] = await category.GeatAllCategoryAsync();
 			ViewData["pageName"] = "QuoteAnalysisUV";
 			ViewData["employees"] = await employees.GetAllEmployeeAsync();
 			
