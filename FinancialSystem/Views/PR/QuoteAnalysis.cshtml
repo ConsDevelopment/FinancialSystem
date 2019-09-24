@@ -20,24 +20,24 @@
 			<div class="row">
 				<div class="qa">
 					<div class="col s6" id="top">
-						<label>QA Number: <span id="QaNumber"></span></label>
+						<label>QA Number: <span id="QaNumber_"></span></label>
 					</div>
 					<div class="col s6" id="top">
-						<input list="employees" onchange="Employees()" name="employees" placeholder="Employees" id="employeesInput" />
-						<datalist id="employees">
+						<input list="employees_" onchange="Employees('')" name="employees" placeholder="Employees" id="employeesInput_" />
+						<datalist id="employees_">
 							@foreach (var employee in employees) {
 								<option data-value="@employee.Id">@employee.Name()</option>
 							}	
 						</datalist>
-						<input type="hidden" id="employeesInput-hidden" />
+						<input type="hidden" id="employeesInput-hidden_" />
 					</div>
 						<div class="col s6" id="top">
-							<label>Item: </label><input type="text" id="ItemName"
+							<label>Item: </label><input type="text" id="ItemName_"
 												 placeholder="Enter Item Name">
 						</div>
 						<div class="col s6" id="top">
 							<div class="searchable categories">
-								<select class="js-example-basic-single browser-default" name="state" id="CategorySelect" onchange="Category()">
+								<select class="js-example-basic-single browser-default" name="state" id="CategorySelect_" onchange="Category('')">
 									<option selected="selected">Select Categories</option>
 									@foreach (var category in categories) {
 										<option value="@category.Id">@category.Name</option>
@@ -47,7 +47,7 @@
 						</div>
 						<div class="col s6" id="top">
 							<div class="searchable">
-								<select class="js-example-basic-single browser-default" name="state" id="SubCategory">
+								<select class="js-example-basic-single browser-default" name="state" id="SubCategory_">
 									<option selected="selected">Select SubCategories</option>
 									<option value="AL">Alabama</option>
 									<option value="WY">Wyoming</option>
@@ -55,7 +55,7 @@
 							</div>
 						</div>
 					</div>
-				<table class="highlight" id="table">
+				<table class="highlight" id="table_">
 					<thead>
 						<tr>
 							<th>SELECT</th>
@@ -87,22 +87,17 @@
 				<div class="modal-content">
 					<h4>Input Suppliers</h4>
 					<div class="input-field col s6">
-						@*<select class="js-example-basic-single browser-default" name="state">
-							<option selected="selected">Supplier</option>
-							<option value="AL">Alabama</option>
-							<option value="WY">Wyoming</option>
-						</select>*@
-						<input list="supplier" onchange="supplier()" name="supplier" placeholder="Supplier" id="supplierInput" />
-						<datalist id="supplier">
+						<input list="supplier_" onchange="supplier('')" name="supplier" placeholder="Supplier" id="supplierInput_" />
+						<datalist id="supplier_">
 							@foreach (var supplier in suppliers) {
 								<option data-value="@supplier.Id">@supplier.Name</option>
 							}
 						</datalist>
-						<input type="hidden" id="supplierInput-hidden" />
+						<input type="hidden" id="supplierInput-hidden_" />
 					</div>
 					<div class="input-field col s6">
-						<input id="desc" type="text" class="validate">
-						<label for="desc">Description</label>
+						<input id="desc_" type="text" class="validate">
+						<label for="desc_">Description</label>
 					</div>
 					<div class="input-field col s6">
 						<input id="price" type="text" class="validate">
@@ -132,8 +127,6 @@
 						<label for="TotalAnount">Total Amount</label>
 					</div>
 					<div class="input-field col s6">
-						@*<input type="text" class="datepicker">
-						<label for="availability">Availability</label>*@
 						<select class="js-example-basic-single" name="availability" id="availability">
 							<option value="" disabled selected>Availability</option>
 							@{
@@ -170,7 +163,7 @@
 				</div>
 				<div class="modal-footer">
 					<button class="modal-action modal-close btn waves-effect waves-light green accent-4 right"
-							onclick="InputDetail()"
+							onclick="InputDetail('')"
 							type="submit" name="action">
 						Add
 						<i class="material-icons right">add</i>
@@ -181,7 +174,7 @@
 		<div class="input-field col s12" id="remarks">
 			<div class="remarks">
 				<h5>Analysis Remarks: </h5>
-				<textarea id="analysis"></textarea>
+				<textarea id="analysis_"></textarea>
 			</div>
 		</div>
 		<div class="col s12" id="submit">
@@ -194,7 +187,7 @@
 				</div>
 				<div class="modal-footer">
 					<a href="#!" class="modal-close waves-effect waves-green btn-flat"
-					   onclick="SaveQA()">Yes</a>
+					   onclick="SaveQA('')">Yes</a>
 					<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
 				</div>
 			</div>

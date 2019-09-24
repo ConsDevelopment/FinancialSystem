@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace FinancialSystem.Models {
 	
 	public class NonCatalogViewModel {
+		public long Id { get; set; }
 		public string Name { get; set; }
 		public long SubCategoryId { get; set; }
 		public string Analysis { get; set; }
@@ -18,6 +19,7 @@ namespace FinancialSystem.Models {
 
 	}
 	public class NonCatalogLinesViewModel {
+		public long Id { get; set; }
 		public bool Selected { get; set; }
 		public long SupplierId { get; set; }
 		public double Price { get; set; }

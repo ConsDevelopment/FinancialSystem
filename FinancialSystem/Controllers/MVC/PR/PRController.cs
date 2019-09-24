@@ -154,12 +154,15 @@ namespace FinancialSystem.Controllers.MVC.PR
 			var nhnch = new NHibernateNonCatalogStore();
 			var employees = new NHibernateCompanyStore();
 			var category = new NHibernateCategoryStore();
+			var supplier = new NHibernateISupplierStore();
 			IList<NonCatalogItemHeadModel> nonCatalogHeads = null;
 			
 			ViewData["Categories"] = await category.GeatAllCategoryAsync();
 			ViewData["pageName"] = "QuoteAnalysisUV";
 			ViewData["employees"] = await employees.GetAllEmployeeAsync();
-			
+			ViewData["supplier"] = await supplier.GeatAllSupplierAsync();
+			ViewData["brand"] = await supplier.GeatAllBrandAsync();
+
 			long id;
 			if (search == null) {
 				nonCatalogHeads = await nhnch.FindLatestNonCatalogHeadAsync(10);
