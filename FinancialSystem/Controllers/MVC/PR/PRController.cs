@@ -167,7 +167,7 @@ namespace FinancialSystem.Controllers.MVC.PR
 			if (search == null) {
 				nonCatalogHeads = await nhnch.FindLatestNonCatalogHeadAsync(10);
 			} else if (long.TryParse(search, out id)) {
-				nonCatalogHeads = await nhnch.FindIdNonCatalogHeadAsync(id);
+				nonCatalogHeads = await nhnch.FindIdNonCatalogHeadListAsync(id);
 			} else {
 				nonCatalogHeads = await nhnch.SearchNonCatalogByNameAsync(search);
 			}

@@ -100,15 +100,15 @@
 						<label for="desc_">Description</label>
 					</div>
 					<div class="input-field col s6">
-						<input id="price" type="text" class="validate">
-						<label for="price">Price</label>
+						<input id="price_" type="text" class="validate">
+						<label for="price_">Price</label>
 					</div>
 					<div class="input-field col s6">
 						<input id="quantity" type="text" class="validate">
 						<label for="quantity">Quantity</label>
 					</div>
 					<div class="input-field col s6">
-						<select class="js-example-basic-single" name="state" id="uom">
+						<select class="js-example-basic-single" name="state" id="uom_">
 							<option value="" disabled selected>Unit of Measurement</option>
 							@{
 								var UOMs = Enum.GetValues(typeof(UOMType));
@@ -119,15 +119,15 @@
 						</select>
 					</div>
 					<div class="input-field col s6">
-						<input id="discount" type="text" class="validate">
-						<label for="discount">Discount</label>
+						<input id="discount_" type="text" class="validate">
+						<label for="discount_">Discount</label>
 					</div>
 					<div class="input-field col s6">
-						<input id="TotalAnount" type="text" class="validate">
-						<label for="TotalAnount">Total Amount</label>
+						<input id="TotalAnount_" type="text" class="validate">
+						<label for="TotalAnount_">Total Amount</label>
 					</div>
 					<div class="input-field col s6">
-						<select class="js-example-basic-single" name="availability" id="availability">
+						<select class="js-example-basic-single" name="availability" id="availability_">
 							<option value="" disabled selected>Availability</option>
 							@{
 								var Availabilities = Enum.GetValues(typeof(AvailabilityType));
@@ -139,7 +139,7 @@
 					</div>
 					<div class="input-field col s6">
 						<div class="searchable">
-							<select class="js-example-basic-single" name="terms" id="terms">
+							<select class="js-example-basic-single" name="terms" id="terms_">
 								<option value="" disabled selected>Select Terms</option>
 							@{
 								var terms = Enum.GetValues(typeof(PaymentTermsType));
@@ -152,7 +152,7 @@
 					</div>
 					<div class="input-field col s6">
 						<div class="searchable">
-							<select class="js-example-basic-single" name="brands" id="brands">
+							<select class="js-example-basic-single" name="brands" id="brands_">
 								<option value="" disabled selected>Choose Brand</option>
 								@foreach (var brand in brands) {
 									<option value="@brand.Id">@brand.Name</option>

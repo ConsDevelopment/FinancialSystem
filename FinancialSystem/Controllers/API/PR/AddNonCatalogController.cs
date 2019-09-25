@@ -27,43 +27,58 @@ namespace FinancialSystem.Controllers.API.PR {
 		public async Task<long> Post(NonCatalogViewModel value) {
 			const long PurchaserHead = 6;
 
-
+			var nhnch = new NHibernateNonCatalogStore();
 			var user = new NHibernateUserStore();
 			var nnc = new NHibernateNonCatalogStore();
 			var supplierStore = new NHibernateISupplierStore();
 			var subcategoryStore = new NHibernateCategoryStore();
 			var company = new NHibernateCompanyStore();
 			var createdby = await user.FindByStampAsync(value.SecurityStamp);
-			var nonCatalog = new NonCatalogItemHeadModel {
-				Name = value.Name,
-				Analysis = value.Analysis,
-				SubCategory = await subcategoryStore.FindSubCategoryByIdAsync(value.SubCategoryId),
-				Requestor = await company.GetEmployeeAsync(value.RequestorId),
-				CreatedBy = createdby,
-				Approver = await company.GetPositionByIdAsync(PurchaserHead)
-			};
-			
-			foreach (var line in value.Lines) {
-				var supplier = await supplierStore.FindSupplierByIdAsync(line.SupplierId);
-				string tempSuppliee = null;
-				if (supplier == null) {
-					tempSuppliee = line.TempSupplier;
+
+			var nonCatalog = await nnc.GetNonCatalogAsync(value.Id);
+
+			if (nonCatalog == null) {
+				nonCatalog = new NonCatalogItemHeadModel();					
+			}
+			nonCatalog.Name = value.Name;
+			nonCatalog.Analysis = value.Analysis;
+			nonCatalog.SubCategory = await subcategoryStore.FindSubCategoryByIdAsync(value.SubCategoryId);
+			nonCatalog.Requestor = await company.GetEmployeeAsync(value.RequestorId);
+			nonCatalog.CreatedBy = createdby;
+			nonCatalog.Approver = await company.GetPositionByIdAsync(PurchaserHead);
+
+			for(var line=0;line< nonCatalog.Lines.Count;line++) {
+				if (!value.Lines.Any(x => x.Id == nonCatalog.Lines.ElementAt(line).Id)) {
+					nonCatalog.Lines.ElementAt(line).DeleteTime = DateTime.UtcNow;
 				}
+			}
+			foreach (var line in value.Lines) {
+				if (nonCatalog.Lines.Any(x => x.Id == line.Id) && line.Id!=0) {
+					continue;
+				}
+				var supplier = await supplierStore.FindSupplierByIdAsync(line.SupplierId);
+				string tempSupplier = null;
+				if (supplier == null) {
+					tempSupplier = line.TempSupplier;
+				}
+
 				var nonCatalogLine = new NonCatalogItemLinesModel {
-					Selected = line.Selected,
-					Supplier = supplier,
-					Price=line.Price,
-					Description=line.Description,
-					Quantity=line.Quantity,
-					UOM=line.UOM,
-					Discount=line.Discount,
-					TotalAnount=line.TotalAnount,
-					Availability=line.Availability,
-					Terms=line.Terms,
-					Brand= await supplierStore.FindBrandByIdAsync(line.BrandId),
-					CreatedBy= createdby
+						Selected = line.Selected,
+						Supplier = supplier,
+						Price = line.Price,
+						Description = line.Description,
+						Quantity = line.Quantity,
+						UOM = line.UOM,
+						Discount = line.Discount,
+						TotalAnount = line.TotalAnount,
+						Availability = line.Availability,
+						Terms = line.Terms,
+						Brand = await supplierStore.FindBrandByIdAsync(line.BrandId),
+						CreatedBy = createdby,
+						TempSupplier = tempSupplier
 				};
 				nonCatalog.Lines.Add(nonCatalogLine);
+				
 			}
 			
 			return await nnc.CreateNonCatalogHeadAsync(nonCatalog);

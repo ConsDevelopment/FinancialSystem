@@ -134,8 +134,8 @@
 													<td>@line.TotalAnount</td>
 													<td>@line.Availability</td>
 													<td>@line.Terms</td>
-													<td style='display:none;'>@line.Brand.Id</td>
-													<td>@line.Brand.Name</td>
+													<td style='display:none;'>@(line.Brand == null ? "" : line.Brand.Id.ToString())</td>
+													<td>@(line.Brand==null ? "" : line.Brand.Name)</td>
 													<td style='display:none;'>@line.Id</td> 
 													<td>
 														<a class='waves-effect waves-light btn red' onclick='DeleteRow(this)'>Delete</a>
@@ -168,15 +168,15 @@
 												<label for="desc_@head.Id">Description</label>
 											</div>
 											<div class="input-field col s6">
-												<input id="price" type="text" class="validate">
-												<label for="price">Price</label>
+												<input id="price_@head.Id" type="text" class="validate">
+												<label for="price_@head.Id">Price</label>
 											</div>
 											<div class="input-field col s6">
-												<input id="quantity" type="text" class="validate">
-												<label for="quantity">Quantity</label>
+												<input id="quantity_@head.Id" type="text" class="validate">
+												<label for="quantity_@head.Id">Quantity</label>
 											</div>
 											<div class="input-field col s6">
-												<select class="js-example-basic-single" name="state" id="uom">
+												<select class="js-example-basic-single" name="state" id="uom_@head.Id">
 													<option value="" disabled selected>Unit of Measurement</option>
 													@{			var UOMs = Enum.GetValues(typeof(UOMType));
 													}
@@ -186,15 +186,15 @@
 												</select>
 											</div>
 											<div class="input-field col s6">
-												<input id="discount" type="text" class="validate">
-												<label for="discount">Discount</label>
+												<input id="discount_@head.Id" type="text" class="validate">
+												<label for="discount_@head.Id">Discount</label>
 											</div>
 											<div class="input-field col s6">
-												<input id="TotalAnount" type="text" class="validate">
-												<label for="TotalAnount">Total Amount</label>
+												<input id="TotalAnount_@head.Id" type="text" class="validate">
+												<label for="TotalAnount_@head.Id">Total Amount</label>
 											</div>
 											<div class="input-field col s6">
-												<select class="js-example-basic-single" name="availability" id="availability">
+												<select class="js-example-basic-single" name="availability" id="availability_@head.Id">
 													<option value="" disabled selected>Availability</option>
 													@{			var Availabilities = Enum.GetValues(typeof(AvailabilityType));
 													}
@@ -205,7 +205,7 @@
 											</div>
 											<div class="input-field col s6">
 												<div class="searchable">
-													<select class="js-example-basic-single" name="terms" id="terms">
+													<select class="js-example-basic-single" name="terms" id="terms_@head.Id">
 														<option value="" disabled selected>Select Terms</option>
 														@{			var terms = Enum.GetValues(typeof(PaymentTermsType));
 														}
@@ -216,7 +216,7 @@
 											</div>
 											<div class="input-field col s6">
 												<div class="searchable">
-													<select class="js-example-basic-single" name="brands" id="brands">
+													<select class="js-example-basic-single" name="brands" id="brands_@head.Id">
 														<option value="" disabled selected>Choose Brand</option>
 														@foreach (var brand in brands) {
 															<option value="@brand.Id">@brand.Name</option>		}
@@ -268,7 +268,7 @@
 											</div>
 											<div class="modal-footer">
 												<a href="#!" class="modal-close waves-effect waves-green btn-flat"
-												   onclick="M.toast({html: 'Q.A Number 001 has been created',  classes: 'rounded'})">Yes</a>
+												   onclick="SaveQA('@head.Id')">Yes</a>
 												<a href="#!"
 												   class="modal-close waves-effect waves-green btn-flat">No</a>
 											</div>

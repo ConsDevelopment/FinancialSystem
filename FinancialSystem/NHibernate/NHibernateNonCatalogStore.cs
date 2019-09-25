@@ -15,7 +15,7 @@ namespace FinancialSystem.NHibernate {
 		public async Task<long> CreateNonCatalogHeadAsync(NonCatalogItemHeadModel Head) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
-					db.Save(Head);
+					db.SaveOrUpdate(Head);
 					tx.Commit();
 					db.Flush();
 					return Head.Id;
@@ -39,7 +39,7 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
-		public async Task<IList<NonCatalogItemHeadModel>> FindIdNonCatalogHeadAsync(long id) {
+		public async Task<IList<NonCatalogItemHeadModel>> FindIdNonCatalogHeadListAsync(long id) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
 					return db.QueryOver<NonCatalogItemHeadModel>().Where(x => x.DeleteTime == null && x.Id==id).OrderBy(x => x.CreateTime).Desc.List();
