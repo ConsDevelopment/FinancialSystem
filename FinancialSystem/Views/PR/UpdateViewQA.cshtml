@@ -223,13 +223,21 @@
 											</div>
 											<div class="input-field col s6">
 												<div class="searchable">
-													<select class="js-example-basic-single" name="terms" id="terms_@head.Id">
+													@*<select class="js-example-basic-single" name="terms" id="terms_@head.Id">
 														<option value="" disabled selected>Select Terms</option>
 														@{			var terms = Enum.GetValues(typeof(PaymentTermsType));
 														}
 														@foreach (var term in terms) {
 															<option value="@term.ToString()">@term.ToString()</option>		}
-													</select>
+													</select>*@
+													<input list="terms_@head.Id" onchange="terms('@head.Id')" name="terms" placeholder="Select Terms" id="termsInput_@head.Id" />
+													<datalist id="terms_@head.Id">
+														@{			var terms = Enum.GetValues(typeof(PaymentTermsType));
+														}
+														@foreach (var term in terms) {
+															<option data-value="@term.ToString()">@term.ToString()</option>		}
+													</datalist>
+													<input type="hidden" id="termInput-hidden_@head.Id" />
 												</div>
 											</div>
 											<div class="input-field col s6">

@@ -15,7 +15,7 @@
 		str += "<td>" + $("#discount_" + Id).val() + "</td>";
 		str += "<td>" + $("#TotalAnount_" + Id).val() + "</td>";
 		str += "<td>" + $("#availabilityInput-hidden_" + Id).val() + "</td>";
-		str += "<td>" + $("#terms_" + Id + " option:selected").val() + "</td>";
+		str += "<td>" + $("#termsInput-hidden_" + Id).val() + "</td>";
 		str += "<td style='display:none;'>" + $("#brands_" + Id + " option:selected").val() + "</td>";
 		str += "<td >" + $("#brands_" + Id + " option:selected").html() + "</td>";
 		str += "<td style='display:none;'></td>";
@@ -167,6 +167,25 @@ function Employees(Id) {
 		M.toast({ html: $("#employeesInput").val() + ' is not an Employee', classes: 'rounded' });
 		$("#employeesInput").val("");
 	}
+}
+function dataList(Id,elem) {
+	options = document.querySelectorAll(elem + "_" + Id + " option");
+	$(elem + "Input-hidden_" + Id).val("");
+	var found = false;
+	for (var i = 0; i < options.length; i++) {
+		var option = options[i];
+
+		if (option.innerText === $(elem + "Input_" + Id).val()) {
+			found = true;
+			$(elem + "Input-hidden_" + Id).val(option.getAttribute("data-value"));
+			break;
+		}
+	}
+	if (!found) {
+		M.toast({ html: $(elem + "Input_" + Id).val() + ' is not a correct input', classes: 'rounded' });
+		$(elem + "Input_" + Id).val("");
+	}
+	alert($(elem + "Input_" + Id).val());
 }
 function Category(Id) {
 	var selectedVal = $("#CategorySelect_" + Id +" option:selected").val();

@@ -157,7 +157,7 @@
 					</div>
 					<div class="input-field col s6">
 						<div class="searchable">
-							<select class="js-example-basic-single" name="terms" id="terms_">
+							@*<select class="js-example-basic-single" name="terms" id="terms_">
 								<option value="" disabled selected>Select Terms</option>
 							@{
 								var terms = Enum.GetValues(typeof(PaymentTermsType));
@@ -165,7 +165,15 @@
 							@foreach (var term in terms) {
 								<option value="@term.ToString()">@term.ToString()</option>
 							}
-							</select>
+							</select>*@
+							<input list="terms_" onchange="dataList('','#terms')" name="terms" placeholder="Select Payment Terms" id="termsInput_" />
+							<datalist id="terms_">
+								@{			var terms = Enum.GetValues(typeof(PaymentTermsType));
+								}
+								@foreach (var term in terms) {
+									<option data-value="@term.ToString()">@term.ToString()</option>		}
+							</datalist>
+							<input type="hidden" id="termsInput-hidden_" />
 						</div>
 					</div>
 					<div class="input-field col s6">
