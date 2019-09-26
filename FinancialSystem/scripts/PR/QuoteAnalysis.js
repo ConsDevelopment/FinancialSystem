@@ -10,11 +10,11 @@
 		str+="<td>" + $("#supplierInput_" + Id).val() + "</td>";
 		str += "<td>" + $("#desc_" + Id).val() + "</td>";
 		str += "<td>" + $("#price_" + Id).val() + "</td>";
-		str += "<td>" + $("#uom_" + Id + " option:selected").val() + "</td>";
+		str += "<td>" + $("#uomInput-hidden_" + Id).val() + "</td>";
 		str += "<td>" + $("#quantity_" + Id).val() + "</td>";
 		str += "<td>" + $("#discount_" + Id).val() + "</td>";
 		str += "<td>" + $("#TotalAnount_" + Id).val() + "</td>";
-		str += "<td>" + $("#availability_" + " option:selected").val() + "</td>";
+		str += "<td>" + $("#availabilityInput-hidden_" + Id).val() + "</td>";
 		str += "<td>" + $("#terms_" + Id + " option:selected").val() + "</td>";
 		str += "<td style='display:none;'>" + $("#brands_" + Id + " option:selected").val() + "</td>";
 		str += "<td >" + $("#brands_" + Id + " option:selected").html() + "</td>";
@@ -23,7 +23,7 @@
 		str += "<a class='waves-effect waves-light btn red' onclick='DeleteRow(this)'>Delete</a>";
 		str+="</td>";
 		str += "</tr>";
-		jQuery("#table_" + Id + " tbody").append(str);
+		$("#table_" + Id + " tbody").append(str);
 	M.toast({ html: 'Item has been added', classes: 'rounded' });
 
 }
@@ -111,6 +111,44 @@ function supplier(Id) {
 		$("#supplierInput_" + Id).val("");
 	}
 	//alert($("#supplierInput-hidden").val());
+}
+function uom(Id) {
+	options = document.querySelectorAll("#uom_" + Id + " option");
+	$("#uomInput-hidden_" + Id).val("");
+	var found = false;
+	for (var i = 0; i < options.length; i++) {
+		var option = options[i];
+
+		if (option.innerText === $("#uomInput_" + Id).val()) {
+			found = true;
+			$("#uomInput-hidden_" + Id).val(option.getAttribute("data-value"));
+			break;
+		}
+	}
+	if (!found) {
+		M.toast({ html: 'Unit of Measurement ' + $("#uomInput_" + Id).val() + 'is not Registered', classes: 'rounded' });
+		$("#uomInput_" + Id).val("");
+	}
+	
+}
+function availability(Id) {
+	options = document.querySelectorAll("#availability_" + Id + " option");
+	$("#availabilityInput-hidden_" + Id).val("");
+	var found = false;
+	for (var i = 0; i < options.length; i++) {
+		var option = options[i];
+
+		if (option.innerText === $("#availabilityInput_" + Id).val()) {
+			found = true;
+			$("#availabilityInput-hidden_" + Id).val(option.getAttribute("data-value"));
+			break;
+		}
+	}
+	if (!found) {
+		M.toast({ html: 'Availability ' + $("#uomInput_" + Id).val() + 'is not Registered', classes: 'rounded' });
+		$("#availabilityInput_" + Id).val("");
+	}
+
 }
 function Employees(Id) {
 	options = document.querySelectorAll("#employees_" + Id + " option");

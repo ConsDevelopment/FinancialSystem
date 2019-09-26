@@ -176,14 +176,23 @@
 												<label for="quantity_@head.Id">Quantity</label>
 											</div>
 											<div class="input-field col s6">
-												<select class="js-example-basic-single" name="state" id="uom_@head.Id">
+												@*<select class="js-example-basic-single" name="state" id="uom_@head.Id">
 													<option value="" disabled selected>Unit of Measurement</option>
 													@{			var UOMs = Enum.GetValues(typeof(UOMType));
 													}
 													@foreach (var UOM in UOMs) {
 														<option value="@UOM.ToString()">@UOM.ToString()</option>
 													}
-												</select>
+												</select>*@
+												<input list="uom_@head.Id" onchange="uom('@head.Id')" name="uom" placeholder="Unit of Measurement" id="uomInput_@head.Id" />
+												<datalist id="uom_@head.Id">
+													@{			var UOMs = Enum.GetValues(typeof(UOMType));
+													}
+													@foreach (var UOM in UOMs) {
+														<option data-value="@UOM.ToString()">@UOM.ToString()</option>
+													}
+												</datalist>
+												<input type="hidden" id="uomInput-hidden_@head.Id" />
 											</div>
 											<div class="input-field col s6">
 												<input id="discount_@head.Id" type="text" class="validate">
@@ -194,14 +203,23 @@
 												<label for="TotalAnount_@head.Id">Total Amount</label>
 											</div>
 											<div class="input-field col s6">
-												<select class="js-example-basic-single" name="availability" id="availability_@head.Id">
+												@*<select class="js-example-basic-single" name="availability" id="availability_@head.Id">
 													<option value="" disabled selected>Availability</option>
 													@{			var Availabilities = Enum.GetValues(typeof(AvailabilityType));
 													}
 													@foreach (var availability in Availabilities) {
 														<option value="@availability.ToString()">@availability.ToString()</option>
 													}
-												</select>
+												</select>*@
+												<input list="availability_@head.Id" onchange="availability('@head.Id')" name="uom" placeholder="Availability" id="availabilityInput_@head.Id" />
+												<datalist id="availability_@head.Id">
+													@{			var Availabilities = Enum.GetValues(typeof(AvailabilityType));
+													}
+													@foreach (var availability in Availabilities) {
+														<option data-value="@availability.ToString()">@availability.ToString()</option>
+													}
+												</datalist>
+												<input type="hidden" id="availabilityInput-hidden_@head.Id" />
 											</div>
 											<div class="input-field col s6">
 												<div class="searchable">
@@ -226,7 +244,7 @@
 										</div>
 										<div class="modal-footer">
 											<button class="modal-action modal-close btn waves-effect waves-light green accent-4 right"
-													onclick="InputDetail('table_@head.Id')"
+													onclick="InputDetail('@head.Id')"
 													type="submit" name="action">
 												Add
 												<i class="material-icons right">add</i>
