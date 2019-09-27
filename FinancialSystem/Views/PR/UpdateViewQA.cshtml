@@ -1,5 +1,6 @@
 ﻿@using FinancialSystem.Models
 @using FinancialSystem.Models.Enums
+@using FinancialSystem.Utilities;
 @model IList<FinancialSystem.Models.NonCatalogItemHeadModel>
 
 @{
@@ -9,6 +10,7 @@
 	var categories = (List<CategoryModel>)ViewData["Categories"];
 	var suppliers = (List<SupplierModel>)ViewData["supplier"];
 	var brands = (List<BrandModel>)ViewData["brand"];
+	var user = (UserModel)Session[Config.GetAppSetting("SessionKey")];
 }
 @Styles.Render("~/Content/PR/quote-analysis")
 @Scripts.Render("~/scripts/PR/QuoteAnalysis")
@@ -52,7 +54,7 @@
 									<div class="qa" id="qa">
 
 										<div class="col s6" id="top">
-											<input list="employees_@head.Id" onchange="Employees('@head.Id')" name="employees" placeholder="Employees" id="employeesInput_@head.Id" value="@head.Requestor.Name()" />
+											<input list="employees_@head.Id" onchange="dataList('@head.Id','#employees',false)" name="employees" placeholder="Employees" id="employeesInput_@head.Id" value="@head.Requestor.Name()" />
 											<datalist id="employees_@head.Id">
 												@foreach (var employee in employees) {
 													<option data-value="@employee.Id">@employee.Name()</option>
@@ -155,7 +157,7 @@
 										<div class="modal-content">
 											<h4>Input Suppliers</h4>
 											<div class="input-field col s6">
-												<input list="supplier_@head.Id" onchange="supplier('@head.Id')" name="supplier" placeholder="Supplier" id="supplierInput_@head.Id" />
+												<input list="supplier_@head.Id" onchange="dataList('@head.Id','#supplier',true)" name="supplier" placeholder="Supplier" id="supplierInput_@head.Id" />
 												<datalist id="supplier_@head.Id">
 													@foreach (var supplier in suppliers) {
 														<option data-value="@supplier.Id">@supplier.Name</option>
@@ -176,15 +178,7 @@
 												<label for="quantity_@head.Id">Quantity</label>
 											</div>
 											<div class="input-field col s6">
-												@*<select class="js-example-basic-single" name="state" id="uom_@head.Id">
-													<option value="" disabled selected>Unit of Measurement</option>
-													@{			var UOMs = Enum.GetValues(typeof(UOMType));
-													}
-													@foreach (var UOM in UOMs) {
-														<option value="@UOM.ToString()">@UOM.ToString()</option>
-													}
-												</select>*@
-												<input list="uom_@head.Id" onchange="uom('@head.Id')" name="uom" placeholder="Unit of Measurement" id="uomInput_@head.Id" />
+												<input list="uom_@head.Id" onchange="dataList('@head.Id','#uom',false)" name="uom" placeholder="Unit of Measurement" id="uomInput_@head.Id" />
 												<datalist id="uom_@head.Id">
 													@{			var UOMs = Enum.GetValues(typeof(UOMType));
 													}
@@ -203,15 +197,7 @@
 												<label for="TotalAnount_@head.Id">Total Amount</label>
 											</div>
 											<div class="input-field col s6">
-												@*<select class="js-example-basic-single" name="availability" id="availability_@head.Id">
-													<option value="" disabled selected>Availability</option>
-													@{			var Availabilities = Enum.GetValues(typeof(AvailabilityType));
-													}
-													@foreach (var availability in Availabilities) {
-														<option value="@availability.ToString()">@availability.ToString()</option>
-													}
-												</select>*@
-												<input list="availability_@head.Id" onchange="availability('@head.Id')" name="uom" placeholder="Availability" id="availabilityInput_@head.Id" />
+												<input list="availability_@head.Id" onchange="dataList('@head.Id','#availability',false)" name="uom" placeholder="Availability" id="availabilityInput_@head.Id" />
 												<datalist id="availability_@head.Id">
 													@{			var Availabilities = Enum.GetValues(typeof(AvailabilityType));
 													}
@@ -222,15 +208,7 @@
 												<input type="hidden" id="availabilityInput-hidden_@head.Id" />
 											</div>
 											<div class="input-field col s6">
-												<div class="searchable">
-													@*<select class="js-example-basic-single" name="terms" id="terms_@head.Id">
-														<option value="" disabled selected>Select Terms</option>
-														@{			var terms = Enum.GetValues(typeof(PaymentTermsType));
-														}
-														@foreach (var term in terms) {
-															<option value="@term.ToString()">@term.ToString()</option>		}
-													</select>*@
-													<input list="terms_@head.Id" onchange="terms('@head.Id')" name="terms" placeholder="Select Terms" id="termsInput_@head.Id" />
+													<input list="terms_@head.Id" onchange="dataList('@head.Id','#terms',false)" name="terms" placeholder="Select Terms" id="termsInput_@head.Id" />
 													<datalist id="terms_@head.Id">
 														@{			var terms = Enum.GetValues(typeof(PaymentTermsType));
 														}
@@ -238,16 +216,14 @@
 															<option data-value="@term.ToString()">@term.ToString()</option>		}
 													</datalist>
 													<input type="hidden" id="termInput-hidden_@head.Id" />
-												</div>
 											</div>
 											<div class="input-field col s6">
-												<div class="searchable">
-													<select class="js-example-basic-single" name="brands" id="brands_@head.Id">
-														<option value="" disabled selected>Choose Brand</option>
-														@foreach (var brand in brands) {
-															<option value="@brand.Id">@brand.Name</option>		}
-													</select>
-												</div>
+												<input list="brands_@head.Id" onchange="dataList('@head.Id', '#brands', false)" name="brands" placeholder="Choose Brand" id="brandsInput_@head.Id" />
+												<datalist id="brands_@head.Id">
+													@foreach (var brand in brands) {
+														<option data-value="@brand.Id">@brand.Name</option>		}
+												</datalist>
+												<input type="hidden" id="brandsInput-hidden_@head.Id" />
 											</div>
 										</div>
 										<div class="modal-footer">
@@ -267,8 +243,17 @@
 									</div>
 									
 									<div class="col s12" id="approvebtn">
-										<a class="waves-effect waves-light btn right green modal-trigger" href="#modal5"
-										   id="submit-button">APPROVE</a>
+										@{ 
+											string isApprover="";
+											if (user.employee.position.Id == head.Approver.Id) {
+												isApprover = "";
+											} else {
+												isApprover = "style=display:none";
+											}
+										}
+										<a @isApprover class="waves-effect waves-light btn right green modal-trigger" href="#modal5"
+										   id="submit-button">APPROVER</a>
+						
 										<!-- Modal Structure -->
 										<div id="modal5" class="modal">
 											<div class="modal-content">
@@ -277,12 +262,14 @@
 												</p>
 											</div>
 											<div class="modal-footer">
+												<input type="checkbox" style="display:none" id="Approved_@head.Id"/>
 												<a href="#!" class="modal-close waves-effect waves-green btn-flat"
-												   onclick="M.toast({html: 'Q.A Number 001 has been created',  classes: 'rounded'})">Yes</a>
+												   onclick="Approved('@head.Id')">Yes</a>
 												<a href="#!"
 												   class="modal-close waves-effect waves-green btn-flat">No</a>
 											</div>
 										</div>
+										
 										<a class="waves-effect waves-light btn right red darken-1 modal-trigger"
 										   href="#modal6" id="submit-button">UPDATE</a>
 										<!-- Modal Structure -->

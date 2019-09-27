@@ -13,7 +13,9 @@ namespace FinancialSystem.Models {
 		public string Analysis { get; set; }
 		public string RequestorId { get; set; }
 		public string SecurityStamp { get; set; }
-		
+		public bool Approved { get; set; }
+
+
 
 		public ICollection<NonCatalogLinesViewModel> Lines { get; set; }
 

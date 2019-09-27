@@ -16,8 +16,8 @@
 		str += "<td>" + $("#TotalAnount_" + Id).val() + "</td>";
 		str += "<td>" + $("#availabilityInput-hidden_" + Id).val() + "</td>";
 		str += "<td>" + $("#termsInput-hidden_" + Id).val() + "</td>";
-		str += "<td style='display:none;'>" + $("#brands_" + Id + " option:selected").val() + "</td>";
-		str += "<td >" + $("#brands_" + Id + " option:selected").html() + "</td>";
+		str += "<td style='display:none;'>" + $("#brandsInput-hidden_" + Id).val() + "</td>";
+		str += "<td >" + $("#brandsInput_" + Id).val() + "</td>";
 		str += "<td style='display:none;'></td>";
 		str+="<td>";
 		str += "<a class='waves-effect waves-light btn red' onclick='DeleteRow(this)'>Delete</a>";
@@ -56,6 +56,7 @@ function SaveQA(Id) {
 		"RequestorId": $("#employeesInput-hidden_" + Id).val(),
 		"SecurityStamp": $("#SecurityStamp").val(),
 		"Id": Id,
+		"Approved": $("#Approved_" + Id).prop("checked"),
 		"Lines": lines
 	};
 
@@ -93,82 +94,7 @@ function DeleteRow(tr) {
 	tr.closest("tr").remove();
 }
 
-function supplier(Id) {
-	options = document.querySelectorAll("#supplier_" + Id + " option");
-	$("#supplierInput-hidden_" + Id).val("");
-	var found = false;
-	for (var i=0; i < options.length; i++) {
-		var option = options[i];
-		
-		if (option.innerText === $("#supplierInput_" + Id).val()) {
-			found = true;
-			$("#supplierInput-hidden_" + Id).val(option.getAttribute("data-value"));
-			break;
-		}
-	}
-	if (!found) {
-		M.toast({ html: 'Supplier ' + $("#supplierInput_" + Id).val() + 'is not Registered', classes: 'rounded' });
-		$("#supplierInput_" + Id).val("");
-	}
-	//alert($("#supplierInput-hidden").val());
-}
-function uom(Id) {
-	options = document.querySelectorAll("#uom_" + Id + " option");
-	$("#uomInput-hidden_" + Id).val("");
-	var found = false;
-	for (var i = 0; i < options.length; i++) {
-		var option = options[i];
-
-		if (option.innerText === $("#uomInput_" + Id).val()) {
-			found = true;
-			$("#uomInput-hidden_" + Id).val(option.getAttribute("data-value"));
-			break;
-		}
-	}
-	if (!found) {
-		M.toast({ html: 'Unit of Measurement ' + $("#uomInput_" + Id).val() + 'is not Registered', classes: 'rounded' });
-		$("#uomInput_" + Id).val("");
-	}
-	
-}
-function availability(Id) {
-	options = document.querySelectorAll("#availability_" + Id + " option");
-	$("#availabilityInput-hidden_" + Id).val("");
-	var found = false;
-	for (var i = 0; i < options.length; i++) {
-		var option = options[i];
-
-		if (option.innerText === $("#availabilityInput_" + Id).val()) {
-			found = true;
-			$("#availabilityInput-hidden_" + Id).val(option.getAttribute("data-value"));
-			break;
-		}
-	}
-	if (!found) {
-		M.toast({ html: 'Availability ' + $("#uomInput_" + Id).val() + 'is not Registered', classes: 'rounded' });
-		$("#availabilityInput_" + Id).val("");
-	}
-
-}
-function Employees(Id) {
-	options = document.querySelectorAll("#employees_" + Id + " option");
-	$("#employeesInput-hidden_" + Id).val("");
-	var found = false;
-	for (var i = 0; i < options.length; i++) {
-		var option = options[i];
-
-		if (option.innerText === $("#employeesInput_" + Id).val()) {
-			found = true;
-			$("#employeesInput-hidden_" + Id).val(option.getAttribute("data-value"));
-			break;
-		}
-	}
-	if (!found) {
-		M.toast({ html: $("#employeesInput").val() + ' is not an Employee', classes: 'rounded' });
-		$("#employeesInput").val("");
-	}
-}
-function dataList(Id,elem) {
+function dataList(Id,elem,DPEditable) {
 	options = document.querySelectorAll(elem + "_" + Id + " option");
 	$(elem + "Input-hidden_" + Id).val("");
 	var found = false;
@@ -181,11 +107,13 @@ function dataList(Id,elem) {
 			break;
 		}
 	}
-	if (!found) {
-		M.toast({ html: $(elem + "Input_" + Id).val() + ' is not a correct input', classes: 'rounded' });
-		$(elem + "Input_" + Id).val("");
+	if (!DPEditable) {
+		if (!found) {
+			M.toast({ html: $(elem + "Input_" + Id).val() + ' is not a correct input', classes: 'rounded' });
+			$(elem + "Input_" + Id).val("");
+		}
 	}
-	alert($(elem + "Input_" + Id).val());
+	//alert($(elem + "Input-hidden_" + Id).val());
 }
 function Category(Id) {
 	var selectedVal = $("#CategorySelect_" + Id +" option:selected").val();
@@ -228,4 +156,9 @@ function searchQA() {
 	} else {
 		window.location = "UpdateViewQA?search=" + search;
 	}
+}
+function Approved(Id) {
+	$("#Approved_" + Id).prop("checked", true);
+	SaveQA(Id);
+	alert($("#Approved_" + Id).prop("checked"));
 }

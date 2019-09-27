@@ -23,7 +23,7 @@
 						<label>QA Number: <span id="QaNumber_"></span></label>
 					</div>
 					<div class="col s6" id="top">
-						<input list="employees_" onchange="Employees('')" name="employees" placeholder="Employees" id="employeesInput_" />
+						<input list="employees_" onchange="dataList('', '#employees', false)" name="employees" placeholder="Employees" id="employeesInput_" />
 						<datalist id="employees_">
 							@foreach (var employee in employees) {
 								<option data-value="@employee.Id">@employee.Name()</option>
@@ -87,7 +87,7 @@
 				<div class="modal-content">
 					<h4>Input Suppliers</h4>
 					<div class="input-field col s6">
-						<input list="supplier_" onchange="supplier('')" name="supplier" placeholder="Supplier" id="supplierInput_" />
+						<input list="supplier_" onchange="dataList('', '#supplier', true)" name="supplier" placeholder="Supplier" id="supplierInput_" />
 						<datalist id="supplier_">
 							@foreach (var supplier in suppliers) {
 								<option data-value="@supplier.Id">@supplier.Name</option>
@@ -108,16 +108,7 @@
 						<label for="quantity_">Quantity</label>
 					</div>
 					<div class="input-field col s6">
-						@*<select class="js-example-basic-single" name="state" id="uom_">
-							<option value="" disabled selected>Unit of Measurement</option>
-							@{
-								var UOMs = Enum.GetValues(typeof(UOMType));
-							}
-							@foreach (var UOM in UOMs) {
-								<option value="@UOM.ToString()">@UOM.ToString()</option>
-							}
-						</select>*@
-						<input list="uom_" onchange="uom('')" name="uom" placeholder="Unit of Measurement" id="uomInput_" />
+						<input list="uom_" onchange="dataList('', '#uom', false)" name="uom" placeholder="Unit of Measurement" id="uomInput_" />
 						<datalist id="uom_">
 							@{			var UOMs = Enum.GetValues(typeof(UOMType));
 							}
@@ -136,16 +127,7 @@
 						<label for="TotalAnount_">Total Amount</label>
 					</div>
 					<div class="input-field col s6">
-						@*<select class="js-example-basic-single" name="availability" id="availability_">
-							<option value="" disabled selected>Availability</option>
-							@{
-								var Availabilities = Enum.GetValues(typeof(AvailabilityType));
-							}
-							@foreach (var availability in Availabilities) {
-								<option value="@availability.ToString()">@availability.ToString()</option>
-							}
-						</select>*@
-						<input list="availability_" onchange="availability('')" name="uom" placeholder="Availability" id="availabilityInput_" />
+						<input list="availability_" onchange="dataList('', '#availability', false)" name="uom" placeholder="Availability" id="availabilityInput_" />
 						<datalist id="availability_">
 							@{			var Availabilities = Enum.GetValues(typeof(AvailabilityType));
 							}
@@ -156,17 +138,7 @@
 						<input type="hidden" id="availabilityInput-hidden_" />
 					</div>
 					<div class="input-field col s6">
-						<div class="searchable">
-							@*<select class="js-example-basic-single" name="terms" id="terms_">
-								<option value="" disabled selected>Select Terms</option>
-							@{
-								var terms = Enum.GetValues(typeof(PaymentTermsType));
-							}
-							@foreach (var term in terms) {
-								<option value="@term.ToString()">@term.ToString()</option>
-							}
-							</select>*@
-							<input list="terms_" onchange="dataList('','#terms')" name="terms" placeholder="Select Payment Terms" id="termsInput_" />
+							<input list="terms_" onchange="dataList('','#terms',false)" name="terms" placeholder="Select Payment Terms" id="termsInput_" />
 							<datalist id="terms_">
 								@{			var terms = Enum.GetValues(typeof(PaymentTermsType));
 								}
@@ -174,17 +146,14 @@
 									<option data-value="@term.ToString()">@term.ToString()</option>		}
 							</datalist>
 							<input type="hidden" id="termsInput-hidden_" />
-						</div>
 					</div>
 					<div class="input-field col s6">
-						<div class="searchable">
-							<select class="js-example-basic-single" name="brands" id="brands_">
-								<option value="" disabled selected>Choose Brand</option>
-								@foreach (var brand in brands) {
-									<option value="@brand.Id">@brand.Name</option>
-								}
-							</select>
-						</div>
+						<input list="brands_" onchange="dataList('', '#brands', false)" name="brands" placeholder="Choose Brand" id="brandsInput_" />
+						<datalist id="brands_">
+							@foreach (var brand in brands) {
+								<option data-value="@brand.Id">@brand.Name</option>		}
+						</datalist>
+						<input type="hidden" id="brandsInput-hidden_" />
 					</div>
 				</div>
 				<div class="modal-footer">

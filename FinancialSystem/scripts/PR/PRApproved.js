@@ -39,7 +39,6 @@ function Approved(status) {
 			location.reload();
 
 		},
-
 		error: function (error) {
 			alert(error);
 			jsonValue = jQuery.parseJSON(error.responseText);

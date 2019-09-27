@@ -80,7 +80,10 @@ namespace FinancialSystem.Controllers.API.PR {
 				nonCatalog.Lines.Add(nonCatalogLine);
 				
 			}
-			
+			if (value.Approved) {
+				nonCatalog.ApprovedBy = createdby;
+				nonCatalog.DateApproved = DateTime.UtcNow;
+			}
 			return await nnc.CreateNonCatalogHeadAsync(nonCatalog);
 
 		}
