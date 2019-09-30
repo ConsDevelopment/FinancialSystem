@@ -13,6 +13,7 @@ namespace FinancialSystem.Models {
 	public class PRLinesModel {
 		public virtual long Id { get; set; }
 		public virtual ItemModel Item { get; set; }
+		public virtual NonCatalogItemHeadModel NonCatalog { get; set; }
 		public virtual SupplierModel Supplier { get; set; }
 		public virtual int Quantity { get; set; }
 		public virtual UOMType UOM { get; set; }
@@ -45,6 +46,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.CreateTime);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				References(x => x.Item, "Item").Cascade.SaveUpdate();
+				References(x => x.Item, "NonCatalog").Cascade.SaveUpdate();
 				References(x => x.Supplier, "Supplier").Cascade.SaveUpdate();
 				References(x => x.Header, "Header").Cascade.SaveUpdate();
 			}

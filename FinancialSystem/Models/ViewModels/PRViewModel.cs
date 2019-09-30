@@ -18,6 +18,7 @@ namespace FinancialSystem.Models {
 		public long Id { get; set; }
 		public int Quantity { get; set; }
 		public string SecurityStamp { get; set; }
+		public string itemType { get; set; }
 	}
 
 	public class PRApprovalViewModel {

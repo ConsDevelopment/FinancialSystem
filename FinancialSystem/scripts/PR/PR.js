@@ -3,7 +3,8 @@ function AddPrLines(id) {
 	source = {
 		"Id": id,
 		"Quantity": $("#qty" + id).val(),
-		"SecurityStamp": $("#SecurityStamp").val()
+		"SecurityStamp": $("#SecurityStamp").val(),
+		"itemType": $("#itemType").val()
 	};
 
 	$.ajax({
@@ -42,6 +43,35 @@ function search(event) {
 	if (event.keyCode == 13) {
 		searchItem();
 	}
+}
+function searchNonCatalog() {
+
+	source = {
+		"searchItem": $("#search").val()
+	};
+
+	$.ajax({
+
+		type: "POST",
+		url: $("#ApiServer").val() + "/PR/NonCatalogSearch",
+		data: JSON.stringify(source),
+		//data: "1",
+		contentType: 'application/json; charset=utf-8',
+
+		//dataType: 'json',
+
+		success: function (data) {
+			$("#ItemContainer").empty();
+			$("#ItemContainer").html(data);
+		},
+
+		error: function (error) {
+			alert(error);
+			jsonValue = jQuery.parseJSON(error.responseText);
+
+		}
+
+	});
 }
 function searchItem() {
 	

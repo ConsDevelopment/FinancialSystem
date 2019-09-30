@@ -26,13 +26,20 @@ namespace FinancialSystem.Controllers.API.PR {
 		public async Task Post(PrLinesViewModel value) {
 			var nh = new NHibernateUserStore();
 			var nhps = new NHibernatePRStore();
-
+			var nhcs = new NHibernateNonCatalogStore();
 			var user = nh.FindByStampAsync(value.SecurityStamp);
 					if (user != null) {
 						var nhis = new NHibernateItemStore();
-						var item = await nhis.FindItemByIdAsync(value.Id);
+				ItemModel item = null;
+				NonCatalogItemHeadModel nonCatalog = null;
+				if (value.itemType == "Catalog") {
+					item = await nhis.FindItemByIdAsync(value.Id);
+				} else {
+					nonCatalog = await nhcs.GetNonCatalogAsync(value.Id);
+				}
 						var PrLines = new PRLinesModel {
 							Item = item,
+							NonCatalog=nonCatalog,
 							Quantity = value.Quantity,
 							CreatedBy = user.Result
 						};

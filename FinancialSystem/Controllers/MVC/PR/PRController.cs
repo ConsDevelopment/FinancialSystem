@@ -18,7 +18,7 @@ namespace FinancialSystem.Controllers.MVC.PR
     public class PRController : Controller
     {
         // GET: PR
-        public async Task<ActionResult> PRShop()
+        public async Task<ActionResult> PRShop(string itemType="Catalog")
         {
 			NHibernateUserStore nh = new NHibernateUserStore();
 			ViewData["ApiServer"] = Config.GetApiServerURL();
@@ -42,8 +42,8 @@ namespace FinancialSystem.Controllers.MVC.PR
 			var nhps = new NHibernatePRStore();
 			var lines = await nhps.PRLinesCreatedAsync(user);
 			ViewData["cartCount"] = lines.Count;
-			
-			
+
+			ViewData["itemType"] = itemType;
 			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
 			
 			return View(user);
@@ -54,6 +54,21 @@ namespace FinancialSystem.Controllers.MVC.PR
 			value.searchItem = value.searchItem ?? "";
 			var search = await his.SearchItemAsync(value.searchItem);
 			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
+			return PartialView(search);
+
+		}
+		public async Task<ActionResult> NonCatalogSearch(SearchItemViewModel value) {
+			var his = new NHibernateNonCatalogStore();
+			value.searchItem = value.searchItem ?? "";
+			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
+			int result;
+			var isNumber = int.TryParse(value.searchItem, out result);
+			IList<NonCatalogItemHeadModel> search = null;
+			if (isNumber) {
+				search = await his.FindIdNonCatalogHeadListAsync(result);
+			} else {
+				search = await his.SearchNonCatalogByNameAsync(value.searchItem);
+			}
 			return PartialView(search);
 
 		}
