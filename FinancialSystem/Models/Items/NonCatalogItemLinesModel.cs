@@ -25,6 +25,7 @@ namespace FinancialSystem.Models {
 		public virtual BrandModel Brand { get; set; }
 		public virtual string TempSupplier { get; set; }
 		public virtual string image { get; set; }
+	
 
 
 		public NonCatalogItemLinesModel() {
@@ -56,6 +57,7 @@ namespace FinancialSystem.Models {
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				References(x => x.Supplier, "Supplier").Cascade.SaveUpdate();
 				References(x => x.Brand, "Brand").Cascade.SaveUpdate();
+				
 			}
 		}
 

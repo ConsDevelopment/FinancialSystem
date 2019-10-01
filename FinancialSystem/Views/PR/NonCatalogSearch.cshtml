@@ -3,6 +3,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 @foreach (var row in Model) {
 	var item = row.Lines.Where(x => x.Selected == true).SingleOrDefault();
+	if (item == null) {
+		continue;
+	}
 	<div class="col s12 m3">
 		<div class="card-panel">
 			<div class="itemImg">

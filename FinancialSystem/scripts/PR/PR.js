@@ -41,40 +41,17 @@ function modal(id) {
 function search(event) {
 
 	if (event.keyCode == 13) {
-		searchItem();
+		var controller;
+		if ($("#itemType").val() == "Catalog") {
+			controller = "ItemSearch";
+		} else {
+			controller = "NonCatalogSearch";
+		}
+		searchItem(controller);
 	}
 }
-function searchNonCatalog() {
-
-	source = {
-		"searchItem": $("#search").val()
-	};
-
-	$.ajax({
-
-		type: "POST",
-		url: $("#ApiServer").val() + "/PR/NonCatalogSearch",
-		data: JSON.stringify(source),
-		//data: "1",
-		contentType: 'application/json; charset=utf-8',
-
-		//dataType: 'json',
-
-		success: function (data) {
-			$("#ItemContainer").empty();
-			$("#ItemContainer").html(data);
-		},
-
-		error: function (error) {
-			alert(error);
-			jsonValue = jQuery.parseJSON(error.responseText);
-
-		}
-
-	});
-}
-function searchItem() {
-	
+function searchItem(controller) {
+	alert(controller);
 	source = {
 		"searchItem": $("#search").val()
 	};
@@ -82,7 +59,7 @@ function searchItem() {
 	$.ajax({
 
 		type: "POST",
-		url: $("#ApiServer").val() + "/PR/ItemSearch",
+		url: $("#ApiServer").val() + "/PR/" + controller,
 		data: JSON.stringify(source),
 		//data: "1",
 		contentType: 'application/json; charset=utf-8',

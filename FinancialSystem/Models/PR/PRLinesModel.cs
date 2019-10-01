@@ -46,7 +46,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.CreateTime);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				References(x => x.Item, "Item").Cascade.SaveUpdate();
-				References(x => x.Item, "NonCatalog").Cascade.SaveUpdate();
+				References(x => x.NonCatalog, "NonCatalog").Cascade.SaveUpdate();
 				References(x => x.Supplier, "Supplier").Cascade.SaveUpdate();
 				References(x => x.Header, "Header").Cascade.SaveUpdate();
 			}
