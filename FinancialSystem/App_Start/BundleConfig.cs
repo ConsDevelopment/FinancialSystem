@@ -30,6 +30,7 @@ namespace FinancialSystem
 			Utilities(bundles);
 			PRAprover(bundles);
 			QuoteAnalysis(bundles);
+			PRSearch(bundles);
 			BundleTable.EnableOptimizations = Config.OptimizationEnabled();
 
 		}
@@ -152,6 +153,15 @@ namespace FinancialSystem
 			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/PR/QuoteAnalysis").Include(
 					 "~/scripts/PR/QuoteAnalysis.js"
 			  )));
+		}
+		private static void PRSearch(BundleCollection bundles) {
+
+			bundles.Add(new StyleBundle("~/Content/PO/po-creation")
+				.Include("~/Content/PO/po-creation.css"));
+			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/PO/PRSearch").Include(
+					 "~/scripts/PO/PRSearch.js"
+			  )));
+
 		}
 
 

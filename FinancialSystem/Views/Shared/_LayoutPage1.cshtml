@@ -26,7 +26,7 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	@Styles.Render("~/Content/PR/pr-shop")
+	
 	@{ 
 		var user = (UserModel)Session[Config.GetAppSetting("SessionKey")];
 		var logo = Config.GetCompanyLogo(user.employee.Company.Logo);
@@ -115,7 +115,7 @@
 						<ul class="collapsible">
 							<li>
 								<div class="collapsible-header">
-									<a href="PRAproover">
+									<a href="~/PR/PRAproover">
 										<i class="material-icons">dashboard</i>Dash
 										Board</a>
 </div>
@@ -126,8 +126,8 @@
 								</div>
 								<div class="collapsible-body">
 									<ul>
-										<li><a href="PRShop?itemType=Catalog"><i class="material-icons">event_available</i>Catalog</a></li>
-										<li><a href="PRShop?itemType=NonCatalog"><i class="material-icons">event_busy</i>Non Catalog</a></li>
+										<li><a href="~/PR/PRShop?itemType=Catalog"><i class="material-icons">event_available</i>Catalog</a></li>
+										<li><a href="~/PR/PRShop?itemType=NonCatalog"><i class="material-icons">event_busy</i>Non Catalog</a></li>
 									</ul>
 								</div>
 							</li>
@@ -140,8 +140,8 @@
 										</div>
 										<div class="collapsible-body">
 											<ul>
-												<li><a href="QuoteAnalysis"><i class="material-icons">event_available</i>Add</a></li>
-												<li><a href="UpdateViewQA"><i class="material-icons">event_available</i>Update/View</a></li>
+												<li><a href="~/PR/QuoteAnalysis"><i class="material-icons">event_available</i>Add</a></li>
+												<li><a href="~/PR/UpdateViewQA"><i class="material-icons">event_available</i>Update/View</a></li>
 											</ul>
 										</div>
 									</li>
@@ -155,9 +155,8 @@
 								<div class="collapsible-body">
 									<ul>
 										<li>
-											<a href="#">
-												<i class="material-icons">format_quote</i>Quote
-												Analysis
+											<a href="~/PO/PRSearch">
+												<i class="material-icons">format_quote</i>PO Creation
 											</a>
 										</li>
 									</ul>

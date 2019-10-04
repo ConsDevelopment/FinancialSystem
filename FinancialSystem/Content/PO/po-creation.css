@@ -1,0 +1,480 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: #f1f1f1;
+  }
+
+  p {
+    font-family: 'Titillium Web', sans-serif;
+  }
+  
+  /*Nav*/
+  nav {
+    background-color: #388E3C !important;
+    box-shadow: none;
+  }
+  
+  nav .notification {
+    margin-left: 350px;
+    position: absolute;
+    color: #fff;
+    font-size: 2.1rem;
+    padding-top: 0px;
+    border-radius: 50%;
+  }
+  
+  nav .notification a {
+    height: 60px;
+  }
+  
+  .circle {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+  
+  nav ul a {
+    height: 60px;
+  }
+  
+  nav ul a:hover {
+    background-color: #388E3C !important;
+    height: 60px;
+  }
+  
+    /*Badge*/
+    
+    .notification-badge {
+      position: relative;
+      right: -20px;
+      top: -60px;
+      color:Red;
+      margin: 0 -.8em;
+      border-radius: 50%;
+      padding: 1px 5px;
+  }
+
+  #badge {
+    color: white;
+    font-size: 8pt;
+    font-weight: 400;
+    padding: 2px 10px 2px 10px;
+  }
+  
+  small {
+    font-size: 60%;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 600;
+  }
+  
+  /*SideNav*/
+  .brand-logo img {
+    width: 100px;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .sidenav {
+    background-color: white;
+    font-family: 'Titillium Web', sans-serif;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .sidenav a {
+    color: #4d4d4d;
+}
+  .sidenav a:hover {
+    color: #388E3C;
+  }
+  .sidenav li>a>i.material-icons {
+    color: #388E3C;
+    font-weight: 700;
+  }
+  .submenu {
+    margin-left: 25px;
+    padding-left: 5px;
+  }
+  
+  .sidenav .collapsible-body, .sidenav.fixed .collapsible-body {
+    background-color: rgba(0, 0, 255, 0) !important;
+    padding-bottom: 0px;
+    min-width: 1140px;
+    
+  }
+  
+  .collapsible {
+    margin-top: 160px;
+  }
+
+  .z-depth-1, .btn-floating, .dropdown-content, .collapsible {
+    min-width: 1000px;
+    margin-top: 100px;
+  }
+
+  .icons {
+    font-size: 1rem;
+  }
+ #title {
+    text-align: center;
+    color: #388E3C;
+    line-height: 60px;
+    font-weight: 700;
+    background-color: white;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    border-left: solid 2px #f1f1f1;
+}
+
+#pr2 {
+  min-width: 1000px;
+  box-shadow: none !important;
+  border-bottom: none !important;
+  background-color: white;
+  border-top: 2px solid #f1f1f1;
+}
+
+.progress {
+  margin-top: -15px;
+  height: 2px !important;
+}
+
+#circle-item {
+    width: 50%;
+}
+
+.content {
+  padding-left: 290px !important;
+  margin-top: 30px;
+}
+
+.pr-form {
+    background-color: white;
+    margin-top: 30px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 
+    0 3px 1px -2px rgba(0,0,0,0.12), 
+    0 1px 5px 0 rgba(0,0,0,0.2); 
+}
+
+#header-approver {
+  margin-left: 10px;
+  min-width: 1000px;
+}
+
+#po-C1{
+  min-width: 1000px;
+  text-align: center;
+}
+
+#approver_details {
+  font-family: 'Titillium Web', sans-serif;
+  text-align: center;
+  line-height: 50px;
+  color: #333;
+}
+
+.check-box {
+  font-family: 'Titillium Web', sans-serif;
+  display: inline-block;
+  
+  color: #333;
+}
+
+.status {
+  color: red;
+  font-size: 10pt;
+  line-height: 50px;
+  font-style: italic;
+}
+
+#pr-title {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 900;
+  font-size: 20pt;
+  text-align: right;
+  height: 50px;
+}
+
+#address {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 10pt;
+  padding-bottom: 20px;
+}
+
+#pr-number {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 10pt;
+  padding-bottom: 20px;
+}
+
+#pr-num {
+  color: red;
+  font-size: 18px;
+}
+
+#datepicker {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 10pt;
+  width: 30%;
+  height: 50%;
+}
+input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
+  border-bottom: none !important;
+}
+
+#info0 {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 10pt;
+}
+
+#totalAmoumt {
+  font-family: 'Titillium Web', sans-serif;
+  text-align: right;
+  padding-top: 40px;
+}
+
+textarea {
+  background-color: white;
+}
+
+table, th{
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 10pt;
+  text-align: center;
+  margin-top: 20px;
+  color: white;
+
+}
+table, td {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 10pt;
+  text-align: center;
+  color: #333;
+}*/
+
+.input-left {
+  padding-top: 20px;
+}
+
+#nf {
+  padding-top: 20px;
+  font-size: 10pt;
+  text-align: right;
+}
+.line {
+  margin-top: 10px;
+  border-color: #000;
+  border-style: solid;
+}
+#vat {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 10pt;
+  text-align: center;
+  padding-top: 15px;
+}
+#totalvat {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 12pt;
+  text-align: center;
+}
+
+#note {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+#noteto {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 12pt;
+  color: red;
+}
+
+#note1 {
+  font-size: 11pt;
+  color: red;
+}
+
+.line-sig {
+  margin-top: 55px;
+}
+
+.line-sign {
+  margin-top: 90px;
+}
+
+#notetext {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 10pt;
+}
+
+#note-sign {
+  font-size: 10px;
+}
+
+#rname {
+  margin-top: 50px;
+}
+
+#note-sign1 {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 10pt;
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+#note-sign2 {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 10pt;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+#validation-bar {
+  height: 50px;
+  background-color: #DFDEDE;
+  border-top: 3px solid #292929;
+  border-bottom: 3px solid #292929;
+}
+
+#validation {
+  font-size: 9pt;
+  text-align: center;
+}
+
+#valid {
+  text-align: center;
+  font-size: 10pt;
+}
+
+.line-sign1 {
+  margin-top: 10px;
+}
+
+.line-sign2 {
+  margin-top: 100px;
+}
+
+#sign2 {
+  margin-top: 70px;
+}
+
+.waves-effect {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+#submit {
+  margin-top: 20px;
+}
+#submit-button {
+  margin-left: 10px;
+}
+
+#add-button{
+  margin-left: 10px;
+}
+
+th{
+  color: black;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.row{
+  margin-left: 10px;
+}
+
+#status-prog{
+  margin-top: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+
+  
+    .notification-badge {
+      position: relative;
+      margin-top: 0px;
+      right: -20px;
+      top: -70px;
+      border-radius: 50%;
+      background-color: white;
+      color: red;
+      padding: 1px 8px;
+      font-family: 'Titillium Web', sans-serif;
+    }
+    nav .notification {
+      margin-left: 500px;
+      font-family: 'Titillium Web', sans-serif;
+      font-size: 20px;
+    }
+
+    nav i.material-icons {
+      margin-right: -20px;
+    }
+    #price {
+        color: red;
+        font-size: 10pt;
+        margin-top: -10px;
+    }
+    
+  }
+
+  @media only screen and (max-width: 700px) {
+  
+    .notification-badge {
+      position: relative;
+      margin-top: 0px;
+      right: -20px;
+      top: -70px;
+      border-radius: 50%;
+      background-color: white;
+      color: red;
+      padding: 1px 8px;
+      font-family: 'Titillium Web', sans-serif;
+    }
+    nav .notification {
+      margin-left: 600px;
+      font-family: 'Titillium Web', sans-serif;
+      font-size: 20px;
+    }
+  
+    .content {
+      padding-left: -50px;
+      margin-top: 30px;
+    }
+    nav i.material-icons {
+      margin-right: -20px;
+    }
+    #price {
+      color: red;
+      font-size: 18pt;
+      margin-top: -10px;
+      font-size: medium;
+      font-weight: 700
+    }
+        /*Search*/
+        .searchbox {
+          display: block;
+          background-color: white;
+          margin-top: 100px;
+        }
+        .search {
+          background-color: white;
+          padding: 10px;
+          margin-top: 10px;
+          width: 100%;
+    }
+  }
+  @media only screen and (max-width: 900px) {
+    nav .notification {
+      margin-left: 300px;
+      font-family: 'Titillium Web', sans-serif;
+      font-size: 20px;
+    }
+    .pagination {
+      padding-top: 200px !important;
+    }
+  }
