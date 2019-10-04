@@ -23,6 +23,9 @@ namespace FinancialSystem.Models {
 		public virtual AvailabilityType Availability { get; set; }
 		public virtual PaymentTermsType Terms { get; set; }
 		public virtual BrandModel Brand { get; set; }
+		public virtual string TempSupplier { get; set; }
+		public virtual string image { get; set; }
+	
 
 
 		public NonCatalogItemLinesModel() {
@@ -46,12 +49,15 @@ namespace FinancialSystem.Models {
 				Map(x => x.TotalAnount);
 				Map(x => x.Availability);
 				Map(x => x.Terms);
+				Map(x => x.TempSupplier);
+				Map(x => x.image);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
 				
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				References(x => x.Supplier, "Supplier").Cascade.SaveUpdate();
 				References(x => x.Brand, "Brand").Cascade.SaveUpdate();
+				
 			}
 		}
 

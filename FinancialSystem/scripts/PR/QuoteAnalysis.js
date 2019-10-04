@@ -1,4 +1,4 @@
-﻿function InputDetail() {
+﻿function InputDetail(Id) {
 	var str="<tr>";
 		str+="<td>";
 		str+="<label>";
@@ -6,34 +6,36 @@
 		str+="<span></span>";
 		str+="</label>";
 		str+="</td>";
-		str+="<td style='display:none;'>" + $("#supplierInput-hidden").val() + "</td>";
-		str+="<td>" + $("#supplierInput").val() + "</td>";
-		str += "<td>" + $("#desc").val() + "</td>";
-		str += "<td>" + $("#price").val() + "</td>";
-		str += "<td>" + $("#uom option:selected").val() + "</td>";
-		str += "<td>" + $("#quantity").val() + "</td>";
-		str += "<td>" + $("#discount").val() + "</td>";
-		str += "<td>" + $("#TotalAnount").val() + "</td>";
-		str += "<td>" + $("#availability option:selected").val() + "</td>";
-		str += "<td>" + $("#terms option:selected").val() + "</td>";
-		str += "<td style='display:none;'>" + $("#brands option:selected").val() + "</td>";
-		str += "<td >" + $("#brands option:selected").html() + "</td>";
+		str+="<td style='display:none;'>" + $("#supplierInput-hidden_" + Id).val() + "</td>"	;
+		str+="<td>" + $("#supplierInput_" + Id).val() + "</td>";
+		str += "<td>" + $("#desc_" + Id).val() + "</td>";
+		str += "<td>" + $("#price_" + Id).val() + "</td>";
+		str += "<td>" + $("#uomInput-hidden_" + Id).val() + "</td>";
+		str += "<td>" + $("#quantity_" + Id).val() + "</td>";
+		str += "<td>" + $("#discount_" + Id).val() + "</td>";
+		str += "<td>" + $("#TotalAnount_" + Id).val() + "</td>";
+		str += "<td>" + $("#availabilityInput-hidden_" + Id).val() + "</td>";
+		str += "<td>" + $("#termsInput-hidden_" + Id).val() + "</td>";
+		str += "<td style='display:none;'>" + $("#brandsInput-hidden_" + Id).val() + "</td>";
+		str += "<td >" + $("#brandsInput_" + Id).val() + "</td>";
+		str += "<td style='display:none;'></td>";
 		str+="<td>";
 		str += "<a class='waves-effect waves-light btn red' onclick='DeleteRow(this)'>Delete</a>";
 		str+="</td>";
 		str += "</tr>";
-		jQuery("#table tbody").append(str);
+		$("#table_" + Id + " tbody").append(str);
 	M.toast({ html: 'Item has been added', classes: 'rounded' });
 
 }
-function SaveQA() {
+function SaveQA(Id) {
 	
 	var lines = [];
-	$('#table tbody tr').each(function () {
+	$('#table_' + Id + ' tbody tr').each(function () {
 
 		lines.push({
 			"Selected": $("input[type=radio]", this).prop("checked"),
 			"SupplierId": $(this).find("td").eq(1).html(),
+			"TempSupplier": $(this).find("td").eq(1).html(),
 			"Price": $(this).find("td").eq(4).html(),
 			"Description": $(this).find("td").eq(3).html(),
 			"Quantity": $(this).find("td").eq(6).html(),
@@ -42,16 +44,19 @@ function SaveQA() {
 			"TotalAnount": $(this).find("td").eq(8).html(),
 			"Availability": $(this).find("td").eq(9).html(),
 			"Terms": $(this).find("td").eq(10).html(),
-			"BrandId": $(this).find("td").eq(11).html()
+			"BrandId": $(this).find("td").eq(11).html(),
+			"Id": $(this).find("td").eq(12).html()
 		});
 	});
 	var Head = {
 
-		"Name": $("#ItemName").val(),
-		"SubCategoryId": $("#SubCategory option:selected").val(),
-		"Analysis": $("textarea#analysis").val(),
-		"RequestorId": $("#employeesInput-hidden").val(),
+		"Name": $("#ItemName_" + Id).val(),
+		"SubCategoryId": $("#SubCategory_" + Id + " option:selected").val(),
+		"Analysis": $("textarea#analysis_" + Id).val(),
+		"RequestorId": $("#employeesInput-hidden_" + Id).val(),
 		"SecurityStamp": $("#SecurityStamp").val(),
+		"Id": Id,
+		"Approved": $("#Approved_" + Id).prop("checked"),
 		"Lines": lines
 	};
 
@@ -66,11 +71,14 @@ function SaveQA() {
 		//dataType: 'json',
 
 		success: function (data) {
-			
-			$("#QaNumber").text(data);
-			M.toast({ html: 'Q.A Number ' + data + ' has been created', classes: 'rounded' });
-			//$("#submit-button").contents().unwrap();
-			$("#submit-button").hide();
+			if ($("#QaNumber_" + Id).text() != data) {
+				$("#QaNumber_" + Id).text(data);
+				M.toast({ html: 'Q.A Number ' + data + ' has been created', classes: 'rounded' });
+				//$("#submit-button").contents().unwrap();
+				$("#submit-button").hide();
+			} else {
+				M.toast({ html: 'Q.A Number ' + data + ' has been Updated', classes: 'rounded' });
+			}
 		},
 
 		error: function (error) {
@@ -86,45 +94,29 @@ function DeleteRow(tr) {
 	tr.closest("tr").remove();
 }
 
-function supplier() {
-	options = document.querySelectorAll("#supplier option");
-	$("#supplierInput-hidden").val("");
-	var found = false;
-	for (var i=0; i < options.length; i++) {
-		var option = options[i];
-		
-		if (option.innerText === $("#supplierInput").val()) {
-			found = true;
-			$("#supplierInput-hidden").val(option.getAttribute("data-value"));
-			break;
-		}
-	}
-	if (!found) {
-		M.toast({ html: 'Supplier ' + $("#supplierInput").val() + 'is not Registered', classes: 'rounded' });
-		$("#supplierInput").val("");
-	}
-	//alert($("#supplierInput-hidden").val());
-}
-function Employees() {
-	options = document.querySelectorAll("#employees option");
-	$("#employeesInput-hidden").val("");
+function dataList(Id,elem,DPEditable) {
+	options = document.querySelectorAll(elem + "_" + Id + " option");
+	$(elem + "Input-hidden_" + Id).val("");
 	var found = false;
 	for (var i = 0; i < options.length; i++) {
 		var option = options[i];
 
-		if (option.innerText === $("#employeesInput").val()) {
+		if (option.innerText === $(elem + "Input_" + Id).val()) {
 			found = true;
-			$("#employeesInput-hidden").val(option.getAttribute("data-value"));
+			$(elem + "Input-hidden_" + Id).val(option.getAttribute("data-value"));
 			break;
 		}
 	}
-	if (!found) {
-		M.toast({ html: $("#employeesInput").val() + ' is not an Employee', classes: 'rounded' });
-		$("#employeesInput").val("");
+	if (!DPEditable) {
+		if (!found) {
+			M.toast({ html: $(elem + "Input_" + Id).val() + ' is not a correct input', classes: 'rounded' });
+			$(elem + "Input_" + Id).val("");
+		}
 	}
+	//alert($(elem + "Input-hidden_" + Id).val());
 }
-function Category() {
-	var selectedVal = $("#CategorySelect option:selected").val();
+function Category(Id) {
+	var selectedVal = $("#CategorySelect_" + Id +" option:selected").val();
 	
 
 	$.ajax({
@@ -137,7 +129,7 @@ function Category() {
 			for (var i = 0; i < data.length; i++) {
 				$newoptions += "<option value='" + data[i].Id + "'>" + data[i].Name + "</option>";
 			}
-			$('select#SubCategory').html($newoptions);
+			$('select#SubCategory_' +Id).html($newoptions);
 
 		},
 
@@ -148,4 +140,25 @@ function Category() {
 		}
 
 	});
+}
+function search(event) {
+	
+	if (event.keyCode == 13) {
+		searchQA();
+		
+	}
+}
+function searchQA() {
+	var search = $("#search").val();
+	
+	if (!search.trim()) {
+		window.location = "UpdateViewQA";
+	} else {
+		window.location = "UpdateViewQA?search=" + search;
+	}
+}
+function Approved(Id) {
+	$("#Approved_" + Id).prop("checked", true);
+	SaveQA(Id);
+	alert($("#Approved_" + Id).prop("checked"));
 }

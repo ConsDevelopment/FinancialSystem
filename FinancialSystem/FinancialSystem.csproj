@@ -248,6 +248,7 @@
     <Compile Include="Controllers\API\Users\LoginApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\MVC\Company\MaintenanceController.cs" />
+    <Compile Include="Controllers\MVC\PO\POController.cs" />
     <Compile Include="Controllers\MVC\PR\PRController.cs" />
     <Compile Include="Controllers\MVC\Users\UserController.cs" />
     <Compile Include="Controllers\Test\TestApiController.cs" />
@@ -349,6 +350,9 @@
     <Content Include="Views\PR\CreatePR.cshtml" />
     <Content Include="Views\PR\PRAproover.cshtml" />
     <Content Include="Views\PR\QuoteAnalysis.cshtml" />
+    <Content Include="Views\PR\UpdateViewQA.cshtml" />
+    <Content Include="Views\PR\NonCatalogSearch.cshtml" />
+    <Content Include="Views\PO\PRSearch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

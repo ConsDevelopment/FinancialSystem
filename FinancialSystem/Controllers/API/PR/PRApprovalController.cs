@@ -27,21 +27,21 @@ namespace FinancialSystem.Controllers.API.PR {
 		public async Task<IList<PRApprovalViewModel>> Post(IList<PRApprovalViewModel> value) {
 			var nh = new NHibernateUserStore();
 			var nhps = new NHibernatePRStore();
-			var session = HttpContext.Current.Session;
-			var sessionKey = Config.GetAppSetting("SessionKey").ToString();
 			List<PRApprovalViewModel> PRs= new List<PRApprovalViewModel>();
-			if (session != null) {
-				if (session[sessionKey] != null) {
-					var user = (UserModel)session[sessionKey];
-					if (user != null) {
-						foreach (var approved in value) {
+			
+				
+					
+					
+					foreach (var approved in value) {
+						var user = nh.FindByStampAsync(approved.SecurityStamp);
+							if (user != null) {
 							var approval=await nhps.FindPRAprovalAsync(approved.Id);
 							approval.Status = approved.Status;
 							switch(approval.Status)
 							 {
 								case StatusType.Approved: 
 									var PRApprovals = await nhps.FindPRAprovalAsync(approval.PRHeader);
-									approval.ApprovedBy = user;
+									approval.ApprovedBy = user.Result;
 									approval.DateApproved = DateTime.UtcNow;
 									foreach (var PRApproval in PRApprovals) {
 										if (PRApproval.Status == StatusType.Approved) {
@@ -58,13 +58,17 @@ namespace FinancialSystem.Controllers.API.PR {
 								default:
 									break;
 							}
-							await nhps.SaveOrUpdatePRApprovalAsync(approval);
+							try {
+								await nhps.SaveOrUpdatePRApprovalAsync(approval);
+							} catch (Exception e) {
+
+							}
 							approved.RequisitionNo = approval.PRHeader.RequisitionNo;
 							PRs.Add(approved);
 						}
 					}
-				}
-			}
+				
+			
 			return PRs;
 		}
 

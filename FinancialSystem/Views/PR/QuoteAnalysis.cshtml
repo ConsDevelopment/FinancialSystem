@@ -1,4 +1,4 @@
-﻿@using FinancialSystem.Models
+﻿  @using FinancialSystem.Models
 @using FinancialSystem.Models.Enums
 
 @{
@@ -20,24 +20,24 @@
 			<div class="row">
 				<div class="qa">
 					<div class="col s6" id="top">
-						<label>QA Number: <span id="QaNumber"></span></label>
+						<label>QA Number: <span id="QaNumber_"></span></label>
 					</div>
 					<div class="col s6" id="top">
-						<input list="employees" onchange="Employees()" name="employees" placeholder="Employees" id="employeesInput" />
-						<datalist id="employees">
+						<input list="employees_" onchange="dataList('', '#employees', false)" name="employees" placeholder="Employees" id="employeesInput_" />
+						<datalist id="employees_">
 							@foreach (var employee in employees) {
 								<option data-value="@employee.Id">@employee.Name()</option>
-							}
+							}	
 						</datalist>
-						<input type="hidden" id="employeesInput-hidden" />
+						<input type="hidden" id="employeesInput-hidden_" />
 					</div>
 						<div class="col s6" id="top">
-							<label>Item: </label><input type="text" id="ItemName"
+							<label>Item: </label><input type="text" id="ItemName_"
 												 placeholder="Enter Item Name">
 						</div>
 						<div class="col s6" id="top">
 							<div class="searchable categories">
-								<select class="js-example-basic-single browser-default" name="state" id="CategorySelect" onchange="Category()">
+								<select class="js-example-basic-single browser-default" name="state" id="CategorySelect_" onchange="Category('')">
 									<option selected="selected">Select Categories</option>
 									@foreach (var category in categories) {
 										<option value="@category.Id">@category.Name</option>
@@ -47,7 +47,7 @@
 						</div>
 						<div class="col s6" id="top">
 							<div class="searchable">
-								<select class="js-example-basic-single browser-default" name="state" id="SubCategory">
+								<select class="js-example-basic-single browser-default" name="state" id="SubCategory_">
 									<option selected="selected">Select SubCategories</option>
 									<option value="AL">Alabama</option>
 									<option value="WY">Wyoming</option>
@@ -55,7 +55,7 @@
 							</div>
 						</div>
 					</div>
-				<table class="highlight" id="table">
+				<table class="highlight" id="table_">
 					<thead>
 						<tr>
 							<th>SELECT</th>
@@ -87,90 +87,78 @@
 				<div class="modal-content">
 					<h4>Input Suppliers</h4>
 					<div class="input-field col s6">
-						@*<select class="js-example-basic-single browser-default" name="state">
-							<option selected="selected">Supplier</option>
-							<option value="AL">Alabama</option>
-							<option value="WY">Wyoming</option>
-						</select>*@
-						<input list="supplier" onchange="supplier()" name="supplier" placeholder="Supplier" id="supplierInput" />
-						<datalist id="supplier">
+						<input list="supplier_" onchange="dataList('', '#supplier', true)" name="supplier" placeholder="Supplier" id="supplierInput_" />
+						<datalist id="supplier_">
 							@foreach (var supplier in suppliers) {
 								<option data-value="@supplier.Id">@supplier.Name</option>
 							}
 						</datalist>
-						<input type="hidden" id="supplierInput-hidden" />
+						<input type="hidden" id="supplierInput-hidden_" />
 					</div>
 					<div class="input-field col s6">
-						<input id="desc" type="text" class="validate">
-						<label for="desc">Description</label>
+						<input id="desc_" type="text" class="validate">
+						<label for="desc_">Description</label>
 					</div>
 					<div class="input-field col s6">
-						<input id="price" type="text" class="validate">
-						<label for="price">Price</label>
+						<input id="price_" type="text" class="validate">
+						<label for="price_">Price</label>
 					</div>
 					<div class="input-field col s6">
-						<input id="quantity" type="text" class="validate">
-						<label for="quantity">Quantity</label>
+						<input id="quantity_" type="text" class="validate">
+						<label for="quantity_">Quantity</label>
 					</div>
 					<div class="input-field col s6">
-						<select class="js-example-basic-single" name="state" id="uom">
-							<option value="" disabled selected>Unit of Measurement</option>
-							@{
-								var UOMs = Enum.GetValues(typeof(UOMType));
+						<input list="uom_" onchange="dataList('', '#uom', false)" name="uom" placeholder="Unit of Measurement" id="uomInput_" />
+						<datalist id="uom_">
+							@{			var UOMs = Enum.GetValues(typeof(UOMType));
 							}
 							@foreach (var UOM in UOMs) {
-								<option value="@UOM.ToString()">@UOM.ToString()</option>
+								<option data-value="@UOM.ToString()">@UOM.ToString()</option>
 							}
-						</select>
+						</datalist>
+						<input type="hidden" id="uomInput-hidden_" />
 					</div>
 					<div class="input-field col s6">
-						<input id="discount" type="text" class="validate">
-						<label for="discount">Discount</label>
+						<input id="discount_" type="text" class="validate">
+						<label for="discount_">Discount</label>
 					</div>
 					<div class="input-field col s6">
-						<input id="TotalAnount" type="text" class="validate">
-						<label for="TotalAnount">Total Amount</label>
+						<input id="TotalAnount_" type="text" class="validate">
+						<label for="TotalAnount_">Total Amount</label>
 					</div>
 					<div class="input-field col s6">
-						@*<input type="text" class="datepicker">
-						<label for="availability">Availability</label>*@
-						<select class="js-example-basic-single" name="availability" id="availability">
-							<option value="" disabled selected>Availability</option>
-							@{
-								var Availabilities = Enum.GetValues(typeof(AvailabilityType));
+						<input list="availability_" onchange="dataList('', '#availability', false)" name="uom" placeholder="Availability" id="availabilityInput_" />
+						<datalist id="availability_">
+							@{			var Availabilities = Enum.GetValues(typeof(AvailabilityType));
 							}
 							@foreach (var availability in Availabilities) {
-								<option value="@availability.ToString()">@availability.ToString()</option>
+								<option data-value="@availability.ToString()">@availability.ToString()</option>
 							}
-						</select>
+						</datalist>
+						<input type="hidden" id="availabilityInput-hidden_" />
 					</div>
 					<div class="input-field col s6">
-						<div class="searchable">
-							<select class="js-example-basic-single" name="terms" id="terms">
-								<option value="" disabled selected>Select Terms</option>
-							@{
-								var terms = Enum.GetValues(typeof(PaymentTermsType));
-							}
-							@foreach (var term in terms) {
-								<option value="@term.ToString()">@term.ToString()</option>
-							}
-							</select>
-						</div>
-					</div>
-					<div class="input-field col s6">
-						<div class="searchable">
-							<select class="js-example-basic-single" name="brands" id="brands">
-								<option value="" disabled selected>Choose Brand</option>
-								@foreach (var brand in brands) {
-									<option value="@brand.Id">@brand.Name</option>
+							<input list="terms_" onchange="dataList('','#terms',false)" name="terms" placeholder="Select Payment Terms" id="termsInput_" />
+							<datalist id="terms_">
+								@{			var terms = Enum.GetValues(typeof(PaymentTermsType));
 								}
-							</select>
-						</div>
+								@foreach (var term in terms) {
+									<option data-value="@term.ToString()">@term.ToString()</option>		}
+							</datalist>
+							<input type="hidden" id="termsInput-hidden_" />
+					</div>
+					<div class="input-field col s6">
+						<input list="brands_" onchange="dataList('', '#brands', false)" name="brands" placeholder="Choose Brand" id="brandsInput_" />
+						<datalist id="brands_">
+							@foreach (var brand in brands) {
+								<option data-value="@brand.Id">@brand.Name</option>		}
+						</datalist>
+						<input type="hidden" id="brandsInput-hidden_" />
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button class="modal-action modal-close btn waves-effect waves-light green accent-4 right"
-							onclick="InputDetail()"
+							onclick="InputDetail('')"
 							type="submit" name="action">
 						Add
 						<i class="material-icons right">add</i>
@@ -181,7 +169,7 @@
 		<div class="input-field col s12" id="remarks">
 			<div class="remarks">
 				<h5>Analysis Remarks: </h5>
-				<textarea id="analysis"></textarea>
+				<textarea id="analysis_"></textarea>
 			</div>
 		</div>
 		<div class="col s12" id="submit">
@@ -194,7 +182,7 @@
 				</div>
 				<div class="modal-footer">
 					<a href="#!" class="modal-close waves-effect waves-green btn-flat"
-					   onclick="SaveQA()">Yes</a>
+					   onclick="SaveQA('')">Yes</a>
 					<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
 				</div>
 			</div>

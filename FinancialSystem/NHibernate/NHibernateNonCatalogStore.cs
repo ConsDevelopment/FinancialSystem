@@ -15,13 +15,45 @@ namespace FinancialSystem.NHibernate {
 		public async Task<long> CreateNonCatalogHeadAsync(NonCatalogItemHeadModel Head) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
-					db.Save(Head);
+					db.SaveOrUpdate(Head);
 					tx.Commit();
 					db.Flush();
 					return Head.Id;
 				}
 			}
 
+		}
+		public async Task<NonCatalogItemHeadModel> GetNonCatalogAsync(long id) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.Get<NonCatalogItemHeadModel>(id);
+				}
+			}
+		}
+
+		public async Task<IList<NonCatalogItemHeadModel>> FindLatestNonCatalogHeadAsync(int count) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<NonCatalogItemHeadModel>().Where(x => x.DeleteTime == null).OrderBy(x=>x.CreateTime).Desc.Take(count).List();
+
+				}
+			}
+		}
+		public async Task<IList<NonCatalogItemHeadModel>> FindIdNonCatalogHeadListAsync(long id) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<NonCatalogItemHeadModel>().Where(x => x.DeleteTime == null && x.Id==id).OrderBy(x => x.CreateTime).Desc.List();
+
+				}
+			}
+		}
+		public async Task<IList<NonCatalogItemHeadModel>> SearchNonCatalogByNameAsync(string search) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					var items = db.QueryOver<NonCatalogItemHeadModel>().Where(Restrictions.On<NonCatalogItemHeadModel>(x => x.Name).IsLike(search + "%") && Restrictions.On<NonCatalogItemHeadModel>(x => x.DeleteTime).IsNull);
+					return items.List();
+				}
+			}
 		}
 	}
 }

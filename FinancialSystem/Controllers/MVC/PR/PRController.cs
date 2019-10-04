@@ -18,7 +18,7 @@ namespace FinancialSystem.Controllers.MVC.PR
     public class PRController : Controller
     {
         // GET: PR
-        public async Task<ActionResult> PRShop()
+        public async Task<ActionResult> PRShop(string itemType="Catalog")
         {
 			NHibernateUserStore nh = new NHibernateUserStore();
 			ViewData["ApiServer"] = Config.GetApiServerURL();
@@ -42,8 +42,8 @@ namespace FinancialSystem.Controllers.MVC.PR
 			var nhps = new NHibernatePRStore();
 			var lines = await nhps.PRLinesCreatedAsync(user);
 			ViewData["cartCount"] = lines.Count;
-			ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
-			ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
+
+			ViewData["itemType"] = itemType;
 			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
 			
 			return View(user);
@@ -54,6 +54,21 @@ namespace FinancialSystem.Controllers.MVC.PR
 			value.searchItem = value.searchItem ?? "";
 			var search = await his.SearchItemAsync(value.searchItem);
 			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
+			return PartialView(search);
+
+		}
+		public async Task<ActionResult> NonCatalogSearch(SearchItemViewModel value) {
+			var his = new NHibernateNonCatalogStore();
+			value.searchItem = value.searchItem ?? "";
+			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
+			int result;
+			var isNumber = int.TryParse(value.searchItem, out result);
+			IList<NonCatalogItemHeadModel> search = null;
+			if (isNumber) {
+				search = await his.FindIdNonCatalogHeadListAsync(result);
+			} else {
+				search = await his.SearchNonCatalogByNameAsync(value.searchItem);
+			}
 			return PartialView(search);
 
 		}
@@ -78,8 +93,7 @@ namespace FinancialSystem.Controllers.MVC.PR
 			var nhps = new NHibernatePRStore();
 			var lines = await nhps.PRLinesCreatedAsync(user);
 			ViewData["cartCount"] = lines.Count;
-			ViewData["UserProfilePict"] = Config.GetUserProfilePict(user.employee.Image);
-			ViewData["CompanyLogo"] = Config.GetCompanyLogo(user.employee.Company.Logo);
+			
 			ViewData["ItemImagePath"] = Config.GetAppSetting("ItemImagePath");
 			
 			return View(lines);
@@ -148,5 +162,32 @@ namespace FinancialSystem.Controllers.MVC.PR
 
 			return View();
 		}
+
+		[Authorize(Roles = "Purchaser")]
+		public async Task<ActionResult> UpdateViewQA(string search) {
+			
+			var nhnch = new NHibernateNonCatalogStore();
+			var employees = new NHibernateCompanyStore();
+			var category = new NHibernateCategoryStore();
+			var supplier = new NHibernateISupplierStore();
+			IList<NonCatalogItemHeadModel> nonCatalogHeads = null;
+			
+			ViewData["Categories"] = await category.GeatAllCategoryAsync();
+			ViewData["pageName"] = "QuoteAnalysisUV";
+			ViewData["employees"] = await employees.GetAllEmployeeAsync();
+			ViewData["supplier"] = await supplier.GeatAllSupplierAsync();
+			ViewData["brand"] = await supplier.GeatAllBrandAsync();
+
+			long id;
+			if (search == null) {
+				nonCatalogHeads = await nhnch.FindLatestNonCatalogHeadAsync(10);
+			} else if (long.TryParse(search, out id)) {
+				nonCatalogHeads = await nhnch.FindIdNonCatalogHeadListAsync(id);
+			} else {
+				nonCatalogHeads = await nhnch.SearchNonCatalogByNameAsync(search);
+			}
+			return View(nonCatalogHeads);
+		}
+		
 	}
 }

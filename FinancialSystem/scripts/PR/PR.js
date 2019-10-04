@@ -2,7 +2,9 @@
 function AddPrLines(id) {
 	source = {
 		"Id": id,
-		"Quantity": $("#qty" + id).val()
+		"Quantity": $("#qty" + id).val(),
+		"SecurityStamp": $("#SecurityStamp").val(),
+		"itemType": $("#itemType").val()
 	};
 
 	$.ajax({
@@ -39,10 +41,16 @@ function modal(id) {
 function search(event) {
 
 	if (event.keyCode == 13) {
-		searchItem();
+		var controller;
+		if ($("#itemType").val() == "Catalog") {
+			controller = "ItemSearch";
+		} else {
+			controller = "NonCatalogSearch";
+		}
+		searchItem(controller);
 	}
 }
-function searchItem() {
+function searchItem(controller) {
 	
 	source = {
 		"searchItem": $("#search").val()
@@ -51,7 +59,7 @@ function searchItem() {
 	$.ajax({
 
 		type: "POST",
-		url: $("#ApiServer").val() + "/PR/ItemSearch",
+		url: $("#ApiServer").val() + "/PR/" + controller,
 		data: JSON.stringify(source),
 		//data: "1",
 		contentType: 'application/json; charset=utf-8',
@@ -77,7 +85,8 @@ function CreatePR() {
 	$.each($("input[name='itemCheck']"), function () {
 		if ($(this).is(':checked')) {
 			var element = {
-				"Id": Number($(this).attr('id'))
+				"Id": Number($(this).attr('id')),
+				
 			};
 			lines.push(element);
 		}
@@ -123,7 +132,8 @@ function DeleteLines() {
 	$.each($("input[name='itemCheck']"), function () {		
 		if ($(this).is(':checked')) {
 			var element = {
-				"Id": Number($(this).attr('id'))
+				"Id": Number($(this).attr('id')),
+				"SecurityStamp": $("#SecurityStamp").val()
 			};
 			lines.push(element);
 		}
@@ -215,6 +225,7 @@ $("#submitPR").on('click', function () {
 		"RequestorId": $("#RequestorId").val(),
 		"DeliveryAdress": $("#DeliveryAddress").text(),
 		"DateNeeded": date,
+		"SecurityStamp": $("#SecurityStamp").val(),
 		"Lines": json
 	};
 

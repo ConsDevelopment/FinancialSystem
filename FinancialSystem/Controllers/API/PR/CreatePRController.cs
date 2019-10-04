@@ -29,23 +29,28 @@ namespace FinancialSystem.Controllers.API.PR {
 			var nh = new NHibernateUserStore();
 			var nhps = new NHibernatePRStore();
 			var session = HttpContext.Current.Session;
-			var sessionKey = Config.GetAppSetting("SessionKey").ToString();
-		
-			if (session != null) {
-				if (session[sessionKey] != null) {
-					var user = (UserModel)session[sessionKey];
-					if (user != null) {
+			//var sessionKey = Config.GetAppSetting("SessionKey").ToString();
 
-						var nhcs = new NHibernateCompanyStore();
-						var utcDate = value.DateNeeded.ToUniversalTime();
-						var requestor = await nhcs.GetEmployeeAsync(value.RequestorId);
+
+
+			var user = nh.FindByStampAsync(value.SecurityStamp);
+			if (user != null) {
+				var nhcs = new NHibernateCompanyStore();
+				var utcDate = value.DateNeeded.ToUniversalTime();
+				var requestor = await nhcs.GetEmployeeAsync(value.RequestorId);
+				DateTime dateNeeded;
+				if (value.DateNeeded < DateTime.UtcNow) {
+					dateNeeded = DateTime.UtcNow.AddDays(6);
+				} else {
+					dateNeeded = value.DateNeeded;
+				}
 						var prHeader = new PRHeaderModel() {
 							Status = StatusType.Request,
 							Requestor = requestor,
 							DeliveryAdress = value.DeliveryAdress,
-							DateNeeded = value.DateNeeded,
+							DateNeeded = dateNeeded,
 							CRC = requestor.Team.CRC,
-							CreatedBy = user,
+							CreatedBy = user.Result,
 							Lines=new List<PRLinesModel>(),
 							Approvals=new List<PRAprovalModel>(),
 
@@ -54,7 +59,7 @@ namespace FinancialSystem.Controllers.API.PR {
 							var immedieateAprover = new PRAprovalModel() {
 								Approver= requestor.ImmediateLeader,
 								Status=StatusType.Request,
-								CreatedBy=user
+								CreatedBy=user.Result
 							};
 
 							prHeader.Approvals.Add(immedieateAprover);
@@ -66,7 +71,7 @@ namespace FinancialSystem.Controllers.API.PR {
 								var DepLeadAproval = new PRAprovalModel() {
 									Approver = requestor.Department.DepartmentLeader,
 									Status = StatusType.Request,
-									CreatedBy = user
+									CreatedBy = user.Result
 								};
 								prHeader.Approvals.Add(DepLeadAproval);
 							}
@@ -78,7 +83,7 @@ namespace FinancialSystem.Controllers.API.PR {
 								var corfin = new PRAprovalModel() {
 									Approver = requestor.Company.Corfin,
 									Status = StatusType.Request,
-									CreatedBy = user
+									CreatedBy = user.Result
 								};
 								prHeader.Approvals.Add(corfin);
 							}
@@ -86,33 +91,53 @@ namespace FinancialSystem.Controllers.API.PR {
 						foreach (var line in value.Lines) {
 							
 							var lin = await nhps.GetPRLineAsync(line.Id);
-							if (lin.Item != null) {
-								if (lin.Item.SubCategory != null) {
-									
-									if (!prHeader.Approvals.Any(s => s.Approver.Id == lin.Item.SubCategory.Category.Approver.Id)) {
-										var ItemAproval = new PRAprovalModel() {
-											Approver = lin.Item.SubCategory.Category.Approver,
-											Status = StatusType.Request,
-											CreatedBy = user
-										};
-										prHeader.Approvals.Add(ItemAproval);
-									}
-								}
+					if (lin.Item != null) {
+						if (lin.Item.SubCategory != null) {
+
+							if (!prHeader.Approvals.Any(s => s.Approver.Id == lin.Item.SubCategory.Category.Approver.Id)) {
+								var ItemAproval = new PRAprovalModel() {
+									Approver = lin.Item.SubCategory.Category.Approver,
+									Status = StatusType.Request,
+									CreatedBy = user.Result
+								};
+								prHeader.Approvals.Add(ItemAproval);
 							}
-							lin.Description = lin.Item.Description;
-							lin.Supplier = lin.Item.Supplier;
-							lin.UnitPrice = lin.Item.Price;
-							lin.UOM = lin.Item.UOM;
+						}
+						lin.Description = lin.Item.Description;
+						lin.Supplier = lin.Item.Supplier;
+						lin.UnitPrice = lin.Item.Price;
+						lin.UOM = lin.Item.UOM;
+					} else {
+						if (lin.NonCatalog.SubCategory != null) {
+							if (!prHeader.Approvals.Any(s => s.Approver.Id == lin.NonCatalog.SubCategory.Category.Approver.Id)) {
+								var ItemAproval = new PRAprovalModel() {
+									Approver = lin.NonCatalog.SubCategory.Category.Approver,
+									Status = StatusType.Request,
+									CreatedBy = user.Result
+								};
+								prHeader.Approvals.Add(ItemAproval);
+							}
+						}
+						var item =lin.NonCatalog.Lines.Where(x => x.Selected == true && x.DeleteTime == null).SingleOrDefault();
+						lin.Description = item.Description;
+						lin.Supplier = item.Supplier;
+						lin.UnitPrice = item.Price;
+						lin.UOM = item.UOM;
+					}
+							
 							lin.TotalAmount = lin.Quantity * lin.UnitPrice;
 							prHeader.Amount += lin.TotalAmount;
 							prHeader.Lines.Add(lin);
 							
 							
 						}
-						await nhps.CreatePRHeaderAsync(prHeader);
-					}
+				try {
+					await nhps.CreatePRHeaderAsync(prHeader);
+				} catch (Exception e) {
 				}
-			}
+					}
+				
+			
 		}
 
 		// PUT api/<controller>/5

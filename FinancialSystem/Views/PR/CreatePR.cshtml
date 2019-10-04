@@ -1,4 +1,5 @@
 ﻿@using FinancialSystem.Models
+@using FinancialSystem.Models.Enums
 @model IList<FinancialSystem.Models.PRLinesModel>
 
 @Styles.Render("~/Content/PR/PRCreation")
@@ -7,68 +8,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 	<div class="row">
-		@*<div class="col s2">
-			<ul id="nav-mobile" class="sidenav sidenav-fixed" style="transform: translateX(-105%);">
-				<div class="brand-logo"><img src="images/bsi_logo.png" alt="" class="logo"></div>
-				<ul class="collapsible">
-					<li>
-						<div class="collapsible-header">
-							<a href="#">
-								<i class="material-icons">dashboard</i> Dash
-								Board
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="collapsible-header">
-							<a href="pr-shop.html">
-								<i class="material-icons">assignment</i>
-								Purchase Request
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="collapsible-header">
-							<a href="#">
-								<i class="material-icons">format_quote</i> Quote
-								Analysis
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="collapsible-header">
-							<a href="#">
-								<i class="material-icons">shopping_cart</i>
-								Purchase Order
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="collapsible-header">
-							<a href="#">
-								<i class="material-icons">list</i>
-								Items
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="collapsible-header">
-							<a href="#">
-								<i class="material-icons">settings</i>
-								Setting
-							</a>
-						</div>
-						<div class="collapsible-body submenu">
-							<i class="material-icons icons">fiber_manual_record</i>
-							<a href="usermaintenance.html">User Maintenance</a>
-						</div>
-						<div class="collapsible-body submenu">
-							<i class="material-icons icons">fiber_manual_record</i><a href="jobmaintenance.html">Job Maintenance</a>
-						</div>
-					</li>
-				</ul>
-			</ul>
-		</div>*@
 		<!--  -->
 		<div class="col s10 content">
 
@@ -151,6 +90,7 @@
 							</div>
 							<div class="col s6" id="info"></div>
 							@{ 
+
 								double totalPrice = 0;
 							<div class="col s12">
 								<table class="highlight" id="linesTable">
@@ -169,22 +109,42 @@
 									
 									<tbody>
 										@for (int i = 1; i <= Model.Count; i++) {
+											string code = "";
+											string description="";
+											string supplier = "";
+											double price = 0;
+											UOMType uom;
+											if(Model[i - 1].Item != null) {
+												code = Model[i - 1].Item.Code;
+												description = Model[i - 1].Item.Description;
+												if(Model[i - 1].Item.Supplier != null) {
+													supplier = Model[i - 1].Item.Supplier.Name;
+												}
+												uom = Model[i - 1].Item.UOM;
+												price = Model[i - 1].Item.Price;
+											} else{
+												var item = Model[i - 1].NonCatalog.Lines.Where(x => x.Selected == true && x.DeleteTime == null).SingleOrDefault();
+												code = Model[i - 1].NonCatalog.Id.ToString();
+												description = item.Description;
+												if (item.Supplier != null) {
+													supplier=item.Supplier.Name;
+												} else {
+													supplier = item.TempSupplier;
+												}
+												uom=item.UOM;
+												price = item.Price;
+											}
 										<tr>
 											<td style="display:none;">@Model[i - 1].Id</td>
-<td>@i</td>
-											<td>@Model[i - 1].Item.Code</td>
-											<td>@Model[i - 1].Item.Description</td>
-											@if (Model[i - 1].Supplier != null) {
-												<td>@(Model[i - 1].Supplier.Name)</td>
-											} else {
-												<td></td>
-											}
-
-											<td>@Model[i - 1].Item.UOM</td>
+											<td>@i</td>
+											<td>@code</td>
+											<td>@description</td>
+											<td>@supplier</td>
+											<td>@uom</td>
 											<td>@Model[i - 1].Quantity</td>
-											<td>@Model[i - 1].Item.Price</td>
-											<td>@(Model[i - 1].Item.Price * Model[i - 1].Quantity )</td>
-											@(totalPrice+= Model[i - 1].Item.Price * Model[i - 1].Quantity )
+											<td>@price</td>
+											<td>@(price * Model[i - 1].Quantity )</td>
+											@(totalPrice+= price * Model[i - 1].Quantity )
 										</tr>
 										}
 									</tbody>

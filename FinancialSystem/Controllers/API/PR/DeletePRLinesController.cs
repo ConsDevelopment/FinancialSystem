@@ -26,18 +26,15 @@ namespace FinancialSystem.Controllers.API.PR {
 		public async Task Post(IList<PrLinesViewModel> value) {
 			var nh = new NHibernateUserStore();
 			var nhps = new NHibernatePRStore();
-			var session = HttpContext.Current.Session;
-			var sessionKey = Config.GetAppSetting("SessionKey").ToString();
-			if (session != null) {
-				if (session[sessionKey] != null) {
-					var user = (UserModel)session[sessionKey];
-					if (user != null) {
-						foreach (var line in value) {
-							await nhps.DeletePRLineAsync(line.Id);
-						}
+						
+			foreach (var line in value) {
+				var user = nh.FindByStampAsync(line.SecurityStamp);
+				if (user != null) {						
+						await nhps.DeletePRLineAsync(line.Id);
 					}
 				}
-			}
+				
+			
 		}
 
 		// PUT api/<controller>/5

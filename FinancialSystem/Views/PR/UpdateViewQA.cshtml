@@ -1,0 +1,304 @@
+﻿@using FinancialSystem.Models
+@using FinancialSystem.Models.Enums
+@using FinancialSystem.Utilities;
+@model IList<FinancialSystem.Models.NonCatalogItemHeadModel>
+
+@{
+	ViewBag.Title = "UpdateViewQA";
+	Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+	var employees = (List<EmployeeModel>)ViewData["employees"];
+	var categories = (List<CategoryModel>)ViewData["Categories"];
+	var suppliers = (List<SupplierModel>)ViewData["supplier"];
+	var brands = (List<BrandModel>)ViewData["brand"];
+	var user = (UserModel)Session[Config.GetAppSetting("SessionKey")];
+}
+@Styles.Render("~/Content/PR/quote-analysis")
+@Scripts.Render("~/scripts/PR/QuoteAnalysis")
+
+<div class="col s10 content">
+	<div class="container">
+		<div class="row">
+				<div class="row">
+
+					<div class="search"><input type="text" id="search" placeholder="Search" onkeyup="search(event)"></div>
+				</div>
+		
+			<div id="QAContainer">
+
+				@foreach (var head in Model) {
+				var approved = head.ApprovedBy != null ? "Approved" : "";
+				<div class="col s12" id="header-approver">
+					<ul class="collapsible">
+						<li>
+							<div class="collapsible-header" id="pr2">
+								<div class="col s2">
+									<label class="check-box">
+										Q.A #: <span id="QaNumber_@head.Id">@head.Id</span>
+									</label>
+								</div>
+								<div class="col s4" id="approver_details">
+									@head.Name
+								</div>
+								<div class="col s2" id="approver_details">
+									@head.Requestor.Name()
+								</div>
+								<div class="col s2" id="approver_details">
+									@approved
+								</div>
+								<div class="col s2" id="approver_details">
+									@head.CreateTime.ToLocalTime().ToShortDateString()
+								</div>
+							</div>
+							<div class="collapsible-body white" id="pr2">
+								<div class="row">
+									<div class="qa" id="qa">
+
+										<div class="col s6" id="top">
+											<input list="employees_@head.Id" onchange="dataList('@head.Id','#employees',false)" name="employees" placeholder="Employees" id="employeesInput_@head.Id" value="@head.Requestor.Name()" />
+											<datalist id="employees_@head.Id">
+												@foreach (var employee in employees) {
+													<option data-value="@employee.Id">@employee.Name()</option>
+												}
+											</datalist>
+											<input type="hidden" id="employeesInput-hidden_@head.Id" value="@head.Requestor.Id" />
+										</div>
+										<div class="col s6" id="top">
+											<label>Item: </label><input type="text" value="@head.Name" id="ItemName_@head.Id"
+															 placeholder="Enter Item Name">
+										</div>
+										<div class="col s6" id="top">
+											<div class="searchable categories">
+												<select class="js-example-basic-single browser-default" name="state" id="CategorySelect_@head.Id" onchange="Category('@head.Id')">
+													@foreach (var category in categories) {
+														if (category == head.SubCategory.Category) {
+															<option value="@category.Id" selected="selected">@category.Name</option>
+														} else {
+															<option value="@category.Id">@category.Name</option>
+														}
+													}
+												</select>
+											</div>
+										</div>
+										<div class="col s6" id="top">
+											<div class="searchable">
+												<select class="js-example-basic-single browser-default" name="state" id="SubCategory_@head.Id">
+					
+													<option value="@head.SubCategory.Id" selected="selected">@head.SubCategory.Name</option>
+													
+												</select>
+											</div>
+										</div>
+										<table class="highlight" id="table_@head.Id" >
+											<thead>
+												<tr>
+													<th>SELECT</th>
+													<th>SUPPLIER</th>
+													<th>DESCRIPTION</th>
+													<th>PRICE</th>
+													<th>OUM</th>
+													<th>QUANTITY</th>
+													<th>DISCOUNT</th>
+													<th>TOTAL AMOUNT</th>
+													<th>AVAILABILITY</th>
+													<th>TERMS</th>
+													<th>BRAND</th>
+													<th>ACTIONS</th>
+												</tr>
+											</thead>
+											<tbody>
+												@foreach (var line in head.Lines) {
+													if (line.DeleteTime != null) {
+														continue;
+													}
+												<tr>
+													<td>
+														<label>
+															@if (line.Selected) {
+																<input name="@head.Id" type="radio" checked="checked" />
+															} else {
+																<input name="@head.Id" type="radio" />
+															}
+															<span></span>
+														</label>
+													</td>  
+													@if (@line.Supplier != null) {
+														<td style='display:none;'>@line.Supplier.Id</td>                                         
+														<td>@line.Supplier.Name</td>
+													} else {
+														<td style='display:none;'></td>
+														<td>@line.TempSupplier</td>
+													}
+													<td>@line.Description</td>
+													<td>@line.Price</td>
+													<td>@line.UOM</td>
+													<td>@line.Quantity</td>
+													<td>@line.Discount</td>
+													<td>@line.TotalAnount</td>
+													<td>@line.Availability</td>
+													<td>@line.Terms</td>
+													<td style='display:none;'>@(line.Brand == null ? "" : line.Brand.Id.ToString())</td>
+													<td>@(line.Brand==null ? "" : line.Brand.Name)</td>
+													<td style='display:none;'>@line.Id</td> 
+													<td>
+														<a class='waves-effect waves-light btn red' onclick='DeleteRow(this)'>Delete</a>
+													</td>
+												</tr>
+												}
+											</tbody>
+										</table>
+									</div>
+									<button class="btn waves-effect waves-light green accent-4 modal-trigger"
+											href="#modal1" type="submit" name="action">
+										Add
+										<i class="material-icons right">add</i>
+									</button>
+									<!-- Modal Structure -->
+									<div id="modal1" class="modal">
+										<div class="modal-content">
+											<h4>Input Suppliers</h4>
+											<div class="input-field col s6">
+												<input list="supplier_@head.Id" onchange="dataList('@head.Id','#supplier',true)" name="supplier" placeholder="Supplier" id="supplierInput_@head.Id" />
+												<datalist id="supplier_@head.Id">
+													@foreach (var supplier in suppliers) {
+														<option data-value="@supplier.Id">@supplier.Name</option>
+													}
+												</datalist>
+												<input type="hidden" id="supplierInput-hidden_@head.Id" />
+											</div>
+											<div class="input-field col s6">
+												<input id="desc_@head.Id" type="text" class="validate">
+												<label for="desc_@head.Id">Description</label>
+											</div>
+											<div class="input-field col s6">
+												<input id="price_@head.Id" type="text" class="validate">
+												<label for="price_@head.Id">Price</label>
+											</div>
+											<div class="input-field col s6">
+												<input id="quantity_@head.Id" type="text" class="validate">
+												<label for="quantity_@head.Id">Quantity</label>
+											</div>
+											<div class="input-field col s6">
+												<input list="uom_@head.Id" onchange="dataList('@head.Id','#uom',false)" name="uom" placeholder="Unit of Measurement" id="uomInput_@head.Id" />
+												<datalist id="uom_@head.Id">
+													@{			var UOMs = Enum.GetValues(typeof(UOMType));
+													}
+													@foreach (var UOM in UOMs) {
+														<option data-value="@UOM.ToString()">@UOM.ToString()</option>
+													}
+												</datalist>
+												<input type="hidden" id="uomInput-hidden_@head.Id" />
+											</div>
+											<div class="input-field col s6">
+												<input id="discount_@head.Id" type="text" class="validate">
+												<label for="discount_@head.Id">Discount</label>
+											</div>
+											<div class="input-field col s6">
+												<input id="TotalAnount_@head.Id" type="text" class="validate">
+												<label for="TotalAnount_@head.Id">Total Amount</label>
+											</div>
+											<div class="input-field col s6">
+												<input list="availability_@head.Id" onchange="dataList('@head.Id','#availability',false)" name="uom" placeholder="Availability" id="availabilityInput_@head.Id" />
+												<datalist id="availability_@head.Id">
+													@{			var Availabilities = Enum.GetValues(typeof(AvailabilityType));
+													}
+													@foreach (var availability in Availabilities) {
+														<option data-value="@availability.ToString()">@availability.ToString()</option>
+													}
+												</datalist>
+												<input type="hidden" id="availabilityInput-hidden_@head.Id" />
+											</div>
+											<div class="input-field col s6">
+													<input list="terms_@head.Id" onchange="dataList('@head.Id','#terms',false)" name="terms" placeholder="Select Terms" id="termsInput_@head.Id" />
+													<datalist id="terms_@head.Id">
+														@{			var terms = Enum.GetValues(typeof(PaymentTermsType));
+														}
+														@foreach (var term in terms) {
+															<option data-value="@term.ToString()">@term.ToString()</option>		}
+													</datalist>
+													<input type="hidden" id="termInput-hidden_@head.Id" />
+											</div>
+											<div class="input-field col s6">
+												<input list="brands_@head.Id" onchange="dataList('@head.Id', '#brands', false)" name="brands" placeholder="Choose Brand" id="brandsInput_@head.Id" />
+												<datalist id="brands_@head.Id">
+													@foreach (var brand in brands) {
+														<option data-value="@brand.Id">@brand.Name</option>		}
+												</datalist>
+												<input type="hidden" id="brandsInput-hidden_@head.Id" />
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button class="modal-action modal-close btn waves-effect waves-light green accent-4 right"
+													onclick="InputDetail('@head.Id')"
+													type="submit" name="action">
+												Add
+												<i class="material-icons right">add</i>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="remark">
+										<h5>Anaysis Remarks: </h5>
+										<textarea id="analysis_@head.Id"></textarea>
+									</div>
+									
+									<div class="col s12" id="approvebtn">
+										@{ 
+											string isApprover="";
+											if (user.employee.position.Id == head.Approver.Id) {
+												isApprover = "";
+											} else {
+												isApprover = "style=display:none";
+											}
+										}
+										<a @isApprover class="waves-effect waves-light btn right green modal-trigger" href="#modal5"
+										   id="submit-button">APPROVER</a>
+						
+										<!-- Modal Structure -->
+										<div id="modal5" class="modal">
+											<div class="modal-content">
+												<p>
+													Are you sure you want to approve?
+												</p>
+											</div>
+											<div class="modal-footer">
+												<input type="checkbox" style="display:none" id="Approved_@head.Id"/>
+												<a href="#!" class="modal-close waves-effect waves-green btn-flat"
+												   onclick="Approved('@head.Id')">Yes</a>
+												<a href="#!"
+												   class="modal-close waves-effect waves-green btn-flat">No</a>
+											</div>
+										</div>
+										
+										<a class="waves-effect waves-light btn right red darken-1 modal-trigger"
+										   href="#modal6" id="submit-button">UPDATE</a>
+										<!-- Modal Structure -->
+										<div id="modal6" class="modal">
+											<div class="modal-content">
+												<p>
+													Are you sure you want to update?
+												</p>
+											</div>
+											<div class="modal-footer">
+												<a href="#!" class="modal-close waves-effect waves-green btn-flat"
+												   onclick="SaveQA('@head.Id')">Yes</a>
+												<a href="#!"
+												   class="modal-close waves-effect waves-green btn-flat">No</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<div class="progress">
+						<div class="indeterminate"></div>
+					</div>
+				</div>
+				}
+			</div>
+		</div>
+	</div>
+
+
+</div>

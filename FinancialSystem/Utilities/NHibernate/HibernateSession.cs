@@ -106,7 +106,7 @@ namespace FinancialSystem.Utilities {
 									factories[env] = Fluently.Configure(c).Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionStrings["Test_Server"].ConnectionString)/*.ShowSql()*/)
 									   .Mappings(m => {
 										   m.FluentMappings.AddFromAssemblyOf<UserModel>();
-									   })
+									   }) 
 									   .ExposeConfiguration(x => BuildMsSqlSchema(x))
 									   .BuildSessionFactory();
 								} catch (Exception e) {
