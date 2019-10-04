@@ -51,7 +51,7 @@ function search(event) {
 	}
 }
 function searchItem(controller) {
-	alert(controller);
+	
 	source = {
 		"searchItem": $("#search").val()
 	};

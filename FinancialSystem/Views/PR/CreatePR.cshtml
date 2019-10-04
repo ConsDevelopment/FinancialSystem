@@ -112,6 +112,7 @@
 											string code = "";
 											string description="";
 											string supplier = "";
+											double price = 0;
 											UOMType uom;
 											if(Model[i - 1].Item != null) {
 												code = Model[i - 1].Item.Code;
@@ -119,8 +120,9 @@
 												if(Model[i - 1].Item.Supplier != null) {
 													supplier = Model[i - 1].Item.Supplier.Name;
 												}
-												uom=
-											}else{
+												uom = Model[i - 1].Item.UOM;
+												price = Model[i - 1].Item.Price;
+											} else{
 												var item = Model[i - 1].NonCatalog.Lines.Where(x => x.Selected == true && x.DeleteTime == null).SingleOrDefault();
 												code = Model[i - 1].NonCatalog.Id.ToString();
 												description = item.Description;
@@ -129,6 +131,8 @@
 												} else {
 													supplier = item.TempSupplier;
 												}
+												uom=item.UOM;
+												price = item.Price;
 											}
 										<tr>
 											<td style="display:none;">@Model[i - 1].Id</td>
@@ -136,11 +140,11 @@
 											<td>@code</td>
 											<td>@description</td>
 											<td>@supplier</td>
-											<td>@Model[i - 1].Item.UOM</td>
+											<td>@uom</td>
 											<td>@Model[i - 1].Quantity</td>
-											<td>@Model[i - 1].Item.Price</td>
-											<td>@(Model[i - 1].Item.Price * Model[i - 1].Quantity )</td>
-											@(totalPrice+= Model[i - 1].Item.Price * Model[i - 1].Quantity )
+											<td>@price</td>
+											<td>@(price * Model[i - 1].Quantity )</td>
+											@(totalPrice+= price * Model[i - 1].Quantity )
 										</tr>
 										}
 									</tbody>
