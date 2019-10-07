@@ -1,4 +1,7 @@
-﻿<div class="col s12" id="header-approver">
+﻿@model IList<FinancialSystem.Models.PRHeaderModel>
+
+@foreach (var item in Model) {
+<div class="col s12" id="header-approver">
 	<ul class="collapsible">
 		<li>
 			<div class="collapsible-header" id="po-C1">
@@ -120,9 +123,10 @@
 							<p id="vat">
 								<b>
 									Php 100,000.00<br>
+								</b>
 							</p>
 							<hr class="line">
-							<p id="totalvat">Php 10,000,000.00</b></p>
+							<p id="totalvat"><b>Php 10,000,000.00</b></p>
 						</div>
 						<div class="col s12" id="note">
 							<p id="noteto"><b>Note to Buyer: </b></p>
@@ -183,3 +187,4 @@
 		</div>
 	</div>
 </div>
+}
