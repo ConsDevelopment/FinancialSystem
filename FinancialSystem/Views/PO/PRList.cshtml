@@ -1,54 +1,48 @@
 ﻿@model IList<FinancialSystem.Models.PRHeaderModel>
-
-@foreach (var item in Model) {
+@using FinancialSystem.Utilities
+@foreach (var pr in Model) {
 <div class="col s12" id="header-approver">
 	<ul class="collapsible">
 		<li>
 			<div class="collapsible-header" id="po-C1">
 				<div class="col s2" id="creation_details">
-					0001
+					@pr.RequisitionNo
 				</div>
 				<div class="col s2" id="creation_details">
-					Nike Shoes
+					@pr.Amount
 				</div>
 				<div class="col s2" id="creation_details">
-					1,500.00
+					@pr.Requestor.Name()
 				</div>
 				<div class="col s2" id="creation_details">
-					JUAN MIGUEL
+					@pr.Requestor.Department.Name
 				</div>
 				<div class="col s2" id="creation_details">
-					ACCOUNTING
-				</div>
-				<div class="col s2" id="creation_details">
-					STATUS
+					@pr.Status
 				</div>
 			</div>
 			<div class="collapsible-body" id="po-C">
 				<div class="row">
 					<div class="col s6">
-						<img src="images/bsi_logo-small.png" alt="" class="src">
+						<img src="@Config.GetCompanyLogo(pr.Requestor.Company.SmallLogo)"   alt="" class="src">
 					</div>
 					<div class="col s6" id="pr-title">P.O. CREATION</div>
 					<div class="col s6" id="address">
-						Unit 1103, 11F Pearl of the Orient Tower,<br>
-						1240 Roxas Blvd. Brgy. 667 Zone 072,<br>
-						Ermita Manila 1000<br>
-						<b>TIN: 008-349-500-000</b>
+						@pr.Requestor.Company.Address
+						<b>TIN: @pr.Requestor.Company.Tin</b>
 					</div>
 					<div class="col s6" id="pr-number">
-						Requisition Number: <b><span id="pr-num">0001</span></b><br>
-						Date Prepared:<br>
-						Date Needed: <input type="text" id="datepicker"><br>
-						Date Approve:
+						Requisition Number: <b><span id="pr-num">@pr.RequisitionNo</span></b><br>
+						Date Prepared: @pr.CreateTime<br>
+						Date Needed: @pr.DateNeeded<br>
 					</div>
 					<div id="info0">
-						<div class="col s6" id="info"><b>Company:</b> Company Here</div>
+						<div class="col s6" id="info"><b>Company:</b> @pr.Requestor.Company.CompanyName</div>
 						<div class="col s6" id="info">
-							<b>Requestor Name:</b> Name Of Requestor
+							<b>Requestor Name:</b> @pr.Requestor.Name()
 						</div>
 						<!-- Modal Structure -->
-						<div id="modal1" class="modal">
+						@*<div id="modal1" class="modal">
 							<div class="modal-content">
 								<h4>Search Requestor</h4>
 								<form autocomplete="off" action="">
@@ -62,18 +56,16 @@
 								<a href="#!"
 								   class="modal-close waves-effect waves-green btn-flat">OK</a>
 							</div>
-						</div>
+						</div>*@
 						<!-- End Modal -->
-						<div class="col s6" id="info"><b>Business Unit:</b> Auto Fill</div>
-						<div class="col s6" id="info"><b>Cost Revenue Center (CRC):</b> CRC</div>
+						@*<div class="col s6" id="info"><b>Business Unit:</b> @pr.Requestor.Company.</div>*@
+						<div class="col s6" id="info"><b>Cost Revenue Center (CRC):</b> @pr.CRC</div>
 						<div class="col s6" id="info"><b>Company Address:</b></div>
-						<div class="col s6" id="info">
+						@*<div class="col s6" id="info">
 							<b>Category Account Code:</b> Account Code
-						</div>
+						</div>*@
 						<div class="col s6" id="info">
-							Unit 1103, 11F Pearl of the Orient Tower,
-							1240 Roxas Blvd. Brgy. 667 Zone 072,
-							Ermita Manila 1000
+							@pr.DeliveryAdress
 						</div>
 						<div class="col s6" id="info"></div>
 						<div class="col s12">

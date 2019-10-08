@@ -25,12 +25,12 @@ namespace FinancialSystem.NHibernate {
 					EmployeeModel emp = null;
 					DepartmentModel dep = null;
 					var items = db.QueryOver<PRHeaderModel>(() => pr)
-						.JoinQueryOver<EmployeeModel>(x => x.Requestor, () => emp)
-						//.JoinQueryOver<DepartmentModel>(x => x.Department, () => dep)
-						.Where(x => pr.RequisitionNo.IsLike(search + "%") 
-						|| emp.Name().IsLike(search + "%")
-						/*|| dep.Name.IsLike(search+"%")*/);
-		
+						.JoinAlias(() => pr.Requestor, () => emp)
+						.JoinAlias(() => emp.Department, () => dep)
+						.Where(x => pr.DeleteTime==null && pr.Status==StatusType.Approved && (pr.RequisitionNo.IsLike(search + "%")
+						|| emp.LastName.IsLike(search + "%")
+						|| dep.Name.IsLike(search+"%"))).OrderBy(()=>pr.CreateTime).Desc.Take(10);
+					
 					return items.List();
 				}
 			}
