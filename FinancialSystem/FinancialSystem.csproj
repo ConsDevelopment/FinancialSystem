@@ -281,6 +281,8 @@
     <Compile Include="Models\Items\CategoryModel.cs" />
     <Compile Include="Models\Items\SupplierModel.cs" />
     <Compile Include="Models\Items\ItemModel.cs" />
+    <Compile Include="Models\PO\POHeaderModel.cs" />
+    <Compile Include="Models\PO\POLinesModel.cs" />
     <Compile Include="Models\PR\PRHeaderModel.cs" />
     <Compile Include="Models\PR\PRLinesModel.cs" />
     <Compile Include="Models\PR\PRAprovalModel.cs" />

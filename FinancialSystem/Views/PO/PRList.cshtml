@@ -6,7 +6,7 @@
 		<li>
 			<div class="collapsible-header" id="po-C1">
 				<div class="col s2" id="creation_details">
-					@pr.RequisitionNo
+					@("PR" + pr.RequisitionNo)
 				</div>
 				<div class="col s2" id="creation_details">
 					@pr.Amount
@@ -59,7 +59,7 @@
 						</div>*@
 						<!-- End Modal -->
 						@*<div class="col s6" id="info"><b>Business Unit:</b> @pr.Requestor.Company.</div>*@
-						<div class="col s6" id="info"><b>Cost Revenue Center (CRC):</b> @pr.CRC</div>
+						<div class="col s6" id="info"><b>Cost Revenue Center (CRC):</b> @pr.CRC.CRCCode</div>
 						<div class="col s6" id="info"><b>Company Address:</b></div>
 						@*<div class="col s6" id="info">
 							<b>Category Account Code:</b> Account Code
@@ -72,7 +72,7 @@
 							<table class="highlight">
 								<thead style="background-color: #16A2AF;">
 									<tr>
-										<th>ITEM #</th>
+										<th>SELECT</th>
 										<th>ITEM CODE</th>
 										<th>P.O. NUMBER</th>
 										<th>DESCRIPTION</th>
@@ -85,6 +85,22 @@
 								</thead>
 
 								<tbody>
+									@foreach (var line in pr.Lines) {
+										string itemCode = "";
+										string itemname = "";
+										string supplier = "";
+										if (line.Item != null) {
+											itemCode = line.Item.Code;
+											itemname = line.Item.Name;
+											if (line.Item.Supplier != null) {
+												supplier = line.Item.Supplier.Name;
+											}
+										}else{
+											itemname = line.NonCatalog.Name;
+											var itm = line.NonCatalog.Lines.FirstOrDefault(x => x.Selected == true);
+											supplier = itm.Supplier.Name;
+
+										}
 									<tr>
 										<td>
 											<label class="check-box">
@@ -92,15 +108,22 @@
 												<span>00001</span>
 											</label>
 										</td>
-										<td>00001</td>
-										<td>PO 12345</td>
-										<td>Nike Shoes</td>
-										<td>Supplier A</td>
-										<td>Piece</td>
-										<td>1</td>
-										<td>1,500.00</td>
-										<td>1,500.00</td>
+										<td>@itemCode</td>
+										
+										@if (line.POLines.Count!= 0) {
+											var poline = line.POLines.FirstOrDefault(x => x.DeleteTime == null);
+											<td>@poline.Header.RequisitionNo</td>
+										}else {
+											<td></td>
+										}
+										<td>@itemname</td>
+										<td>@supplier</td>
+										<td>@line.UOM</td>
+										<td>@line.Quantity</td>
+										<td>@line.UnitPrice</td>
+										<td>@line.TotalAmount</td>
 									</tr>
+									}
 								</tbody>
 							</table>
 						</div>
