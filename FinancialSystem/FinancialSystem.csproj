@@ -358,6 +358,7 @@
     <Content Include="Views\PR\NonCatalogSearch.cshtml" />
     <Content Include="Views\PO\PRSearch.cshtml" />
     <Content Include="Views\PO\PRList.cshtml" />
+    <Content Include="Views\PO\POCreation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

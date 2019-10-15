@@ -29,5 +29,20 @@ namespace FinancialSystem.Controllers.MVC.PO
 			}
 			return PartialView(searchPRs);
 		}
+
+		public async Task<ActionResult> POCreation(IList<PrLinesViewModel> value) {
+			var nhpa = new NHibernatePRStore();
+			PRHeaderModel PR = null;
+			var prLines = new List<PRLinesModel>();
+			foreach (var line in value) {
+				var prLine = await nhpa.GetPRLineAsync(line.Id);
+				prLines.Add(prLine);
+				if (PR == null) {
+					PR = prLine.Header;
+				}
+			}
+			ViewData["PR"] = PR;
+			return PartialView(prLines);
+		}
 	}
 }

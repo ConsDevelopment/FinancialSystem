@@ -17,6 +17,7 @@ namespace FinancialSystem.Models {
 		public virtual EmployeeModel Requestor { get; set; }
 		public virtual string DeliveryAdress { get; set; }
 		public virtual ChargeLocationModel CLC { get; set; }
+		public virtual string NoteToBuyer { get; set; }
 
 		public virtual string RequisitionNo {
 			get {
@@ -56,6 +57,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.DeleteTime);
 				Map(x => x.CreateTime);
 				Map(x => x.Amount);
+				Map(x => x.NoteToBuyer);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
 				References(x => x.CLC, "CLC").Cascade.SaveUpdate();
 				References(x => x.CRC, "CRC").Cascade.SaveUpdate();

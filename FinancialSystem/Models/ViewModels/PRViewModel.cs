@@ -7,10 +7,12 @@ using System.ComponentModel.DataAnnotations;
 namespace FinancialSystem.Models {
 	
 	public class PRViewModel {
+		public long Id { get; set; }
 		public string RequestorId { get; set; }
 		public string DeliveryAdress { get; set; }
 		public DateTime DateNeeded { get; set; }
 		public string SecurityStamp { get; set; }
+		public string NoteToBuyer { get; set; }
 		public ICollection<PrLinesViewModel> Lines { get; set; }
 
 	}

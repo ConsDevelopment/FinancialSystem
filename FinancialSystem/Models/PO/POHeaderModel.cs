@@ -19,6 +19,7 @@ namespace FinancialSystem.Models {
 		public virtual string DeliveryAdress { get; set; }
 		public virtual StatusType Status { get; set; }
 		public virtual DateTime? RequiredDate { get; set; }
+		public virtual string NoteToBuyer { get; set; }
 
 		public virtual string RequisitionNo {
 			get {
@@ -51,6 +52,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.DeliveryAdress);
 				Map(x => x.Status).Length(20);
 				Map(x => x.RequiredDate);
+				Map(x => x.NoteToBuyer);
 				Map(x => x.RequisitionNo);
 				Map(x => x.Amount);
 				Map(x => x.CreateTime);
