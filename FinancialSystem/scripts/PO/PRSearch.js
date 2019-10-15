@@ -47,8 +47,7 @@ function CreatePO(me) {
 	
 	var lines = [];
 	$.each($("input[name='itemCheck-" + me.id + "']"), function () {
-		alert($(this).attr('id'));
-		alert($(this).attr('name'));
+		
 		if ($(this).is(':checked')) {
 			var element = {
 				"Id": Number($(this).attr('id')),
@@ -74,6 +73,12 @@ function CreatePO(me) {
 			//$(body).html(data);
 			$('#searcContainer').empty();
 			$('#searcContainer').html(data);
+			var elems = document.querySelectorAll('.sidenav');
+			var instances = M.Sidenav.init(elems);
+			var elems = document.querySelectorAll('.modal');
+			var instances = M.Modal.init(elems);
+			var elems = document.querySelectorAll('.datepicker');
+			var instances = M.Datepicker.init(elems);
 
 		},
 		//async: false,
