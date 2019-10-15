@@ -205,6 +205,8 @@
   <ItemGroup>
     <Content Include="Content\images\bsi_logo.png" />
     <Content Include="Content\images\sample_image-login.jpg" />
+    <Content Include="Content\Maintenance\add-items.css" />
+    <Content Include="Content\Maintenance\remove-items.css" />
     <Content Include="Content\PR\pr-approver.css" />
     <Content Include="Content\PR\pr-shop.css" />
     <Content Include="Content\PR\PRCreation.css" />
@@ -248,6 +250,7 @@
     <Compile Include="Controllers\API\Users\LoginApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\MVC\Company\MaintenanceController.cs" />
+    <Compile Include="Controllers\MVC\Maintenance\ItemMaintenanceController.cs" />
     <Compile Include="Controllers\MVC\PR\PRController.cs" />
     <Compile Include="Controllers\MVC\Users\UserController.cs" />
     <Compile Include="Controllers\Test\TestApiController.cs" />
@@ -349,6 +352,7 @@
     <Content Include="Views\PR\CreatePR.cshtml" />
     <Content Include="Views\PR\PRAproover.cshtml" />
     <Content Include="Views\PR\QuoteAnalysis.cshtml" />
+    <Content Include="Views\ItemMaintenance\Additems.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -358,7 +362,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Maintenance\" />
+    <Folder Include="Views\RemoveItems\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\ErrorMessageStrings.resx" />

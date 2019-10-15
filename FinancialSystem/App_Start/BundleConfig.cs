@@ -30,6 +30,8 @@ namespace FinancialSystem
 			Utilities(bundles);
 			PRAprover(bundles);
 			QuoteAnalysis(bundles);
+            AddItems(bundles);
+            RemoveItems(bundles);
 			BundleTable.EnableOptimizations = Config.OptimizationEnabled();
 
 		}
@@ -154,66 +156,79 @@ namespace FinancialSystem
 			  )));
 		}
 
+        private static void AddItems(BundleCollection bundles) {
+
+            bundles.Add(new StyleBundle("~/Content/Maintenance/add-items")
+                .Include("~/Content/Maintenance/add-items.css"));
+        }
+
+        private static void RemoveItems(BundleCollection bundles)
+        {
+
+            bundles.Add(new StyleBundle("~/Content/Maintenance/remove-items")
+                .Include("~/Content/Maintenance/remove-items.css"));
+        }
 
 
-		//private static void Bootstrap(BundleCollection bundles) {
-		//	// Use the development version of Modernizr to develop with and learn from. Then, when you're
-		//	// ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-		//	//bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-		//	//			"~/Scripts/modernizr-*"));
 
-		//	bundles.Add(UpdateMinification(new ScriptBundle("~/bundles/bootstrap").Include(
-		//			  "~/Scripts/components/posneg.js",
-		//			  "~/Scripts/components/tristate.js",
-		//			  "~/Scripts/components/fivestate.js",
-		//			  "~/Scripts/components/checktree.js",
-		//			  "~/Scripts/components/rockstate.js",
-		//			  "~/Scripts/components/approvereject.js",
-		//			  "~/Scripts/components/completeincomplete.js",
-		//			  "~/Scripts/select2.min.js",
-		//			  "~/Scripts/bootstrap.js",
-		//			  "~/Scripts/respond.js",
-		//			  "~/Scripts/bootstrap-slider.js",
-		//			  "~/Scripts/bootstrap-datepicker.js")));
+        //private static void Bootstrap(BundleCollection bundles) {
+        //	// Use the development version of Modernizr to develop with and learn from. Then, when you're
+        //	// ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
+        //	//bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+        //	//			"~/Scripts/modernizr-*"));
 
-		//	bundles.Add(new StyleBundle("~/Content/css").Include(
-		//			"~/Content/components/posneg.css",
-		//			"~/Content/components/tristate.css",
-		//			"~/Content/components/fivestate.css",
-		//			"~/Content/components/table.css",
-		//			"~/Content/components/checktree.css",
-		//			"~/Content/components/rockstate.css",
-		//			"~/Content/components/approvereject.css",
-		//			"~/Content/components/CompleteIncomplete.css",
-		//			"~/Content/select2-bootstrap.css",
-		//			"~/Content/select2.css",
-		//			"~/Content/datepicker.css",
-		//			"~/Content/bootstrap/bootstrap.css",
-		//			//"~/Content/Bootstrap-tabs.css",
-		//			"~/Content/bootstrap.vertical-tabs.css",
-		//			"~/Content/slider.css",
-		//			"~/Content/site.css",
-		//			"~/Content/bootstrap/custom/Site.css",
-		//			"~/Content/Fonts.css",
-		//			"~/Content/jquery.qtip.css"));
-		//}
+        //	bundles.Add(UpdateMinification(new ScriptBundle("~/bundles/bootstrap").Include(
+        //			  "~/Scripts/components/posneg.js",
+        //			  "~/Scripts/components/tristate.js",
+        //			  "~/Scripts/components/fivestate.js",
+        //			  "~/Scripts/components/checktree.js",
+        //			  "~/Scripts/components/rockstate.js",
+        //			  "~/Scripts/components/approvereject.js",
+        //			  "~/Scripts/components/completeincomplete.js",
+        //			  "~/Scripts/select2.min.js",
+        //			  "~/Scripts/bootstrap.js",
+        //			  "~/Scripts/respond.js",
+        //			  "~/Scripts/bootstrap-slider.js",
+        //			  "~/Scripts/bootstrap-datepicker.js")));
 
-		//private static void JQuery(BundleCollection bundles) {
-		//	bundles.Add(UpdateMinification(new ScriptBundle("~/bundles/jquery")
-		//					.Include("~/Scripts/jquery-{version}.js")
-		//					.Include("~/Scripts/jquery.unobtrusive-ajax.js")
-		//					.Include("~/Scripts/jquery/jquery.qtip.js")
-		//					//.Include("~/Scripts/jquery/jquery.attrchange.js")
-		//					));
+        //	bundles.Add(new StyleBundle("~/Content/css").Include(
+        //			"~/Content/components/posneg.css",
+        //			"~/Content/components/tristate.css",
+        //			"~/Content/components/fivestate.css",
+        //			"~/Content/components/table.css",
+        //			"~/Content/components/checktree.css",
+        //			"~/Content/components/rockstate.css",
+        //			"~/Content/components/approvereject.css",
+        //			"~/Content/components/CompleteIncomplete.css",
+        //			"~/Content/select2-bootstrap.css",
+        //			"~/Content/select2.css",
+        //			"~/Content/datepicker.css",
+        //			"~/Content/bootstrap/bootstrap.css",
+        //			//"~/Content/Bootstrap-tabs.css",
+        //			"~/Content/bootstrap.vertical-tabs.css",
+        //			"~/Content/slider.css",
+        //			"~/Content/site.css",
+        //			"~/Content/bootstrap/custom/Site.css",
+        //			"~/Content/Fonts.css",
+        //			"~/Content/jquery.qtip.css"));
+        //}
 
-		//	bundles.Add(UpdateMinification(new ScriptBundle("~/bundles/animations")
-		//		.Include("~/Scripts/animations/*.js")
-		//		.Include("~/Scripts/jquery/*.js")
-		//		));
+        //private static void JQuery(BundleCollection bundles) {
+        //	bundles.Add(UpdateMinification(new ScriptBundle("~/bundles/jquery")
+        //					.Include("~/Scripts/jquery-{version}.js")
+        //					.Include("~/Scripts/jquery.unobtrusive-ajax.js")
+        //					.Include("~/Scripts/jquery/jquery.qtip.js")
+        //					//.Include("~/Scripts/jquery/jquery.attrchange.js")
+        //					));
 
-		//	bundles.Add(UpdateMinification(new ScriptBundle("~/bundles/jqueryval").Include(
-		//				"~/Scripts/jquery.validate*")));
-		//}
+        //	bundles.Add(UpdateMinification(new ScriptBundle("~/bundles/animations")
+        //		.Include("~/Scripts/animations/*.js")
+        //		.Include("~/Scripts/jquery/*.js")
+        //		));
 
-	}
+        //	bundles.Add(UpdateMinification(new ScriptBundle("~/bundles/jqueryval").Include(
+        //				"~/Scripts/jquery.validate*")));
+        //}
+
+    }
 }
