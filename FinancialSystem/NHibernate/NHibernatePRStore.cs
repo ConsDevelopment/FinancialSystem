@@ -14,14 +14,27 @@ namespace FinancialSystem.NHibernate {
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public class NHibernatePRStore {
-		//public async Task<IList<ItemModel>> CreatePRLinesAsync(string search) {
-		//	using (var db = HibernateSession.GetCurrentSession()) {
-		//		using (var tx = db.BeginTransaction()) {
-		//			var items= db.QueryOver<ItemModel>().Where(Restrictions.On<ItemModel>(x=>x.Name).IsLike(search+"%") || Restrictions.On<ItemModel>(x => x.SKU).IsLike(search.ToLower() + "%"));
-		//			return items.List();
-		//		} 
-		//	}
-		//}
+		public async Task<IList<PRHeaderModel>> SearchPRAsync(string search) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					//var items = db.QueryOver<PRHeaderModel>().Where((Restrictions.On<PRHeaderModel>(x => x.RequisitionNo).IsLike(search + "%")
+					//	//|| Restrictions.On<PRHeaderModel>(x => x.Requestor.LastName).IsLike(search + "%")
+					//	/*|| Restrictions.On<PRHeaderModel>(x => x.Requestor.Department.Name).IsLike(search + "%")*/)
+					//	&& Restrictions.On<PRHeaderModel>(x => x.DeleteTime).IsNull).JoinQueryOver<EmployeeModel>(c=>c.Requestor).Where(Restrictions.On<EmployeeModel>(k=>k.Name()).IsLike(search + "%"));
+					PRHeaderModel pr = null;
+					EmployeeModel emp = null;
+					DepartmentModel dep = null;
+					var items = db.QueryOver<PRHeaderModel>(() => pr)
+						.JoinAlias(() => pr.Requestor, () => emp)
+						.JoinAlias(() => emp.Department, () => dep)
+						.Where(x => pr.DeleteTime==null && pr.Status==StatusType.Approved && (pr.RequisitionNo.IsLike(search + "%")
+						|| emp.LastName.IsLike(search + "%")
+						|| dep.Name.IsLike(search+"%"))).OrderBy(()=>pr.CreateTime).Desc.Take(10);
+					
+					return items.List();
+				}
+			}
+		}
 
 		public async Task CreatePRLinesAsync(PRLinesModel line) {
 			using (var db = HibernateSession.GetCurrentSession()) {

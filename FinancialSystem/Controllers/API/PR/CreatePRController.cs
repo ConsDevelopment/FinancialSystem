@@ -48,6 +48,7 @@ namespace FinancialSystem.Controllers.API.PR {
 							Status = StatusType.Request,
 							Requestor = requestor,
 							DeliveryAdress = value.DeliveryAdress,
+							NoteToBuyer = value.NoteToBuyer,
 							DateNeeded = dateNeeded,
 							CRC = requestor.Team.CRC,
 							CreatedBy = user.Result,

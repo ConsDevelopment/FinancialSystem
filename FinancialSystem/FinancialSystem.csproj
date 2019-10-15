@@ -205,6 +205,7 @@
   <ItemGroup>
     <Content Include="Content\images\bsi_logo.png" />
     <Content Include="Content\images\sample_image-login.jpg" />
+    <Content Include="Content\PO\po-creation.css" />
     <Content Include="Content\PR\pr-approver.css" />
     <Content Include="Content\PR\pr-shop.css" />
     <Content Include="Content\PR\PRCreation.css" />
@@ -213,6 +214,7 @@
     <Content Include="Content\User\login.css" />
     <Content Include="Content\User\registration.css" />
     <Content Include="Global.asax" />
+    <Content Include="scripts\PO\PRSearch.js" />
     <Content Include="scripts\PR\PRApproved.js" />
     <Content Include="scripts\PR\QuoteAnalysis.js" />
     <Content Include="scripts\user\ai.0.22.9-build00167.js" />
@@ -279,6 +281,8 @@
     <Compile Include="Models\Items\CategoryModel.cs" />
     <Compile Include="Models\Items\SupplierModel.cs" />
     <Compile Include="Models\Items\ItemModel.cs" />
+    <Compile Include="Models\PO\POHeaderModel.cs" />
+    <Compile Include="Models\PO\POLinesModel.cs" />
     <Compile Include="Models\PR\PRHeaderModel.cs" />
     <Compile Include="Models\PR\PRLinesModel.cs" />
     <Compile Include="Models\PR\PRAprovalModel.cs" />
@@ -353,6 +357,8 @@
     <Content Include="Views\PR\UpdateViewQA.cshtml" />
     <Content Include="Views\PR\NonCatalogSearch.cshtml" />
     <Content Include="Views\PO\PRSearch.cshtml" />
+    <Content Include="Views\PO\PRList.cshtml" />
+    <Content Include="Views\PO\POCreation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

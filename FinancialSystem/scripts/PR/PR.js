@@ -226,6 +226,7 @@ $("#submitPR").on('click', function () {
 		"DeliveryAdress": $("#DeliveryAddress").text(),
 		"DateNeeded": date,
 		"SecurityStamp": $("#SecurityStamp").val(),
+		"NoteToBuyer": $("#noteTobuyer").text(),
 		"Lines": json
 	};
 
