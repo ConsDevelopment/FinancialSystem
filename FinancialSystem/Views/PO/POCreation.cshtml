@@ -13,21 +13,19 @@
 				<div class="col s6"><img src="images/bsi_logo-small.png" alt="" class="src"></div>
 				<div class="col s6" id="pr-title">PURCHASE ORDER</div>
 				<div class="col s6" id="address">
-					Unit 1103, 11F Pearl of the Orient Tower,<br>
-					1240 Roxas Blvd. Brgy. 667 Zone 072,<br>
-					Ermita Manila 1000<br>
-					<b>TIN: 008-349-500-000</b>
+					@pr.Requestor.Company.Address
+					<b>TIN: @pr.Requestor.Company.Tin</b>
 				</div>
 				<div class="col s6" id="pr-number">
-					Requisition Number: <b><span id="pr-num">0001</span></b><br>
-					Date Prepared:<br>
-					Date Required: <input type="text" id="datepicker"><br>
-					Date Approve:
+					Requisition Number: <b><span id="pr-num"></span></b><br>
+					Date Prepared: @DateTime.Now<br>
+					Date Required: <input type="text" class="datepicker" id="datepicker"><br>
+					@*Date Approve:*@
 				</div>
 				<div id="info0">
-					<div class="col s6" id="info"><b>Company:</b> Company Here</div>
+					<div class="col s6" id="info"><b>Company:</b> @pr.Requestor.Company.CompanyName</div>
 					<div class="col s6" id="info">
-						<b>Requestor Name:</b> Name Of Requestor
+						<b>Requestor Name:</b>@pr.Requestor.Name()
 					</div>
 					<!-- Modal Structure -->
 					<div id="modal1" class="modal">
@@ -53,8 +51,25 @@
 						Unit 1103, 11F Pearl of the Orient Tower,
 						1240 Roxas Blvd. Brgy. 667 Zone 072,
 						Ermita Manila 1000 <a class="badge red modal-trigger" id="badge"
-							href="#address"><span>-</span></a>
+							href="#deladd"><span>-</span></a>
 					</div>
+					<!-- Modal Structure -->
+					<div id="deladd" class="modal">
+						<div class="modal-content">
+							<h4>Delivery Address</h4>
+							<form autocomplete="off" action="">
+								<div class="autocomplete">
+									<textarea id="deliveryaddress" type="textarea"
+											  name="deliveryaddress"
+											  placeholder="Delivery Address"></textarea>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+						</div>
+					</div>
+					<!-- End Modal -->
 					<div class="col s6" id="info">
 						<b>Payment Terms: </b>
 						<input list="browsers">
@@ -66,18 +81,6 @@
 							<option value="50% Deposit">
 						</datalist>
 
-					</div>
-					<!-- Modal Structure -->
-					<div id="address" class="modal">
-						<div class="modal-content">
-							<h4>Type Delivery Address</h4>
-							<form autocomplete="off" action="">
-								<div class="autocomplete">
-									<textarea id="address" type="textarea" name="address"
-											  placeholder="Delivery Address"></textarea>
-								</div>
-							</form>
-						</div>
 					</div>
 					<div class="col s6" id="info"></div>
 					<div class="col s12">
