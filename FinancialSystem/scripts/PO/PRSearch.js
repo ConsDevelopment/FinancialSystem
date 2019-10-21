@@ -71,15 +71,15 @@ function CreatePO(me) {
 
 		success: function (data) {
 			//$(body).html(data);
-			var elems = document.querySelectorAll('.datepicker');
-			var instances = M.Datepicker.init(elems);
+			
 			$('#searcContainer').empty();
 			$('#searcContainer').html(data);
 			var elems = document.querySelectorAll('.sidenav');
 			var instances = M.Sidenav.init(elems);
 			var elems = document.querySelectorAll('.modal');
 			var instances = M.Modal.init(elems);
-			
+			var elems = document.querySelectorAll('.datepicker');
+			var instances = M.Datepicker.init(elems);
 
 		},
 		//async: false,
