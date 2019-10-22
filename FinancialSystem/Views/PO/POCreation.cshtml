@@ -24,37 +24,19 @@
 					Requisition Number: <b><span id="pr-num"></span></b><br>
 					Date Prepared: @DateTime.Now<br>
 					Date Required: <input type="text" class="datepicker" id="datepicker"><br>
-					@*Date Approve:*@
+				
 				</div>
 				<div id="info0">
 					<div class="col s6" id="info"><b>Company:</b> @pr.Requestor.Company.CompanyName</div>
 					<div class="col s6" id="info">
 						<b>Requestor Name: </b> @pr.Requestor.Name()
 					</div>
-					<!-- Modal Structure -->
-					@*<div id="modal1" class="modal">
-						<div class="modal-content">
-							<h4>Search Requestor</h4>
-							<form autocomplete="off" action="">
-								<div class="autocomplete">
-									<input id="myInput" type="text" name="requestor"
-										   placeholder="Search Requestor">
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
-						</div>
-					</div>*@
-					<!-- End Modal -->
 					<div class="col s6" id="info"><b>Supplier : </b> @supplier.Name</div>
 					<div class="col s6" id="info"><b>Cost Revenue Center (CRC): </b>  @pr.CRC.CRCCode</div>
 					<div class="col s6" id="info"><b>Delivery Address:</b></div>
 					<div class="col s6" id="info"><b>Category Account Code:</b> Account Code</div>
 					<div class="col s6" id="info">
-						Unit 1103, 11F Pearl of the Orient Tower,
-						1240 Roxas Blvd. Brgy. 667 Zone 072,
-						Ermita Manila 1000 <a class="badge red modal-trigger" id="badge"
+						<span id="DeliveryAdress">@pr.DeliveryAdress </span> <a class="badge red modal-trigger" id="badge"
 							href="#deladd"><span>-</span></a>
 					</div>
 					<!-- Modal Structure -->
@@ -70,7 +52,7 @@
 							</form>
 						</div>
 						<div class="modal-footer">
-							<a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+							<a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="setDeliveryAddress()">OK</a>
 						</div>
 					</div>
 					<!-- End Modal -->
@@ -116,13 +98,22 @@
 								<tr>
 									<td>@name</td>
 									<td>
-										@line.Description<a class="badge red modal-trigger" id="badge"
-									href="#description"><span>-</span></a>
+										<span id="description_@line.Id">@line.Description</span><a class="badge red modal-trigger" id="badge"
+									href="#description" onclick="setLineClick(@line.Id)"><span>-</span></a>
 									</td>
 									
 									<td>
-										@line.UOM <a class="badge red modal-trigger" id="badge"
-									   href="#uom"><span>-</span></a>
+										@*@line.UOM <a class="badge red modal-trigger" id="badge"
+									   href="#uom"><span>-</span></a>*@
+										<input list="UOM_@line.Id" onchange="dataList('@line.Id', '#UOM' , false)" name="UOM_@line.Id" placeholder="UOM" id="UOMInput_@line.Id" />
+										<datalist id="UOM_@line.Id">
+											@{			var UOMs = Enum.GetValues(typeof(UOMType));
+											}
+											@foreach (var UOM in UOMs) {
+												<option data-value="@UOM.ToString()">@UOM.ToString()</option>
+											}
+										</datalist>
+										<input type="hidden" id="UOMInput-hidden_@line.Id" />
 									</td>
 									
 									<td>
@@ -165,8 +156,9 @@
 							<span>
 								add +
 							</span>
-						</a></p>
+						</a>
 					</div>
+					<input type="hidden" id="lineClicked" />
 					<!-- Modal Structure -->
 					<div id="modal3" class="modal">
 						<div class="modal-content">
@@ -229,7 +221,7 @@
 				<h4>Description</h4>
 				<form autocomplete="off" action="">
 					<div class="autocomplete">
-						<textarea id="description" type="textarea"
+						<textarea id="description_text" type="textarea"
 								  name="description"
 								  placeholder="Description"></textarea>
 					</div>
@@ -238,7 +230,7 @@
 			<div class="modal-footer">
 				<a href="#!"
 				   class="modal-close waves-effect waves-green btn-flat">CANCEL</a>
-				<a href="#!"
+				<a href="#!" onclick="setDescription()"
 				   class="modal-close waves-effect waves-green btn-flat">OK</a>
 			</div>
 		</div>

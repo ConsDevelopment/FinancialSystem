@@ -46,7 +46,7 @@ function searchItem() {
 function CreatePO(me) {
 	
 	var lines = [];
-	$.each($("input[name='itemCheck-" + me.id + "']"), function () {
+	$.each($("input[name='itemCheck-" + me + "']"), function () {
 		
 		if ($(this).is(':checked')) {
 			var element = {
@@ -91,4 +91,37 @@ function CreatePO(me) {
 		}
 
 	});
+}
+function setDeliveryAddress() {
+	
+	$("#DeliveryAdress").text($("#deliveryaddress").val());
+}
+function setLineClick(id) {
+	alert("clicked");
+	$("#lineClicked").val(id);
+}
+function setDescription() {
+	alert("set");
+	$("#description_" + $("#lineClicked").val()).text($("#description_text").val());
+}
+function dataList(Id, elem, DPEditable) {
+	options = document.querySelectorAll(elem + "_" + Id + " option");
+	$(elem + "Input-hidden_" + Id).val("");
+	var found = false;
+	for (var i = 0; i < options.length; i++) {
+		var option = options[i];
+
+		if (option.innerText === $(elem + "Input_" + Id).val()) {
+			found = true;
+			$(elem + "Input-hidden_" + Id).val(option.getAttribute("data-value"));
+			break;
+		}
+	}
+	if (!DPEditable) {
+		if (!found) {
+			M.toast({ html: $(elem + "Input_" + Id).val() + ' is not a correct input', classes: 'rounded' });
+			$(elem + "Input_" + Id).val("");
+		}
+	}
+	//alert($(elem + "Input-hidden_" + Id).val());
 }
