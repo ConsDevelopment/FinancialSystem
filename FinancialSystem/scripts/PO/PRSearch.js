@@ -125,3 +125,14 @@ function dataList(Id, elem, DPEditable) {
 	}
 	//alert($(elem + "Input-hidden_" + Id).val());
 }
+function calculateAmount(id) {
+	$("#totalAmount_" + id).text(Number($("#quantity_" + id).val()) * Number($("#unitPrice_" + id).val()));
+	var grandTotal = 0;
+	$('#table_ tbody tr').each(function () {
+		var lineId = $(this).find("td").eq(0).html();
+		grandTotal +=Number($("#totalAmount_" + lineId).text());
+	});
+
+	$("#vatTotal").text((grandTotal * .12).toFixed(2));
+	$("#grandTotal").text(((grandTotal*12)+ grandTotal).toFixed(2))
+}

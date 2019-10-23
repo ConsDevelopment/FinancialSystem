@@ -57,7 +57,7 @@
 					</div>
 					<!-- End Modal -->
 					<div class="input-field col s6">
-						<input list="PaymentTerms_" onchange="dataList('', '#PaymentTerms', false)" name="PaymentTerms" placeholder="Payment Terms" id="PaymentTermsInput_" />
+						<input list="PaymentTerms_" onchange="dataList('', '#PaymentTerms',false);"  name="PaymentTerms" placeholder="Payment Terms" id="PaymentTermsInput_" />
 						<datalist id="PaymentTerms_">
 							@{			var PaymentTerms = Enum.GetValues(typeof(PaymentTermsType));
 							}
@@ -69,7 +69,7 @@
 					</div>
 					<div class="col s6" id="info"></div>
 					<div class="col s12">
-						<table class="highlight">
+						<table class="highlight" id="table_">
 							<thead style="background-color: #16A2AF;">
 								<tr>
 									
@@ -96,10 +96,12 @@
 									name = line.NonCatalog.Name;
 								}
 								<tr>
+									<td style="display:none">@line.Id</td>
 									<td>@name</td>
 									<td>
-										<span id="description_@line.Id">@line.Description</span><a class="badge red modal-trigger" id="badge"
-									href="#description" onclick="setLineClick(@line.Id)"><span>-</span></a>
+										@*<span id="description_@line.Id">@line.Description</span><a class="badge red modal-trigger" id="badge"
+									href="#description" onclick="setLineClick(@line.Id)"><span>-</span></a>*@
+										<textarea>@line.Description</textarea>
 									</td>
 									
 									<td>
@@ -117,16 +119,16 @@
 									</td>
 									
 									<td>
-										@line.Quantity <a class="badge red modal-trigger" id="badge"
-								   href="#qty"><span>-</span></a>
+										<input type="number" onchange="calculateAmount(@line.Id)" id="quantity_@line.Id" value="@line.Quantity" /> @*<a class="badge red modal-trigger" id="badge"
+								   href="#qty"><span>-</span></a>*@
 									</td>
 									
 									<td>
-										@line.UnitPrice <a class="badge red modal-trigger" id="badge"
-										  href="#qty"><span>-</span></a>
-									</td>
+										<input type="number" id="unitPrice_@line.Id" onchange="calculateAmount(@line.Id)" value="@line.UnitPrice" /> @*<a class="badge red modal-trigger" id="badge"
+											   href="#qty"><span>-</span></a>
+									</td>*@
 									
-									<td>@(line.TotalAmount)</td>
+									<td><span id="totalAmount_@line.Id">@(line.TotalAmount)</span></td>
 									<td>
 										<a class='waves-effect waves-light btn red' onclick='DeleteRow(this)'>Delete</a>
 									</td>
@@ -145,10 +147,10 @@
 						<hr class="line">
 						<p id="vat">
 							<b>
-								Php @(totalAmount * .12) </b><br>
+								Php <span id="vatTotal">@(totalAmount * .12)</span> </b><br>
 						</p>
 						<hr class="line">
-						<p id="totalvat"><b>Php @((totalAmount*.12)+totalAmount)</b></p>
+						<p id="totalvat"><b>Php <span id="grandTotal">@((totalAmount * .12) + totalAmount)</span></b></p>
 					</div>
 					<div class="col s12" id="note">
 						<p id="noteto"><b>Note to Buyer: </b></p>
@@ -216,7 +218,7 @@
 			</div>
 		</div>
 		<!--Modal Description-->
-		<div id="description" class="modal">
+		@*<div id="description" class="modal">
 			<div class="modal-content">
 				<h4>Description</h4>
 				<form autocomplete="off" action="">
@@ -233,9 +235,9 @@
 				<a href="#!" onclick="setDescription()"
 				   class="modal-close waves-effect waves-green btn-flat">OK</a>
 			</div>
-		</div>
+		</div>*@
 		<!--Modal oum-->
-		<div id="uom" class="modal">
+		@*<div id="uom" class="modal">
 			<div class="modal-content">
 				<h4>Unit of Measurement</h4>
 				<form autocomplete="off" action="">
@@ -251,9 +253,9 @@
 				<a href="#!"
 				   class="modal-close waves-effect waves-green btn-flat">OK</a>
 			</div>
-		</div>
+		</div>*@
 		<!--Modal Quantity-->
-		<div id="qty" class="modal">
+		@*<div id="qty" class="modal">
 			<div class="modal-content">
 				<h4>Quantity</h4>
 				<form autocomplete="off" action="">
@@ -269,9 +271,9 @@
 				<a href="#!"
 				   class="modal-close waves-effect waves-green btn-flat">OK</a>
 			</div>
-		</div>
+		</div>*@
 		<!--Modal Price-->
-		<div id="qty" class="modal">
+		@*<div id="qty" class="modal">
 			<div class="modal-content">
 				<h4>Quantity</h4>
 				<form autocomplete="off" action="">
@@ -287,7 +289,7 @@
 				<a href="#!"
 				   class="modal-close waves-effect waves-green btn-flat">OK</a>
 			</div>
-		</div>
+		</div>*@
 	</div>
 
 </div>
