@@ -136,3 +136,64 @@ function calculateAmount(id) {
 	$("#vatTotal").text((grandTotal * .12).toFixed(2));
 	$("#grandTotal").text(((grandTotal*12)+ grandTotal).toFixed(2))
 }
+function SavePO() {
+
+	var lines = [];
+	$('#table_ tbody tr').each(function () {
+		var id = $(this).find("td").eq(0).html();
+		alert($("#UOMInput-hidden_" + id).val());
+		lines.push({
+			"Name": $(this).find("td").eq(1).html(),
+			"Description": $(this).find("td").eq(2).find("textarea").val(),
+			"UOM": $("#UOMInput-hidden_" + id).val(),
+			"Quantity": Number($(this).find("td").eq(4).find("input").val()),
+			"UnitPrice": Number($(this).find("td").eq(5).find("input").val()),
+			"PRLineId": Number(id)
+		});
+	});
+	var date = new Date($("#datepicker").val());
+	
+	date.setHours(23);
+	date.setMinutes(59);
+	var Head = {
+
+		"SupplierId": $("#SupplierId").val(),
+		"PaymentTerm": $("PaymentTermsInput-hidden_").val(),
+		"RequestorId": $("#RequestorId").val(),
+		"DeliveryAdress": $("#deliveryaddress").val(),
+		"RequiredDate": date,
+		"SecurityStamp": $("#SecurityStamp").val(),
+		"NoteToBuyer": $("#notoTobuyer").val(),
+		"Lines": lines
+	};
+
+	$.ajax({
+
+		type: "POST",
+		url: "/api/SavePO",
+		data: JSON.stringify(Head),
+		//data: "1",
+		contentType: 'application/json; charset=utf-8',
+
+		//dataType: 'json',
+
+		success: function (data) {
+			if ($("#QaNumber_" + Id).text() != data) {
+				$("#QaNumber_" + Id).text(data);
+				M.toast({ html: 'Q.A Number ' + data + ' has been created', classes: 'rounded' });
+				//$("#submit-button").contents().unwrap();
+				$("#submit-button").hide();
+			} else {
+				M.toast({ html: 'Q.A Number ' + data + ' has been Updated', classes: 'rounded' });
+			}
+		},
+
+		error: function (error) {
+			alert(error);
+			jsonValue = jQuery.parseJSON(error.responseText);
+
+		}
+
+	});
+
+}

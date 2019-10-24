@@ -30,8 +30,10 @@
 					<div class="col s6" id="info"><b>Company:</b> @pr.Requestor.Company.CompanyName</div>
 					<div class="col s6" id="info">
 						<b>Requestor Name: </b> @pr.Requestor.Name()
+						<input type="hidden" value="@pr.Requestor.Id" id="RequestorId" />
 					</div>
 					<div class="col s6" id="info"><b>Supplier : </b> @supplier.Name</div>
+					<input type="hidden" value="@supplier.Id" id="SupplierId"/>
 					<div class="col s6" id="info"><b>Cost Revenue Center (CRC): </b>  @pr.CRC.CRCCode</div>
 					<div class="col s6" id="info"><b>Delivery Address:</b></div>
 					<div class="col s6" id="info"><b>Category Account Code:</b> Account Code</div>
@@ -124,9 +126,10 @@
 									</td>
 									
 									<td>
-										<input type="number" id="unitPrice_@line.Id" onchange="calculateAmount(@line.Id)" value="@line.UnitPrice" /> @*<a class="badge red modal-trigger" id="badge"
-											   href="#qty"><span>-</span></a>
-									</td>*@
+										<input type="number" id="unitPrice_@line.Id" onchange="calculateAmount(@line.Id)" value="@line.UnitPrice" /> 
+										@*<a class="badge red modal-trigger" id="badge"
+											   href="#qty"><span>-</span></a>*@
+									</td>
 									
 									<td><span id="totalAmount_@line.Id">@(line.TotalAmount)</span></td>
 									<td>
@@ -140,7 +143,7 @@
 					<div class="col s6" id="nf">********** nothing follows **********</div>
 					<div class="col s3" id="totalAmoumt">
 						<b>
-							TOTAL AMOUNT
+							TOTAL VAT
 						</b>
 					</div>
 					<div class="col s3">
@@ -213,7 +216,7 @@
 				<p>Are you sure you want to save this request?</p>
 			</div>
 			<div class="modal-footer">
-				<a href="#!" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+				<a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="SavePO()">Yes</a>
 				<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
 			</div>
 		</div>
