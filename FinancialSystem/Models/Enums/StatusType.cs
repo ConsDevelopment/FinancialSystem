@@ -9,6 +9,7 @@ namespace FinancialSystem.Models.Enums
         Request,
         Review,
         Approved,
+		ForApproval,
 		Rejected,
 		Cancelled,
 		Ordered,
@@ -16,6 +17,7 @@ namespace FinancialSystem.Models.Enums
 		Shipped,
 		Delivered,
 		PartialAppoved,
-		PartialDelivered
+		PartialDelivered,
+		Saved
     }
 }

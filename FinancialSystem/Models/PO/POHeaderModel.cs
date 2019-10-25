@@ -36,7 +36,7 @@ namespace FinancialSystem.Models {
 		public virtual CostRevenueCenterModel CRC { get; set; }		
 		public virtual double Amount { get; set; }
 
-		public virtual ICollection<PRLinesModel> Lines { get; set; }
+		public virtual ICollection<POLinesModel> Lines { get; set; }
 
 		public POHeaderModel() {			
 			CreateTime = DateTime.UtcNow;			

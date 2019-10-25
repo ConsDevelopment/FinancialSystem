@@ -1,9 +1,12 @@
 ﻿using FinancialSystem.Models;
+using FinancialSystem.Models.Enums;
+using FinancialSystem.NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace FinancialSystem.Controllers.API.PO {
@@ -19,10 +22,38 @@ namespace FinancialSystem.Controllers.API.PO {
 		}
 
 		// POST api/<controller>
-		public void Post(POViewModel value) {
+		public async Task<string> Post(POViewModel value) {
+			var nhss = new NHibernateISupplierStore();
+			var nhcs = new NHibernateCompanyStore();
+			var nhpos = new NHibernatePOStore();
+			var requierDate = value.RequiredDate < DateTime.UtcNow ? DateTime.UtcNow.AddDays(6) : value.RequiredDate;
 			var po = new POHeaderModel() {
-				PaymentTerm=value.PaymentTerm
+				Supplier= await nhss.FindSupplierByIdAsync(value.Id),
+				PaymentTerm=value.PaymentTerm,
+				Requestor=await nhcs.GetEmployeeAsync(value.RequestorId),
+				DeliveryAdress=value.DeliveryAdress,
+				Status=StatusType.Saved,
+				RequiredDate= requierDate,
+				NoteToBuyer=value.NoteToBuyer,
+				Lines = new List<POLinesModel>()
 			};
+			foreach (var line in value.Lines) {
+				var nhps = new NHibernatePRStore();
+				var poLine = new POLinesModel() {
+					Quantity=line.Quantity,
+					UOM=line.UOM,
+					Description=line.Description,
+					UnitPrice=line.UnitPrice,
+					PRLine=await nhps.GetPRLineAsync(line.PRLineId),
+					Name=line.Name
+				};
+				po.Lines.Add(poLine);
+			}
+			try {
+				await nhpos.SaveOrUpdatePOHeaderAsync(po);
+			} catch (Exception e) {
+			}
+			return po.RequisitionNo;
 		}
 
 		// PUT api/<controller>/5

@@ -59,7 +59,7 @@
 					</div>
 					<!-- End Modal -->
 					<div class="input-field col s6">
-						<input list="PaymentTerms_" onchange="dataList('', '#PaymentTerms',false);"  name="PaymentTerms" placeholder="Payment Terms" id="PaymentTermsInput_" />
+						<input list="PaymentTerms_" value="@PaymentTermsType.COD" onchange="dataList('', '#PaymentTerms',false);"  name="PaymentTerms" placeholder="Payment Terms" id="PaymentTermsInput_" />
 						<datalist id="PaymentTerms_">
 							@{			var PaymentTerms = Enum.GetValues(typeof(PaymentTermsType));
 							}
@@ -67,7 +67,7 @@
 								<option data-value="@PaymentTerm.ToString()">@PaymentTerm.ToString()</option>
 							}
 						</datalist>
-						<input type="hidden" id="PaymentTermsInput-hidden_" />
+						<input type="hidden" id="PaymentTermsInput-hidden_" value="@PaymentTermsType.COD" />
 					</div>
 					<div class="col s6" id="info"></div>
 					<div class="col s12">
@@ -109,7 +109,7 @@
 									<td>
 										@*@line.UOM <a class="badge red modal-trigger" id="badge"
 									   href="#uom"><span>-</span></a>*@
-										<input list="UOM_@line.Id" onchange="dataList('@line.Id', '#UOM' , false)" name="UOM_@line.Id" placeholder="UOM" id="UOMInput_@line.Id" />
+										<input list="UOM_@line.Id" value="@line.UOM" onchange="dataList('@line.Id', '#UOM' , false)" name="UOM_@line.Id" placeholder="UOM" id="UOMInput_@line.Id" />
 										<datalist id="UOM_@line.Id">
 											@{			var UOMs = Enum.GetValues(typeof(UOMType));
 											}
@@ -117,7 +117,7 @@
 												<option data-value="@UOM.ToString()">@UOM.ToString()</option>
 											}
 										</datalist>
-										<input type="hidden" id="UOMInput-hidden_@line.Id" />
+										<input type="hidden" id="UOMInput-hidden_@line.Id" value="@line.UOM" />
 									</td>
 									
 									<td>
@@ -216,7 +216,7 @@
 				<p>Are you sure you want to save this request?</p>
 			</div>
 			<div class="modal-footer">
-				<a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="SavePO()">Yes</a>
+				<a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="SavePO('Saved')">Yes</a>
 				<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
 			</div>
 		</div>

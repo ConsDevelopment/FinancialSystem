@@ -295,6 +295,7 @@
     <Compile Include="NHibernate\NHibernateISupplierStore.cs" />
     <Compile Include="NHibernate\NHibernateICategoryStore.cs" />
     <Compile Include="NHibernate\NHibernateNonCatalogStore.cs" />
+    <Compile Include="NHibernate\NHibernatePOStore.cs" />
     <Compile Include="NHibernate\NHibernatePRStore.cs" />
     <Compile Include="NHibernate\NHibernateItemStore.cs" />
     <Compile Include="NHibernate\NHibernateCompanyStore.cs" />

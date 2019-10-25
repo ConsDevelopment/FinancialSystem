@@ -136,12 +136,12 @@ function calculateAmount(id) {
 	$("#vatTotal").text((grandTotal * .12).toFixed(2));
 	$("#grandTotal").text(((grandTotal*12)+ grandTotal).toFixed(2))
 }
-function SavePO() {
+function SavePO(status) {
 
 	var lines = [];
 	$('#table_ tbody tr').each(function () {
 		var id = $(this).find("td").eq(0).html();
-		alert($("#UOMInput-hidden_" + id).val());
+		
 		lines.push({
 			"Name": $(this).find("td").eq(1).html(),
 			"Description": $(this).find("td").eq(2).find("textarea").val(),
@@ -164,6 +164,7 @@ function SavePO() {
 		"RequiredDate": date,
 		"SecurityStamp": $("#SecurityStamp").val(),
 		"NoteToBuyer": $("#notoTobuyer").val(),
+		"Status" : status,
 		"Lines": lines
 	};
 
@@ -178,9 +179,9 @@ function SavePO() {
 		//dataType: 'json',
 
 		success: function (data) {
-			if ($("#QaNumber_" + Id).text() != data) {
-				$("#QaNumber_" + Id).text(data);
-				M.toast({ html: 'Q.A Number ' + data + ' has been created', classes: 'rounded' });
+			if ($("#pr-num").text() != data) {
+				$("#pr-num").text(data);
+				M.toast({ html: 'PO Number ' + data + ' has been created', classes: 'rounded' });
 				//$("#submit-button").contents().unwrap();
 				$("#submit-button").hide();
 			} else {
