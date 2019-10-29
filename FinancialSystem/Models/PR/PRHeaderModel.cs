@@ -21,9 +21,12 @@ namespace FinancialSystem.Models {
 
 		public virtual string RequisitionNo {
 			get {
-				string[] str = requisitionNo.Split('-');
-				if (requisitionNo!=null && str.Length > 1) {
-					requisitionNo = str[1];
+				string[] str = null;
+				if (requisitionNo!=null ) {
+					str= requisitionNo.Split('-');
+					if (str.Length > 1) {
+						requisitionNo = str[1];
+					}
 				}
 				return requisitionNo;
 			}

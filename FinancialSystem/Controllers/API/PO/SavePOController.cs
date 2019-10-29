@@ -26,15 +26,18 @@ namespace FinancialSystem.Controllers.API.PO {
 			var nhss = new NHibernateISupplierStore();
 			var nhcs = new NHibernateCompanyStore();
 			var nhpos = new NHibernatePOStore();
+			var nhus = new NHibernateUserStore();
 			var requierDate = value.RequiredDate < DateTime.UtcNow ? DateTime.UtcNow.AddDays(6) : value.RequiredDate;
+			var user = await nhus.FindByStampAsync(value.SecurityStamp);
 			var po = new POHeaderModel() {
-				Supplier= await nhss.FindSupplierByIdAsync(value.Id),
-				PaymentTerm=value.PaymentTerm,
-				Requestor=await nhcs.GetEmployeeAsync(value.RequestorId),
-				DeliveryAdress=value.DeliveryAdress,
-				Status=StatusType.Saved,
-				RequiredDate= requierDate,
-				NoteToBuyer=value.NoteToBuyer,
+				Supplier = await nhss.FindSupplierByIdAsync(value.SupplierId),
+				PaymentTerm = value.PaymentTerm,
+				Requestor = await nhcs.GetEmployeeAsync(value.RequestorId),
+				DeliveryAdress = value.DeliveryAdress,
+				Status = StatusType.Saved,
+				RequiredDate = requierDate,
+				NoteToBuyer = value.NoteToBuyer,
+				CreatedBy = user,
 				Lines = new List<POLinesModel>()
 			};
 			foreach (var line in value.Lines) {
@@ -45,13 +48,14 @@ namespace FinancialSystem.Controllers.API.PO {
 					Description=line.Description,
 					UnitPrice=line.UnitPrice,
 					PRLine=await nhps.GetPRLineAsync(line.PRLineId),
-					Name=line.Name
+					Name=line.Name,
+					CreatedBy=user
 				};
 				po.Lines.Add(poLine);
 			}
 			try {
 				await nhpos.SaveOrUpdatePOHeaderAsync(po);
-			} catch (Exception e) {
+			} catch (Exception e)                                                                        {
 			}
 			return po.RequisitionNo;
 		}

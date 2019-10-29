@@ -1,5 +1,6 @@
 ﻿@model IList<FinancialSystem.Models.PRHeaderModel>
 @using FinancialSystem.Utilities
+@using FinancialSystem.Models.Enums
 @foreach (var pr in Model) {
 <div class="col s12" id="header-approver">
 	<ul class="collapsible">
@@ -81,19 +82,29 @@
 											supplier = itm.Supplier.Name;
 
 										}
+										var poline = line.POLines.FirstOrDefault(x => x.DeleteTime == null);
 									<tr>
 										<td>
 											<label class="check-box">
-												<input type="checkbox" class="filled-in" id="@line.Id" name="@("itemCheck-" + pr.Id)"/>
+												@if (poline == null) {
+													<input type="checkbox" class="filled-in" id="@line.Id" name="@("itemCheck-" + pr.Id)"/>
+												} else if (poline.Header.Status == StatusType.Saved || poline.Header.Status == StatusType.ForApproval) {
+													<input type="checkbox" class="filled-in" id="@line.Id" name="@("itemCheck-" + pr.Id)" disabled />
+												} else {
+													<input type="checkbox" class="filled-in" id="@line.Id" name="@("itemCheck-" + pr.Id)" />
+												}
 												<span></span>
 											</label>
 										</td>
 										<td>@itemCode</td>
 										
-										@if (line.POLines.Count!= 0) {
-											var poline = line.POLines.FirstOrDefault(x => x.DeleteTime == null);
-											<td>@poline.Header.RequisitionNo</td>
-										}else {
+										@if (poline != null) {
+											if (poline.Header.Status == StatusType.Saved || poline.Header.Status == StatusType.ForApproval) {
+												<td>@poline.Header.RequisitionNo</td>
+											} else {
+												<td></td>
+											}
+										} else {
 											<td></td>
 										}
 										<td>@itemname</td>
