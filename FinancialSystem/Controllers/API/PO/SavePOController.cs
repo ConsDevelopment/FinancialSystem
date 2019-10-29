@@ -23,10 +23,12 @@ namespace FinancialSystem.Controllers.API.PO {
 
 		// POST api/<controller>
 		public async Task<string> Post(POViewModel value) {
+			const long PurchaserHead = 6;
 			var nhss = new NHibernateISupplierStore();
 			var nhcs = new NHibernateCompanyStore();
 			var nhpos = new NHibernatePOStore();
 			var nhus = new NHibernateUserStore();
+			var company = new NHibernateCompanyStore();
 			var requierDate = value.RequiredDate < DateTime.UtcNow ? DateTime.UtcNow.AddDays(6) : value.RequiredDate;
 			var user = await nhus.FindByStampAsync(value.SecurityStamp);
 			var po = new POHeaderModel() {
@@ -34,7 +36,7 @@ namespace FinancialSystem.Controllers.API.PO {
 				PaymentTerm = value.PaymentTerm,
 				Requestor = await nhcs.GetEmployeeAsync(value.RequestorId),
 				DeliveryAdress = value.DeliveryAdress,
-				Status = StatusType.Saved,
+				Status =value.Status,
 				RequiredDate = requierDate,
 				NoteToBuyer = value.NoteToBuyer,
 				CreatedBy = user,
@@ -53,6 +55,15 @@ namespace FinancialSystem.Controllers.API.PO {
 				};
 				po.Lines.Add(poLine);
 			}
+			if (value.Status == StatusType.ForApproval) {
+				var approver = new POAprovalModel() {
+					Approver= await company.GetPositionByIdAsync(PurchaserHead)
+				};
+				po.Approvals = new List<POAprovalModel>();
+				po.Approvals.Add(approver);
+
+			}
+
 			try {
 				await nhpos.SaveOrUpdatePOHeaderAsync(po);
 			} catch (Exception e)                                                                        {

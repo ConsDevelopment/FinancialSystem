@@ -20,6 +20,7 @@ namespace FinancialSystem.Models {
 		public virtual StatusType Status { get; set; }
 		public virtual DateTime? RequiredDate { get; set; }
 		public virtual string NoteToBuyer { get; set; }
+		public virtual ICollection<POAprovalModel> Approvals { get; set; }
 
 		public virtual string RequisitionNo {
 			get {
@@ -65,6 +66,7 @@ namespace FinancialSystem.Models {
 				References(x => x.CRC, "CRC").Cascade.SaveUpdate();
 				HasMany(x => x.Lines).Cascade.SaveUpdate().KeyColumn("Header");
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
+				HasMany(x => x.Approvals).Cascade.SaveUpdate().KeyColumn("POHeader");
 			}
 		}
 
