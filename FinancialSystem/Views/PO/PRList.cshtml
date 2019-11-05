@@ -1,5 +1,6 @@
 ﻿@model IList<FinancialSystem.Models.PRHeaderModel>
 @using FinancialSystem.Utilities
+@using FinancialSystem.Models.Enums
 @foreach (var pr in Model) {
 <div class="col s12" id="header-approver">
 	<ul class="collapsible">
@@ -41,29 +42,9 @@
 						<div class="col s6" id="info">
 							<b>Requestor Name:</b> @pr.Requestor.Name()
 						</div>
-						<!-- Modal Structure -->
-						@*<div id="modal1" class="modal">
-							<div class="modal-content">
-								<h4>Search Requestor</h4>
-								<form autocomplete="off" action="">
-									<div class="autocomplete">
-										<input id="myInput" type="text" name="requestor"
-											   placeholder="Search Requestor">
-									</div>
-								</form>
-							</div>
-							<div class="modal-footer">
-								<a href="#!"
-								   class="modal-close waves-effect waves-green btn-flat">OK</a>
-							</div>
-						</div>*@
-						<!-- End Modal -->
-						@*<div class="col s6" id="info"><b>Business Unit:</b> @pr.Requestor.Company.</div>*@
 						<div class="col s6" id="info"><b>Cost Revenue Center (CRC):</b> @pr.CRC.CRCCode</div>
 						<div class="col s6" id="info"><b>Company Address:</b></div>
-						@*<div class="col s6" id="info">
-							<b>Category Account Code:</b> Account Code
-						</div>*@
+						
 						<div class="col s6" id="info">
 							@pr.DeliveryAdress
 						</div>
@@ -101,19 +82,29 @@
 											supplier = itm.Supplier.Name;
 
 										}
+										var poline = line.POLines.FirstOrDefault(x => x.DeleteTime == null);
 									<tr>
 										<td>
 											<label class="check-box">
-												<input type="checkbox" class="filled-in" id="@line.Id" name="@("itemCheck-" + pr.Id)"/>
+												@if (poline == null) {
+													<input type="checkbox" class="filled-in" id="@line.Id" name="@("itemCheck-" + pr.Id)"/>
+												} else if (poline.Header.Status == StatusType.Saved || poline.Header.Status == StatusType.ForApproval) {
+													<input type="checkbox" class="filled-in" id="@line.Id" name="@("itemCheck-" + pr.Id)" disabled />
+												} else {
+													<input type="checkbox" class="filled-in" id="@line.Id" name="@("itemCheck-" + pr.Id)" />
+												}
 												<span></span>
 											</label>
 										</td>
 										<td>@itemCode</td>
 										
-										@if (line.POLines.Count!= 0) {
-											var poline = line.POLines.FirstOrDefault(x => x.DeleteTime == null);
-											<td>@poline.Header.RequisitionNo</td>
-										}else {
+										@if (poline != null) {
+											if (poline.Header.Status == StatusType.Saved || poline.Header.Status == StatusType.ForApproval) {
+												<td>@poline.Header.RequisitionNo</td>
+											} else {
+												<td></td>
+											}
+										} else {
 											<td></td>
 										}
 										<td>@itemname</td>
@@ -146,10 +137,10 @@
 						<div class="col s12" id="note">
 							<p id="noteto"><b>Note to Buyer: </b></p>
 						</div>
-						<a class="waves-effect waves-light btn amber right modal-trigger" href="#modal7"
+						<a class="waves-effect waves-light btn amber right modal-trigger" href="#modalAddPO_@pr.Id"
 						   id="add-button">ADD to P.O.</a>
 						<a class="waves-effect waves-light btn right green modal-trigger"
-						   href="#modal6">CREATE P.O.</a>
+						   href="#modal_@pr.Id">CREATE P.O.</a>
 						<!-- Modal Structure -->
 						<div id="modal3" class="modal">
 							<div class="modal-content">
@@ -179,7 +170,7 @@
 
 <div class="col s12" id="submit">
 	<!-- Modal Structure Add to P.O. -->
-	<div id="modal7" class="modal">
+	<div id="modalAddPO_@pr.Id" class="modal">
 		<div class="modal-content">
 			<p>Are you sure you want to Add this P.O?</p>
 		</div>
@@ -191,13 +182,13 @@
 	</div>
 
 	<!-- Modal Structure Create P.O. -->
-	<div id="modal6" class="modal">
+	<div id="modal_@pr.Id" class="modal">
 		<div class="modal-content">
 			<p>Are you sure you want to create this P.O?</p>
 		</div>
 		<div class="modal-footer">
-			<a href="#!" class="modal-close waves-effect waves-green btn-flat" id="@pr.Id"
-			   onclick="CreatePO(this)">Yes</a>
+			<a href="#!" class="modal-close waves-effect waves-green btn-flat" 
+			   onclick="CreatePO(@pr.Id)">Yes</a>
 			<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
 		</div>
 	</div>

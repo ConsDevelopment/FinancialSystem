@@ -1,4 +1,4 @@
-﻿using FinancialSystem.Accessor;
+﻿                                          using FinancialSystem.Accessor;
 using FinancialSystem.Models;
 using FinancialSystem.Models.Enums;
 using FinancialSystem.Utilities;
@@ -27,7 +27,7 @@ namespace FinancialSystem.NHibernate {
 					var items = db.QueryOver<PRHeaderModel>(() => pr)
 						.JoinAlias(() => pr.Requestor, () => emp)
 						.JoinAlias(() => emp.Department, () => dep)
-						.Where(x => pr.DeleteTime==null && pr.Status==StatusType.Approved && (pr.RequisitionNo.IsLike(search + "%")
+						.Where(x => pr.DeleteTime==null && pr.Status==StatusType.Approved && (pr.RequisitionNo.IsLike("%" + search + "%")
 						|| emp.LastName.IsLike(search + "%")
 						|| dep.Name.IsLike(search+"%"))).OrderBy(()=>pr.CreateTime).Desc.Take(10);
 					

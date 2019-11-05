@@ -20,12 +20,16 @@ namespace FinancialSystem.Models {
 		public virtual StatusType Status { get; set; }
 		public virtual DateTime? RequiredDate { get; set; }
 		public virtual string NoteToBuyer { get; set; }
+		public virtual ICollection<POAprovalModel> Approvals { get; set; }
 
 		public virtual string RequisitionNo {
 			get {
-				string[] str = requisitionNo.Split('-');
-				if (requisitionNo!=null && str.Length > 1) {
-					requisitionNo = str[1];
+				string[] str = null;
+				if (requisitionNo!=null) {
+					str= requisitionNo.Split('-');
+					if (str.Length > 1) {
+						requisitionNo = str[1];
+					}
 				}
 				return requisitionNo;
 			}
@@ -36,7 +40,7 @@ namespace FinancialSystem.Models {
 		public virtual CostRevenueCenterModel CRC { get; set; }		
 		public virtual double Amount { get; set; }
 
-		public virtual ICollection<PRLinesModel> Lines { get; set; }
+		public virtual ICollection<POLinesModel> Lines { get; set; }
 
 		public POHeaderModel() {			
 			CreateTime = DateTime.UtcNow;			
@@ -62,6 +66,7 @@ namespace FinancialSystem.Models {
 				References(x => x.CRC, "CRC").Cascade.SaveUpdate();
 				HasMany(x => x.Lines).Cascade.SaveUpdate().KeyColumn("Header");
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
+				HasMany(x => x.Approvals).Cascade.SaveUpdate().KeyColumn("POHeader");
 			}
 		}
 

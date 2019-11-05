@@ -16,7 +16,6 @@ namespace FinancialSystem.Models {
 		public virtual UOMType UOM { get; set; }
 		public virtual string Description { get; set; }
 		public virtual double UnitPrice { get; set; }
-		public virtual double TotalAmount { get; set;  }
 		public virtual POHeaderModel Header { get; set; }
 		public virtual PRLinesModel PRLine { get; set; }
 		public virtual string Name { get; set; }
@@ -35,7 +34,6 @@ namespace FinancialSystem.Models {
 				Map(x => x.UOM).Length(20);
 				Map(x => x.Description);
 				Map(x => x.UnitPrice);
-				Map(x => x.TotalAmount);
 				Map(x => x.DeleteTime);
 				Map(x => x.CreateTime);
 				Map(x => x.Name).Length(30);

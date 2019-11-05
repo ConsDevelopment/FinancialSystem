@@ -17,7 +17,7 @@ namespace FinancialSystem.Controllers.MVC.PO
         {
 			return View();
         }
-
+		[Authorize(Roles = "Purchaser")]
 		public async Task<ActionResult> PRList(SearchItemViewModel value) {
 		
 			value.searchItem = value.searchItem ?? "";
@@ -29,7 +29,7 @@ namespace FinancialSystem.Controllers.MVC.PO
 			}
 			return PartialView(searchPRs);
 		}
-
+		[Authorize(Roles = "Purchaser")]
 		public async Task<ActionResult> POCreation(IList<PrLinesViewModel> value) {
 			var nhpa = new NHibernatePRStore();
 			PRHeaderModel PR = null;

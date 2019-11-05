@@ -101,19 +101,13 @@ body {
   .sidenav .collapsible-body, .sidenav.fixed .collapsible-body {
     background-color: rgba(0, 0, 255, 0) !important;
     padding-bottom: 0px;
-    min-width: 1140px;
-    
   }
   
   .collapsible {
     margin-top: 160px;
   }
 
-  .z-depth-1, .btn-floating, .dropdown-content, .collapsible {
-    min-width: 1000px;
-    margin-top: 100px;
-  }
-
+  
   .icons {
     font-size: 1rem;
   }
@@ -123,22 +117,9 @@ body {
     line-height: 60px;
     font-weight: 700;
     background-color: white;
-    margin-top: 10px;
+    margin-top: 50px;
     margin-bottom: 30px;
     border-left: solid 2px #f1f1f1;
-}
-
-#pr2 {
-  min-width: 1000px;
-  box-shadow: none !important;
-  border-bottom: none !important;
-  background-color: white;
-  border-top: 2px solid #f1f1f1;
-}
-
-.progress {
-  margin-top: -15px;
-  height: 2px !important;
 }
 
 #circle-item {
@@ -157,29 +138,15 @@ body {
     0 3px 1px -2px rgba(0,0,0,0.12), 
     0 1px 5px 0 rgba(0,0,0,0.2); 
 }
-
-#header-approver {
-  margin-left: 10px;
-  min-width: 1000px;
-}
-
-#po-C1{
-  min-width: 1000px;
-  text-align: center;
+#pr1 {
+  width: 1000px;
+  margin-left: -120px;
+  padding: 50px;
 }
 
 #approver_details {
-  font-family: 'Titillium Web', sans-serif;
   text-align: center;
   line-height: 50px;
-  color: #333;
-}
-
-.check-box {
-  font-family: 'Titillium Web', sans-serif;
-  display: inline-block;
-  
-  color: #333;
 }
 
 .status {
@@ -221,7 +188,8 @@ body {
   height: 50%;
 }
 input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
-  border-bottom: none !important;
+    border-bottom: #333 1px solid!important;
+    width: 30%;
 }
 
 #info0 {
@@ -239,20 +207,12 @@ textarea {
   background-color: white;
 }
 
-table, th{
+table, th, td {
   font-family: 'Titillium Web', sans-serif;
   font-size: 10pt;
   text-align: center;
   margin-top: 20px;
-  color: white;
-
 }
-table, td {
-  font-family: 'Titillium Web', sans-serif;
-  font-size: 10pt;
-  text-align: center;
-  color: #333;
-}*/
 
 .input-left {
   padding-top: 20px;
@@ -283,7 +243,6 @@ table, td {
 #note {
   border-bottom: 1px solid #ccc;
   padding-bottom: 10px;
-  margin-bottom: 30px;
 }
 
 #noteto {
@@ -367,6 +326,10 @@ table, td {
   font-style: italic;
 }
 
+.btn, .btn-large, .btn-small {
+    margin-left: 10px;
+}
+
 #submit {
   margin-top: 20px;
 }
@@ -374,22 +337,6 @@ table, td {
   margin-left: 10px;
 }
 
-#add-button{
-  margin-left: 10px;
-}
-
-th{
-  color: black;
-  font-family: 'Titillium Web', sans-serif;
-}
-
-.row{
-  margin-left: 10px;
-}
-
-#status-prog{
-  margin-top: 30px;
-}
 
 @media only screen and (max-width: 600px) {
 
@@ -478,3 +425,6 @@ th{
       padding-top: 200px !important;
     }
   }
+  
+  
+  
