@@ -40,6 +40,7 @@ namespace FinancialSystem.Controllers.API.PO {
 				RequiredDate = requierDate,
 				NoteToBuyer = value.NoteToBuyer,
 				CreatedBy = user,
+				Amount=value.Amount,
 				Lines = new List<POLinesModel>()
 			};
 			foreach (var line in value.Lines) {
@@ -61,12 +62,18 @@ namespace FinancialSystem.Controllers.API.PO {
 				};
 				po.Approvals = new List<POAprovalModel>();
 				po.Approvals.Add(approver);
-
+				var costApprover = company.FindCostApprover(po.Amount);
+				if (costApprover.Result != null) {
+					var approver2 = new POAprovalModel() {
+						Approver = costApprover.Result.Approver
+					};
+					po.Approvals.Add(approver2);
+				}
 			}
 
 			try {
 				await nhpos.SaveOrUpdatePOHeaderAsync(po);
-			} catch (Exception e)                                                                        {
+			} catch (Exception e) {
 			}
 			return po.RequisitionNo;
 		}

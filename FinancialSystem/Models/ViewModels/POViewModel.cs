@@ -16,6 +16,7 @@ namespace FinancialSystem.Models {
 		public DateTime RequiredDate { get; set; }
 		public string SecurityStamp { get; set; }
 		public string NoteToBuyer { get; set; }
+		public virtual double Amount { get; set; }
 		public ICollection<POLinesViewModel> Lines { get; set; }
 
 	}

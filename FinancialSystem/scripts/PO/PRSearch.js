@@ -164,7 +164,8 @@ function SavePO(status) {
 		"RequiredDate": date,
 		"SecurityStamp": $("#SecurityStamp").val(),
 		"NoteToBuyer": $("#notoTobuyer").val(),
-		"Status" : status,
+		"Status": status,
+		"Amount" : $("#grandTotal").text(),
 		"Lines": lines
 	};
 

@@ -46,6 +46,14 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+
+		public async Task<CostAproverModel> FindCostApprover(double amount) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<CostAproverModel>().Where(x =>  amount>=x.Min && amount <= x.Max ).SingleOrDefault();
+				}
+			}
+		}
 	}
 }
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
