@@ -45,7 +45,7 @@
 						uom = row.Item.UOM;
 					}else {
 
-						var item = row.NonCatalog.Lines.Where(x => x.Selected == true).SingleOrDefault();
+						var item = row.NonCatalog.Lines.Where(x => x.Selected == true && x.DeleteTime==null).SingleOrDefault();
 						tot += (item.Price * row.Quantity);
 						image = item.image;
 						name = row.NonCatalog.Name;
