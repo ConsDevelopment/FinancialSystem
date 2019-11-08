@@ -15,16 +15,24 @@ namespace FinancialSystem.NHibernate {
 		public async Task<IList<ItemModel>> SearchItemAsync(string search) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
-					var items= db.QueryOver<ItemModel>().Where((Restrictions.On<ItemModel>(x=>x.Name).IsLike(search+"%") || Restrictions.On<ItemModel>(x => x.SKU).IsLike(search.ToLower() + "%") )
-						&& Restrictions.On<ItemModel>(x=>x.DeleteTime).IsNull);
+					var items = db.QueryOver<ItemModel>().Where((Restrictions.On<ItemModel>(x => x.Name).IsLike(search + "%") || Restrictions.On<ItemModel>(x => x.SKU).IsLike(search.ToLower() + "%"))
+						&& Restrictions.On<ItemModel>(x => x.DeleteTime).IsNull);
 					return items.List();
-				} 
+				}
 			}
 		}
 		public async Task<ItemModel> FindItemByIdAsync(long Id) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
 					return db.Get<ItemModel>(Id);
+				}
+			}
+		}
+
+		public async Task<IList<BrandModel>> GetAllBrandNameAsync() {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<BrandModel>().Where(x => x.DeleteTime == null).List();
 				}
 			}
 		}

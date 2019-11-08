@@ -205,6 +205,7 @@
   <ItemGroup>
     <Content Include="Content\images\bsi_logo.png" />
     <Content Include="Content\images\sample_image-login.jpg" />
+    <Content Include="Content\Maintenance\add-items.css" />
     <Content Include="Content\PO\po-creation.css" />
     <Content Include="Content\PR\pr-approver.css" />
     <Content Include="Content\PR\pr-shop.css" />
@@ -214,6 +215,7 @@
     <Content Include="Content\User\login.css" />
     <Content Include="Content\User\registration.css" />
     <Content Include="Global.asax" />
+    <Content Include="scripts\Maintenance\AddItems.js" />
     <Content Include="scripts\PO\PRSearch.js" />
     <Content Include="scripts\PR\PRApproved.js" />
     <Content Include="scripts\PR\QuoteAnalysis.js" />
@@ -239,6 +241,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\API\Company\RegisterController.cs" />
+    <Compile Include="Controllers\API\Maintenance\AddItemsController.cs" />
     <Compile Include="Controllers\API\PR\AddNonCatalogController.cs" />
     <Compile Include="Controllers\API\PR\AddPRLinesController.cs" />
     <Compile Include="Controllers\API\PR\CreatePRController.cs" />
@@ -249,7 +252,7 @@
     <Compile Include="Controllers\API\Users\CreateUserController.cs" />
     <Compile Include="Controllers\API\Users\LoginApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\MVC\Company\MaintenanceController.cs" />
+    <Compile Include="Controllers\MVC\Maintenance\ItemMaintenanceController.cs" />
     <Compile Include="Controllers\MVC\PO\POController.cs" />
     <Compile Include="Controllers\MVC\PR\PRController.cs" />
     <Compile Include="Controllers\MVC\Users\UserController.cs" />
@@ -359,6 +362,7 @@
     <Content Include="Views\PO\PRSearch.cshtml" />
     <Content Include="Views\PO\PRList.cshtml" />
     <Content Include="Views\PO\POCreation.cshtml" />
+    <Content Include="Views\ItemMaintenance\AddItems.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -368,7 +372,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Maintenance\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\ErrorMessageStrings.resx" />

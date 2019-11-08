@@ -25,7 +25,6 @@ namespace FinancialSystem.Controllers.API.Users {
 		// POST api/<controller>
 		[AcceptVerbs("GET", "POST")]
 		public UserModel Post(UserModel source) {
-			NHibernateUserStore store = new NHibernateUserStore();
 			PasswordHasher ph = new PasswordHasher();
 			
 			var passHash = ph.HashPassword(source.Password);
