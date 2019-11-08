@@ -1,0 +1,138 @@
+﻿@using FinancialSystem.Models
+
+
+@{
+    ViewBag.Title = "AddItems";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+
+@Styles.Render("~/Content/Maintenance/add-items")
+@Scripts.Render("~/scripts/Maintenance/AddItems")
+@Html.Hidden("ApiServer", ViewData["ApiServer"])
+
+
+@{
+	var brandItems = (List<BrandModel>)ViewData["BrandItems"];
+	var supplierNames = (List<SupplierModel>)ViewData["SupplierNames"];
+
+}
+
+
+<body>
+
+
+	<div class="container">
+		<!-- Page Content goes here -->
+		<div class="row">
+			<div class="col s10>
+
+                <div class="card white darken-1">
+                    <div class="card-content">
+                        <table class="responsive-table">
+                            <thead>
+                                <tr>
+                                    <th>NAME</th>
+                                    <th>ITEM CODE</th>
+                                    <th>SKU</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>QTY</th>
+                                    <th>IMAGE</th>
+                                    <th>BRAND</th>
+                                    <th>PRICE</th>
+                                    <th>SUPPLIER</th>
+                                    <th>UOM</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+
+                                    <td><input id="Name" type="text" placeholder="Name"></td>
+                                    <td><input id="ItemCode" type="text" placeholder=Item Code"></td>
+                                    <td><input id="Sku" type="text" placeholder="SKU"></td>
+                                    <td><input id="Description" type="text" placeholder="Description"></td>
+                                    <td><input id="Qty" type="text" placeholder="Qty"></td>
+
+									<td> @*Input Image*@
+										<form action="#">
+											<div class="file-field input-field">
+												<div class="btn">
+													<span>Browse</span>
+													<input type="file">
+												</div>
+												<div class="file-path-wrapper">
+													<input class="file-path validate" type="text">
+												</div>
+											</div>
+										</form>
+									</td>
+                                   
+                                    <td> @*Item Brand List*@
+										<form autocomplete="off" action="">
+											<div class="autocomplete">
+												<input id="BrandName" type="text" name="brandname"
+													   placeholder="Brand" list="BrandNameList">
+												<input id="BrandNameListId" type="hidden">
+												<datalist id="BrandNameList">
+													@foreach (var secBrand in brandItems) {
+														<option data-value="@secBrand.Id" value="@secBrand.Name"></option> }
+												</datalist>
+											</div>
+										</form>
+                                    </td>
+
+                                    <td><input type="text" placeholder="Enter Price"></td>
+
+									<td> @*Supplier List*@
+										<form autocomplete="off" action="">
+											<div class="autocomplete">
+												<input id="SupplierName" type="text" name="suppliername"
+													   placeholder="Supplier" list="SupplierNameList">
+												<input id="SupplierNameListId" type="hidden">
+												<datalist id="SupplierNameList">
+													@foreach (var secSupplierName in supplierNames) {
+														<option data-value="@secSupplierName.Id" value="@secSupplierName.Name"></option> }
+												</datalist>
+											</div>
+										</form>
+									</td>
+
+                                    <td>
+                                        <select class="browser-default">
+                                            <option value="" disabled selected>Select UOM</option>
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                        </select>
+                                    </td>
+
+                                    <td>
+                                        <a class="btn-floating pulse btn-small waves-effect waves-light green modal-trigger"
+										   href="#modal4" onclick="AddItems()">
+                                            <i class="material-icons">add</i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+	<script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var elems = document.querySelectorAll('select');
+                var instances = M.FormSelect.init(elems);
+            });
+	</script>
+</body>
+</html>
+
+
+

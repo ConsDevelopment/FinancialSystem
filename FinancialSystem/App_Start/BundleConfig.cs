@@ -31,6 +31,7 @@ namespace FinancialSystem
 			PRAprover(bundles);
 			QuoteAnalysis(bundles);
 			PRSearch(bundles);
+            AddNewItems(bundles);
 			BundleTable.EnableOptimizations = Config.OptimizationEnabled();
 
 		}
@@ -164,7 +165,13 @@ namespace FinancialSystem
 
 		}
 
+        
+        private static void AddNewItems(BundleCollection bundles) {
 
+            bundles.Add(new StyleBundle("~/Content/Maintenance/add-items")
+                .Include("~/Content/Maintenance/add-items.css"));
+
+        }
 
 		//private static void Bootstrap(BundleCollection bundles) {
 		//	// Use the development version of Modernizr to develop with and learn from. Then, when you're

@@ -14,10 +14,10 @@ namespace FinancialSystem.Models {
 		public virtual long Id { get; set; }
 		public virtual string Name { get; set; }
 		public virtual UserModel CreatedBy { get; set; }
+
 		public BrandModel() {
 			
-			CreateTime = DateTime.UtcNow;
-			
+			CreateTime = DateTime.UtcNow;	
 		}
 
 		public virtual DateTime CreateTime { get; set; }
