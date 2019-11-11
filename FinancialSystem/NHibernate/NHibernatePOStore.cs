@@ -30,7 +30,24 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
-		
+		public async Task<IList<POHeaderModel>> SearchPRAsync(string search) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					POHeaderModel po = null;
+					EmployeeModel emp = null;
+					DepartmentModel dep = null;
+					var items = db.QueryOver<POHeaderModel>(() => po)
+						.JoinAlias(() => po.Requestor, () => emp)
+						.JoinAlias(() => emp.Department, () => dep)
+						.Where(x => po.DeleteTime == null  && (po.RequisitionNo.IsLike("%" + search + "%")
+						|| emp.LastName.IsLike(search + "%")
+						|| dep.Name.IsLike(search + "%"))).OrderBy(() => po.CreateTime).Desc.Take(10);
+
+					return items.List();
+				}
+			}
+		}
+
 
 
 	}
