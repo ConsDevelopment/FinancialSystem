@@ -31,7 +31,8 @@ namespace FinancialSystem
 			PRAprover(bundles);
 			QuoteAnalysis(bundles);
 			PRSearch(bundles);
-            AddNewItems(bundles);
+			POSearch(bundles);
+			AddNewItems(bundles);
 			BundleTable.EnableOptimizations = Config.OptimizationEnabled();
 
 		}
@@ -164,9 +165,16 @@ namespace FinancialSystem
 			  )));
 
 		}
+		private static void POSearch(BundleCollection bundles) {
 
-        
-        private static void AddNewItems(BundleCollection bundles) {
+			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/PO/POSearch").Include(
+					 "~/scripts/PO/POSearch.js"
+			  )));
+
+		}
+
+
+		private static void AddNewItems(BundleCollection bundles) {
 
             bundles.Add(new StyleBundle("~/Content/Maintenance/add-items")
                 .Include("~/Content/Maintenance/add-items.css"));

@@ -44,5 +44,22 @@ namespace FinancialSystem.Controllers.MVC.PO
 			ViewData["PR"] = PR;
 			return PartialView(prLines);
 		}
+		[Authorize(Roles = "Purchaser")]
+		public ActionResult POSearch() {
+			return View();
+		}
+		[Authorize(Roles = "Purchaser")]
+		public async Task<ActionResult> POList(SearchItemViewModel value) {
+
+			value.searchItem = value.searchItem ?? "";
+			var nhpa = new NHibernatePOStore();
+			IList<POHeaderModel> searchPOs = null;
+			try {
+				searchPOs = await nhpa.SearchPRAsync(value.searchItem);
+			} catch (Exception e) {
+			}
+			return PartialView(searchPOs);
+		}
+
 	}
 }

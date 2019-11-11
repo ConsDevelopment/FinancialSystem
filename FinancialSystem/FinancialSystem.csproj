@@ -216,6 +216,7 @@
     <Content Include="Content\User\registration.css" />
     <Content Include="Global.asax" />
     <Content Include="scripts\Maintenance\AddItems.js" />
+    <Content Include="scripts\PO\POSearch.js" />
     <Content Include="scripts\PO\PRSearch.js" />
     <Content Include="scripts\PR\PRApproved.js" />
     <Content Include="scripts\PR\QuoteAnalysis.js" />
@@ -368,6 +369,8 @@
     <Content Include="Views\PO\PRList.cshtml" />
     <Content Include="Views\PO\POCreation.cshtml" />
     <Content Include="Views\ItemMaintenance\AddItems.cshtml" />
+    <Content Include="Views\PO\POSearch.cshtml" />
+    <Content Include="Views\PO\POList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
