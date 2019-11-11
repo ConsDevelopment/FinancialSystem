@@ -14,14 +14,18 @@ namespace FinancialSystem.Accessor.Users {
 		public async Task<UserModel> LogIn(LoginViewModel model) {
 			
 			if (ModelState.IsValid) {
-				var user = await UserManager.FindAsync(model.UserName.ToLower(), model.Password);
-				if (user != null && user.DeleteTime == null) {
-					HibernateSession.SignInUser(user, model.RememberMe);
+				try {
+					var user = await UserManager.FindAsync(model.UserName.ToLower(), model.Password);
+					if (user != null && user.DeleteTime == null) {
+						HibernateSession.SignInUser(user, model.RememberMe);
 
-								
-					return user;
-				} else {
-					CurrentUserSession.removeSecurityStampCookie();
+
+						return user;
+					} else {
+						CurrentUserSession.removeSecurityStampCookie();
+						return null;
+					}
+				}catch		 (Exception e) {
 					return null;
 				}
 				

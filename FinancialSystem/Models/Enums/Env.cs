@@ -13,7 +13,8 @@ namespace FinancialSystem.Models.Enums
 		production,
         local_test_sqlite,
 		mssql,
-		test_server
+		test_server,
+		DefaultConnectionMsSql
 	}
 
 	

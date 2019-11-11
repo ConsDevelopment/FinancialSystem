@@ -40,7 +40,7 @@ namespace FinancialSystem.Utilities {
 			if (env != null && Enum.TryParse(env.ToLower(), out result)) {
 				return result;
 			}
-			return Env.mssql;
+			return Env.DefaultConnectionMsSql;
 			//throw new Exception("Invalid Environment");
 		}
 		public static string GetAppSetting(string key, string deflt = null) {
@@ -62,7 +62,9 @@ namespace FinancialSystem.Utilities {
                     return GetAppSetting("OptimizeBundle", "False").ToBoolean();
                 case Env.test_server:
                     return GetAppSetting("OptimizeBundle", "False").ToBoolean();
-                default:
+				case Env.DefaultConnectionMsSql:
+					return GetAppSetting("OptimizeBundle", "False").ToBoolean();
+				default:
                     throw new ArgumentOutOfRangeException();
             }
         }
@@ -78,7 +80,9 @@ namespace FinancialSystem.Utilities {
                     return GetAppSetting("DisableMinification", "False").ToBoolean();
                 case Env.test_server:
                     return GetAppSetting("DisableMinification", "False").ToBoolean();
-                default:
+				case Env.DefaultConnectionMsSql:
+					return GetAppSetting("DisableMinification", "False").ToBoolean();
+				default:
                     throw new ArgumentOutOfRangeException();
             }
         }
@@ -92,6 +96,8 @@ namespace FinancialSystem.Utilities {
 				case Env.local_sqlite:
 					return false;
 				case Env.test_server:
+					return false;
+				case Env.DefaultConnectionMsSql:
 					return false;
 				//case Env.local_mysql:
 				//	return GetAppSetting("RunExt", "false").ToBooleanJS();
@@ -158,6 +164,22 @@ namespace FinancialSystem.Utilities {
 						return true;
 					}
 				case Env.test_server: {
+						var dir = Path.Combine(Path.GetTempPath(), "FinancialSystem");
+						var file = Path.Combine(dir, "dbversion" + env + ".txt");
+						if (!Directory.Exists(dir))
+							Directory.CreateDirectory(dir);
+						if (!File.Exists(file)) {
+							File.Create(file);
+							while (!File.Exists(file)) {
+								Thread.Sleep(100);
+							}
+							Thread.Sleep(100);
+						}
+						if (version == File.ReadAllText(file))
+							return false;
+						return true;
+					}
+				case Env.DefaultConnectionMsSql: {
 						var dir = Path.Combine(Path.GetTempPath(), "FinancialSystem");
 						var file = Path.Combine(dir, "dbversion" + env + ".txt");
 						if (!Directory.Exists(dir))
