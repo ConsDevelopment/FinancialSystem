@@ -31,16 +31,18 @@ namespace FinancialSystem.Controllers.API.PO {
 			var company = new NHibernateCompanyStore();
 			var requierDate = value.RequiredDate < DateTime.UtcNow ? DateTime.UtcNow.AddDays(6) : value.RequiredDate;
 			var user = await nhus.FindByStampAsync(value.SecurityStamp);
+			var requestor = await nhcs.GetEmployeeAsync(value.RequestorId);
 			var po = new POHeaderModel() {
 				Supplier = await nhss.FindSupplierByIdAsync(value.SupplierId),
 				PaymentTerm = value.PaymentTerm,
-				Requestor = await nhcs.GetEmployeeAsync(value.RequestorId),
+				Requestor = requestor,
 				DeliveryAdress = value.DeliveryAdress,
 				Status =value.Status,
 				RequiredDate = requierDate,
 				NoteToBuyer = value.NoteToBuyer,
 				CreatedBy = user,
 				Amount=value.Amount,
+				CRC=requestor.Team.CRC,
 				Lines = new List<POLinesModel>()
 			};
 			foreach (var line in value.Lines) {
@@ -58,14 +60,17 @@ namespace FinancialSystem.Controllers.API.PO {
 			}
 			if (value.Status == StatusType.ForApproval) {
 				var approver = new POAprovalModel() {
-					Approver= await company.GetPositionByIdAsync(PurchaserHead)
+					Approver= await company.GetPositionByIdAsync(PurchaserHead),
+					Status=StatusType.ForApproval
+					
 				};
 				po.Approvals = new List<POAprovalModel>();
 				po.Approvals.Add(approver);
 				var costApprover = company.FindCostApprover(po.Amount);
 				if (costApprover.Result != null) {
 					var approver2 = new POAprovalModel() {
-						Approver = costApprover.Result.Approver
+						Approver = costApprover.Result.Approver,
+						Status = StatusType.ForApproval
 					};
 					po.Approvals.Add(approver2);
 				}

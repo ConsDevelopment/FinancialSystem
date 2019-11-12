@@ -47,6 +47,15 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+		public async Task<IList<POAprovalModel>> FindPOApprovalAsync(PositionModel approver) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<POAprovalModel>().Where(x => x.Approver == approver && x.Status == StatusType.ForApproval)
+						.JoinQueryOver(x => x.POHeader).Where(a => a.Status == StatusType.ForApproval).List();
+
+				}
+			}
+		}
 
 
 
