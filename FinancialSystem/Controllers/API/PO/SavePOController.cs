@@ -36,11 +36,11 @@ namespace FinancialSystem.Controllers.API.PO {
 				PaymentTerm = value.PaymentTerm,
 				Requestor = await nhcs.GetEmployeeAsync(value.RequestorId),
 				DeliveryAdress = value.DeliveryAdress,
-				Status =value.Status,
+				Status = value.Status,
 				RequiredDate = requierDate,
 				NoteToBuyer = value.NoteToBuyer,
 				CreatedBy = user,
-				Amount=value.Amount,
+				Amount = value.Amount,
 				Lines = new List<POLinesModel>()
 			};
 			foreach (var line in value.Lines) {
