@@ -29,6 +29,7 @@ namespace FinancialSystem
 			PRCreation(bundles);
 			Utilities(bundles);
 			PRAprover(bundles);
+			POAprover(bundles);
 			QuoteAnalysis(bundles);
 			PRSearch(bundles);
 			POSearch(bundles);
@@ -145,6 +146,12 @@ namespace FinancialSystem
 				.Include("~/Content/PR/pr-approver.css"));
 			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/PR/PRApproved").Include(
 					 "~/scripts/PR/PRApproved.js"
+		   )));
+
+		}
+		private static void POAprover(BundleCollection bundles) {
+			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/PO/POApproved").Include(
+					 "~/scripts/Po/POApproved.js"
 		   )));
 
 		}

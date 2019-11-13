@@ -30,6 +30,12 @@ namespace FinancialSystem.Models {
 		public long PRLineId { get; set; }
 		
 	}
+	public class POApprovalViewModel {
+		public long Id { get; set; }
+		public StatusType Status { get; set; }
+		public string RequisitionNo { get; set; }
+		public string SecurityStamp { get; set; }
+	}
 
 
 }

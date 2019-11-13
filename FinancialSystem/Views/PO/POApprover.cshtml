@@ -1,0 +1,225 @@
+﻿
+@{
+    ViewBag.Title = "POApprover";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model IList<FinancialSystem.Models.POAprovalModel>
+@Styles.Render("~/Content/PR/PRAprover")
+@Scripts.Render("~/scripts/PO/POApproved")
+<h2>Approver</h2>
+<header>
+	<div class="col s12 content">
+		<div class="col s12" id="header-approver">
+			<div class="col s2" id="title">PO Number</div>
+			<div class="col s4" id="title">Requestor</div>
+			<div class="col s2" id="title">Date Prepare</div>
+			<div class="col s2" id="title">CRC</div>
+			<div class="col s2" id="title">Total Amount</div>
+
+			<ul class="collapsible">
+				@foreach (var row in Model) {
+
+					<li>
+						<div class="collapsible-header" id="pr2">
+							<div class="col s2">
+								<label class="check-box">
+									<input type="checkbox" class="filled-in" name="POApprovedChk" id="@(row.Id)" />
+									<span>@row.POHeader.RequisitionNo</span>
+								</label>
+							</div>
+							<div class="col s4" id="approver_details">
+								@row.POHeader.Requestor.Name()
+							</div>
+							<div class="col s2" id="approver_details">
+								@row.POHeader.CreateTime
+							</div>
+							<div class="col s2" id="approver_details">
+								@row.POHeader.CRC.CRCCode
+							</div>
+							<div class="col s2" id="approver_details">
+								&#8369; @row.POHeader.Amount
+							</div>
+						</div>
+						<div class="collapsible-body" id="pr2">
+							<div class="row">
+								<div class="col s6">
+									<img src="images/bsi_logo-small.png" alt="" class="src">
+								</div>
+								<div class="col s6" id="pr-title">PURCHASE ORDER</div>
+								<div class="col s6" id="address">
+									@row.POHeader.DeliveryAdress
+									<b>TIN: @row.POHeader.Requestor.Company.Tin</b>
+								</div>
+								<div class="col s6" id="pr-number">
+									Requisition Number: <b><span id="pr-num">@row.POHeader.RequisitionNo</span></b><br>
+									Date Prepared:@row.POHeader.CreateTime<br>
+									Date Needed: @row.POHeader.RequiredDate<input type="text" id="datepicker"><br>
+									@*Date Approve:*@
+								</div>
+								<div id="info0">
+									<div class="col s6" id="info"><b>Company:</b> @row.POHeader.Requestor.Company.CompanyName</div>
+									<div class="col s6" id="info">
+										<b>Requestor Name:</b> @row.POHeader.Requestor.Name()
+									</div>
+									<!-- Modal Structure -->
+									@*<div id="modal1" class="modal">
+											<div class="modal-content">
+												<h4>Search Requestor</h4>
+												<form autocomplete="off" action="">
+													<div class="autocomplete">
+														<input id="myInput" type="text" name="requestor"
+															   placeholder="Search Requestor">
+													</div>
+												</form>
+											</div>
+											<div class="modal-footer">
+												<a href="#!"
+												   class="modal-close waves-effect waves-green btn-flat">OK</a>
+											</div>
+										</div>*@
+									<!-- End Modal -->
+									@*<div class="col s6" id="info"><b>Business Unit:</b> Auto Fill</div>*@
+									<div class="col s6" id="info"><b>Cost Revenue Center (CRC):</b> @row.POHeader.CRC.CRCCode</div>
+									<div class="col s6" id="info"><b>Company Address:</b></div>
+									@*<div class="col s6" id="info">
+											<b>Category Account Code:</b> Account Code
+										</div>*@
+									<div class="col s6" id="info">
+										@row.POHeader.Requestor.Company.Address
+									</div>
+									<!-- Modal Structure -->
+									@*<div id="modal2" class="modal">
+											<div class="modal-content">
+												<h4>Type Delivery Address</h4>
+												<form autocomplete="off" action="">
+													<div class="autocomplete">
+														<textarea id="delivery" type="textarea" name="delivery"
+																  placeholder="Delivery Address"></textarea>
+													</div>
+												</form>
+											</div>
+										</div>*@
+									<div class="col s6" id="info"></div>
+									<div class="col s12">
+										<table class="highlight">
+											<thead style="background-color: #16A2AF;">
+												<tr>
+													<th>ITEM #</th>
+													<th>ITEM Name</th>
+													<th>DESCRIPTION</th>
+													@*<th>SUPPLIER</th>*@
+													<th>OUM</th>
+													<th>QTY</th>
+													<th>PRICE</th>
+													<th>TOTAL AMOUNT</th>
+												</tr>
+											</thead>
+
+											<tbody>
+												@{ int cntr = 0;}
+												@foreach (var line in row.POHeader.Lines) {
+													cntr += 1;
+
+													<tr>
+														<td>@cntr</td>
+														<td>@(line.Name)</td>
+														<td>@(line.Description)</td>
+														@*<td>@(line.Supplier.Name)</td>*@
+														<td>@line.UOM</td>
+														<td>@line.Quantity</td>
+														<td>@line.UnitPrice</td>
+														<td>@(line.UnitPrice*line.Quantity)</td>
+													</tr>
+												}
+
+											</tbody>
+										</table>
+									</div>
+									<div class="col s6" id="nf">********** nothing follows **********</div>
+									<div class="col s3" id="totalAmoumt">
+										<b>
+											@row.POHeader.Amount
+										</b>
+									</div>
+									@*<div class="col s3">
+											<hr class="line">
+											<p id="vat">
+												<b>
+													Php 100,000.00<br>
+													</b>
+											</p>
+											<hr class="line">
+											<p id="totalvat"><b>Php 10,000,000.00</b></p>
+										</div>*@
+									<div class="col s12" id="note">
+										<p id="noteto"><b>Note to Buyer: </b></p>
+									</div>
+									<!-- Modal Structure -->
+									<div id="modal3" class="modal">
+										<div class="modal-content">
+											<h4>Note to buyer</h4>
+											<form autocomplete="off" action="">
+												<div class="noteTobuyer">
+													<textarea id="notoTobuyer" type="textarea" name="notoTobuyer"
+															  placeholder=""></textarea>
+												</div>
+											</form>
+										</div>
+										<div class="modal-footer">
+											<a href="#!"
+											   class="modal-close waves-effect waves-green btn-flat">OK</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+													}
+			</ul>
+
+
+			<!-- ForEach ends here -->
+			<div class="progress">
+				<div class="indeterminate"></div>
+			</div>
+		</div>
+		<div class="col s12" id="submit">
+			<a class="waves-effect waves-light btn right amber modal-trigger" href="#modal4"
+			   id="submit-button">Reject</a>
+			<!-- Modal Structure -->
+			<div id="modal4" class="modal">
+				<div class="modal-content">
+					<p>Are you sure you want to cancel this Request?</p>
+				</div>
+				<div class="modal-footer">
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat"
+					   onclick="Approved('Rejected')">Yes</a>
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+				</div>
+			</div>
+			<a class="waves-effect waves-light btn right green modal-trigger" href="#modal5">APPROVE</a>
+			<!-- Modal Structure -->
+			<div id="modal5" class="modal">
+				<div class="modal-content">
+					<p>Are you sure you want to approve this request?</p>
+				</div>
+				<div class="modal-footer">
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat"
+					   @*onclick="M.toast({html: 'PR #0001 has been approved',  classes: 'rounded'})"*@
+					   onclick="Approved('Approved')">Yes</a>
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</header>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems);
+
+        });
+</script>
+

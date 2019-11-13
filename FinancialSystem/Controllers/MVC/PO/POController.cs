@@ -1,8 +1,13 @@
-﻿using FinancialSystem.Models;
+﻿using FinancialSystem.Accessor.Users;
+using FinancialSystem.Models;
+using FinancialSystem.Models.UserModels;
 using FinancialSystem.NHibernate;
+using FinancialSystem.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -59,6 +64,27 @@ namespace FinancialSystem.Controllers.MVC.PO
 			} catch (Exception e) {
 			}
 			return PartialView(searchPOs);
+		}
+
+		public async Task<ActionResult> POApprover() {
+			var nh = new NHibernateUserStore();
+			var response = new HttpResponseMessage(HttpStatusCode.OK);
+
+			var user = (UserModel)HttpContext.Session[Config.GetAppSetting("SessionKey")];
+			//UserModel user = null;
+			if (user != null) {
+				//user = (UserModel)task.GetType().GetProperty("Result").GetValue(task);
+			} else if (CurrentUserSession.userSecurityStampCookie != null) {
+				user = await nh.FindByStampAsync(CurrentUserSession.userSecurityStampCookie);
+				HttpContext.Session[Config.GetAppSetting("SessionKey")] = user;
+				var owinAuthentication = new OwinAuthenticationService(HttpContext);
+				owinAuthentication.SignIn(user);
+			} else {
+				return RedirectToAction("Login", "User");
+			}
+			var nhps = new NHibernatePOStore();
+			var pr = await nhps.FindPOApprovalAsync(user.employee.position);
+			return View(pr);
 		}
 
 	}
