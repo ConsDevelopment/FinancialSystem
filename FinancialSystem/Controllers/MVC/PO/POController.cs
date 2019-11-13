@@ -87,5 +87,13 @@ namespace FinancialSystem.Controllers.MVC.PO
 			return View(pr);
 		}
 
+		[Authorize(Roles = "Purchaser")]
+		public async Task<ActionResult> UpdatePO(POViewModel value) {
+			var nhpa = new NHibernatePOStore();
+			var po = await nhpa.FindPOAByIdAsync(value.Id);
+			
+			return PartialView(po);
+		}
+
 	}
 }

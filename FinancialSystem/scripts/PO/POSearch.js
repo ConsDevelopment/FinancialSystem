@@ -43,3 +43,44 @@ function searchItem() {
 	});
 }
 
+function UpdatePO(me) {
+
+	source = {
+		"Id": me
+	};
+
+	$.ajax({
+
+		type: "POST",
+		url: "../PO/UpdatePO",
+		//url: '@Url.Action("PR","CreatePR")',
+		data: JSON.stringify(source),
+		//data: "1",
+		contentType: 'application/json; charset=utf-8',
+
+		//dataType: 'json',
+
+		success: function (data) {
+			//$(body).html(data);
+
+			$('#searcContainer').empty();
+			$('#searcContainer').html(data);
+			var elems = document.querySelectorAll('.sidenav');
+			var instances = M.Sidenav.init(elems);
+			var elems = document.querySelectorAll('.modal');
+			var instances = M.Modal.init(elems);
+			var elems = document.querySelectorAll('.datepicker');
+			var instances = M.Datepicker.init(elems);
+
+		},
+		//async: false,
+
+		error: function (error) {
+			alert(error);
+			jsonValue = jQuery.parseJSON(error.responseText);
+
+		}
+
+	});
+}
+
