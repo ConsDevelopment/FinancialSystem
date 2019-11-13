@@ -56,6 +56,33 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+		public async Task<POAprovalModel> FindPOAprovalAsync(long Id) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.Get<POAprovalModel>(Id);
+
+				}
+			}
+		}
+		public async Task<IList<POAprovalModel>> FindPOAprovalAsync(POHeaderModel pr) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<POAprovalModel>().Where(x => x.POHeader == pr).List();
+
+				}
+			}
+		}
+		public async Task SaveOrUpdatePOApprovalAsync(POAprovalModel aproval) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+
+					db.SaveOrUpdate(aproval);
+
+					tx.Commit();
+					db.Flush();
+				}
+			}
+		}
 
 
 

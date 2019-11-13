@@ -24,10 +24,10 @@ namespace FinancialSystem.Controllers.API.PR {
 		}
 
 		// POST api/<controller>
-		public async Task<IList<PRApprovalViewModel>> Post(IList<PRApprovalViewModel> value) {
+		public async Task<IList<POApprovalViewModel>> Post(IList<POApprovalViewModel> value) {
 			var nh = new NHibernateUserStore();
 			var nhps = new NHibernatePOStore();
-			List<PRApprovalViewModel> PRs= new List<PRApprovalViewModel>();
+			List<POApprovalViewModel> POs= new List<POApprovalViewModel>();
 			
 				
 					
@@ -35,41 +35,41 @@ namespace FinancialSystem.Controllers.API.PR {
 					foreach (var approved in value) {
 						var user = nh.FindByStampAsync(approved.SecurityStamp);
 							if (user != null) {
-							var approval=await nhps.FindPRAprovalAsync(approved.Id);
+							var approval=await nhps.FindPOAprovalAsync(approved.Id);
 							approval.Status = approved.Status;
 							switch(approval.Status)
 							 {
 								case StatusType.Approved: 
-									var PRApprovals = await nhps.FindPRAprovalAsync(approval.PRHeader);
+									var POApprovals = await nhps.FindPOAprovalAsync(approval.POHeader);
 									approval.ApprovedBy = user.Result;
 									approval.DateApproved = DateTime.UtcNow;
-									foreach (var PRApproval in PRApprovals) {
-										if (PRApproval.Status == StatusType.Approved) {
-											approval.PRHeader.Status = StatusType.Approved;
+									foreach (var POApproval in POApprovals) {
+										if (POApproval.Status == StatusType.Approved) {
+											approval.POHeader.Status = StatusType.Approved;
 										} else {
-											approval.PRHeader.Status = PRApproval.Status;
+											approval.POHeader.Status = POApproval.Status;
 											break;
 										}
 									}
 									break;
 								case StatusType.Rejected:
-									approval.PRHeader.Status = approval.Status;
+									approval.POHeader.Status = approval.Status;
 									break;
 								default:
 									break;
 							}
 							try {
-								await nhps.SaveOrUpdatePRApprovalAsync(approval);
+								await nhps.SaveOrUpdatePOApprovalAsync(approval);
 							} catch (Exception e) {
 
 							}
-							approved.RequisitionNo = approval.PRHeader.RequisitionNo;
-							PRs.Add(approved);
+							approved.RequisitionNo = approval.POHeader.RequisitionNo;
+							POs.Add(approved);
 						}
 					}
 				
 			
-			return PRs;
+			return POs;
 		}
 
 		// PUT api/<controller>/5
