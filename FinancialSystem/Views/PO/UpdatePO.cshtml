@@ -7,9 +7,11 @@
 	var smallLogo = Config.GetCompanyLogo(Model.Requestor.Company.SmallLogo);
 	//var supplier = Model.Supplier;
 	double totalAmount = 0;
+	var employees = (List<EmployeeModel>)ViewData["employees"];
+	
 }
 <div class="col s12 content">
-
+	@Html.Hidden("PoId", Model.Id)
 	<div class="container">
 		<div class="col s12 pr-form" id="pr1">
 			<div class="row">
@@ -20,7 +22,7 @@
 					<b>TIN: @Model.Requestor.Company.Tin</b>
 				</div>
 				<div class="col s6" id="pr-number">
-					Requisition Number: <b><span id="pr-num"></span></b><br>
+					Requisition Number: <b><span id="po-num">@Model.RequisitionNo</span></b><br>
 					Date Prepared: @DateTime.Now<br>
 					Date Required: <input type="text" class="datepicker" id="datepicker" value="@Model.RequiredDate"><br>
 
@@ -28,8 +30,13 @@
 				<div id="info0">
 					<div class="col s6" id="info"><b>Company:</b> @Model.Requestor.Company.CompanyName</div>
 					<div class="col s6" id="info">
-						<b>Requestor Name: </b> @Model.Requestor.Name()
-						<input type="hidden" value="@Model.Requestor.Id" id="RequestorId" />
+						<b>Requestor Name: <input value="@Model.Requestor.Name()" list="employees_" onchange="dataList('', '#employees', false)" name="employees" placeholder="Employees" id="employeesInput_" />
+							<datalist id="employees_">
+							@foreach (var employee in employees) {
+								<option data-value="@employee.Id">@employee.Name()</option>
+							}
+							</datalist>
+							<input type="hidden" id="employeesInput-hidden_" value="@Model.Requestor.Id" />
 					</div>
 					<div class="col s6" id="info"><b>Supplier : </b> @Model.Supplier.Name</div>
 					<input type="hidden" value="@Model.Supplier.Id" id="SupplierId" />
