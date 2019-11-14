@@ -83,6 +83,14 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+		public async Task<POHeaderModel> FindPOAByIdAsync(long Id) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.Get<POHeaderModel>(Id);
+
+				}
+			}
+		}
 
 
 

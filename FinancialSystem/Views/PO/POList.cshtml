@@ -128,10 +128,12 @@
 							<div class="col s12" id="note">
 								<p id="noteto"><b>Note to Buyer: </b></p>
 							</div>
-							<a class="waves-effect waves-light btn amber right modal-trigger" href="#modalAddPO_@po.Id"
-							   id="add-button">ADD to P.O.</a>
-							<a class="waves-effect waves-light btn right green modal-trigger"
-							   href="#modal_@po.Id">UPDATE P.O.</a>
+							@*<a class="waves-effect waves-light btn amber right modal-trigger" href="#modalAddPO_@po.Id"
+							   id="add-button">ADD to P.O.</a>*@
+							@if (po.Status == StatusType.Saved) {
+								<a class="waves-effect waves-light btn right green modal-trigger"
+									href="#modal_@po.Id">UPDATE P.O.</a>
+							}
 							<!-- Modal Structure -->
 							<div id="modal3" class="modal">
 								<div class="modal-content">
@@ -161,7 +163,7 @@
 
 	<div class="col s12" id="submit">
 		<!-- Modal Structure Add to P.O. -->
-		<div id="modalAddPO_@po.Id" class="modal">
+		@*<div id="modalAddPO_@po.Id" class="modal">
 			<div class="modal-content">
 				<p>Are you sure you want to Add this P.O?</p>
 			</div>
@@ -170,7 +172,7 @@
 				   onclick="">Yes</a>
 				<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
 			</div>
-		</div>
+		</div>*@
 
 		<!-- Modal Structure Create P.O. -->
 		<div id="modal_@po.Id" class="modal">
@@ -179,7 +181,7 @@
 			</div>
 			<div class="modal-footer">
 				<a href="#!" class="modal-close waves-effect waves-green btn-flat"
-				   onclick="CreatePO(@po.Id)">Yes</a>
+				   onclick="UpdatePO(@po.Id)">Yes</a>
 				<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
 			</div>
 		</div>

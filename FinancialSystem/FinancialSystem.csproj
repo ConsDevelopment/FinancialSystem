@@ -374,6 +374,7 @@
     <Content Include="Views\PO\POSearch.cshtml" />
     <Content Include="Views\PO\POList.cshtml" />
     <Content Include="Views\PO\POApprover.cshtml" />
+    <Content Include="Views\PO\UpdatePO.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -32,31 +32,58 @@ namespace FinancialSystem.Controllers.API.PO {
 			var requierDate = value.RequiredDate < DateTime.UtcNow ? DateTime.UtcNow.AddDays(6) : value.RequiredDate;
 			var user = await nhus.FindByStampAsync(value.SecurityStamp);
 			var requestor = await nhcs.GetEmployeeAsync(value.RequestorId);
-			var po = new POHeaderModel() {
-				Supplier = await nhss.FindSupplierByIdAsync(value.SupplierId),
-				PaymentTerm = value.PaymentTerm,
-				Requestor = requestor,
-				DeliveryAdress = value.DeliveryAdress,
-				Status =value.Status,
-				RequiredDate = requierDate,
-				NoteToBuyer = value.NoteToBuyer,
-				CreatedBy = user,
-				Amount=value.Amount,
-				CRC=requestor.Team.CRC,
-				Lines = new List<POLinesModel>()
-			};
-			foreach (var line in value.Lines) {
-				var nhps = new NHibernatePRStore();
-				var poLine = new POLinesModel() {
-					Quantity=line.Quantity,
-					UOM=line.UOM,
-					Description=line.Description,
-					UnitPrice=line.UnitPrice,
-					PRLine=await nhps.GetPRLineAsync(line.PRLineId),
-					Name=line.Name,
-					CreatedBy=user
+			var po = await nhpos.FindPOAByIdAsync(value.Id);
+			if (po == null) {
+				po = new POHeaderModel() {
+					Supplier = await nhss.FindSupplierByIdAsync(value.SupplierId),
+					PaymentTerm = value.PaymentTerm,
+					Requestor = requestor,
+					DeliveryAdress = value.DeliveryAdress,
+					Status = value.Status,
+					RequiredDate = requierDate,
+					NoteToBuyer = value.NoteToBuyer,
+					CreatedBy = user,
+					Amount = value.Amount,
+					CRC = requestor.Team.CRC,
+					Lines = new List<POLinesModel>()
 				};
-				po.Lines.Add(poLine);
+				foreach (var line in value.Lines) {
+					var nhps = new NHibernatePRStore();
+					var poLine = new POLinesModel() {
+						Quantity = line.Quantity,
+						UOM = line.UOM,
+						Description = line.Description,
+						UnitPrice = line.UnitPrice,
+						PRLine = await nhps.GetPRLineAsync(line.PRLineId),
+						Name = line.Name,
+						CreatedBy = user
+					};
+					po.Lines.Add(poLine);
+				}
+			} else {
+				po.Requestor = await nhcs.GetEmployeeAsync(value.RequestorId);
+				po.DeliveryAdress = value.DeliveryAdress;
+				po.Amount = value.Amount;
+				for(var i=0;i<po.Lines.Count;i++) {
+					var found = false;
+					var id = po.Lines.ElementAt(i).Id;
+					foreach(var line in value.Lines) {
+						if (line.Id == id) {
+							found = true;
+							po.Lines.ElementAt(i).Quantity = line.Quantity;
+							po.Lines.ElementAt(i).UOM = line.UOM;
+							po.Lines.ElementAt(i).Description = line.Description;
+							po.Lines.ElementAt(i).UnitPrice = line.UnitPrice;
+							break;
+						} 
+					}
+					if (found == false) {
+						po.Lines.ElementAt(i).DeleteTime = DateTime.UtcNow;
+					}
+					
+				}
+				
+
 			}
 			if (value.Status == StatusType.ForApproval) {
 				var approver = new POAprovalModel() {
