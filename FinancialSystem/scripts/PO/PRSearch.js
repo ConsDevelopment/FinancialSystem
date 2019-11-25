@@ -199,3 +199,51 @@ function SavePO(status) {
 	});
 
 }
+function AddToPO(me) {
+	var lines = [];
+	$.each($("input[name='itemCheck-" + me + "']"), function () {
+
+		if ($(this).is(':checked')) {
+			var element = {
+				"Id": Number($(this).attr('id')),
+
+			};
+			lines.push(element);
+		}
+
+	});
+
+	$.ajax({
+
+		type: "POST",
+		url: "../PO/POCreation",
+		//url: '@Url.Action("PR","CreatePR")',
+		data: JSON.stringify(lines),
+		//data: "1",
+		contentType: 'application/json; charset=utf-8',
+
+		//dataType: 'json',
+
+		success: function (data) {
+			//$(body).html(data);
+
+			$('#searcContainer').empty();
+			$('#searcContainer').html(data);
+			var elems = document.querySelectorAll('.sidenav');
+			var instances = M.Sidenav.init(elems);
+			var elems = document.querySelectorAll('.modal');
+			var instances = M.Modal.init(elems);
+			var elems = document.querySelectorAll('.datepicker');
+			var instances = M.Datepicker.init(elems);
+
+		},
+		//async: false,
+
+		error: function (error) {
+			alert(error);
+			jsonValue = jQuery.parseJSON(error.responseText);
+
+		}
+
+	});
+}
