@@ -21,6 +21,7 @@ namespace FinancialSystem.Models {
 		public virtual DateTime? RequiredDate { get; set; }
 		public virtual string NoteToBuyer { get; set; }
 		public virtual ICollection<POAprovalModel> Approvals { get; set; }
+		public virtual string PoNumber { get; set; }
 
 		public virtual string RequisitionNo {
 			get {

@@ -95,6 +95,22 @@ namespace FinancialSystem.Controllers.MVC.PO
 			ViewData["employees"] = await employees.GetAllEmployeeAsync();
 			return PartialView(po);
 		}
+		public async Task<ActionResult> AddingLinesToPo(POViewModel value) {
+			var nhpa = new NHibernatePOStore();
+			var nhpr = new NHibernatePRStore();
+			var employees = new NHibernateCompanyStore();
+			var po = await nhpa.FindPOAByIdAsync(value.Id);
+			List<PRLinesModel> prlines = new List<PRLinesModel>();
+			foreach(var line in value.Lines) {
+				var prline = await nhpr.GetPRLineAsync(line.PRLineId);
+				if (prline != null) {
+					prlines.Add(prline);
+				}				
+			}
+			ViewData["prlines"] = prlines;
+			ViewData["employees"] = await employees.GetAllEmployeeAsync();
+			return PartialView(po);
+		}
 
 	}
 }

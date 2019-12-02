@@ -1,0 +1,355 @@
+﻿@using FinancialSystem.Models
+@using FinancialSystem.Utilities;
+@using FinancialSystem.Models.Enums;
+@model POHeaderModel
+
+@{
+	var smallLogo = Config.GetCompanyLogo(Model.Requestor.Company.SmallLogo);
+	//var supplier = Model.Supplier;
+	double totalAmount = 0;
+	var employees = (List<EmployeeModel>)ViewData["employees"];
+	var prLines = (List<PRLinesModel>)ViewData["prlines"];
+}
+<div class="col s12 content">
+	@Html.Hidden("PoId", Model.Id)
+	<div class="container">
+		<div class="col s12 pr-form" id="pr1">
+			<div class="row">
+				<div class="col s6"><img src="@smallLogo" alt="" class="src"></div>
+				<div class="col s6" id="pr-title">PURCHASE ORDER</div>
+				<div class="col s6" id="address">
+					@Model.Requestor.Company.Address <br />
+					<b>TIN: @Model.Requestor.Company.Tin</b>
+				</div>
+				<div class="col s6" id="pr-number">
+					Requisition Number: <b><span id="po-num">@Model.RequisitionNo</span></b><br>
+					Date Prepared: @DateTime.Now<br>
+					Date Required: <input type="text" class="datepicker" id="datepicker" value="@Model.RequiredDate"><br>
+
+				</div>
+				<div id="info0">
+					<div class="col s6" id="info"><b>Company:</b> @Model.Requestor.Company.CompanyName</div>
+					<div class="col s6" id="info">
+						<b>
+							Requestor Name: <input value="@Model.Requestor.Name()" list="employees_" onchange="dataList('', '#employees', false)" name="employees" placeholder="Employees" id="employeesInput_" />
+							<datalist id="employees_">
+								@foreach (var employee in employees) {
+									<option data-value="@employee.Id">@employee.Name()</option>
+								}
+							</datalist>
+							<input type="hidden" id="employeesInput-hidden_" value="@Model.Requestor.Id" />
+					</div>
+					<div class="col s6" id="info"><b>Supplier : </b> @Model.Supplier.Name</div>
+					<input type="hidden" value="@Model.Supplier.Id" id="SupplierId" />
+					<div class="col s6" id="info"><b>Cost Revenue Center (CRC): </b>  @Model.CRC.CRCCode</div>
+					<div class="col s6" id="info"><b>Delivery Address:</b></div>
+					<div class="col s6" id="info"><b>Category Account Code:</b> Account Code</div>
+					<div class="col s6" id="info">
+						<span id="DeliveryAdress">@Model.DeliveryAdress </span> <a class="badge red modal-trigger" id="badge"
+																 href="#deladd"><span>-</span></a>
+					</div>
+					<!-- Modal Structure -->
+					<div id="deladd" class="modal">
+						<div class="modal-content">
+							<h4>Delivery Address</h4>
+							<form autocomplete="off" action="">
+								<div class="autocomplete">
+									<textarea id="deliveryaddress" type="textarea"
+											  name="deliveryaddress"
+											  placeholder="Delivery Address"></textarea>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="setDeliveryAddress()">OK</a>
+						</div>
+					</div>
+					<!-- End Modal -->
+					<div class="input-field col s6">
+						<input list="PaymentTerms_" value="@Model.PaymentTerm" onchange="dataList('', '#PaymentTerms',false);" name="PaymentTerms" placeholder="Payment Terms" id="PaymentTermsInput_" />
+						<datalist id="PaymentTerms_">
+							@{			var PaymentTerms = Enum.GetValues(typeof(PaymentTermsType));
+							}
+							@foreach (var PaymentTerm in PaymentTerms) {
+								<option data-value="@PaymentTerm.ToString()">@PaymentTerm.ToString()</option>
+							}
+						</datalist>
+						<input type="hidden" id="PaymentTermsInput-hidden_" value="@Model.PaymentTerm" />
+					</div>
+					<div class="col s6" id="info"></div>
+					<div class="col s12">
+						<table class="highlight" id="table_">
+							<thead style="background-color: #16A2AF;">
+								<tr>
+
+									<th>NAME</th>
+									<th>DESCRIPTION</th>
+									<th>UOM</th>
+									<th>QTY</th>
+									<th>PRICE</th>
+									<th>TOTAL AMOUNT</th>
+									<th>ACTIONS</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								@foreach (var line in Model.Lines) {
+
+									totalAmount += (line.Quantity * line.UnitPrice);
+
+									<tr>
+										<td style="display:none">@line.Id</td>
+										<td>@line.Name</td>
+										<td>
+											@*<span id="description_@line.Id">@line.Description</span><a class="badge red modal-trigger" id="badge"
+												href="#description" onclick="setLineClick(@line.Id)"><span>-</span></a>*@
+											<textarea>@line.Description</textarea>
+										</td>
+
+										<td>
+											@*@line.UOM <a class="badge red modal-trigger" id="badge"
+												href="#uom"><span>-</span></a>*@
+											<input list="UOM_@line.Id" value="@line.UOM" onchange="dataList('@line.Id', '#UOM' , false)" name="UOM_@line.Id" placeholder="UOM" id="UOMInput_@line.Id" />
+											<datalist id="UOM_@line.Id">
+												@{			var UOMs = Enum.GetValues(typeof(UOMType));
+												}
+												@foreach (var UOM in UOMs) {
+													<option data-value="@UOM.ToString()">@UOM.ToString()</option>
+												}
+											</datalist>
+											<input type="hidden" id="UOMInput-hidden_@line.Id" value="@line.UOM" />
+										</td>
+
+										<td>
+											<input type="number" onchange="calculateAmount(@line.Id)" id="quantity_@line.Id" value="@line.Quantity" /> @*<a class="badge red modal-trigger" id="badge"
+												href="#qty"><span>-</span></a>*@
+										</td>
+
+										<td>
+											<input type="number" id="unitPrice_@line.Id" onchange="calculateAmount(@line.Id)" value="@line.UnitPrice" />
+											@*<a class="badge red modal-trigger" id="badge"
+												href="#qty"><span>-</span></a>*@
+										</td>
+
+										<td><span id="totalAmount_@line.Id">@(line.Quantity * line.UnitPrice)</span></td>
+										<td>
+											<a class='waves-effect waves-light btn red' onclick='DeleteRow(this)'>Delete</a>
+										</td>
+									</tr>
+													}
+								@foreach (var line in prLines) {
+									if (line.Supplier != Model.Supplier) {
+										continue;
+									}
+									totalAmount += line.TotalAmount;
+									string name = "";
+									if (line.Item != null) {
+										name = line.Item.Name;
+									} else {
+										name = line.NonCatalog.Name;
+									}
+									<tr>
+										<td style="display:none">@line.Id</td>
+										<td>@name</td>
+										<td>
+											@*<span id="description_@line.Id">@line.Description</span><a class="badge red modal-trigger" id="badge"
+					href="#description" onclick="setLineClick(@line.Id)"><span>-</span></a>*@
+											<textarea>@line.Description</textarea>
+										</td>
+
+										<td>
+											@*@line.UOM <a class="badge red modal-trigger" id="badge"
+					href="#uom"><span>-</span></a>*@
+											<input list="UOM_@line.Id" value="@line.UOM" onchange="dataList('@line.Id', '#UOM' , false)" name="UOM_@line.Id" placeholder="UOM" id="UOMInput_@line.Id" />
+											<datalist id="UOM_@line.Id">
+												@{			var UOMs = Enum.GetValues(typeof(UOMType));
+												}
+												@foreach (var UOM in UOMs) {
+													<option data-value="@UOM.ToString()">@UOM.ToString()</option>
+												}
+											</datalist>
+											<input type="hidden" id="UOMInput-hidden_@line.Id" value="@line.UOM" />
+										</td>
+
+										<td>
+											<input type="number" onchange="calculateAmount(@line.Id)" id="quantity_@line.Id" value="@line.Quantity" /> @*<a class="badge red modal-trigger" id="badge"
+					href="#qty"><span>-</span></a>*@
+										</td>
+
+										<td>
+											<input type="number" id="unitPrice_@line.Id" onchange="calculateAmount(@line.Id)" value="@line.UnitPrice" />
+											@*<a class="badge red modal-trigger" id="badge"
+					href="#qty"><span>-</span></a>*@
+										</td>
+
+										<td><span id="totalAmount_@line.Id">@(line.TotalAmount)</span></td>
+										<td>
+											<a class='waves-effect waves-light btn red' onclick='DeleteRow(this)'>Delete</a>
+										</td>
+										<td style="display:none">Additional</td>
+									</tr>
+													}
+							</tbody>
+						</table>
+					</div>
+					<div class="col s6" id="nf">********** nothing follows **********</div>
+					<div class="col s3" id="totalAmoumt">
+						<b>
+							TOTAL VAT
+						</b>
+					</div>
+					<div class="col s3">
+						<hr class="line">
+						<p id="vat">
+							<b>
+								Php <span id="vatTotal">@(totalAmount * .12)</span>
+							</b><br>
+						</p>
+						<hr class="line">
+						<p id="totalvat"><b>Php <span id="grandTotal">@((totalAmount * .12) + totalAmount)</span></b></p>
+					</div>
+					<div class="col s12" id="note">
+						<p id="noteto"><b>Note to Buyer: </b></p>
+						<a class="badge red modal-trigger" id="badge" href="#modal3">
+							<span>
+								add +
+							</span>
+						</a>
+					</div>
+					<input type="hidden" id="lineClicked" />
+					<!-- Modal Structure -->
+					<div id="modal3" class="modal">
+						<div class="modal-content">
+							<h4>Note to buyer</h4>
+							<form autocomplete="off" action="">
+								<div class="noteTobuyer">
+									<textarea id="notoTobuyer" type="textarea" name="notoTobuyer"
+											  placeholder="">
+										@Model.NoteToBuyer
+									</textarea>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<a href="#!" class="modal-close waves-effect waves-green btn-flat">CANCEL</a>
+							<a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col s12" id="submit">
+		<a class="waves-effect waves-light btn right amber modal-trigger" href="#modal4"
+		   id="submit-button">CANCEL</a>
+		<!-- Modal Structure -->
+		<div id="modal4" class="modal">
+			<div class="modal-content">
+				<p>Are you sure you want to cancel this request?</p>
+			</div>
+			<div class="modal-footer">
+				<a href="#!" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+				<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+			</div>
+		</div>
+		<a class="waves-effect waves-light btn right green modal-trigger" href="#modal5">SUBMIT</a>
+		<!-- Modal Structure -->
+		<div id="modal5" class="modal">
+			<div class="modal-content">
+				<p>Are you sure you want to submit this request?</p>
+			</div>
+			<div class="modal-footer">
+				<a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="SaveAdditionalPO('ForApproval')">Yes</a>
+				<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+			</div>
+		</div>
+		<a class="waves-effect waves-light btn right cyan accent-4 modal-trigger left-btn"
+		   href="#save">SAVE</a>
+		<!-- Modal Structure -->
+		<div id="save" class="modal">
+			<div class="modal-content">
+				<p>Are you sure you want to save this request?</p>
+			</div>
+			<div class="modal-footer">
+				<a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="SaveAdditionalPO('Saved')">Yes</a>
+				<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+			</div>
+		</div>
+		<!--Modal Description-->
+		@*<div id="description" class="modal">
+				<div class="modal-content">
+					<h4>Description</h4>
+					<form autocomplete="off" action="">
+						<div class="autocomplete">
+							<textarea id="description_text" type="textarea"
+									  name="description"
+									  placeholder="Description"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<a href="#!"
+					   class="modal-close waves-effect waves-green btn-flat">CANCEL</a>
+					<a href="#!" onclick="setDescription()"
+					   class="modal-close waves-effect waves-green btn-flat">OK</a>
+				</div>
+			</div>*@
+		<!--Modal oum-->
+		@*<div id="uom" class="modal">
+				<div class="modal-content">
+					<h4>Unit of Measurement</h4>
+					<form autocomplete="off" action="">
+						<div class="autocomplete">
+							<textarea id="uom" type="textarea" name="uom"
+									  placeholder="UOM"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<a href="#!"
+					   class="modal-close waves-effect waves-green btn-flat">CANCEL</a>
+					<a href="#!"
+					   class="modal-close waves-effect waves-green btn-flat">OK</a>
+				</div>
+			</div>*@
+		<!--Modal Quantity-->
+		@*<div id="qty" class="modal">
+				<div class="modal-content">
+					<h4>Quantity</h4>
+					<form autocomplete="off" action="">
+						<div class="autocomplete">
+							<textarea id="qty" type="textarea" name="qty"
+									  placeholder="Quantity"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<a href="#!"
+					   class="modal-close waves-effect waves-green btn-flat">CANCEL</a>
+					<a href="#!"
+					   class="modal-close waves-effect waves-green btn-flat">OK</a>
+				</div>
+			</div>*@
+		<!--Modal Price-->
+		@*<div id="qty" class="modal">
+				<div class="modal-content">
+					<h4>Quantity</h4>
+					<form autocomplete="off" action="">
+						<div class="autocomplete">
+							<textarea id="qty" type="textarea" name="qty"
+									  placeholder="Quantity"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<a href="#!"
+					   class="modal-close waves-effect waves-green btn-flat">CANCEL</a>
+					<a href="#!"
+					   class="modal-close waves-effect waves-green btn-flat">OK</a>
+				</div>
+			</div>*@
+	</div>
+
+</div>
+
+

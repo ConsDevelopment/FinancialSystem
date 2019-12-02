@@ -92,6 +92,16 @@ namespace FinancialSystem.NHibernate {
 			}
 		}
 
+		public async Task<IList<POHeaderModel>> FindPoWithSameSupplierAsync(PRLinesModel prLine) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<POHeaderModel>().Where(x => x.DeleteTime == null && x.Status==StatusType.Saved
+						&& x.Supplier== prLine.Supplier && x.CRC==prLine.Header.CRC).List();
+
+				}
+			}
+		}
+
 
 
 	}

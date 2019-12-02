@@ -243,6 +243,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\API\Company\RegisterController.cs" />
+    <Compile Include="Controllers\API\PO\AddLinsToPOController.cs" />
     <Compile Include="Controllers\API\PO\POApprovalController.cs" />
     <Compile Include="Controllers\API\PO\SavePOController.cs" />
     <Compile Include="Controllers\API\Maintenance\AddItemsController.cs" />
@@ -375,6 +376,7 @@
     <Content Include="Views\PO\POList.cshtml" />
     <Content Include="Views\PO\POApprover.cshtml" />
     <Content Include="Views\PO\UpdatePO.cshtml" />
+    <Content Include="Views\PO\AddingLinesToPo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
