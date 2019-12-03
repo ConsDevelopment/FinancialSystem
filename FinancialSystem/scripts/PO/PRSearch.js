@@ -199,3 +199,156 @@ function SavePO(status) {
 	});
 
 }
+function AddToPO(me) {
+	var lines = [];
+	$.each($("input[name='itemCheck-" + me + "']"), function () {
+
+		if ($(this).is(':checked')) {
+			var element = {
+				"Id": Number($(this).attr('id')),
+
+			};
+			lines.push(element);
+		}
+
+	});
+
+	$.ajax({
+
+		type: "POST",
+		url: "/api/AddLinsToPO",
+		//url: '@Url.Action("PR","CreatePR")',
+		data: JSON.stringify(lines),
+		//data: "1",
+		contentType: 'application/json; charset=utf-8',
+
+		//dataType: 'json',
+
+		success: function (data) {
+			$("#polist").empty();
+			var str = "";
+			str += "<ul>";
+			for (var i = 0; i < data.length; i++) {
+				str += "<li>";
+				str += "<a href='#!' class='modal-close waves-effect waves-green btn-flat'";
+				str += "onclick='AddingPo(" + data[i].Id + "," + me +")'>" + data[i].PoNumber + "</a> ";
+				str += "</li>";
+			}
+			str += "</ul>";
+			$("#polist").append(str);
+
+		},
+		//async: false,
+
+		error: function (error) {
+			alert(error);
+			jsonValue = jQuery.parseJSON(error.responseText);
+
+		}
+
+	});
+}
+function AddingPo(po,me) {
+	
+	var lines = [];
+	$.each($("input[name='itemCheck-" + me + "']"), function () {
+
+		if ($(this).is(':checked')) {
+			var element = {
+				"PRLineId": Number($(this).attr('id')),
+
+			};
+			lines.push(element);
+		}
+
+	});
+	var PO = {
+		"Id": po,
+		"Lines" : lines
+	}
+	$.ajax({
+
+		type: "POST",
+		url: "../PO/AddingLinesToPo",
+		//url: '@Url.Action("PR","CreatePR")',
+		data: JSON.stringify(PO),
+		//data: "1",
+		contentType: 'application/json; charset=utf-8',
+
+		//dataType: 'json',
+
+		success: function (data) {
+			//$(body).html(data);
+
+			$('#searcContainer').empty();
+			$('#searcContainer').html(data);
+			var elems = document.querySelectorAll('.sidenav');
+			var instances = M.Sidenav.init(elems);
+			var elems = document.querySelectorAll('.modal');
+			var instances = M.Modal.init(elems);
+			var elems = document.querySelectorAll('.datepicker');
+			var instances = M.Datepicker.init(elems);
+
+		},
+		//async: false,
+
+		error: function (error) {
+			alert(error);
+			jsonValue = jQuery.parseJSON(error.responseText);
+
+		}
+
+	});
+
+}
+function SaveAdditionalPO(status) {
+	var lines = [];
+	
+	$('#table_ tbody tr').each(function () {
+		var id = $(this).find("td").eq(0).html();
+		var isAdditional = $(this).find("td").eq(8).html();
+		
+		if (isAdditional == "Additional") {
+			
+			lines.push({
+				"Name": $(this).find("td").eq(1).html(),
+				"Description": $(this).find("td").eq(2).find("textarea").val(),
+				"UOM": $("#UOMInput-hidden_" + id).val(),
+				"Quantity": Number($(this).find("td").eq(4).find("input").val()),
+				"UnitPrice": Number($(this).find("td").eq(5).find("input").val()),
+				"PRLineId": Number(id)
+			});
+		}
+	});
+	var Head = {
+		"Id": $("#PoId").val(),
+		"Status": status,
+		"SecurityStamp": $("#SecurityStamp").val(),
+		"Lines": lines
+	}
+	
+	$.ajax({
+
+		type: "POST",
+		url: "/api/SavingAdditionToPO",
+		data: JSON.stringify(Head),
+		//data: "1",
+		contentType: 'application/json; charset=utf-8',
+
+		//dataType: 'json',
+
+		success: function (data) {
+			
+				M.toast({ html: 'PO Number ' + data + ' has been Updated', classes: 'rounded' });
+				$("#save-button").hide();
+				$("#submit-button").hide();
+		},
+
+		error: function (error) {
+			alert(error);
+			jsonValue = jQuery.parseJSON(error.responseText);
+
+		}
+
+	});
+}

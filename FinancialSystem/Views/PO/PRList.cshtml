@@ -138,7 +138,7 @@
 							<p id="noteto"><b>Note to Buyer: </b></p>
 						</div>
 						<a class="waves-effect waves-light btn amber right modal-trigger" href="#modalAddPO_@pr.Id"
-						   id="add-button">ADD to P.O.</a>
+						   id="add-button" onclick="AddToPO(@pr.Id)">ADD to P.O.</a>
 						<a class="waves-effect waves-light btn right green modal-trigger"
 						   href="#modal_@pr.Id">CREATE P.O.</a>
 						<!-- Modal Structure -->
@@ -172,12 +172,23 @@
 	<!-- Modal Structure Add to P.O. -->
 	<div id="modalAddPO_@pr.Id" class="modal">
 		<div class="modal-content">
-			<p>Are you sure you want to Add this P.O?</p>
+			<p>Are you sure you want to Add this to P.O?</p>
+			<div id="polist">
+				<ul>
+					<li>
+						<a href="#!" class="modal-close waves-effect waves-green btn-flat"
+						   onclick="alert('test')">PO1</a>
+					</li>
+					<li>
+						po2
+					</li>
+				</ul>
+			</div>
 		</div>
 		<div class="modal-footer">
-			<a href="#!" class="modal-close waves-effect waves-green btn-flat" 
-			   onclick="">Yes</a>
-			<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+			@*<a href="#!" class="modal-close waves-effect waves-green btn-flat" 
+			   onclick="">Yes</a>*@
+			<a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
 		</div>
 	</div>
 
