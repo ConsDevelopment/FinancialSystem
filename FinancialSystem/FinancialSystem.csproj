@@ -247,6 +247,7 @@
     <Compile Include="Controllers\API\PO\POApprovalController.cs" />
     <Compile Include="Controllers\API\PO\SavePOController.cs" />
     <Compile Include="Controllers\API\Maintenance\AddItemsController.cs" />
+    <Compile Include="Controllers\API\PO\SavingAdditionToPOController.cs" />
     <Compile Include="Controllers\API\PR\AddNonCatalogController.cs" />
     <Compile Include="Controllers\API\PR\AddPRLinesController.cs" />
     <Compile Include="Controllers\API\PR\CreatePRController.cs" />

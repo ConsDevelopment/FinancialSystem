@@ -135,6 +135,7 @@
 										<td>
 											<a class='waves-effect waves-light btn red' onclick='DeleteRow(this)'>Delete</a>
 										</td>
+										<td style="display:none"></td>
 									</tr>
 													}
 								@foreach (var line in prLines) {
@@ -216,7 +217,7 @@
 							</span>
 						</a>
 					</div>
-					<input type="hidden" id="lineClicked" />
+					
 					<!-- Modal Structure -->
 					<div id="modal3" class="modal">
 						<div class="modal-content">
@@ -241,7 +242,7 @@
 	</div>
 	<div class="col s12" id="submit">
 		<a class="waves-effect waves-light btn right amber modal-trigger" href="#modal4"
-		   id="submit-button">CANCEL</a>
+		   id="cancel-button">CANCEL</a>
 		<!-- Modal Structure -->
 		<div id="modal4" class="modal">
 			<div class="modal-content">
@@ -252,7 +253,7 @@
 				<a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
 			</div>
 		</div>
-		<a class="waves-effect waves-light btn right green modal-trigger" href="#modal5">SUBMIT</a>
+		<a class="waves-effect waves-light btn right green modal-trigger" href="#modal5"  id="submit-button">SUBMIT</a>
 		<!-- Modal Structure -->
 		<div id="modal5" class="modal">
 			<div class="modal-content">
@@ -264,7 +265,7 @@
 			</div>
 		</div>
 		<a class="waves-effect waves-light btn right cyan accent-4 modal-trigger left-btn"
-		   href="#save">SAVE</a>
+		   href="#save" id="save-button" >SAVE</a>
 		<!-- Modal Structure -->
 		<div id="save" class="modal">
 			<div class="modal-content">

@@ -299,14 +299,17 @@ function AddingPo(po,me) {
 		}
 
 	});
+
 }
 function SaveAdditionalPO(status) {
 	var lines = [];
+	
 	$('#table_ tbody tr').each(function () {
 		var id = $(this).find("td").eq(0).html();
 		var isAdditional = $(this).find("td").eq(8).html();
-
-		if (isAdditional = "Additional") {
+		
+		if (isAdditional == "Additional") {
+			
 			lines.push({
 				"Name": $(this).find("td").eq(1).html(),
 				"Description": $(this).find("td").eq(2).find("textarea").val(),
@@ -316,5 +319,36 @@ function SaveAdditionalPO(status) {
 				"PRLineId": Number(id)
 			});
 		}
+	});
+	var Head = {
+		"Id": $("#PoId").val(),
+		"Status": status,
+		"SecurityStamp": $("#SecurityStamp").val(),
+		"Lines": lines
+	}
+	
+	$.ajax({
+
+		type: "POST",
+		url: "/api/SavingAdditionToPO",
+		data: JSON.stringify(Head),
+		//data: "1",
+		contentType: 'application/json; charset=utf-8',
+
+		//dataType: 'json',
+
+		success: function (data) {
+			
+				M.toast({ html: 'PO Number ' + data + ' has been Updated', classes: 'rounded' });
+				$("#save-button").hide();
+				$("#submit-button").hide();
+		},
+
+		error: function (error) {
+			alert(error);
+			jsonValue = jQuery.parseJSON(error.responseText);
+
+		}
+
 	});
 }
