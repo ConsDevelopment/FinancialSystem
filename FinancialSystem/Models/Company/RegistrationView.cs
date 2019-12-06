@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinancialSystem.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,5 +15,7 @@ namespace FinancialSystem.Models.Company {
 		public string Dept_Id { get; set; }
 		public string Job_Id { get; set; }
 		public string password { get; set; }
+		public GenderType Gender { get; set; }
+		public long CompanyId { get; set; }
 	}
 }

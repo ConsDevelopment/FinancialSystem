@@ -39,6 +39,34 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+		public async Task<IList<CompanyModel>> GetAllCompanyAsync() {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<CompanyModel>().Where(x => x.DeleteTime == null).List();
+				}
+			}
+		}
+		public async Task<IList<DepartmentModel>> GetAllDepartmentAsync() {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<DepartmentModel>().Where(x => x.DeleteTime == null).List();
+				}
+			}
+		}
+		public async Task<IList<TeamModel>> GetAllTeamAsync() {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<TeamModel>().Where(x => x.DeleteTime == null).List();
+				}
+			}
+		}
+		public async Task<IList<PositionModel>> GetAllPositionAsync() {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.QueryOver<PositionModel>().Where(x => x.DeleteTime == null).List();
+				}
+			}
+		}
 		public async Task<PositionModel> GetPositionByIdAsync(long id) {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {

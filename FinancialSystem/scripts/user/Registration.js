@@ -1,11 +1,15 @@
-﻿function Registration() {
+﻿function Registration(){ 
+	alert($("#company").children("option:selected").val());
 	source = {
 		"FirstName": $("#FirstName").val(),
 		"LastName": $("#LastName").val(),
 		"Email": $("#Email").val(),
 		"Contact": $("#Contact").val(),
 		"EmpNo": $("#EmpNo").val(),
-		"password": $("#password").val()
+		"password": $("#password").val(),
+		"Gender": $("#gender").children("option:selected").val(),
+		"CompanyId": $("#company").children("option:selected").val()
+
 	};
 	$.ajax({
 
