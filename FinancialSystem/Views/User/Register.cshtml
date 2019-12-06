@@ -85,7 +85,7 @@
 							</div>
 							<div class="input-field col s6">
 								<span style="float:left;">Position</span>
-								<select class="browser-default">
+								<select id="position" class="browser-default">
 									<option value="" disabled selected>Select</option>
 									@foreach (var position in Positions) {
 										<option value="@position.Id">@position.Name</option>
@@ -96,7 +96,7 @@
 						<div class="row">
 							<div class="input-field col s12 m6">
 								<span style="float:left;">Department</span>
-								<select class="browser-default icons">
+								<select id="department" class="browser-default icons">
 									<option value="" disabled selected>Select</option>
 									@foreach (var department in Departments) {
 										<option value="@department.Id">@department.Name</option>
