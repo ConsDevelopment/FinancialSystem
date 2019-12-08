@@ -1,7 +1,7 @@
-﻿
+﻿@using FinancialSystem.Models
 @{
-    
-    Layout = null;
+	
+	Layout = null;
 }
 
 <!DOCTYPE html>
@@ -17,12 +17,18 @@
     @Styles.Render("~/Content/User/registration")
 	@Scripts.Render("~/scripts/user/Registration")
 	@Html.Hidden("ApiServer", ViewData["ApiServer"])
+	@{ 
+		var Companies = (List<CompanyModel>)ViewData["Companies"];
+		var Positions = (List<PositionModel>)ViewData["Positions"];
+		var Departments = (List<DepartmentModel>)ViewData["Departments"];
+		var Teams = (List<TeamModel>)ViewData["Teams"];
+		var Employees = (List<EmployeeModel>)ViewData["Employees"];
+	}
 </head>
     
-<body>
+<body style="height:100%; width:100%; overflow:auto;">
     <div class="row">
         <div class="col s7">
-
         </div>
         <div class="col s5">
             <div class="login">
@@ -52,40 +58,83 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="input-field col s12">
-                                <input id="EmpNo" type="text" class="validate">
-                                <label for="EmpNo">Employee Number</label>
-                                
-                                
-                            </div>
-                            <div class="input-field col s12 m6">
-                                <span style="float:left;">Department</span>
-                                <select class="browser-default icons">
-                                    <option value="" disabled selected>Select</option>
-                                    <option value="1">example 1</option>
-                                    <option value="2">example 2</option>
-                                    <option value="3">example 3</option>
-                                </select>
-                                
-                            </div>
                             <div class="input-field col s6">
-                                <span style="float:left;">Job Title</span>
-                                <select class="browser-default">
-                                    <option value="" disabled selected>Select</option>
-                                    <option value="1">Option 1</option>
-                                    <option value="2">Option 2</option>
-                                    <option value="3">Option 3</option>
-                                </select>
+                                <input id="EmpNo" type="text" class="validate">
+                                <label for="EmpNo">Employee Number</label>                               
                             </div>
-                            <div class="input-field col s12">
-                                <input id="password" type="password" class="validate">
-                                <label for="password">Password</label>
-                            </div>
-                            <div class="input-field col s12">
-                                <input id="cpassword" type="password" class="validate">
-                                <label for="cpassword">Confirm Password</label>
-                            </div>
-                        </div>
+							<div class="input-field col s12 m6">
+								<span style="float:left;">Gender</span>
+								<select id="gender" class="browser-default icons">
+									<option value="" disabled selected>Select</option>
+									<option value="Male">Male</option>
+									<option value="Female">Female</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12 m6">
+								<span style="float:left;">Company</span>
+								<select id="company" class="browser-default icons">
+									<option value="" disabled selected>Select</option>
+									@foreach (var company in Companies) {
+										<option value="@company.Id">@company.CompanyName</option>
+									}
+									
+								</select>
+
+							</div>
+							<div class="input-field col s6">
+								<span style="float:left;">Position</span>
+								<select id="position" class="browser-default">
+									<option value="" disabled selected>Select</option>
+									@foreach (var position in Positions) {
+										<option value="@position.Id">@position.Name</option>
+									}
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12 m6">
+								<span style="float:left;">Department</span>
+								<select id="department" class="browser-default icons">
+									<option value="" disabled selected>Select</option>
+									@foreach (var department in Departments) {
+										<option value="@department.Id">@department.Name</option>
+									}
+								</select>
+
+							</div>
+							<div class="input-field col s6">
+								<span style="float:left;">Section</span>
+								<select id="team" class="browser-default">
+									<option value="" disabled selected>Select</option>
+									@foreach (var Team in Teams) {
+										<option value="@Team.Id">@Team.TeamName</option>
+									}
+								</select>
+							</div>
+					</div>
+						<div class="row">
+							<div class="input-field col s6">
+								<span style="float:left;">Immediate Leader</span>
+								<select class="browser-default">
+									<option value="" disabled selected>Select</option>
+									@foreach (var employee in Employees) {
+										<option value="@employee.Id">@employee.Name()</option>
+									}
+								</select>
+							</div>
+						</div>
+					<div class="row">
+							<div class="input-field col s12">
+								<input id="password" type="password" class="validate">
+								<label for="password">Password</label>
+							</div>
+							<div class="input-field col s12">
+								<input id="cpassword" type="password" class="validate">
+								<label for="cpassword">Confirm Password</label>
+							</div>
+						</div>
                         <a class="waves-effect waves-light btn-large" onclick="Registration()"><i class="material-icons right">send</i>Submit</a>
                     </form>
                 </div>
