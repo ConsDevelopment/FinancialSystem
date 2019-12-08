@@ -9,12 +9,13 @@ using System.Web;
 namespace FinancialSystem.NHibernate {
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	public class NHibernateCompanyStore {
-		public async Task RegisterEmployeeAsync(EmployeeModel employeeModel) {
+		public async Task<EmployeeModel> RegisterEmployeeAsync(EmployeeModel employeeModel) {
 			using (var s = HibernateSession.GetCurrentSession()) {
 				using (var tx = s.BeginTransaction()) {
 					s.Save(employeeModel);
 					tx.Commit();
 					s.Flush();
+					return employeeModel;
 				}
 			}
 		}
@@ -25,6 +26,7 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+
 		public async Task<IList<EmployeeModel>> GetAllEmployeeAsync() {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
@@ -46,6 +48,13 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+		public async Task<CompanyModel> GetCompanyByIdAsync(long id) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.Get<CompanyModel>(id);
+				}
+			}
+		}
 		public async Task<IList<DepartmentModel>> GetAllDepartmentAsync() {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
@@ -53,10 +62,24 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+		public async Task<DepartmentModel> GetDepartmentByIdAsync(long id) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.Get<DepartmentModel>(id);
+				}
+			}
+		}
 		public async Task<IList<TeamModel>> GetAllTeamAsync() {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
 					return db.QueryOver<TeamModel>().Where(x => x.DeleteTime == null).List();
+				}
+			}
+		}
+		public async Task<TeamModel> GetTeamByIdAsync(long id) {
+			using (var db = HibernateSession.GetCurrentSession()) {
+				using (var tx = db.BeginTransaction()) {
+					return db.Get<TeamModel>(id);
 				}
 			}
 		}

@@ -26,22 +26,31 @@ namespace FinancialSystem.Controllers.API.Company {
 		public async Task<string> Post(RegistrationView value) {
 			var result = "Success";
 			NHibernateCompanyStore store = new NHibernateCompanyStore();
+			NHibernateUserStore user = new NHibernateUserStore();
 			PasswordHasher ph = new PasswordHasher();
 			var passHash = ph.HashPassword(value.password);
 			var emp = new EmployeeModel() {
-				FirstName=value.FirstName,
-				LastName=value.LastName,
-				Email=value.Email,
-				EmpNo=value.EmpNo,
-				Contact=value.Contact,
-				password= passHash
+				FirstName = value.FirstName,
+				LastName = value.LastName,
+				Email = value.Email,
+				EmpNo = value.EmpNo,
+				Contact = value.Contact,
+				Gender = value.Gender,
+				Company = await store.GetCompanyByIdAsync(value.CompanyId),
+				Team=await store.GetTeamByIdAsync(value.TeamId)	,
+				position=await store.GetPositionByIdAsync(value.Job_Id),
+				Department=await store.GetDepartmentByIdAsync(value.Dept_Id)
 
 			};
-			try {
-				await store.RegisterEmployeeAsync(emp);
-			} catch (Exception e) {
-				result = e.Message;
-			}
+			//var employee=await store.RegisterEmployeeAsync(emp);
+			var usr = new UserModel() {
+				UserName = value.Email,
+				FirstName = value.FirstName,
+				LastName = value.LastName,
+				PasswordHash = passHash,
+				employee = emp
+			};
+			await user.CreateAsync(usr);
 			return result;
 		}
 

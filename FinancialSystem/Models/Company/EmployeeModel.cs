@@ -17,7 +17,7 @@ namespace FinancialSystem.Models {
 		public virtual string Email { get; set; }
 		public virtual string Contact { get; set; }
 		public virtual string EmpNo { get; set; }
-		public virtual string password { get; set; }
+		//public virtual string password { get; set; }
 		public virtual GenderType? Gender { get; set; }
 		public virtual string Image { get; set; }
 		public virtual String Name() {
@@ -48,7 +48,7 @@ namespace FinancialSystem.Models {
 				Map(x => x.DeleteTime);
 				Map(x => x.Gender).Length(10);
 				Map(x => x.CreateTime);
-				Map(x => x.password);
+				//Map(x => x.password);
 				Map(x => x.Image);
 				References(x => x.Company, "Company").Cascade.SaveUpdate();
 				References(x => x.Team, "Team").Cascade.SaveUpdate();

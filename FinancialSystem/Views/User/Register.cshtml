@@ -106,7 +106,7 @@
 							</div>
 							<div class="input-field col s6">
 								<span style="float:left;">Section</span>
-								<select class="browser-default">
+								<select id="team" class="browser-default">
 									<option value="" disabled selected>Select</option>
 									@foreach (var Team in Teams) {
 										<option value="@Team.Id">@Team.TeamName</option>

@@ -10,7 +10,8 @@
 		"Gender": $("#gender").children("option:selected").val(),
 		"CompanyId": $("#company").children("option:selected").val(),
 		"Job_Id": $("#position").children("option:selected").val(),
-		"Dept_Id": $("#department").children("option:selected").val()
+		"Dept_Id": $("#department").children("option:selected").val(),
+		"TeamId": $("#team").children("option:selected").val()
 
 	};
 	$.ajax({
