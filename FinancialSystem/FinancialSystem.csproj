@@ -258,6 +258,7 @@
     <Compile Include="Controllers\API\Users\CreateUserController.cs" />
     <Compile Include="Controllers\API\Users\LoginApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\MVC\Maintenance\ChargeLocationController.cs" />
     <Compile Include="Controllers\MVC\Maintenance\ItemMaintenanceController.cs" />
     <Compile Include="Controllers\MVC\PO\POController.cs" />
     <Compile Include="Controllers\MVC\PR\PRController.cs" />
@@ -378,6 +379,7 @@
     <Content Include="Views\PO\POApprover.cshtml" />
     <Content Include="Views\PO\UpdatePO.cshtml" />
     <Content Include="Views\PO\AddingLinesToPo.cshtml" />
+    <Content Include="Views\ChargeLocation\AddChargeLocation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
