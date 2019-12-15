@@ -216,6 +216,7 @@
     <Content Include="Content\User\registration.css" />
     <Content Include="Global.asax" />
     <Content Include="scripts\Maintenance\AddItems.js" />
+    <Content Include="scripts\Maintenance\ChargeLocation.js" />
     <Content Include="scripts\PO\POSearch.js" />
     <Content Include="scripts\PO\POApproved.js" />
     <Content Include="scripts\PO\PRSearch.js" />
@@ -243,6 +244,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\API\Company\RegisterController.cs" />
+    <Compile Include="Controllers\API\Maintenance\AddChargeLocationController.cs" />
     <Compile Include="Controllers\API\PO\AddLinsToPOController.cs" />
     <Compile Include="Controllers\API\PO\POApprovalController.cs" />
     <Compile Include="Controllers\API\PO\SavePOController.cs" />
@@ -258,6 +260,7 @@
     <Compile Include="Controllers\API\Users\CreateUserController.cs" />
     <Compile Include="Controllers\API\Users\LoginApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\MVC\Maintenance\ChargeLocationController.cs" />
     <Compile Include="Controllers\MVC\Maintenance\ItemMaintenanceController.cs" />
     <Compile Include="Controllers\MVC\PO\POController.cs" />
     <Compile Include="Controllers\MVC\PR\PRController.cs" />
@@ -298,6 +301,7 @@
     <Compile Include="Models\PR\PRLinesModel.cs" />
     <Compile Include="Models\PR\PRAprovalModel.cs" />
     <Compile Include="Models\UserModels\CurrentUserSession.cs" />
+    <Compile Include="Models\ViewModels\CompanyViewModel.cs" />
     <Compile Include="Models\ViewModels\POViewModel.cs" />
     <Compile Include="Models\ViewModels\QAViewModel.cs" />
     <Compile Include="Models\ViewModels\PRViewModel.cs" />
@@ -378,6 +382,7 @@
     <Content Include="Views\PO\POApprover.cshtml" />
     <Content Include="Views\PO\UpdatePO.cshtml" />
     <Content Include="Views\PO\AddingLinesToPo.cshtml" />
+    <Content Include="Views\ChargeLocation\AddChargeLocation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -105,6 +105,15 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+		public async Task AddChargeLocationAsync(ChargeLocationModel employeeModel) {
+			using (var s = HibernateSession.GetCurrentSession()) {
+				using (var tx = s.BeginTransaction()) {
+					s.Save(employeeModel);
+					tx.Commit();
+					s.Flush(); 
+				}
+			}
+		}
 	}
 }
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

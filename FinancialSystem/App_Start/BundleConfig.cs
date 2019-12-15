@@ -34,6 +34,7 @@ namespace FinancialSystem
 			PRSearch(bundles);
 			POSearch(bundles);
 			AddNewItems(bundles);
+			ChargeLocation(bundles);
 			BundleTable.EnableOptimizations = Config.OptimizationEnabled();
 
 		}
@@ -187,6 +188,13 @@ namespace FinancialSystem
                 .Include("~/Content/Maintenance/add-items.css"));
 
         }
+		private static void ChargeLocation(BundleCollection bundles) {
+
+			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/Maintenance/ChargeLocation").Include(
+					 "~/scripts/Maintenance/ChargeLocation.js"
+			  )));
+
+		}
 
 		//private static void Bootstrap(BundleCollection bundles) {
 		//	// Use the development version of Modernizr to develop with and learn from. Then, when you're
