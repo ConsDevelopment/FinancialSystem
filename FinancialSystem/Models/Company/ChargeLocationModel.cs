@@ -30,6 +30,7 @@ namespace FinancialSystem.Models {
 			public ChargeLocationModelMap() {
 				Id(x => x.Id);
 				Map(x => x.ChargeLocationCode).Index("ChargeLocationCode_IDX").Length(20).UniqueKey("uniq");
+				Map(x => x.ChargeLocationName).Length(30);
 				Map(x => x.CreateTime);
 				Map(x => x.DeleteTime);
 				References(x => x.CreatedBy, "CreatedBy").Cascade.SaveUpdate();
