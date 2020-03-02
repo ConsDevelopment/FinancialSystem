@@ -36,6 +36,7 @@ namespace FinancialSystem
 			AddNewItems(bundles);
 			ChargeLocation(bundles);
 			Company(bundles);
+			CRC(bundles);
 			BundleTable.EnableOptimizations = Config.OptimizationEnabled();
 
 		}
@@ -200,6 +201,13 @@ namespace FinancialSystem
 
 			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/Maintenance/Company").Include(
 					 "~/scripts/Maintenance/Company.js"
+			  )));
+
+		}
+		private static void CRC(BundleCollection bundles) {
+
+			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/Maintenance/CRC").Include(
+					 "~/scripts/Maintenance/CRC.js"
 			  )));
 
 		}

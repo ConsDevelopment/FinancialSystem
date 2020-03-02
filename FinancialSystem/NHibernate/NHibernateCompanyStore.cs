@@ -55,6 +55,15 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
+		public async Task SaveOrUpdateCompany(CompanyModel company) {
+			using (var s = HibernateSession.GetCurrentSession()) {
+				using (var tx = s.BeginTransaction()) {
+					s.Save(company);
+					tx.Commit();
+					s.Flush();
+				}
+			}
+		}
 		public async Task<IList<DepartmentModel>> GetAllDepartmentAsync() {
 			using (var db = HibernateSession.GetCurrentSession()) {
 				using (var tx = db.BeginTransaction()) {
@@ -105,12 +114,21 @@ namespace FinancialSystem.NHibernate {
 				}
 			}
 		}
-		public async Task AddChargeLocationAsync(ChargeLocationModel employeeModel) {
+		public async Task AddChargeLocationAsync(ChargeLocationModel CLC) {
 			using (var s = HibernateSession.GetCurrentSession()) {
 				using (var tx = s.BeginTransaction()) {
-					s.Save(employeeModel);
+					s.Save(CLC);
 					tx.Commit();
 					s.Flush(); 
+				}
+			}
+		}
+		public async Task AddCRCAsync(CostRevenueCenterModel CRC) {
+			using (var s = HibernateSession.GetCurrentSession()) {
+				using (var tx = s.BeginTransaction()) {
+					s.Save(CRC);
+					tx.Commit();
+					s.Flush();
 				}
 			}
 		}

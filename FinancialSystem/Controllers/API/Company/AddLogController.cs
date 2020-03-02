@@ -41,7 +41,7 @@ namespace FinancialSystem.Controllers.API.Company {
 
 			HttpResponseMessage result = null;
 			var httpRequest = HttpContext.Current.Request;
-			
+			string filename="";
 			if (httpRequest.Files.Count > 0) {
 				var docfiles = new List<string>();
 				foreach (string file in httpRequest.Files) {
@@ -51,12 +51,14 @@ namespace FinancialSystem.Controllers.API.Company {
 					var filePath = HttpContext.Current.Server.MapPath("~/Content/images/" + finame + extension);
 					postedFile.SaveAs(filePath);
 					docfiles.Add(filePath);
+					filename = finame + extension;
 				}
 				result = Request.CreateResponse(HttpStatusCode.Created, docfiles);
+				
 			} else {
 				result = Request.CreateResponse(HttpStatusCode.BadRequest);
 			}
-			return result.ReasonPhrase;
+			return filename;
 		}
 
 		// PUT api/<controller>/5
