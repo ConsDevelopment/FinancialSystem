@@ -35,6 +35,8 @@ namespace FinancialSystem
 			POSearch(bundles);
 			AddNewItems(bundles);
 			ChargeLocation(bundles);
+			Company(bundles);
+			CRC(bundles);
 			BundleTable.EnableOptimizations = Config.OptimizationEnabled();
 
 		}
@@ -192,6 +194,20 @@ namespace FinancialSystem
 
 			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/Maintenance/ChargeLocation").Include(
 					 "~/scripts/Maintenance/ChargeLocation.js"
+			  )));
+
+		}
+		private static void Company(BundleCollection bundles) {
+
+			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/Maintenance/Company").Include(
+					 "~/scripts/Maintenance/Company.js"
+			  )));
+
+		}
+		private static void CRC(BundleCollection bundles) {
+
+			bundles.Add(UpdateMinification(new ScriptBundle("~/scripts/Maintenance/CRC").Include(
+					 "~/scripts/Maintenance/CRC.js"
 			  )));
 
 		}
